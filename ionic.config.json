@@ -1,0 +1,7 @@
+{
+  "name": "PinguApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
