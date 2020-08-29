@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,22 +10,29 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  email: string;
-  password: string;
-
-  constructor(private authService: AuthService, public router: Router) { }
+ 
+  usuario = {
+    email: '',
+    password: ''
+  };
+  
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+
   }
 
-  doLogin()
+  async onLogin()
   {
-    this.authService.login(this.email, this.password).then( () =>{
-      this.router.navigate(['/tablinks']);
-      console.log(this.email);
-    }).catch(err => {
-      alert('los datos son incorrectos o no existe el usuario');
-      //Agregar un toast 
-    })
+    try{ 
+
+      const user = this.authService.login(this.usuario.email, this.usuario.password);
+      if(user){
+        this.router.navigate(['/tablinks']);
+      }
+    }catch(error){
+
+      console.log(error);
+    }
   }
 }

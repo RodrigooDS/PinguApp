@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
-  constructor() { }
+  public isLogged = false;
+  public user: any;
+  constructor(public authService: AuthService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // this.user =  await this.authService.getCurremtUser();
+    // if(this.user){
+    //   this.isLogged = true;
+    //   console.log('User ->', this.user);
+    // }else{
+    //   console.log("error de log");
+    // }
+    this.usuario();
+    
   }
 
+  async usuario(){
+    
+    this.user =  await this.authService.getCurremtUser();
+    if(this.user){
+      console.log('User ->', this.user.email);
+    }
+
+  }
 }

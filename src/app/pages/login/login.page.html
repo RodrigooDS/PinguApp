@@ -6,16 +6,30 @@
 
 
 <ion-content class="ion-padding">
+
   <img class="icon" src="assets/icon/graphic2.svg" alt="">
-  <form autocomplete="off" (submit)="doLogin()">
+
+  <form #formulario="ngForm" autocomplete="off" (submit)="onLogin()">
     <ion-item>
-      <ion-label position="stacked" > Correo electrónico <span class="text-danger">*</span></ion-label>
-      <ion-input type="text" [(ngModel)]="email" name="email" required="true"></ion-input>
+      <!-- <ion-label position="stacked" > Correo electrónico <span class="text-danger">*</span></ion-label> -->
+      <ion-label position="stacked" > Correo electrónico </ion-label>
+      <ion-input  type="email" 
+                  name="email" 
+                  [(ngModel)]="usuario.email" 
+                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                  required>
+      </ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label position="stacked" > Contraseña <span class="text-danger">*</span></ion-label>
-      <ion-input [(ngModel)]="password" type="password" name="password" required="true"></ion-input>
+      <ion-label position="stacked"> Contraseña </ion-label>
+      <ion-input type="password" 
+                  name="password"
+                  [(ngModel)]="usuario.password"  
+                  required>
+      </ion-input>
     </ion-item>
+
     <ion-button class="ion-margin-top" type="submit" expand="block">Entrar</ion-button>
   </form>
   <!-- <div class="ion-text-center ion-margin-top">

@@ -10,6 +10,10 @@ const routes: Routes = [
     component: TablinksPage,
     children: [
       {
+        path: 'actividad',
+        loadChildren: () => import('../actividad/actividad.module').then(m => m.ActividadPageModule)
+      },
+      {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
@@ -23,14 +27,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tablinks/profile',
+        redirectTo: '/tablinks/actividad',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tablinks/profile',
+    redirectTo: '/tablinks/actividad',
     pathMatch: 'full'
   }
 ];

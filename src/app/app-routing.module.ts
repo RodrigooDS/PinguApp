@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/tablinks/tablinks.module').then(m => m.TablinksPageModule)
+  },  {
+    path: 'actividad',
+    loadChildren: () => import('./pages/actividad/actividad.module').then( m => m.ActividadPageModule)
   }
+
 ];
 
 @NgModule({
