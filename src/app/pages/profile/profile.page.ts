@@ -12,7 +12,7 @@ export class ProfilePage implements OnInit {
   public user: any;
   constructor(public authService: AuthService) { }
 
-  async ngOnInit() {
+   ngOnInit(): void {
     // this.user =  await this.authService.getCurremtUser();
     // if(this.user){
     //   this.isLogged = true;
@@ -22,6 +22,9 @@ export class ProfilePage implements OnInit {
     // }
     this.usuario();
     
+  }
+  ionViewWillEnter(){
+    this.usuario();
   }
 
   async usuario(){
