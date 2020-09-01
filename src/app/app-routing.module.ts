@@ -16,6 +16,10 @@ const routes: Routes = [
   },  {
     path: 'actividad',
     loadChildren: () => import('./pages/actividad/actividad.module').then( m => m.ActividadPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   }
 
 ];
