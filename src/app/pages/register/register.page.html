@@ -1,9 +1,92 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="ion-text-capitalize">registro de usuario</ion-title>
+    <ion-title class="ion-text-capitalize">registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
+  <img class="icon" src="assets/penguin.png" alt="">
+
+  <form
+    #formRegistro="ngForm"
+    autocomplete="off"
+  >
+    <ion-item>
+      <ion-label position="stacked">Ingresar Correo</ion-label>
+
+      <ion-input
+        type="email"
+        name="email"
+        [(ngModel)]="usuarioRegistro.email"
+        pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+        required="required"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nombre Estudiante</ion-label>
+
+      <ion-input
+        type="text"
+        name="nombreEstudiante"
+        [(ngModel)]="usuarioRegistro.nombreEstudiante"
+        required="required"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Apellido Estudiante</ion-label>
+
+      <ion-input
+        type="text"
+        name="nombreEstudiante"
+        [(ngModel)]="usuarioRegistro.apellidoEstudiante"
+        required="required"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nombre Apoderado</ion-label>
+
+      <ion-input
+        type="text"
+        name="nombreEstudiante"
+        [(ngModel)]="usuarioRegistro.nombreApoderado"
+        required="required"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Apellido Apoderado</ion-label>
+
+      <ion-input
+        type="text"
+        name="nombreEstudiante"
+        [(ngModel)]="usuarioRegistro.apellidoApoderado"
+        required="required"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Contraseña</ion-label>
+
+      <ion-input
+        type="password"
+        name="nombreEstudiante"
+        [(ngModel)]="usuarioRegistro.password"
+        required="required"
+      ></ion-input>
+    </ion-item>
+
+    <ion-button
+      class="ion-margin-top"
+      type="submit"
+      expand="block"
+    >Registrar</ion-button>
+
+  </form>
+  <div class="ion-text-center ion-margin-top">
+    <a routerLink="/login"><small>Ya tengo una cuenta</small></a>
+  </div>
 </ion-content>
