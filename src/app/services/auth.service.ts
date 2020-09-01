@@ -34,10 +34,19 @@ export class AuthService {
   //   });
   // }
 
-  async register(email: string, password: string){
+  async register(email: string, password: string, nombreAlumno: string, nombreApoderado: string){
     try{
-    const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
-    return result;
+      const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      console.log(result.user.uid);
+      const uid = result.user.uid;
+      this.db.collection('users').doc(uid).set({
+        nombreApoderado: nombreApoderado,
+        nombreAlumno: nombreAlumno,
+        uid: uid
+      });
+      this.updateProfile(nombreAlumno);
+      return result;
+    
     }catch(error){
       console.log(error);
     }

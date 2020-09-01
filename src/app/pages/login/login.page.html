@@ -1,46 +1,67 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Iniciar sesión</ion-title>
+    <ion-title class="ion-text-center" class="ion-text-capitalize">Iniciar sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content class="ion-padding">
 
-  <img class="icon" src="assets/penguin.png" alt="">
+  <ion-grid fixed>
 
-  <form #formulario="ngForm" autocomplete="off" (submit)="onLogin()">
-    <ion-item>
-      <!-- <ion-label position="stacked" > Correo electrónico <span class="text-danger">*</span></ion-label> -->
-      <ion-label position="stacked" > Correo electrónico </ion-label>
-      <ion-input  type="email" 
-                  name="email" 
-                  [(ngModel)]="usuario.email" 
-                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-                  required>
-      </ion-input>
-    </ion-item>
+    
 
-    <ion-item>
-      <ion-label position="stacked"> Contraseña </ion-label>
-      <ion-input type="password" 
-                  name="password"
-                  [(ngModel)]="usuario.password"  
-                  required>
-      </ion-input>
-    </ion-item>
+    <ion-row>
 
-    <ion-button class="ion-margin-top" type="submit" expand="block">Entrar</ion-button>
-  </form>
+      <ion-col size="6" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="ion-align-self-center">
 
+        <img class="icon" src="assets/penguin.png" alt="">
+        
+        <form #formulario="ngForm" autocomplete="off" (submit)="onLogin()" style="margin : 10px">
+
+          <ion-item>
+          
+            <ion-label position="stacked" > Correo electrónico </ion-label>
+            <ion-input  type="email" 
+                        name="email" 
+                        [(ngModel)]="usuario.email" 
+                        pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                        required="required">
+            </ion-input>
+
+          </ion-item>
+
+          <ion-item>
+
+            <ion-label position="stacked"> Contraseña </ion-label>
+            <ion-input type="password" 
+                        name="password"
+                        [(ngModel)]="usuario.password"  
+                        required="required">
+            </ion-input>
+
+          </ion-item>
+
+          <ion-button class="ion-margin-top" type="submit" expand="block" >Entrar</ion-button>
+
+        </form>
+
+        
+        <div class="ion-text-center ion-margin-top">
+          <ion-button routerLink="/register" color="secondary">Crear Cuenta</ion-button>
+        </div>
+
+        <div class="ion-text-center ion-margin-top">
+          <a routerLink="/"><small>Olvidé mi Contraseña</small></a>
+        </div>
+
+
+      </ion-col>
+      <ion-col class="ion-col">
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, delectus nemo corrupti esse, minima optio nam tempore quas, laudantium quasi distinctio explicabo maxime voluptatem modi enim ducimus unde ut consequuntur!</h1>
+      </ion-col>
+    </ion-row>
   
-  <div class="ion-text-center ion-margin-top">
-    <ion-button routerLink="/register" color="secondary">Crear Cuenta</ion-button>
-  </div>
-
-  <div class="ion-text-center ion-margin-top">
-    <a routerLink="/"><small>Olvidé mi Contraseña</small></a>
-  </div>
-  
+</ion-grid>
 
 </ion-content>

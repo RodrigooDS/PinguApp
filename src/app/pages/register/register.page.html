@@ -1,92 +1,115 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title class="ion-text-capitalize">registro</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center" class="ion-text-capitalize">Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
-  <img class="icon" src="assets/penguin.png" alt="">
+  <ion-grid fixed>
 
-  <form
-    #formRegistro="ngForm"
-    autocomplete="off"
-  >
-    <ion-item>
-      <ion-label position="stacked">Ingresar Correo</ion-label>
+    <ion-row style="height: h"></ion-row>
+    <ion-row>
 
-      <ion-input
-        type="email"
-        name="email"
-        [(ngModel)]="usuarioRegistro.email"
-        pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-        required="required"
-      ></ion-input>
-    </ion-item>
+      <ion-col size="6" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="ion-align-self-center">
+        
+        <img class="icon" src="assets/penguin.png" alt="">
 
-    <ion-item>
-      <ion-label position="stacked">Nombre Estudiante</ion-label>
+          <form
+            #formRegistro="ngForm"
+            autocomplete="off"
+            style="margin : 10px"
+          >
+            <ion-item>
 
-      <ion-input
-        type="text"
-        name="nombreEstudiante"
-        [(ngModel)]="usuarioRegistro.nombreEstudiante"
-        required="required"
-      ></ion-input>
-    </ion-item>
+              <ion-label position="stacked">Ingresar Correo</ion-label>
+              <ion-input
+                type="email"
+                name="email"
+                [(ngModel)]="usuarioRegistro.email"
+                pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                required="required"
+              ></ion-input>
 
-    <ion-item>
-      <ion-label position="stacked">Apellido Estudiante</ion-label>
+            </ion-item>
 
-      <ion-input
-        type="text"
-        name="nombreEstudiante"
-        [(ngModel)]="usuarioRegistro.apellidoEstudiante"
-        required="required"
-      ></ion-input>
-    </ion-item>
+            <ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Nombre Apoderado</ion-label>
+              <ion-label position="stacked">Nombre Estudiante</ion-label>
+              <ion-input
+                type="text"
+                name="nombreEstudiante"
+                [(ngModel)]="usuarioRegistro.nombreEstudiante"
+                required="required"
+              ></ion-input>
 
-      <ion-input
-        type="text"
-        name="nombreEstudiante"
-        [(ngModel)]="usuarioRegistro.nombreApoderado"
-        required="required"
-      ></ion-input>
-    </ion-item>
+            </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Apellido Apoderado</ion-label>
+            <ion-item>
 
-      <ion-input
-        type="text"
-        name="nombreEstudiante"
-        [(ngModel)]="usuarioRegistro.apellidoApoderado"
-        required="required"
-      ></ion-input>
-    </ion-item>
+              <ion-label position="stacked">Apellido Estudiante</ion-label>
+              <ion-input
+                type="text"
+                name="nombreEstudiante"
+                [(ngModel)]="usuarioRegistro.apellidoEstudiante"
+                required="required"
+              ></ion-input>
 
-    <ion-item>
-      <ion-label position="stacked">Contraseña</ion-label>
+            </ion-item>
 
-      <ion-input
-        type="password"
-        name="nombreEstudiante"
-        [(ngModel)]="usuarioRegistro.password"
-        required="required"
-      ></ion-input>
-    </ion-item>
+            <ion-item>
 
-    <ion-button
-      class="ion-margin-top"
-      type="submit"
-      expand="block"
-    >Registrar</ion-button>
+              <ion-label position="stacked">Nombre Apoderado</ion-label>
+              <ion-input
+                type="text"
+                name="nombreEstudiante"
+                [(ngModel)]="usuarioRegistro.nombreApoderado"
+                required="required"
+              ></ion-input>
 
-  </form>
-  <div class="ion-text-center ion-margin-top">
-    <a routerLink="/login"><small>Ya tengo una cuenta</small></a>
-  </div>
+            </ion-item>
+
+            <ion-item>
+
+              <ion-label position="stacked">Apellido Apoderado</ion-label>
+              <ion-input
+                type="text"
+                name="nombreEstudiante"
+                [(ngModel)]="usuarioRegistro.apellidoApoderado"
+                required="required"
+              ></ion-input>
+
+            </ion-item>
+
+            <ion-item>
+
+              <ion-label position="stacked">Contraseña</ion-label>
+              <ion-input
+                type="password"
+                name="nombreEstudiante"
+                [(ngModel)]="usuarioRegistro.password"
+                required="required"
+              ></ion-input>
+
+            </ion-item>
+
+            <ion-button
+              class="ion-margin-top"
+              type="submit"
+              expand="block"
+              (click)="registrarCuenta()"
+            >Registrar</ion-button>
+
+          </form>
+
+          <div class="ion-text-center ion-margin-top">
+            <a routerLink="/login"><small>Ya tengo una cuenta</small></a>
+          </div>
+
+      </ion-col>
+      
+    </ion-row>
+
+  </ion-grid>
+  
 </ion-content>
