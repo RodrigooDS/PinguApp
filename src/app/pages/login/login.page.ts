@@ -7,6 +7,7 @@ import { FormGroup, FormControl } from '@angular/forms';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  
 })
 export class LoginPage implements OnInit {
 
@@ -26,12 +27,12 @@ export class LoginPage implements OnInit {
   {
     try{ 
 
-      const user = this.authService.login(this.usuario.email, this.usuario.password);
+      const user = await this.authService.login(this.usuario.email, this.usuario.password);
+      console.log(user);
       if(user){
         this.router.navigate(['/tablinks']);
       }
     }catch(error){
-
       console.log(error);
     }
   }
