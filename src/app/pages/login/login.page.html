@@ -1,6 +1,6 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center" class="ion-text-capitalize">Iniciar sesión</ion-title>
+<ion-header  mode="ios" class="ion-no-border">
+  <ion-toolbar color="light">
+    <ion-title class="ion-text-capitalize">Iniciar sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,11 +8,13 @@
 <ion-content class="ion-padding">
 
   <ion-grid fixed>
-
-    
-
+ 
     <ion-row>
 
+      <ion-col class="ion-col">
+        <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, delectus nemo corrupti esse, minima optio nam tempore quas, laudantium quasi distinctio explicabo maxime voluptatem modi enim ducimus unde ut consequuntur!</h1> -->
+      </ion-col>
+      
       <ion-col size="6" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="ion-align-self-center">
 
         <img class="icon" src="assets/penguin.png" alt="">
@@ -42,23 +44,37 @@
 
           </ion-item>
 
-          <ion-button class="ion-margin-top" type="submit" expand="block" >Entrar</ion-button>
 
+          <div class="ion-text-center ion-margin-top ">
+            <ion-button class="ion-margin-top button-white " 
+                        type="submit" 
+                        expand="block"
+                        mode="ios">
+              Entrar
+            </ion-button>
+          </div>
+  
+          <div class="ion-text-center ion-margin-top">
+            <a routerLink="/"><small>Olvidé la Contraseña</small></a>
+          </div>
+          
+          <div class="ion-text-center ion-margin-top ">
+            <ion-button routerLink="/register" 
+                        class="button-white"
+                        expand="block"
+                        mode="ios">
+              Crear Cuenta
+            </ion-button>
+          </div>
+         
         </form>
 
-        
-        <div class="ion-text-center ion-margin-top">
-          <ion-button routerLink="/register" color="secondary">Crear Cuenta</ion-button>
-        </div>
+       
 
-        <div class="ion-text-center ion-margin-top">
-          <a routerLink="/"><small>Olvidé mi Contraseña</small></a>
-        </div>
-
-
+    
       </ion-col>
       <ion-col class="ion-col">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, delectus nemo corrupti esse, minima optio nam tempore quas, laudantium quasi distinctio explicabo maxime voluptatem modi enim ducimus unde ut consequuntur!</h1>
+        <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, delectus nemo corrupti esse, minima optio nam tempore quas, laudantium quasi distinctio explicabo maxime voluptatem modi enim ducimus unde ut consequuntur!</h1> -->
       </ion-col>
     </ion-row>
   
