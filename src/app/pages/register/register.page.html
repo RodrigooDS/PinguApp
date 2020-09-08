@@ -33,6 +33,7 @@
                 [(ngModel)]="usuarioRegistro.email"
                 pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
                 required="required"
+                
               ></ion-input>
 
             </ion-item>
@@ -45,6 +46,7 @@
                 name="nombreEstudiante"
                 [(ngModel)]="usuarioRegistro.nombreEstudiante"
                 required="required"
+                autocapitalize
               ></ion-input>
 
             </ion-item>
@@ -57,6 +59,7 @@
                 name="nombreEstudiante"
                 [(ngModel)]="usuarioRegistro.apellidoEstudiante"
                 required="required"
+                autocapitalize="true"
               >
               </ion-input>
 
@@ -70,6 +73,7 @@
                 name="nombreEstudiante"
                 [(ngModel)]="usuarioRegistro.nombreApoderado"
                 required="required"
+                autocapitalize="true"
               >
               </ion-input>
 
@@ -83,7 +87,9 @@
                 name="nombreEstudiante"
                 [(ngModel)]="usuarioRegistro.apellidoApoderado"
                 required="required"
-              ></ion-input>
+                
+              >
+              </ion-input>
 
             </ion-item>
 
@@ -94,13 +100,11 @@
                 type="password"
                 name="nombreEstudiante"
                 [(ngModel)]="usuarioRegistro.password"
-                required="required">
+                required="required"
+              >
               </ion-input>
 
             </ion-item>
-
-            
-            
 
           </form>
           

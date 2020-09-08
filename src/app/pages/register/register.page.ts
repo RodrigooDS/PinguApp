@@ -20,7 +20,7 @@ export class RegisterPage implements OnInit {
       password: ''
   };
   
-  public user : User;
+  public usuario : User;
 
   constructor(public alertController: AlertController,
               private authService: AuthService, 
@@ -30,13 +30,15 @@ export class RegisterPage implements OnInit {
   }
 
   async registrarCuenta(){
+    
     try {
-      var nombreAlumno = this.juntarNombre(this.usuarioRegistro.nombreApoderado, this.usuarioRegistro.apellidoApoderado);
+      var nombreAlumno = this.juntarNombre(this.usuarioRegistro.nombreEstudiante, this.usuarioRegistro.apellidoEstudiante);
       var nombreApoderado = this.juntarNombre(this.usuarioRegistro.nombreApoderado, this.usuarioRegistro.apellidoApoderado)
-      const user = await this.authService.register(this.usuarioRegistro.email, this.usuarioRegistro.password, nombreAlumno, nombreApoderado);
-      if (user) {
+      const usuario = await this.authService.register(this.usuarioRegistro.email, this.usuarioRegistro.password, nombreAlumno, nombreApoderado);
+      
+      if (usuario) {
         this.router.navigate(['/tablinks']);
-        console.log(user);
+        console.log(usuario);
       }else{
         this.alertaCuenta();
         //this.router.navigate(['/login']);
@@ -45,6 +47,8 @@ export class RegisterPage implements OnInit {
       console.log(error);
     }
   }
+
+
 
   async alertaCuenta() {
 
@@ -63,9 +67,8 @@ export class RegisterPage implements OnInit {
         }
       ]
     });
-    
     await alert.present();
-    
+
   }
 
 
