@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { User } from 'firebase';
-import { AlertController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-register',
@@ -11,81 +10,29 @@ import { AlertController } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
-  usuarioRegistro = {
-      email: '',
-      nombreEstudiante: '',
-      apellidoEstudiante: '',
-      nombreApoderado: '',
-      apellidoApoderado: '',
-      password: ''
-  };
+  myForm: FormGroup;
+  constructor(private fb: FormBuilder) {}
   
-  public usuario : User;
-
-  constructor(public alertController: AlertController,
-              private authService: AuthService, 
-              private router: Router) { }
-
-  ngOnInit() {
-  }
-
-  async registrarCuenta(){
-    
-    try {
-      var nombreAlumno = this.juntarNombre(this.usuarioRegistro.nombreEstudiante, this.usuarioRegistro.apellidoEstudiante);
-      var nombreApoderado = this.juntarNombre(this.usuarioRegistro.nombreApoderado, this.usuarioRegistro.apellidoApoderado)
-      const usuario = await this.authService.register(this.usuarioRegistro.email, this.usuarioRegistro.password, nombreAlumno, nombreApoderado);
-      
-      if (usuario) {
-        this.router.navigate(['/tablinks']);
-        console.log(usuario);
-      }else{
-        this.alertaCuenta();
-        //this.router.navigate(['/login']);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
-
-  async alertaCuenta() {
-
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Alerta',
-      //subHeader: 'Subtitle',
-      message: 'Este correo ya fue registrado',
-      //buttons: ['Salir']
-      buttons: [
-        {
-          text: "Salir",
-          handler: () => {
-            this.router.navigate(['/login']);
-          }
-        }
-      ]
+              
+  ngOnInit(){
+    this.myForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      nombreEstudiante: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      apellidoEstudiante: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      nombreApoderado: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      apellidoApoderado: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]],
+      // company: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+      // email: ['', [Validators.required, Validators.email]],
+      // age: ['', [Validators.required]],
+      // url: ['', [Validators.pattern(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)]],
+      // password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]],
     });
-    await alert.present();
-
-  }
-
-
-  // private checkUserIsVerified(user: User) {
-  //   if (user) {
-  //     this.router.navigate(['/tablinks']);
-  //   } else {
-  //     this.router.navigate(['/register']);
-  //   }
-  // }
-
-  juntarNombre(nombre: string, apellido: string){
     
-    const espacio = " ";
-    var nombreCompleto =  nombre.concat(espacio.toString());
-    nombreCompleto = nombreCompleto.concat(apellido.toString());
-    return nombreCompleto;
+  }
+ 
+  saveData(){
+    console.log(this.myForm.value)
   }
 
 }
