@@ -1,5 +1,7 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 
 
@@ -9,19 +11,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  
+  formRegistro : any  = '' 
 
-  
-  formRegistro :any  = '' 
-  constructor() {}
-  
-              
-  ngOnInit(){
-      
-  }
+  constructor(private auth: AuthService, private router: Router) {}
+         
+  ngOnInit() {}
  
-  public onFormGroupChangeEvent(_event) {
+  async registro(_event) {
+
     this.formRegistro = _event;
-    console.log(this.formRegistro.email)
+    
+    try {
+      const user = await this.auth.register(this.formRegistro.email, this.formRegistro.password, this.formRegistro);
+      if (user) {
+        // const isVerified = this.auth.isEmailVerified(user);
+        // this.redirectUser(isVerified);
+        this.router.navigate(['/tablinks']);
+      }
+    } catch (error) {
+      console.log('Error', error);
+    }
   }
 
+  
 }

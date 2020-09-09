@@ -36,8 +36,8 @@ export class ProfilePage implements OnInit {
     this.userNameTitle = this.user.displayName;
   }
 
-  async editProfile(){
-    this.authService.updateProfile(this.userName);
-  }
+  // async editProfile(){
+  //   this.authService.updateProfile(this.userName);
+  // }
 
 }
