@@ -1,10 +1,6 @@
-import { FormBuilder } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
-// import { Usuario } from '../shared/usuario';
+import { AngularFirestore} from "@angular/fire/firestore";
 import {AngularFireAuth} from '@angular/fire/auth';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { User } from 'firebase';
 
 @Injectable({
