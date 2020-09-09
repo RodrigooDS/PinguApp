@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./formregistro.component.scss'],
 })
 export class FormregistroComponent implements OnInit {
+
+  @Output() onFormGroupChange = new EventEmitter<any>();
 
   myForm: FormGroup;
 
@@ -26,9 +28,16 @@ export class FormregistroComponent implements OnInit {
     //   // url: ['', [Validators.pattern(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)]],
     //   // password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]],
     });
+    
   }
   
   saveData(){
-    console.log(this.myForm.value)
+    //console.log(this.myForm.value)
+    // this.onFormGroupChange.emit(this.myForm);
+  }
+
+  enviarFormulario(){
+    // console.log(this.myForm.value)
+    this.onFormGroupChange.emit(this.myForm.value);
   }
 }
