@@ -9,11 +9,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+
 //firebase config
 import { AngularFirestoreModule } from "@angular/fire/firestore"; //Modulo Firestore (BD)
 import { AngularFireAuthModule } from "@angular/fire/auth";  //Modulo de authenticacion
 import { AngularFireModule } from "@angular/fire";            //Modulo para inicializar y que todo funcione bien vergas
 import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +25,8 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    
   ],
   providers: [
     StatusBar,

@@ -1,6 +1,6 @@
-// app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', 
@@ -11,17 +11,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./pages/tablinks/tablinks.module').then(m => m.TablinksPageModule)
-  },
-  {
-    path: 'actividad',
-    loadChildren: () => import('./pages/actividad/actividad.module').then( m => m.ActividadPageModule)
-  },
-  {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
-  }
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/tablinks/tablinks.module').then(m => m.TablinksPageModule),
+    
+  },
+
 
 ];
 

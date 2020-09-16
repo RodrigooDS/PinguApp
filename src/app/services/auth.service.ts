@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +11,21 @@ import { User } from 'firebase';
 
 export class AuthService {
 
-  
-  // public user$: Observable<Usuario>;
-  public user: User;
+  public usuario: Observable<User>;
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
-    // this.user$ = this.afAuth.authState.pipe(
-    //   switchMap((user) => {
-    //     if (user) {
-    //       return this.afs.doc<Usuario>(`users/${user.uid}`).valueChanges();
-    //     }
-    //     return of(null);
-    //   })
-    // );
+  userToken: any;
+
+  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
+    
+    this.usuario = this.afAuth.authState;
+    this.leerToken();
   }
 
   async login(email: string, password: string){
     try{
-      const user  = await this.afAuth.signInWithEmailAndPassword(email, password);
-      return user;
+      const usuario  = await this.afAuth.signInWithEmailAndPassword(email, password);
+      this.usuario = this.currentUser;
+      return usuario;
     }catch(error){
       console.log('Error ->', error);
     }
@@ -37,6 +35,7 @@ export class AuthService {
     console.log(form)
     try {
       const usuario  = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      this.obtenerToken();
       // await this.sendVerifcationEmail();
       // console.log( usuario.user.uid )
       this.registerData(form, usuario.user.uid)
@@ -57,6 +56,7 @@ export class AuthService {
         apellidoApoderado: form.apellidoApoderado,
         uid: uid
       });
+      
       // this.updateProfile(nombreAlumno);
       // return result;
     
@@ -73,41 +73,49 @@ export class AuthService {
     }
   }
 
-  getCurremtUser(){
-    try{
-      return this.afAuth.currentUser;
-    }catch(error){
+  // getCurremtUser(): boolean{
+      
+  //   try{
+      
+
+  //     if (this.userToken) {
+  //       console.log('esta logeado')
+  //       return true;
+  //     } else {
+  //       console.log('NO esta logeado')
+  //       return false;
+  //     }
+  //   }catch(error){
+  //     console.log(error);
+  //   }
+  // }
+  get currentUser(): Observable<firebase.User | null> {
+    
+    return this.usuario;
+  }
+ 
+  async obtenerToken(){
+    try {
+      (await this.afAuth.currentUser).getIdToken(true).then((userToken) => localStorage.setItem('tokenId', userToken) );
+      this.leerToken();
+    } catch (error) {
       console.log(error);
     }
   }
 
-  // private updateUserData(usuario: Usuario) {
+  leerToken(){
+    if(localStorage.getItem('tokenId')){
+      this.userToken = localStorage.getItem('tokenId');
+      console.log('usertoken',this.userToken);
+    }else{
+      this.userToken = '';
+      console.log('usertoken',this.userToken);
+    }
+  }
 
-  //   const userRef: AngularFirestoreDocument<Usuario> = this.afs.doc(`users/${usuario.uid}`);
-
-  //   const data: Usuario = {
-  //     uid: usuario.uid,
-  //     email: usuario.email,
-  //     // emailVerified: usuario.emailVerified,
-  //     displayName: usuario.displayName,
-  //   };
-
-  //   return userRef.set(data, { merge: true });
-  // }
-
-  // async updateProfile(userName: string){
-    
-  //   try {
-      
-  //     (await this.afAuth.currentUser).updateProfile({
-  //       displayName: userName
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-    
-  // }
-
+  estaAutenticado(): boolean{
+    console.log(this.usuario);
+    return this.usuario !=null
+  }
   
-
 }

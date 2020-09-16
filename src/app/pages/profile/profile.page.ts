@@ -32,8 +32,8 @@ export class ProfilePage implements OnInit {
 
   async usuario(){
     
-    this.user =  await this.authService.getCurremtUser();
-    this.userNameTitle = this.user.displayName;
+    // this.user =  await this.authService.getCurremtUser();
+    // this.userNameTitle = this.user.displayName;
   }
 
   // async editProfile(){

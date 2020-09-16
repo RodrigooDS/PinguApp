@@ -1,63 +1,63 @@
-        <form [formGroup]="myForm" (ngSubmit)="saveData()" novalidate>
+        <form autocomplete="off" [formGroup]="form" (ngSubmit)="saveData()" novalidate>
       
           <ion-list>
       
             <ion-item>
-              <ion-label  position="stacked">Correo Electronico</ion-label>
-              <ion-input formControlName="email" type="text" placeholder="" ></ion-input>
+              <ion-label position="stacked">Correo Electronico</ion-label>
+              <ion-input formControlName="email" type="text" placeholder=""></ion-input>
             </ion-item>
-            <ion-item *ngIf="myForm.get('email').errors && myForm.get('email').dirty">
-              <p color="danger" ion-text *ngIf="myForm.get('email').hasError('required')">Campo es obligatorio</p>
-              <p color="danger" ion-text *ngIf="myForm.get('email').hasError('email')">Correo electronico no valido</p>
+            <ion-item *ngIf="emailNoValido">
+              <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('required')">Campo es obligatorio</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('pattern')">Correo electronico no valido</ion-label>
             </ion-item>
       
             <ion-item>
-              <ion-label  position="stacked">Nombre Estudiante</ion-label>
+              <ion-label position="stacked">Nombre Estudiante</ion-label>
               <ion-input formControlName="nombreEstudiante" type="text" placeholder=""></ion-input>
             </ion-item>
-            <ion-item *ngIf="myForm.get('nombreEstudiante').errors && myForm.get('nombreEstudiante').dirty">
-              <p color="danger" ion-text *ngIf="myForm.get('nombreEstudiante').hasError('required')">Campo es obligatorio</p>
-              <p color="danger" ion-text *ngIf="myForm.get('nombreEstudiante').hasError('nombreEstudiante')">Minimo 6 letras :)</p>
-              <p color="danger" ion-text *ngIf="myForm.get('nombreEstudiante').hasError('pattern')"> Solo letras de la A - Z</p>
+            <ion-item *ngIf="nombreEstudianteNoValido">
+              <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('required')">Campo es obligatorio</ion-label>
+              <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('nombreEstudiante')">Minimo 6 letras :)</ion-label>
+              <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('pattern')"> Solo letras de la A - Z</ion-label>
             </ion-item>
       
             <ion-item>
-              <ion-label  position="stacked">Apellido Estudiante</ion-label>
+              <ion-label position="stacked">Apellido Estudiante</ion-label>
               <ion-input formControlName="apellidoEstudiante" type="text" placeholder=""></ion-input>
             </ion-item>
-            <ion-item *ngIf="myForm.get('apellidoEstudiante').errors && myForm.get('apellidoEstudiante').dirty">
-              <p color="danger" ion-text *ngIf="myForm.get('apellidoEstudiante').hasError('required')">Campo es obligatorio</p>
-              <p color="danger" ion-text *ngIf="myForm.get('apellidoEstudiante').hasError('apellidoEstudiante')">Minimo 6 letras :)</p>
-              <p color="danger" ion-text *ngIf="myForm.get('apellidoEstudiante').hasError('pattern')">Solo letras de la A - Z</p>
+            <ion-item *ngIf="apelldioEstudianteNoValido">
+              <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('required')">Campo es obligatorio</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('apellidoEstudiante')">Minimo 6 letras :)</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('pattern')">Solo letras de la A - Z</ion-label>
             </ion-item>
       
             <ion-item>
-              <ion-label  position="stacked">Nombre Apoderado</ion-label>
+              <ion-label position="stacked">Nombre Apoderado</ion-label>
               <ion-input formControlName="nombreApoderado" type="text" placeholder=""></ion-input>
             </ion-item>
-            <ion-item *ngIf="myForm.get('nombreApoderado').errors && myForm.get('nombreApoderado').dirty">
-              <p color="danger" ion-text *ngIf="myForm.get('nombreApoderado').hasError('required')">Campo es obligatorio</p>
-              <p color="danger" ion-text *ngIf="myForm.get('nombreApoderado').hasError('nombreApoderado')">Minimo 6 letras :)</p>
-              <p color="danger" ion-text *ngIf="myForm.get('nombreApoderado').hasError('pattern')">Solo letras de la A - Z</p>
+            <ion-item *ngIf="nombreApoderadoNoValido">
+              <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('required')">Campo es obligatorio</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('nombreApoderado')">Minimo 6 letras :)</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
             </ion-item>
       
           <ion-item>
-            <ion-label  position="stacked">Apellido Apoderado</ion-label>
+              <ion-label position="stacked">Apellido Apoderado</ion-label>
               <ion-input formControlName="apellidoApoderado" type="text" placeholder=""></ion-input>
             </ion-item>
-            <ion-item *ngIf="myForm.get('apellidoApoderado').errors && myForm.get('apellidoApoderado').dirty">
-              <p color="danger" ion-text *ngIf="myForm.get('apellidoApoderado').hasError('required')">Campo es obligatorio</p>
-              <p color="danger" ion-text *ngIf="myForm.get('apellidoApoderado').hasError('apellidoApoderado')">Minimo 6 letras :)</p>
-              <p color="danger" ion-text *ngIf="myForm.get('apellidoApoderado').hasError('pattern')">Solo letras de la A - Z</p>
+            <ion-item *ngIf="apelldioApoderadoNoValido">
+              <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('required')">Campo es obligatorio</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('apellidoApoderado')">Minimo 6 letras :)</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
             </ion-item>
 
             <ion-item>
-            <ion-label position="stacked">Password</ion-label>
+              <ion-label position="stacked">Password</ion-label>
               <ion-input formControlName="password" type="password" placeholder=""></ion-input>
             </ion-item>
-            <ion-item *ngIf="myForm.get('password').errors && myForm.get('password').dirty">
-              <p color="danger" ion-text *ngIf="myForm.get('password').hasError('required')">Campo es obligatorio</p>
-              <p color="danger" ion-text *ngIf="myForm.get('password').hasError('pattern')">Minimo 6 letras :)</p>
+            <ion-item *ngIf="passwordNoValido">
+              <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('required')">Campo es obligatorio</ion-label>
+              <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('pattern')">Minimo 6 letras :)</ion-label>
           </ion-item>
 
         </ion-list>
@@ -69,7 +69,7 @@
                         ion-button 
                         block 
                         type="submit" 
-                        [disabled]="myForm.invalid" 
+                        [disabled]="form.invalid" 
                         (click)="enviarFormulario($event)">
                         Guardar
               </ion-button>

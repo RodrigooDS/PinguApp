@@ -28,12 +28,13 @@ export class LoginPage implements OnInit {
     try{ 
 
       const user = await this.authService.login(this.usuario.email, this.usuario.password);
-      console.log(user);
+      
+      // console.log(user);
       if(user){
         this.router.navigate(['/tablinks']);
       }
     }catch(error){
-      console.log(error);
+      // console.log(error);
     }
   }
 }

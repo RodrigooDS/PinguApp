@@ -10,27 +10,50 @@ export class FormregistroComponent implements OnInit {
 
   @Output() onFormGroupChange = new EventEmitter<any>();
 
-  myForm: FormGroup;
+  form: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.myForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      nombreEstudiante: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
-      apellidoEstudiante: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
-      nombreApoderado: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
-      apellidoApoderado: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
-      password: ['', [Validators.required,Validators.pattern(/^[a-z0-9_-]{6,18}$/)]],
-    //   // company: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
-    //   // email: ['', [Validators.required, Validators.email]],
-    //   // age: ['', [Validators.required]],
-    //   // url: ['', [Validators.pattern(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)]],
-    //   // password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]],
-    });
+    this.crearFormulario();
     
   }
   
+  crearFormulario(){
+    this.form = this.fb.group({
+      email             : ['', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]],
+      nombreEstudiante  : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+      apellidoEstudiante: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+      nombreApoderado   : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+      apellidoApoderado : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+      password          : ['', [Validators.required, Validators.pattern((/^[a-z0-9_-]{6,18}$/))]],
+    });
+  }
+
+  get emailNoValido(){
+    return this.form.get('email').invalid && this.form.get('email').touched
+  }
+
+  get nombreEstudianteNoValido(){
+    return this.form.get('nombreEstudiante').invalid && this.form.get('nombreEstudiante').touched
+  }
+
+  get apelldioEstudianteNoValido(){
+    return this.form.get('apellidoEstudiante').invalid && this.form.get('apellidoEstudiante').touched
+  }
+
+  get nombreApoderadoNoValido(){
+    return this.form.get('nombreApoderado').invalid && this.form.get('nombreApoderado').touched
+  }
+
+  get apelldioApoderadoNoValido(){
+    return this.form.get('apellidoApoderado').invalid && this.form.get('apellidoApoderado').touched
+  }
+
+  get passwordNoValido(){
+    return this.form.get('password').invalid && this.form.get('password').touched
+  }
+
   saveData(){
     //console.log(this.myForm.value)
     // this.onFormGroupChange.emit(this.myForm);
@@ -38,6 +61,6 @@ export class FormregistroComponent implements OnInit {
 
   enviarFormulario(){
     // console.log(this.myForm.value)
-    this.onFormGroupChange.emit(this.myForm.value);
+    this.onFormGroupChange.emit(this.form.value);
   }
 }

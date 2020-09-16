@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TablinksPage } from './tablinks.page';
+import { AuthGuard } from '../../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -11,19 +12,23 @@ const routes: Routes = [
     children: [
       {
         path: 'actividad',
-        loadChildren: () => import('../actividad/actividad.module').then(m => m.ActividadPageModule)
+        loadChildren: () => import('../actividad/actividad.module').then(m => m.ActividadPageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
+        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardPageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'settings',
-        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
+        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: '',
