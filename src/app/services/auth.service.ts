@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from "@angular/fire/firestore";
+import { User } from '../shared/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User } from 'firebase';
-import { Observable } from 'rxjs';
+
+import * as firebase from 'firebase';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,33 +16,35 @@ export class AuthService {
 
   public usuario: Observable<User>;
 
-  userToken: any;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
-    
-    this.usuario = this.afAuth.authState;
-    this.leerToken();
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
+    this.usuario = this.afAuth.authState.pipe(
+      switchMap((user) => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        }
+        return of(null);
+      })
+    );
   }
 
-  async login(email: string, password: string){
+  async login(email: string, password: string): Promise<User>{
     try{
-      const usuario  = await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.usuario = this.currentUser;
-      return usuario;
+      const {user}  = await this.afAuth.signInWithEmailAndPassword(email, password);
+      this.updateUserData(user);
+      return user;
     }catch(error){
       console.log('Error ->', error);
     }
   }
 
-  async register(email: string, password: string, form: any){
-    console.log(form)
+  async register(email: string, password: string, form: any): Promise<User> {
+    
     try {
-      const usuario  = await this.afAuth.createUserWithEmailAndPassword(email, password);
-      this.obtenerToken();
-      // await this.sendVerifcationEmail();
-      // console.log( usuario.user.uid )
-      this.registerData(form, usuario.user.uid)
-      return usuario;
+      const {user}  = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      this.registerData(form, user.uid)
+      this.updateUserData(user);
+      return user;
     } catch (error) {
       console.log('Error->', error);
     }
@@ -48,74 +53,38 @@ export class AuthService {
   
   async registerData(form: any, uid: string){
     try{
-      console.log(uid)
+      
       this.afs.collection('alumnos').doc(uid).set({
         nombreEstudiante: form.nombreEstudiante,
         apellidoEstudiante: form.apellidoEstudiante,
         nombreApoderado: form.nombreApoderado,
         apellidoApoderado: form.apellidoApoderado,
         uid: uid
-      });
-      
-      // this.updateProfile(nombreAlumno);
-      // return result;
-    
+      });    
     }catch(error){
       console.log(error);
     }
   }
 
-  async logout(){
-    try{
-      await this.afAuth.signOut();
-    }catch(error){
-      console.log(error);
-    }
-  }
-
-  // getCurremtUser(): boolean{
-      
-  //   try{
-      
-
-  //     if (this.userToken) {
-  //       console.log('esta logeado')
-  //       return true;
-  //     } else {
-  //       console.log('NO esta logeado')
-  //       return false;
-  //     }
-  //   }catch(error){
-  //     console.log(error);
-  //   }
-  // }
-  get currentUser(): Observable<firebase.User | null> {
-    
-    return this.usuario;
-  }
- 
-  async obtenerToken(){
+  async logout(): Promise<void> {
     try {
-      (await this.afAuth.currentUser).getIdToken(true).then((userToken) => localStorage.setItem('tokenId', userToken) );
-      this.leerToken();
+      await this.afAuth.signOut();
     } catch (error) {
-      console.log(error);
+      console.log('Error->', error);
     }
   }
 
-  leerToken(){
-    if(localStorage.getItem('tokenId')){
-      this.userToken = localStorage.getItem('tokenId');
-      console.log('usertoken',this.userToken);
-    }else{
-      this.userToken = '';
-      console.log('usertoken',this.userToken);
-    }
-  }
+  private updateUserData(user: User) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-  estaAutenticado(): boolean{
-    console.log(this.usuario);
-    return this.usuario !=null
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      displayName: user.displayName,
+    };
+
+    return userRef.set(data, { merge: true });
   }
   
 }
