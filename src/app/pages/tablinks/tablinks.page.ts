@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 export class TablinksPage implements OnInit {
 
   constructor(private authService: AuthService) { }
-
+  
   ngOnInit() {
     
   }

@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ActividadPageRoutingModule } from './actividad-routing.module';
 import { ActividadPage } from './actividad.page';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ActividadPageRoutingModule
+    ActividadPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ActividadPage]
 })

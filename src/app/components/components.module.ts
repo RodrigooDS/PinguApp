@@ -4,15 +4,18 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FormregistroComponent } from './formregistro/formregistro.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
 
 
 
 @NgModule({
   declarations: [
-    FormregistroComponent
+    FormregistroComponent,
+    HeaderComponent
   ],
   exports:[
-    FormregistroComponent
+    FormregistroComponent,
+    HeaderComponent
   ],
   imports: [
     ReactiveFormsModule,
