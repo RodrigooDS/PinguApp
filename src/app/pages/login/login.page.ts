@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 import { AuthService } from '../../services/auth.service';
-import { Error } from '../../shared/error.interfaces';
 
 @Component({
   selector: 'app-login',
@@ -35,5 +34,5 @@ export class LoginPage implements OnInit {
       console.log(error);
     }
   }
-  
+
 }

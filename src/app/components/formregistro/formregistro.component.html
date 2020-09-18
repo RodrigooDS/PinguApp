@@ -1,78 +1,83 @@
-        <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate>
-      
-          <ion-list>
-      
-            <ion-item>
-              <ion-label position="stacked">Correo Electronico</ion-label>
-              <ion-input formControlName="email" type="text" placeholder=""></ion-input>
-            </ion-item>
-            <ion-item *ngIf="emailNoValido">
-              <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('required')">Campo es obligatorio</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('pattern')">Correo electronico no valido</ion-label>
-            </ion-item>
-      
-            <ion-item>
-              <ion-label position="stacked">Nombre Estudiante</ion-label>
-              <ion-input formControlName="nombreEstudiante" type="text" placeholder=""></ion-input>
-            </ion-item>
-            <ion-item *ngIf="nombreEstudianteNoValido">
-              <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('required')">Campo es obligatorio</ion-label>
-              <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('nombreEstudiante')">Minimo 6 letras :)</ion-label>
-              <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('pattern')"> Solo letras de la A - Z</ion-label>
-            </ion-item>
-      
-            <ion-item>
-              <ion-label position="stacked">Apellido Estudiante</ion-label>
-              <ion-input formControlName="apellidoEstudiante" type="text" placeholder=""></ion-input>
-            </ion-item>
-            <ion-item *ngIf="apelldioEstudianteNoValido">
-              <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('required')">Campo es obligatorio</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('apellidoEstudiante')">Minimo 6 letras :)</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('pattern')">Solo letras de la A - Z</ion-label>
-            </ion-item>
-      
-            <ion-item>
-              <ion-label position="stacked">Nombre Apoderado</ion-label>
-              <ion-input formControlName="nombreApoderado" type="text" placeholder=""></ion-input>
-            </ion-item>
-            <ion-item *ngIf="nombreApoderadoNoValido">
-              <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('required')">Campo es obligatorio</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('nombreApoderado')">Minimo 6 letras :)</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
-            </ion-item>
-      
-          <ion-item>
-              <ion-label position="stacked">Apellido Apoderado</ion-label>
-              <ion-input formControlName="apellidoApoderado" type="text" placeholder=""></ion-input>
-            </ion-item>
-            <ion-item *ngIf="apelldioApoderadoNoValido">
-              <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('required')">Campo es obligatorio</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('apellidoApoderado')">Minimo 6 letras :)</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
-            </ion-item>
+<div>
+  <img class="icon" src="assets/penguin.png" alt="">
+</div>
 
-            <ion-item>
-              <ion-label position="stacked">Password</ion-label>
-              <ion-input formControlName="password" type="password" placeholder=""></ion-input>
-            </ion-item>
-            <ion-item *ngIf="passwordNoValido">
-              <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('required')">Campo es obligatorio</ion-label>
-              <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('pattern')">Minimo 6 letras :)</ion-label>
-          </ion-item>
 
-        </ion-list>
-
-          <div padding class="ion-text-center ion-margin-top ">
-            <ion-button class="button-white" 
-                        expand="block"
-                        mode="ios"
-                        ion-button 
-                        block 
-                        type="submit" 
-                        [disabled]="form.invalid" 
-                        >
-              Guardar
-            </ion-button>        
-          </div>
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-margin-top">
       
-        </form>
+  <ion-list>
+
+    <ion-item>
+      <ion-label position="stacked">Correo Electronico</ion-label>
+      <ion-input formControlName="email" type="text" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="emailNoValido">
+      <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('required')">Campo es obligatorio</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('pattern')">Correo electronico no valido</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nombre Estudiante</ion-label>
+      <ion-input formControlName="nombreEstudiante" type="text" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="nombreEstudianteNoValido">
+      <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('required')">Campo es obligatorio</ion-label>
+      <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('nombreEstudiante')">Minimo 6 letras :)</ion-label>
+      <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('pattern')"> Solo letras de la A - Z</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Apellido Estudiante</ion-label>
+      <ion-input formControlName="apellidoEstudiante" type="text" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="apelldioEstudianteNoValido">
+      <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('required')">Campo es obligatorio</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('apellidoEstudiante')">Minimo 6 letras :)</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('pattern')">Solo letras de la A - Z</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nombre Apoderado</ion-label>
+      <ion-input formControlName="nombreApoderado" type="text" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="nombreApoderadoNoValido">
+      <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('required')">Campo es obligatorio</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('nombreApoderado')">Minimo 6 letras :)</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
+    </ion-item>
+
+  <ion-item>
+      <ion-label position="stacked">Apellido Apoderado</ion-label>
+      <ion-input formControlName="apellidoApoderado" type="text" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="apelldioApoderadoNoValido">
+      <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('required')">Campo es obligatorio</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('apellidoApoderado')">Minimo 6 letras :)</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input formControlName="password" type="password" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="passwordNoValido">
+      <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('required')">Campo es obligatorio</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('pattern')">Minimo 6 letras :)</ion-label>
+  </ion-item>
+
+</ion-list>
+
+  <div padding class="ion-text-center ion-margin-top ">
+    <ion-button class="button-white" 
+                expand="block"
+                mode="ios"
+                ion-button 
+                block 
+                type="submit" 
+                [disabled]="form.invalid" 
+                >
+      Guardar
+    </ion-button>        
+  </div>
+
+</form>

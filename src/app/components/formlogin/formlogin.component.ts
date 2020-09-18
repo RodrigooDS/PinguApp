@@ -34,7 +34,6 @@ export class FormloginComponent implements OnInit {
   }
 
   enviarDatos(){
-    
     this.onFormGroupChange.emit(this.form.value);
   }
 
