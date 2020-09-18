@@ -54,12 +54,7 @@ export class FormregistroComponent implements OnInit {
     return this.form.get('password').invalid && this.form.get('password').touched
   }
 
-  saveData(){
-    //console.log(this.myForm.value)
-    // this.onFormGroupChange.emit(this.myForm);
-  }
-
-  enviarFormulario(){
+  enviarDatos(){
     // console.log(this.myForm.value)
     this.onFormGroupChange.emit(this.form.value);
   }

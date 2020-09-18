@@ -1,4 +1,4 @@
-        <form autocomplete="off" [formGroup]="form" (ngSubmit)="saveData()" novalidate>
+        <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate>
       
           <ion-list>
       
@@ -70,9 +70,9 @@
                         block 
                         type="submit" 
                         [disabled]="form.invalid" 
-                        (click)="enviarFormulario($event)">
-                        Guardar
-              </ion-button>
+                        >
+              Guardar
+            </ion-button>        
           </div>
       
         </form>

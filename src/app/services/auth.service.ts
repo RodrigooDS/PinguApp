@@ -6,6 +6,9 @@ import * as firebase from 'firebase';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
+import { Error } from '../shared/error.interfaces';
+
 
 
 @Injectable({
@@ -15,9 +18,12 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
 
   public usuario: Observable<User>;
+  public error:   Observable<Error>;
 
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(public afAuth: AngularFireAuth, 
+              private afs: AngularFirestore,
+              private alertController: AlertController) {
     this.usuario = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -36,6 +42,7 @@ export class AuthService {
       return user;
     }catch(error){
       console.log('Error ->', error);
+      this.errorMensaje(error);
     }
   }
 
@@ -51,7 +58,26 @@ export class AuthService {
     }
   }
 
-  
+  errorMensaje(error){
+    let tituloMensaje: string ="";
+    let subMensaje:    string ="";
+
+    const dataError: Error = {
+      a: error.a,
+      message: error.message,
+      code: error.code
+    }
+    
+    if(dataError.code == 'auth/user-not-found'){
+      tituloMensaje = 'Correo electronico incorrecto';
+      subMensaje    = 'No hay ningún registro de usuario que corresponda a este identificador. Es posible que se haya eliminado al usuario.';
+    }else{
+      tituloMensaje = 'Contraseña incorrecta';
+      subMensaje    = 'La contraseña no es válida o el usuario no tiene contraseña.';
+    }
+    this.alertaCuenta(tituloMensaje,subMensaje);
+  }
+
   async registerData(form: any, uid: string){
     try{
       
@@ -86,6 +112,27 @@ export class AuthService {
     };
 
     return userRef.set(data, { merge: true });
+  }
+
+
+  async alertaCuenta(tituloMensaje: string, subMensaje: string) {
+
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: tituloMensaje,
+      //subHeader: 'Subtitle',
+      message: subMensaje,
+      //buttons: ['Salir']
+      buttons: [
+        {
+          text: "Salir",
+          handler: () => {
+            //this.router.navigate(['/login']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
   
 }

@@ -3,25 +3,29 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FormregistroComponent } from './formregistro/formregistro.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
+import { FormloginComponent } from './formlogin/formlogin.component';
 
 
 
 @NgModule({
   declarations: [
     FormregistroComponent,
-    HeaderComponent
+    HeaderComponent,
+    FormloginComponent
   ],
   exports:[
     FormregistroComponent,
-    HeaderComponent
+    HeaderComponent,
+    FormloginComponent
   ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class ComponentsModule { }

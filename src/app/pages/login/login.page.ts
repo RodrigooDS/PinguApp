@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
+
+import { AuthService } from '../../services/auth.service';
+import { Error } from '../../shared/error.interfaces';
 
 @Component({
   selector: 'app-login',
@@ -9,32 +11,29 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./login.page.scss'],
   
 })
+
 export class LoginPage implements OnInit {
 
- 
-  usuario = {
-    email: '',
-    password: ''
-  };
+  formRegistro : any  = '' 
   
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private alertController: AlertController,
+              private authService: AuthService, 
+              private router: Router) { }
 
   ngOnInit() {
 
   }
 
-  async login()
-  {
+  async login($event){
+    this.formRegistro = $event;
     try{ 
-
-      const user = await this.authService.login(this.usuario.email, this.usuario.password);
-      
-      // console.log(user);
+      const user = await this.authService.login(this.formRegistro.email, this.formRegistro.password);
       if(user){
         this.router.navigate(['/tablinks']);
       }
     }catch(error){
-      // console.log(error);
+      console.log(error);
     }
   }
+  
 }
