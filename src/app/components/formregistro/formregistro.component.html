@@ -8,8 +8,8 @@
   <ion-list>
 
     <ion-item>
-      <ion-label position="stacked">Correo Electronico</ion-label>
-      <ion-input formControlName="email" type="text" placeholder=""></ion-input>
+      <ion-label position="stacked">Correo Electrónico</ion-label>
+      <ion-input formControlName="email" type="mail" placeholder=""></ion-input>
     </ion-item>
     <ion-item *ngIf="emailNoValido">
       <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('required')">Campo es obligatorio</ion-label>
