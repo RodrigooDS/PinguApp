@@ -54,7 +54,8 @@ export class AuthService {
       this.updateUserData(user);
       return user;
     } catch (error) {
-      console.log('Error->', error);
+      console.log('Error ->', error);
+      this.errorMensaje(error);
     }
   }
 
@@ -71,7 +72,12 @@ export class AuthService {
     if(dataError.code == 'auth/user-not-found'){
       tituloMensaje = 'Correo electronico incorrecto';
       subMensaje    = 'No hay ningún registro de usuario que corresponda a este identificador. Es posible que se haya eliminado al usuario.';
-    }else{
+    }
+    else if(dataError.code == 'auth/email-already-in-use'){
+      tituloMensaje = 'Correo electronico incorrecto';
+      subMensaje    = 'La dirección de correo electrónico ya está siendo utilizada por otra cuenta.';
+    }
+    else{
       tituloMensaje = 'Contraseña incorrecta';
       subMensaje    = 'La contraseña no es válida o el usuario no tiene contraseña.';
     }
