@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -14,8 +13,7 @@ export class RegisterPage implements OnInit {
   
   formRegistro : any  = '' 
 
-  constructor(private alertController: AlertController, 
-              private auth: AuthService, 
+  constructor(private auth: AuthService, 
               private router: Router) {}
          
   ngOnInit() {}

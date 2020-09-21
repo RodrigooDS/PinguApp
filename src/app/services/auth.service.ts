@@ -99,6 +99,14 @@ export class AuthService {
     }
   }
 
+  async resetPassword(email: string): Promise<void> {
+    try {
+      return this.afAuth.sendPasswordResetEmail(email);
+    } catch (error) {
+      console.log('Error->', error);
+    }
+  }
+
   async logout(): Promise<void> {
     try {
       await this.afAuth.signOut();
@@ -126,13 +134,11 @@ export class AuthService {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: tituloMensaje,
-      //subHeader: 'Subtitle',
       message: subMensaje,
       buttons: [
         {
           text: "Salir",
           handler: () => {
-            //this.router.navigate(['/login']);
           }
         }
       ]

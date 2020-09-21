@@ -6,6 +6,8 @@ import { FormregistroComponent } from './formregistro/formregistro.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FormloginComponent } from './formlogin/formlogin.component';
+import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpassword.component';
+
 
 
 
@@ -13,12 +15,14 @@ import { FormloginComponent } from './formlogin/formlogin.component';
   declarations: [
     FormregistroComponent,
     HeaderComponent,
-    FormloginComponent
+    FormloginComponent,
+    FormforgotpasswordComponent
   ],
   exports:[
     FormregistroComponent,
     HeaderComponent,
-    FormloginComponent
+    FormloginComponent,
+    FormforgotpasswordComponent
   ],
   imports: [
     ReactiveFormsModule,

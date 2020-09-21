@@ -18,10 +18,16 @@ const routes: Routes = [
     canActivate: [LoginGuard]
   },
   {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule),
+    canActivate: [LoginGuard]
+  },
+  {
     path: '',
     loadChildren: () => import('./pages/tablinks/tablinks.module').then(m => m.TablinksPageModule),
     
-  },
+  }
+
 
 
 ];
