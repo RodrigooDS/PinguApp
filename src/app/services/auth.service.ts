@@ -128,7 +128,6 @@ export class AuthService {
       header: tituloMensaje,
       //subHeader: 'Subtitle',
       message: subMensaje,
-      //buttons: ['Salir']
       buttons: [
         {
           text: "Salir",
