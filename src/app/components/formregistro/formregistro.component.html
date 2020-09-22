@@ -62,7 +62,7 @@
     </ion-item>
     <ion-item *ngIf="passwordNoValido">
       <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('required')">Campo es obligatorio</ion-label>
-      <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('pattern')">Minimo 6 letras :)</ion-label>
+      <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('pattern')">Minimo 6 caracteres</ion-label>
   </ion-item>
 
 </ion-list>

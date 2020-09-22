@@ -5,10 +5,31 @@
 </ion-header>
 
 <ion-content class="ion-content">
+
+  <ion-grid fixed>
+
+    <ion-row>
+
+      <ion-col class="ion-col"></ion-col>
+
+      <ion-col size="6" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="ion-align-self-center">
+        
+        <div>
+          <img class="icon" src="assets/penguin.png" alt="">
+        </div>
   
-    <app-formlogin (onFormGroupChange)="login($event)"></app-formlogin>
+        <app-formlogin (onFormGroupChange)="login($event)"></app-formlogin>
+
+      </ion-col>
+
+      <ion-col class="ion-col"></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>
+
 <!-- <ion-content class="ion-padding">
 
   <ion-grid fixed>
