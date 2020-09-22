@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class ForgotPasswordPage implements OnInit {
   formRestablecer : any  = '' 
 
   constructor(private auth: AuthService, 
-              private router: Router) {}
+              private router: Router,
+              private menuCtrl: MenuController) {}
 
   ngOnInit() {
   }
@@ -27,6 +29,9 @@ export class ForgotPasswordPage implements OnInit {
       console.log('Error->', error);
     }
   }
-  //(onFormGroupChange)="registro($event)"
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+  
 }

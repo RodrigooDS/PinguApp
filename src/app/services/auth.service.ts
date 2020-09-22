@@ -115,6 +115,16 @@ export class AuthService {
     }
   }
 
+  async currentUser(){
+    var user = await this.afAuth.currentUser;
+
+    if (user) {
+      console.log(user)
+    } else {
+      console.log(user)
+    }
+  }
+
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
