@@ -145,5 +145,5 @@ export class AuthService {
     });
     await alert.present();
   }
-  
+
 }
