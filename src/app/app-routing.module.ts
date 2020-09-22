@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoginGuard } from './guards/login.guard';
+
 
 const routes: Routes = [
   { path: '', 
@@ -7,11 +9,26 @@ const routes: Routes = [
     pathMatch: 'full' 
   },
   { path: 'login', 
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [LoginGuard]
   },
-  { path: 'home', 
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule),
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule),
+    canActivate: [LoginGuard]
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/tablinks/tablinks.module').then(m => m.TablinksPageModule),
+    
   }
+
+
 
 ];
 

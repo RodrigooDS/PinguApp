@@ -1,24 +1,53 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Iniciar sesión</ion-title>
+<ion-header  mode="ios" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-capitalize">Iniciar sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-content class="ion-content">
 
-<ion-content class="ion-padding">
-  <img class="icon" src="assets/icon/graphic2.svg" alt="">
-  <form autocomplete="off" (submit)="doLogin()">
-    <ion-item>
-      <ion-label position="stacked" > Correo electrónico <span class="text-danger">*</span></ion-label>
-      <ion-input type="text" [(ngModel)]="email" name="email" required="true"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked" > Contraseña <span class="text-danger">*</span></ion-label>
-      <ion-input [(ngModel)]="password" type="password" name="password" required="true"></ion-input>
-    </ion-item>
-    <ion-button class="ion-margin-top" type="submit" expand="block">Entrar</ion-button>
-  </form>
-  <!-- <div class="ion-text-center ion-margin-top">
-    <a routerLink="/registro"><small>Olvidé mi Contraseña</small></a>
-  </div>} -->
+  <ion-grid fixed>
+
+    <ion-row>
+
+      <ion-col class="ion-col"></ion-col>
+
+      <ion-col size="6" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="ion-align-self-center">
+        
+        <div>
+          <img class="icon" src="assets/penguin.png" alt="">
+        </div>
+  
+        <app-formlogin (onFormGroupChange)="login($event)"></app-formlogin>
+
+      </ion-col>
+
+      <ion-col class="ion-col"></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
 </ion-content>
+
+<!-- <ion-content class="ion-padding">
+
+  <ion-grid fixed>
+ 
+    <ion-row>
+
+      <ion-col class="ion-col">
+      </ion-col>
+      
+      <ion-col size="6" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="ion-align-self-center">
+    
+        <app-formlogin (onFormGroupChange)="login($event)"></app-formlogin>
+
+      </ion-col>
+      <ion-col class="ion-col">
+      </ion-col>
+    </ion-row>
+  
+</ion-grid>
+
+</ion-content> -->

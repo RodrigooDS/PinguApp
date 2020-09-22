@@ -1,0 +1,38 @@
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos($event)" novalidate class="ion-margin-top">
+
+  <ion-item>
+          
+    <ion-label position="stacked" > Correo electrónico </ion-label>
+    <ion-input formControlName="email" type="mail" placeholder=""></ion-input>
+
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input formControlName="password" type="password" placeholder=""></ion-input>
+  </ion-item>
+
+  <div class="ion-text-center ion-margin-top ">
+    <ion-button class="button-white " 
+                type="submit" 
+                expand="block"
+                mode="ios"
+                [disabled]="form.invalid">
+      Entrar
+    </ion-button>
+  </div>
+
+  <div class="ion-text-center ion-margin-top">
+    <a routerLink="/forgot-password"><small>Olvidé la Contraseña</small></a>
+  </div>
+          
+  <div class="ion-text-center ion-margin-top ">
+    <ion-button routerLink="/register" 
+                class="button-white"
+                expand="block"
+                mode="ios">
+    Crear Cuenta
+    </ion-button>
+  </div>
+        
+</form>

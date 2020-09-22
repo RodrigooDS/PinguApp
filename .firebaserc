@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "appingles-6d6d5": {
+      "hosting": {
+        "app": [
+          "appingles-6d6d5"
+        ]
+      }
+    }
+  }
+}
