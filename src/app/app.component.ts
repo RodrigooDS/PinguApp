@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Observable } from 'rxjs';
+import { Menu } from './components/interfaces/interfaces';
+import { DataService } from './services/data.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +14,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  componentes: Observable<Menu[]>;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private dataService: DataService,
+    private authService: AuthService,
+    private alertCtrl: AlertController
   ) {
     this.initializeApp();
   }
@@ -22,6 +32,38 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.componentes = this.dataService.getMenuOpts();
     });
+  }
+
+  cerrarSesion(){
+    this.alertaCerrarSesion();
+    
+  }
+
+  async alertaCerrarSesion() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Cerrar sesión',
+      message: '¿Estás seguro de que quieres cerrar la sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Salir',
+          handler: () => {
+            this.authService.logout();
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

@@ -16,8 +16,8 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'dashboard',
-        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardPageModule),
+        path: 'repaso',
+        loadChildren: () => import('../repaso/repaso.module').then( m => m.RepasoPageModule),
         canActivate: [AuthGuard]
       },
       {
@@ -27,7 +27,18 @@ const routes: Routes = [
       },
       {
         path: 'user',
-        loadChildren: () => import('../user/user.module').then( m => m.UserPageModule)
+        loadChildren: () => import('../user/user.module').then( m => m.UserPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'editar-repaso',
+        loadChildren: () => import('../editar-repaso/editar-repaso.module').then( m => m.EditarRepasoPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'editar-actividad',
+        loadChildren: () => import('../editar-actividad/editar-actividad.module').then( m => m.EditarActividadPageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: '',

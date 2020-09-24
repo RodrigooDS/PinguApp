@@ -13,8 +13,10 @@ import { AppRoutingModule } from './app-routing.module';
 //firebase config
 import { AngularFirestoreModule } from "@angular/fire/firestore"; //Modulo Firestore (BD)
 import { AngularFireAuthModule } from "@angular/fire/auth";  //Modulo de authenticacion
-import { AngularFireModule } from "@angular/fire";            //Modulo para inicializar y que todo funcione bien vergas
+import { AngularFireModule } from "@angular/fire"; //Modulo para inicializar
+
 import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    HttpClientModule
     
   ],
   providers: [

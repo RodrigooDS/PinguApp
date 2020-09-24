@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { UserPageRoutingModule } from './user-routing.module';
+import { EditarActividadPageRoutingModule } from './editar-actividad-routing.module';
 
-import { UserPage } from './user.page';
+import { EditarActividadPage } from './editar-actividad.page';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from '../../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    UserPageRoutingModule,
+    EditarActividadPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [UserPage]
+  declarations: [EditarActividadPage]
 })
-export class UserPageModule {}
+export class EditarActividadPageModule {}

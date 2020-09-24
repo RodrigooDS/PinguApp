@@ -1,0 +1,12 @@
+[
+    {
+      "icon":"book",
+      "name": "Editar Repaso",
+      "redirectTo":"/tablinks/editar-repaso"
+    },
+    {
+      "icon":"barbell",
+      "name": "Editar Actividad",
+      "redirectTo":"/tablinks/editar-actividad"
+    }
+]

@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { User } from '../shared/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import * as firebase from 'firebase';
+
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take, map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { Error } from '../shared/error.interfaces';
+import { Router } from '@angular/router';
+import { Categoria } from '../shared/categoria.interfaces';
 
 
 
@@ -19,11 +21,12 @@ export class AuthService {
 
   public usuario: Observable<User>;
   public error:   Observable<Error>;
-
+  public categoria: Observable<Categoria>
 
   constructor(public afAuth: AngularFireAuth, 
               private afs: AngularFirestore,
-              private alertController: AlertController) {
+              private alertController: AlertController,
+              private router: Router) {
     this.usuario = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -87,12 +90,24 @@ export class AuthService {
   async registerData(form: any, uid: string){
     try{
       
-      this.afs.collection('alumnos').doc(uid).set({
+        this.afs.collection('alumnos').doc(uid).set({
         nombreEstudiante: form.nombreEstudiante,
         apellidoEstudiante: form.apellidoEstudiante,
         nombreApoderado: form.nombreApoderado,
         apellidoApoderado: form.apellidoApoderado,
         uid: uid
+      });    
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  async crearRepaso(categoria: string, titulo: string){
+    try{
+      
+      await this.afs.collection('repaso').add({
+        categoria: categoria,
+        titulo: titulo,
       });    
     }catch(error){
       console.log(error);
@@ -110,18 +125,9 @@ export class AuthService {
   async logout(): Promise<void> {
     try {
       await this.afAuth.signOut();
+      this.router.navigate(['/login']);
     } catch (error) {
       console.log('Error->', error);
-    }
-  }
-
-  async currentUser(){
-    var user = await this.afAuth.currentUser;
-
-    if (user) {
-      console.log(user)
-    } else {
-      console.log(user)
     }
   }
 
@@ -154,6 +160,14 @@ export class AuthService {
       ]
     });
     await alert.present();
+  }
+
+  obtenerCategorias(){
+    // return this.afs.collection('categorias').valueChanges();
+    
+    return this.afs.collection('categorias').valueChanges();
+        
+    
   }
 
 }

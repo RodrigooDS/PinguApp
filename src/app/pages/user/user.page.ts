@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { database } from 'firebase';
-import { User } from '../../shared/user.interface';
 
 @Component({
   selector: 'app-user',

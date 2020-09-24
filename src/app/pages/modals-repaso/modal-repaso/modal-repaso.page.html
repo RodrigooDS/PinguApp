@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border" mode="ios">
+
+  <ion-toolbar>
+
+    <ion-buttons slot="start"> 
+      <ion-button (click)="salirSinGuardar()">Cancelar</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="guardar()">Guardar</ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-capitalize ion-text-center">Nuevo Repaso</ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Nombre de la actividad</ion-label>
+    <ion-input [value]="tituloActividad" (input)="obtenerTitulo($event)"></ion-input>
+  </ion-item>
+  <ion-item (click)="abrirModal()">
+    <ion-label>Nueva acción</ion-label>
+  </ion-item>
+  
+  <!-- <ion-button (click)="salirSinArgumentos()" color="primary" expand="full">
+    Salir sin argumentos
+  </ion-button>
+
+  <ion-button (click)="salirConArgumentos()" color="secondary" expand="full">
+    Salir con argumentos
+  </ion-button> -->
+
+
+</ion-content>
