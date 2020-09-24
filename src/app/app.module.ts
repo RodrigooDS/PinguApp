@@ -18,7 +18,8 @@ import { AngularFireModule } from "@angular/fire"; //Modulo para inicializar
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalRepasoPage } from './pages/modals-repaso/modal-repaso/modal-repaso.page';
-
+import { File } from '@ionic-native/file/ngx';
+import { Camera } from '@ionic-native/Camera/ngx';
 
 @NgModule({
   declarations: [AppComponent,ModalRepasoPage],
@@ -30,11 +31,13 @@ import { ModalRepasoPage } from './pages/modals-repaso/modal-repaso/modal-repaso
     AngularFirestoreModule,
     AngularFireAuthModule,
     HttpClientModule
-    
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Camera,
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
