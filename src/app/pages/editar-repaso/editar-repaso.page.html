@@ -1,4 +1,14 @@
-<app-header titulo="Editar Repaso"></app-header>
+<!-- <app-header titulo="Editar Repaso"></app-header> -->
+<ion-header class="ion-no-border" mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-menu-button *ngIf=ocultar color="dark" menu="primerMenu"></ion-menu-button>
+      <ion-back-button *ngIf=!ocultar defaultHref="" (click)="cambiarEstado(true)">Atrás</ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Repaso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 
 <ion-content>
 
@@ -6,22 +16,51 @@
 
         <ion-row>
           <ion-col>
-
-            <ion-item lines="none">
-                <h4>Nueva Categoría</h4>
-            </ion-item>
-            
-            <ion-item lines="none">
+            <!-- Categorias -->
+                      
+            <ion-item *ngIf=ocultar lines="none">
                 <h4>Seleccionar Categoría</h4>
             </ion-item>
 
-            <ion-list>
-              <ion-item *ngFor=" let categoria of categorias">
-                <ion-label (click)="abrirModal()">{{categoria.categoria}}</ion-label>
+            <ion-list *ngIf=ocultar>
+              <ion-item *ngFor=" let categoria of categorias" detail (click)="cambiarEstado(false)">
+                <ion-label (click)="obtenerTituloCategoria(categoria.categoria)">{{categoria.categoria}}</ion-label>
               </ion-item>
             </ion-list>
+
+
+            <!-- Repaso por categoria -->
+            <!-- Nuevo Repaso -->
+            <ion-item *ngIf=!ocultar lines="none">
+              <h4 *ngIf=!ocultar>Nuevo Repaso</h4>
+            </ion-item>
+
+            <ion-item *ngIf=!ocultar>
+              <ion-input placeholder="Nombre de la actividad" [value]="tituloActividad" (input)="obtenerTituloActividad($event)"></ion-input>
+            </ion-item>
+
+            <ion-button *ngIf=!ocultar 
+                          class="button-white"
+                          expand="block"
+                          mode="ios"
+                          (click)="abrirModal()"
+                          [disabled]="!tituloActividad">
+                          Agregar
+            </ion-button>
             
-            
+            <!-- Editar Actividad -->
+            <ion-item *ngIf=!ocultar lines="none">
+              <h4>Editar Repaso</h4>
+            </ion-item>
+
+            <ion-list *ngIf=!ocultar>
+              <ion-item *ngFor=" let categoria of categorias">
+                <ion-label>Actividades</ion-label>
+                <!-- <ion-label (click)="cambiarEstado(false)">{{categoria.categoria}}</ion-label> -->
+              </ion-item>
+            </ion-list>
+
+
           </ion-col>
         </ion-row>
     

@@ -17,11 +17,12 @@ import { AngularFireModule } from "@angular/fire"; //Modulo para inicializar
 
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalRepasoPage } from './pages/modals-repaso/modal-repaso/modal-repaso.page';
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,ModalRepasoPage],
+  entryComponents: [ ModalRepasoPage],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,

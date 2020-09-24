@@ -13,8 +13,12 @@ import { map } from 'rxjs/operators';
 export class EditarRepasoPage implements OnInit {
 
   tipoCategoria : string;
+  tituloActividad: string;
+  
   categorias : any[] = [];
+  ocultar: boolean = true;
 
+    
   constructor(public modalCtrl: ModalController,
               public authService: AuthService) { }
 
@@ -23,11 +27,13 @@ export class EditarRepasoPage implements OnInit {
   }
 
   async abrirModal(){
+   
     const modal = await this.modalCtrl.create(
       {
         component: ModalRepasoPage,
         componentProps:{
-          tipoCategoria: this.tipoCategoria
+          tipoCategoria: this.tipoCategoria,
+          tituloActividad: this.tituloActividad
           // nombre: 'Rodrigo',
           // pais: 'Chile'
         }
@@ -46,6 +52,20 @@ export class EditarRepasoPage implements OnInit {
     .subscribe( resp =>{
       this.categorias = resp
     });
-  }    
+  } 
+  
+  cambiarEstado(tipoBoolean: boolean){
+    this.ocultar = tipoBoolean;
+  }
+
+  obtenerTituloActividad($event) {
+    this.tituloActividad = $event.target.value;
+    console.log(this.tituloActividad) ;
+  }
+
+  obtenerTituloCategoria(categoria) {
+    this.tipoCategoria = categoria
+    console.log(this.tipoCategoria)
+  }
   
 }

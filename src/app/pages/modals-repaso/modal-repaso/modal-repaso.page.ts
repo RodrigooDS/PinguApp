@@ -10,14 +10,16 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ModalRepasoPage implements OnInit {
 
-  tituloActividad: string;
-  @Input() tipoCategoria;
-  
+  @Input() tituloActividad: string;
+  @Input() tipoCategoria: string;
+
+    
   constructor(private modalCtrl: ModalController, 
               private authService: AuthService) { }
 
   ngOnInit() {
-    console.log(this.tipoCategoria);
+    console.log('Categoria ',this.tipoCategoria);
+    console.log('Repaso ',this.tituloActividad);
   }
 
   async abrirModal(){
@@ -46,7 +48,7 @@ export class ModalRepasoPage implements OnInit {
   
   guardar(){
     console.log(this.tituloActividad) ;
-    this.authService.crearRepaso(this.tipoCategoria,this.tituloActividad)
+    // this.authService.crearRepaso(this.tipoCategoria,this.tituloActividad)
     this.modalCtrl.dismiss({
     });
   }
