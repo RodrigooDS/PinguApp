@@ -16,32 +16,13 @@ export class EditarRepasoPage implements OnInit {
   tituloActividad: string;
   
   categorias : any[] = [];
-  ocultar: boolean = true;
+  ocultar: string = "0";
 
     
-  constructor(public modalCtrl: ModalController,
-              public authService: AuthService) { }
+  constructor( public authService: AuthService ) { }
 
   ngOnInit() {
     this.obtenerCategoria();
-  }
-
-  async abrirModal(){
-   
-    const modal = await this.modalCtrl.create(
-      {
-        component: ModalRepasoPage,
-        componentProps:{
-          tipoCategoria: this.tipoCategoria,
-          tituloActividad: this.tituloActividad
-          // nombre: 'Rodrigo',
-          // pais: 'Chile'
-        }
-      });
-    await modal.present();
-    const {data} = await modal.onDidDismiss();
-
-    console.log(data);
   }
 
   obtenerCategoria (){ 
@@ -54,8 +35,9 @@ export class EditarRepasoPage implements OnInit {
     });
   } 
   
-  cambiarEstado(tipoBoolean: boolean){
+  cambiarEstado(tipoBoolean: string){
     this.ocultar = tipoBoolean;
+    console.log(this.ocultar)
   }
 
   obtenerTituloActividad($event) {
@@ -68,4 +50,14 @@ export class EditarRepasoPage implements OnInit {
     console.log(this.tipoCategoria)
   }
   
+  cancelar(){
+    this.ocultar  = '0';
+  }
+
+  guardar(){
+    this.ocultar  = '0';
+  }
+  // agregarActividad(estado: s){
+  //   this.cambiarEstado(estado);
+  // }
 }

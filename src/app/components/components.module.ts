@@ -10,19 +10,22 @@ import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpass
 
 
 
-
 @NgModule({
   declarations: [
     FormregistroComponent,
     HeaderComponent,
     FormloginComponent,
-    FormforgotpasswordComponent
+    FormforgotpasswordComponent,
+      
   ],
   exports:[
     FormregistroComponent,
     HeaderComponent,
     FormloginComponent,
-    FormforgotpasswordComponent
+    FormforgotpasswordComponent,
+    
+    
+    
   ],
   imports: [
     ReactiveFormsModule,
