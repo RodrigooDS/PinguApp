@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border" mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-button (click)="cancelar()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Repaso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item lines="none">
+    <h4>Nuevo Repaso</h4>
+  </ion-item>
+
+  <ion-item >
+    <ion-input placeholder="Nombre de la actividad" [value]="tituloActividad" (input)="obtenerTituloActividad($event)"></ion-input>
+  </ion-item>
+
+  <ion-button 
+                class="button-white"
+                expand="block"
+                mode="ios"
+                [disabled]="!tituloActividad"
+                (click)="agregar()">
+                Agregar
+  </ion-button>
+
+  
+  
+  <ion-item lines="none">
+    <h4>Editar Repaso</h4>
+  </ion-item>
+
+  <ion-list >
+    <ion-item>
+      <ion-label>Repaso 1</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Repaso 2</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

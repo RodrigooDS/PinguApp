@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { ModalRepasoPage } from '../modals-repaso/modal-repaso/modal-repaso.page';
 import { AuthService } from '../../services/auth.service';
 import { Categoria } from '../../shared/categoria.interfaces';
 import { map } from 'rxjs/operators';
+import { UploadService } from '../../services/upload.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar-repaso',
@@ -13,13 +14,17 @@ import { map } from 'rxjs/operators';
 export class EditarRepasoPage implements OnInit {
 
   tipoCategoria : string;
-  tituloActividad: string;
-  
+  tituloImagen: string;
   categorias : any[] = [];
-  ocultar: string = "0";
+  // ocultar: string = "0";
 
+  selectedFile: any;
+
+  items: Observable<any[]>;
     
-  constructor( public authService: AuthService ) { }
+  
+  constructor(public authService: AuthService, public router: Router) { 
+  }
 
   ngOnInit() {
     this.obtenerCategoria();
@@ -35,29 +40,11 @@ export class EditarRepasoPage implements OnInit {
     });
   } 
   
-  cambiarEstado(tipoBoolean: string){
-    this.ocultar = tipoBoolean;
-    console.log(this.ocultar)
-  }
-
-  obtenerTituloActividad($event) {
-    this.tituloActividad = $event.target.value;
-    console.log(this.tituloActividad) ;
-  }
-
   obtenerTituloCategoria(categoria) {
     this.tipoCategoria = categoria
-    console.log(this.tipoCategoria)
+    // console.log(this.tipoCategoria)
+    this.router.navigate(['/tablinks/editar-repaso/repaso',{category: this.tipoCategoria}]);
   }
   
-  cancelar(){
-    this.ocultar  = '0';
-  }
-
-  guardar(){
-    this.ocultar  = '0';
-  }
-  // agregarActividad(estado: s){
-  //   this.cambiarEstado(estado);
-  // }
+  
 }

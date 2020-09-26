@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { RepasoPageRoutingModule } from './repaso-routing.module';
 
 import { RepasoPage } from './repaso.page';
-import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RepasoPageRoutingModule,
-    ComponentsModule
+    RepasoPageRoutingModule
   ],
   declarations: [RepasoPage]
 })
