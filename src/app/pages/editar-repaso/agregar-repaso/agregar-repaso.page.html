@@ -29,13 +29,38 @@
   <ion-item lines="none">
     <h4>Acciones</h4>
   </ion-item>
-  
+
   <ion-list>
-  <ion-list *ngFor="let a of [1,1,1,1,1,1,1]">
-    <ion-item>
-      <ion-label>Pokémon Yellow</ion-label>
-    </ion-item>
+    <ion-item-sliding *ngFor=" let categoria of categorias">
+      <ion-item detail>
+        <ion-thumbnail slot="start">
+          <img src="{{categoria.detalle.imageUrl}}">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>Ingles: {{categoria.detalle.nombreIngles}}</h2>
+          <p>Español: {{categoria.detalle.nombreEspanol}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="eliminarImagen(categoria)">
+          <ion-icon slot="end" name="trash"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
-</ion-list>
+  
+  
+  <!-- <ion-list >
+    <ion-item *ngFor=" let categoria of categorias">
+      <ion-thumbnail slot="start">
+        <img src="{{categoria.detalle.imageUrl}}">
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{categoria.detalle.nombreEspanol}}</h3>
+        <h3>{{categoria.detalle.nombreIngles}}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
 
 </ion-content>

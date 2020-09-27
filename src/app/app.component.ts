@@ -23,8 +23,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private dataService: DataService,
     private authService: AuthService,
-    private alertCtrl: AlertController
-  ) {
+    private alertCtrl: AlertController) {
     this.initializeApp();
   }
 
@@ -36,9 +35,8 @@ export class AppComponent {
     });
   }
 
-  cerrarSesion(){
+  cerrarSesion() {
     this.alertaCerrarSesion();
-    
   }
 
   async alertaCerrarSesion() {

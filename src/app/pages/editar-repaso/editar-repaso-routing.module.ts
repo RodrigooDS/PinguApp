@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditarRepasoPage } from './editar-repaso.page';
 import { RepasoPage } from './repaso/repaso.page';
 import { AgregarRepasoPage } from './agregar-repaso/agregar-repaso.page';
+import { CargarRepasoPage } from './cargar-repaso/cargar-repaso.page';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./agregar-repaso/agregar-repaso.module').then( m => m.AgregarRepasoPageModule)
   },
   {
-    path: 'cargar-repaso',
+    path: 'cargar-repaso', component: CargarRepasoPage,
     loadChildren: () => import('./cargar-repaso/cargar-repaso.module').then( m => m.CargarRepasoPageModule)
   }
 

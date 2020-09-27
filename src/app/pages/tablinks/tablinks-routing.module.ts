@@ -15,11 +15,11 @@ const routes: Routes = [
         loadChildren: () => import('../actividad/actividad.module').then(m => m.ActividadPageModule),
         canActivate: [AuthGuard]
       },
-      // {
-      //   path: 'repaso',
-      //   loadChildren: () => import('../repaso/repaso.module').then( m => m.RepasoPageModule),
-      //   canActivate: [AuthGuard]
-      // },
+      {
+        path: 'repaso',
+        loadChildren: () => import('../repaso/repaso.module').then( m => m.RepasoPageModule),
+        canActivate: [AuthGuard]
+      },
       {
         path: 'settings',
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule),

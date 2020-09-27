@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+
+//
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,61 +13,70 @@ import { Observable } from 'rxjs';
 
 export class UploadService {
 
-  items: Observable<any[]>;
-
-  newTodo: string = '';
+  // items: Observable<any[]>;
+  // newTodo: string = '';
   itemsRef: AngularFirestoreCollection;
-
-  selectedFile: any;
   loading: HTMLIonLoadingElement;
 
-  constructor(private db: AngularFirestore, private storage: AngularFireStorage, private loadingController: LoadingController) {
+  selectedFile: any;
+  nombreImagen: string;
+  
+  constructor(private db: AngularFirestore, 
+              private storage: AngularFireStorage, 
+              private loadingController: LoadingController) {
     this.itemsRef = this.db.collection('repaso');
-    this.items = this.itemsRef.valueChanges();
+    // this.items = this.itemsRef.valueChanges();
   }
 
   chooseFile (event) {
     this.selectedFile = event.target.files
+    this.nombreImagen = event.target.files[0].name;
+    console.log(this.nombreImagen);
     console.log('File', this.selectedFile);
   }
   
-  test(){
-    this.itemsRef.doc('Comidas - Foods').collection('Frutas').add({
-      color: 'amarillo',
-      size: 25
-    });
-  }
-
-  addTodo(tituloEspanol: string, tituloIngles: string){
+  async addTodo(tituloEspanol: string, tituloIngles: string, categoria: string, actividad: string){
     this.itemsRef.add({
-      tituloEspanol: tituloEspanol,
-      tituloIngles: tituloIngles
-    })
-    .then(async resp => {
-
+      categoria: categoria,
+      actividad: actividad,
+      detalle: {
+        nombreEspanol: tituloEspanol,
+        nombreIngles: tituloIngles,
+        imageUrl: ''
+      }
+    }).then( async resp =>{
       const imageUrl = await this.uploadFile(resp.id, this.selectedFile)
-
       this.itemsRef.doc(resp.id).update({
         id: resp.id,
-        imageUrl: imageUrl || null
+        'detalle.imageUrl' : imageUrl || null
       })
-      
-    }).catch(error => {
-      console.log(error);
-    })
+      }
+      ).catch(error =>{
+        console.log(error);
+      })
   }
   
-  obtenerImagenes(){
-    return this.items;
+  obtenerImagenes(categoria: string, actividad: string) {
+    return this.db.collection('repaso', 
+      ref => ref.where('categoria', '==', categoria).where('actividad', '==', actividad)).valueChanges();
   }
 
-  async uploadFile(id, file): Promise<any> {
+  obtenerActividad(categoria: string) {
+    return this.db.collection('repaso', 
+      ref => ref.where('categoria', '==', categoria)).valueChanges();
+  }
+
+  obtenerCategorias() {
+    return this.db.collection('categorias').valueChanges();
+  }
+
+  async uploadFile(id,file): Promise<any> {
     if(file && file.length) {
       try {
         await this.presentLoading();
-        const task = await this.storage.ref('images').child(id).put(file[0])
+        const task = await this.storage.ref('imagenes repaso').child(id).put(file[0])
         this.loading.dismiss();
-        return this.storage.ref(`images/${id}`).getDownloadURL().toPromise();
+        return this.storage.ref(`imagenes repaso/${id}`).getDownloadURL().toPromise();
       } catch (error) {
         console.log(error);
       }
@@ -73,16 +85,18 @@ export class UploadService {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      message: 'Please wait...'
+      message: 'Cargando, espere por favor.'
     });
     return this.loading.present();
   }
 
-  remove(item){
-    console.log(item);
-    if(item.imageUrl) {
-      this.storage.ref(`images/${item.id}`).delete()
+  async remove(item) {
+    if(item.detalle.imageUrl) {
+      console.log(item.detalle.imageUrl);
+      // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
+      await this.storage.storage.refFromURL(item.detalle.imageUrl).delete();
     }
     this.itemsRef.doc(item.id).delete()
   }
+  
 }

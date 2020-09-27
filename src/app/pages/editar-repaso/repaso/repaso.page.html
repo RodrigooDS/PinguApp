@@ -28,16 +28,12 @@
 
   
   
-  <ion-item lines="none">
+  <ion-item lines="none" *ngIf="actividades.length">
     <h4>Editar Repaso</h4>
   </ion-item>
-
-  <ion-list >
-    <ion-item>
-      <ion-label>Repaso 1</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Repaso 2</ion-label>
+  <ion-list *ngFor=" let actividad of actividades">
+    <ion-item detail>
+      <ion-label (click)="editarActividad(actividad.titulo)">{{actividad.titulo}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

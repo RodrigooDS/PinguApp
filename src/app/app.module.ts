@@ -18,15 +18,12 @@ import { AngularFireStorageModule} from '@angular/fire/storage';
 
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalRepasoPage } from './pages/modals-repaso/modal-repaso/modal-repaso.page';
-// import { File } from '@ionic-native/file/ngx';
-// import { Camera } from '@ionic-native/Camera/ngx';
 import { AuthService } from './services/auth.service';
 
 
 @NgModule({
-  declarations: [AppComponent,ModalRepasoPage],
-  entryComponents: [ ModalRepasoPage],
+  declarations: [AppComponent],
+  entryComponents: [ ],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
@@ -41,9 +38,6 @@ import { AuthService } from './services/auth.service';
     SplashScreen,
     AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // Camera,
-    // File,
-  
   ],
   bootstrap: [AppComponent]
 })

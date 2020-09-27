@@ -1,7 +1,8 @@
 <ion-header class="ion-no-border" mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start"> 
-      <ion-button (click)="cancelar()">Cancelar</ion-button>
+      <!-- <ion-button (click)="cancelar()">Cancelar</ion-button> -->
+      <ion-back-button defaultHref="/" text="Atrás"></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Cargar Imagen</ion-title>
   </ion-toolbar>
@@ -35,39 +36,29 @@
                     <!-- </ion-item> -->
             
                     <!-- <ion-item lines="none"> -->
-                      <input type="file" name="inputFile" accept="image/*" (change)="elegirArchivo($event)" required>
+                      <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
                     <!-- </ion-item> -->
                 
-                    <ion-button type="submit">Cargar</ion-button>
+                    <ion-button type="submit"
+                                [disabled]="!imageURL">
+                      Cargar
+                    </ion-button>
                   </form>
                 </ion-card-content>
             
               </ion-card>
 
-              <ion-card>
+              <ion-card *ngIf="imageURL">
                 <ion-card-header>
-                  <!-- <ion-card-subtitle>Agregar imagen</ion-card-subtitle> -->
-                  <ion-card-title>Yasuo</ion-card-title>
+                  <ion-card-title>{{this.tituloIngles}}</ion-card-title>
+                  <ion-card-subtitle>{{this.tituloEspanol}}</ion-card-subtitle>
                 </ion-card-header>
 
-                <ion-card-content>
-                  <img src="../../../../assets/shapes.svg"/>
+                <ion-card-content class="ion-text-center">
+                  <!-- <img src="../../../../assets/shapes.svg"/> -->
+                  <img [src]="imageURL">
                   
                 </ion-card-content>
               </ion-card>
 
-              
-            <!-- </ion-item> -->
-
-            <!-- <ion-item *ngFor="let item of items | async">
-              <ion-thumbnail slot="start" *ngIf="item.imageUrl">
-                <img [src]="item.imageUrl" alt="">
-              </ion-thumbnail>
-              <ion-label>{{ item.title }}</ion-label>
-              <ion-button slot="end" fill="clear" color="danger" (click)="eliminarArchivo(item)">
-                <ion-icon slot="icon-only" name="trash"></ion-icon>
-              </ion-button>
-            </ion-item> -->
-            
-          <!-- </ion-list> -->
 </ion-content>
