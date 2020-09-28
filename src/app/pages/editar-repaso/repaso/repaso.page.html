@@ -3,37 +3,40 @@
     <ion-buttons slot="start"> 
       <ion-button (click)="cancelar()">Cancelar</ion-button>
     </ion-buttons>
+    <ion-buttons slot="end"> 
+      <ion-button (click)="guardar()" [disabled]="(imageURL === '' || this.tituloActividad ==='' )">Guardar</ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Repaso</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-item lines="none">
-    <h4>Nuevo Repaso</h4>
-  </ion-item>
+  <ion-card>
+    <img [src]="imageURL">
+    <ion-card-header>
+      <ion-card-title>Nuevo repaso</ion-card-title>
+    </ion-card-header>
 
-  <ion-item >
-    <ion-input placeholder="Nombre de la actividad" [value]="tituloActividad" (input)="obtenerTituloActividad($event)"></ion-input>
-  </ion-item>
+    <ion-card-content>
+      <h2>Nombre de la actividad</h2>
+      <ion-input name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre del repaso"></ion-input>
+      <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
+      <!-- <ion-button type="submit"
+                  [disabled]="(imageURL === '' || this.tituloActividad ==='' )">
+        Cargar
+      </ion-button> -->
+      
+    </ion-card-content>
 
-  <ion-button 
-                class="button-white"
-                expand="block"
-                mode="ios"
-                [disabled]="!tituloActividad"
-                (click)="agregar()">
-                Agregar
-  </ion-button>
-
-  
+  </ion-card>
   
   <ion-item lines="none" *ngIf="actividades.length">
     <h4>Editar Repaso</h4>
   </ion-item>
   <ion-list *ngFor=" let actividad of actividades">
     <ion-item detail>
-      <ion-label (click)="editarActividad(actividad.titulo)">{{actividad.titulo}}</ion-label>
+      <ion-label (click)="editarActividad(actividad.titulo,actividad.id)">{{actividad.titulo}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

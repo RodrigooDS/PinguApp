@@ -9,30 +9,21 @@
 </ion-header>
 
 <ion-content>
-           <!-- <ion-list>
-              <ion-item *ngFor="let item of [1]">
-                <ion-label></ion-label>
-                <ion-button slot="end" fill="clear" color="danger">
-                  <ion-icon slot="icon-only" name="trash"></ion-icon>
-                </ion-button>
-              </ion-item>
-            </ion-list>
-            <ion-list>
-              <ion-item> -->
-              <ion-card>
-                <ion-card-header>
-                  <ion-card-subtitle>Agregar imagen</ion-card-subtitle>
-                </ion-card-header>
-            
-                <ion-card-content>
-                  <form (submit)="subirArchivo()">
+  <ion-card>
+    <img [src]="imageURL">
+    <ion-card-header>
+      <!-- <ion-card-subtitle>Agregar imagen</ion-card-subtitle> -->
+    </ion-card-header>
+         
+    <ion-card-content>
+      <form (submit)="subirArchivo()">
                     <!-- <ion-item> -->
-                      <ion-label position="stacked"></ion-label>
-                      <ion-input name="todo" [(ngModel)]="tituloEspanol" placeholder="Nombre imagen (Español)"></ion-input>
+                      <ion-label position="stacked">Nombre imagen (Español)</ion-label>
+                      <ion-input name="todo" [(ngModel)]="tituloEspanol" placeholder="Nombre (Español)"></ion-input>
                     <!-- </ion-item>
                     <ion-item> -->
-                      <ion-label position="stacked"></ion-label>
-                      <ion-input name="todo" [(ngModel)]="tituloIngles" placeholder="Nombre imagen (Inglés)"></ion-input>
+                      <ion-label position="stacked">Nombre imagen (Inglés)</ion-label>
+                      <ion-input name="todo" [(ngModel)]="tituloIngles" placeholder="Nombre (Inglés)"></ion-input>
                     <!-- </ion-item> -->
             
                     <!-- <ion-item lines="none"> -->
@@ -46,19 +37,6 @@
                   </form>
                 </ion-card-content>
             
-              </ion-card>
-
-              <ion-card *ngIf="imageURL">
-                <ion-card-header>
-                  <ion-card-title>{{this.tituloIngles}}</ion-card-title>
-                  <ion-card-subtitle>{{this.tituloEspanol}}</ion-card-subtitle>
-                </ion-card-header>
-
-                <ion-card-content class="ion-text-center">
-                  <!-- <img src="../../../../assets/shapes.svg"/> -->
-                  <img [src]="imageURL">
-                  
-                </ion-card-content>
               </ion-card>
 
 </ion-content>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UploadService } from '../../services/upload.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-actividad',
@@ -7,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActividadPage implements OnInit {
 
-  constructor() { }
+  categorias: any[] = [];
+
+  constructor( public upload: UploadService) {
+    this.obtenerCategorias();
+   }
 
   ngOnInit() {
-    
+  }
+
+  obtenerCategorias() {
+    this.upload.obtenerCategorias().pipe(
+      map( (resp : [] ) => resp.map( ({imageUrl,nombreCategoria}) => ({categoria : nombreCategoria, imagen : imageUrl}) ))
+    )
+    .subscribe( resp => {
+      this.categorias = resp;
+      console.log(resp);
+    });
   }
 
 }

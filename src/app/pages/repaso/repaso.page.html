@@ -2,4 +2,16 @@
 
 <ion-content>
 
+    <h1 class="ion-padding">Categorias</h1>
+    <ion-list *ngFor="let categoria of categorias" >
+        <ion-item detail>
+            <ion-thumbnail slot="start">
+                <img src="{{categoria.imagen}}">
+              </ion-thumbnail>
+            <ion-label (click)="obtenerTituloCategoria(categoria.categoria)">
+                {{categoria.categoria}}
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
 </ion-content>

@@ -34,9 +34,28 @@ export class UploadService {
     console.log(this.nombreImagen);
     console.log('File', this.selectedFile);
   }
-  
-  async addTodo(tituloEspanol: string, tituloIngles: string, categoria: string, actividad: string){
+
+  async crearActividad(categoria: string, actividad: string) {
     this.itemsRef.add({
+      categoria: categoria,
+      actividad: actividad,
+      detalle:{
+        imageUrl: ''
+      }
+      }).then( async resp =>{
+        localStorage.setItem('id', resp.id);
+        const imageUrl = await this.uploadFile(resp.id, this.selectedFile);
+        this.itemsRef.doc(resp.id).update({
+          id: resp.id,
+          'detalle.imageUrl' : imageUrl || null
+        }).catch(error =>{
+          console.log(error);
+        })
+      });
+  }
+  
+  async addTodo(tituloEspanol: string, tituloIngles: string, categoria: string, actividad: string, id: string) {
+    this.db.collection('repaso').doc(id).collection(actividad).add({
       categoria: categoria,
       actividad: actividad,
       detalle: {
@@ -46,7 +65,7 @@ export class UploadService {
       }
     }).then( async resp =>{
       const imageUrl = await this.uploadFile(resp.id, this.selectedFile)
-      this.itemsRef.doc(resp.id).update({
+      this.itemsRef.doc(id).collection(actividad).doc(resp.id).update({
         id: resp.id,
         'detalle.imageUrl' : imageUrl || null
       })
@@ -56,9 +75,10 @@ export class UploadService {
       })
   }
   
-  obtenerImagenes(categoria: string, actividad: string) {
-    return this.db.collection('repaso', 
-      ref => ref.where('categoria', '==', categoria).where('actividad', '==', actividad)).valueChanges();
+  obtenerImagenes(categoria: string, actividad: string, id: string) {
+    // return this.db.collection('repaso', 
+    //   ref => ref.where('categoria', '==', categoria).where('actividad', '==', actividad)).valueChanges();
+    return this.db.collection('repaso').doc(id).collection(actividad, ref => ref.where('categoria', '==', categoria).where('actividad', '==', actividad)).valueChanges();
   }
 
   obtenerActividad(categoria: string) {
@@ -90,13 +110,18 @@ export class UploadService {
     return this.loading.present();
   }
 
-  async remove(item) {
-    if(item.detalle.imageUrl) {
-      console.log(item.detalle.imageUrl);
-      // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
-      await this.storage.storage.refFromURL(item.detalle.imageUrl).delete();
+  async remove(item,id: string,actividad: string) {
+    try {
+      if(item.detalle.imageUrl) {
+        console.log(item.detalle.imageUrl);
+        // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
+        await this.storage.storage.refFromURL(item.detalle.imageUrl).delete();
+      }
+      this.itemsRef.doc(id).collection(actividad).doc(item.id).delete()
+    } catch (error) {
+      console.log(error);
     }
-    this.itemsRef.doc(item.id).delete()
+    
   }
   
 }

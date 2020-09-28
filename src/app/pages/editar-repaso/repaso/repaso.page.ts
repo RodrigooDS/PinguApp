@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -15,6 +15,7 @@ export class RepasoPage implements OnInit {
   tituloActividad: string = '';
   tituloCategoria: string = '';
   actividades: any[] = [];
+  imageURL: string;
   
   constructor(public router: Router, 
               private route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class RepasoPage implements OnInit {
 
   ionViewWillEnter() {
     this.tituloActividad = ''
+    this.imageURL = '';
   }
 
   obtenerTituloActividad($event) {
@@ -35,7 +37,8 @@ export class RepasoPage implements OnInit {
     this.tituloActividad.replace(/\b\w/g, l => l.toUpperCase())
   }
 
-  agregar() {
+  guardar() {
+    this.upload.crearActividad(this.tituloCategoria,this.tituloActividad);
     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso',{tittle: this.tituloActividad.replace(/\b\w/g, l => l.toUpperCase()), category: this.tituloCategoria}],);
   }  
 
@@ -45,16 +48,29 @@ export class RepasoPage implements OnInit {
 
   obtenerActividades() {
     this.upload.obtenerActividad(this.tituloCategoria).pipe(
-      map( (resp : [] ) => resp.map ( ({actividad}) => ({titulo : actividad})))
+      map( (resp : [] ) => resp.map ( ({actividad,id}) => ({titulo : actividad,id})))
     )
     .subscribe( resp => {
       this.actividades =resp;
-      // console.log(this.actividades);
+      console.log(this.actividades);
     });
   }
 
-  editarActividad(actividad: string) {
+  editarActividad(actividad: string,id: string) {
+    localStorage.setItem('id', id);
     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso',{tittle: actividad.replace(/\b\w/g, l => l.toUpperCase()), category: this.tituloCategoria}],);
+  }
+
+  cargarArchivo(event) {
+    this.upload.chooseFile(event);
+
+    const file = (event.target as HTMLInputElement).files[0];
+    
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+    }
+    reader.readAsDataURL(file)
   }
 }
 

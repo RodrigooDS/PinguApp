@@ -16,7 +16,6 @@ export class EditarRepasoPage implements OnInit {
 
   tipoCategoria : string;
   categorias : any[] = [];
-  selectedFile: any;
    
   constructor(public upload: UploadService, public router: Router) { 
   }

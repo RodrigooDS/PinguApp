@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: RepasoPage
+  },
+  {
+    path: 'actividades',
+    loadChildren: () => import('./actividades/actividades.module').then( m => m.ActividadesPageModule)
+  },
+  {
+    path: 'actividad-repaso',
+    loadChildren: () => import('./actividad-repaso/actividad-repaso.module').then( m => m.ActividadRepasoPageModule)
   }
 ];
 
