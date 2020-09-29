@@ -36,7 +36,7 @@
   </ion-item>
   <ion-list *ngFor=" let actividad of actividades">
     <ion-item detail>
-      <ion-label (click)="editarActividad(actividad.titulo,actividad.id)">{{actividad.titulo}}</ion-label>
+      <ion-label (click)="editarActividad(actividad.imagen.imageUrl,actividad.actividad)" >{{actividad.actividad}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

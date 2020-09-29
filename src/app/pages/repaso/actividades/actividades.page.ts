@@ -26,7 +26,7 @@ export class ActividadesPage implements OnInit {
   }
 
   obtenerActividades() {
-    this.upload.obtenerActividad(this.tituloCategoria).pipe(
+    this.upload.obtenerActividades(this.tituloCategoria).pipe(
       map( (resp : [] ) => resp.map ( ({actividad, detalle}) => ({titulo : actividad, detalle})))
     )
     .subscribe( resp => {

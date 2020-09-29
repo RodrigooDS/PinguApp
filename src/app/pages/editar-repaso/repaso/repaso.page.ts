@@ -11,7 +11,11 @@ import { UploadService } from '../../../services/upload.service';
   styleUrls: ['./repaso.page.scss'],
 })
 export class RepasoPage implements OnInit {
-  
+
+  fileImage: any;
+  filename: string;
+  item: {};
+
   tituloActividad: string = '';
   tituloCategoria: string = '';
   actividades: any[] = [];
@@ -38,8 +42,14 @@ export class RepasoPage implements OnInit {
   }
 
   guardar() {
-    this.upload.crearActividad(this.tituloCategoria,this.tituloActividad);
-    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso',{tittle: this.tituloActividad.replace(/\b\w/g, l => l.toUpperCase()), category: this.tituloCategoria}],);
+    var json = {categoria    : this.tituloCategoria,
+                actividad    : this.tituloActividad,
+                imagen       : this.imageURL,
+                nombreImagen : this.filename
+    }
+    console.log('json',json);
+    localStorage.setItem('repaso',JSON.stringify(json));
+    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
   }  
 
   cancelar() {
@@ -47,26 +57,35 @@ export class RepasoPage implements OnInit {
   }
 
   obtenerActividades() {
-    this.upload.obtenerActividad(this.tituloCategoria).pipe(
-      map( (resp : [] ) => resp.map ( ({actividad,id}) => ({titulo : actividad,id})))
+    this.upload.obtenerActividades(this.tituloCategoria).pipe(
+      map( (resp : [] ) => resp.map ( ({actividad,categoria,detalle}) => ({actividad : actividad, categoria : categoria, imagen : detalle})))
     )
     .subscribe( resp => {
-      this.actividades =resp;
+      this.actividades = resp;
       console.log(this.actividades);
     });
+    // this.upload.obtenerActividad(this.tituloCategoria)
+    // .subscribe( resp => {
+    //   console.log(resp);
+    // });
   }
 
-  editarActividad(actividad: string,id: string) {
-    localStorage.setItem('id', id);
-    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso',{tittle: actividad.replace(/\b\w/g, l => l.toUpperCase()), category: this.tituloCategoria}],);
+  editarActividad(imagen: string, actividad: string) {
+    
+    var json = {
+      categoria    : this.tituloCategoria,
+      actividad    : actividad,
+      imagen       : imagen
+  	}
+    localStorage.setItem('repaso',JSON.stringify(json));
+     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
   }
 
   cargarArchivo(event) {
-    this.upload.chooseFile(event);
-
-    const file = (event.target as HTMLInputElement).files[0];
     
+    const file = (event.target as HTMLInputElement).files[0];
     const reader = new FileReader();
+
     reader.onload = () => {
       this.imageURL = reader.result as string;
     }

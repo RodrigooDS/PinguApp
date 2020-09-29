@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 //
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,8 +14,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 export class UploadService {
 
-  // items: Observable<any[]>;
-  // newTodo: string = '';
+
   itemsRef: AngularFirestoreCollection;
   loading: HTMLIonLoadingElement;
 
@@ -22,40 +22,38 @@ export class UploadService {
   nombreImagen: string;
   
   constructor(private db: AngularFirestore, 
-              private storage: AngularFireStorage, 
-              private loadingController: LoadingController) {
+              private storage: AngularFireStorage) {
     this.itemsRef = this.db.collection('repaso');
-    // this.items = this.itemsRef.valueChanges();
   }
 
   chooseFile (event) {
-    this.selectedFile = event.target.files
+    this.selectedFile = event.target.files[0];
     this.nombreImagen = event.target.files[0].name;
     console.log(this.nombreImagen);
     console.log('File', this.selectedFile);
   }
 
-  async crearActividad(categoria: string, actividad: string) {
-    this.itemsRef.add({
+  async crearActividad(categoria: string, actividad: string, imagen) {
+    this.db.collection('repaso').doc(actividad).set({
       categoria: categoria,
       actividad: actividad,
       detalle:{
         imageUrl: ''
       }
-      }).then( async resp =>{
-        localStorage.setItem('id', resp.id);
-        const imageUrl = await this.uploadFile(resp.id, this.selectedFile);
-        this.itemsRef.doc(resp.id).update({
-          id: resp.id,
-          'detalle.imageUrl' : imageUrl || null
-        }).catch(error =>{
-          console.log(error);
-        })
-      });
+    }).then( async resp =>{
+      const nombre : string = Date.now().toString();
+      const imageUrl = await this.uploadFile(nombre, imagen);
+      this.itemsRef.doc(actividad).update({
+      'detalle.imageUrl' : imageUrl || null
+      }
+      ).catch(error =>{
+        console.log(error);
+      })
+    });
   }
   
-  async addTodo(tituloEspanol: string, tituloIngles: string, categoria: string, actividad: string, id: string) {
-    this.db.collection('repaso').doc(id).collection(actividad).add({
+  async agregarData(tituloEspanol: string, tituloIngles: string, categoria: string, actividad: string, imagen: any) {
+    this.db.collection('repaso').doc(actividad).collection(actividad).add({
       categoria: categoria,
       actividad: actividad,
       detalle: {
@@ -64,8 +62,8 @@ export class UploadService {
         imageUrl: ''
       }
     }).then( async resp =>{
-      const imageUrl = await this.uploadFile(resp.id, this.selectedFile)
-      this.itemsRef.doc(id).collection(actividad).doc(resp.id).update({
+      const imageUrl = await this.uploadFile(resp.id, imagen);
+      this.itemsRef.doc(actividad).collection(actividad).doc(resp.id).update({
         id: resp.id,
         'detalle.imageUrl' : imageUrl || null
       })
@@ -76,14 +74,18 @@ export class UploadService {
   }
   
   obtenerImagenes(categoria: string, actividad: string, id: string) {
-    // return this.db.collection('repaso', 
-    //   ref => ref.where('categoria', '==', categoria).where('actividad', '==', actividad)).valueChanges();
     return this.db.collection('repaso').doc(id).collection(actividad, ref => ref.where('categoria', '==', categoria).where('actividad', '==', actividad)).valueChanges();
   }
 
-  obtenerActividad(categoria: string) {
+  obtenerActividades(categoria: string) {
     return this.db.collection('repaso', 
       ref => ref.where('categoria', '==', categoria)).valueChanges();
+  }
+
+  obtenerActividad(actividad : string) {
+    console.log(actividad);
+    return this.db.collection('repaso').doc(actividad).collection(actividad, 
+      ref => ref.where('actividad', '==', actividad)).valueChanges();
   }
 
   obtenerCategorias() {
@@ -91,11 +93,9 @@ export class UploadService {
   }
 
   async uploadFile(id,file): Promise<any> {
-    if(file && file.length) {
+    if(file) {
       try {
-        await this.presentLoading();
-        const task = await this.storage.ref('imagenes repaso').child(id).put(file[0])
-        this.loading.dismiss();
+        const task = await this.storage.ref('imagenes repaso').child(id).put(file)
         return this.storage.ref(`imagenes repaso/${id}`).getDownloadURL().toPromise();
       } catch (error) {
         console.log(error);
@@ -103,25 +103,18 @@ export class UploadService {
     }
   }
 
-  async presentLoading() {
-    this.loading = await this.loadingController.create({
-      message: 'Cargando, espere por favor.'
-    });
-    return this.loading.present();
-  }
-
-  async remove(item,id: string,actividad: string) {
+  async remove(item,actividad: string) {
+    console.log(item);
     try {
-      if(item.detalle.imageUrl) {
+      if(item.image) {
         console.log(item.detalle.imageUrl);
         // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
-        await this.storage.storage.refFromURL(item.detalle.imageUrl).delete();
+        await this.storage.storage.refFromURL(item.image).delete();
       }
-      this.itemsRef.doc(id).collection(actividad).doc(item.id).delete()
+      this.db.collection('repaso').doc(actividad).collection(actividad).doc(item.id).delete()
     } catch (error) {
       console.log(error);
     }
-    
   }
   
 }

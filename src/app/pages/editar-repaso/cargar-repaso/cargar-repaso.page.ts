@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UploadService } from '../../../services/upload.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,39 +9,39 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CargarRepasoPage implements OnInit {
 
+  imagen : string;
+  nombreImagen : string;
+  json : any;
+  file : any;
+  data = [];
+
   selectedFile: any;
   tituloEspanol: string;
   tituloIngles: string;
-  tituloActividad: string;
-  tituloCategoria: string;
 
-  // items: Observable<any[]>;
   imageURL: string;
 
-  constructor(public upload: UploadService, public router: Router, private route: ActivatedRoute) { 
-    this.tituloCategoria = this.route.snapshot.paramMap.get('category');
-    this.tituloActividad = this.route.snapshot.paramMap.get('tittle');
-
-  }
+  constructor(public upload: UploadService, 
+              public router: Router, 
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.tituloCategoria = this.route.snapshot.paramMap.get('category');
-    this.tituloActividad = this.route.snapshot.paramMap.get('tittle');
+    
   }
 
-  cancelar(){
+  agregarRepaso(){
     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
   }
   
   subirArchivo(){
-    let id = localStorage.getItem('id');
-    console.log(id);
-    this.upload.addTodo(this.tituloEspanol.replace(/\b\w/g, l => l.toUpperCase()),
-                        this.tituloIngles.replace(/\b\w/g, l => l.toUpperCase()),
-                        this.tituloCategoria,
-                        this.tituloActividad.replace(/\b\w/g, l => l.toUpperCase()),
-                        id);
-
+    var json = {  id               :'',
+                  nombreEspanol    : this.tituloEspanol,
+                  nombreIngles     : this.tituloIngles,
+                  imagen           : this.imageURL,
+                  // nombreImagen     : this.nombreImagen
+    }
+    console.log('json',json);
+    localStorage.setItem('imagenes',JSON.stringify(json));
   }
 
   eliminarArchivo(){
@@ -50,14 +49,11 @@ export class CargarRepasoPage implements OnInit {
   }
 
   cargarArchivo(event) {
-    this.upload.chooseFile(event);
-
     const file = (event.target as HTMLInputElement).files[0];
-    
+    this.nombreImagen = event.target.files[0].name
     const reader = new FileReader();
     reader.onload = () => {
       this.imageURL = reader.result as string;
-      // localStorage.setItem(this.tituloEspanol, this.imageURL);
     }
     reader.readAsDataURL(file)
   }

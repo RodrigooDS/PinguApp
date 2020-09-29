@@ -13,46 +13,34 @@
 <ion-content>
   
   <ion-card>
-    <img [src]="imageURL">
+    <img [src]="imagen">
     <ion-card-header>
       <ion-card-title>{{this.tituloActividad}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <ion-item>
-        <ion-label (click)="agregarImagen()">Nueva acción</ion-label>
+        <ion-label (click)="agregarAccion()">Nueva acción</ion-label>
         <ion-icon name="add"></ion-icon>
       </ion-item>
-      <!-- <form (submit)="agregar()">
-  
-          <ion-input name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre del repaso"></ion-input>
-   
-          <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
-
-    
-        <ion-button type="submit"
-                    [disabled]="!imageURL">
-          Cargar
-        </ion-button>
-      </form> -->
       
       <ion-item lines="none">
         <ion-label>Acciones</ion-label>
       </ion-item>
     
-      <ion-list>
-        <ion-item-sliding *ngFor=" let categoria of categorias">
+      <ion-list *ngIf="data">
+        <ion-item-sliding *ngFor="let categoria of data, let i = index ">
           <ion-item detail>
             <ion-thumbnail slot="start">
-              <img src="{{categoria.detalle.imageUrl}}">
+              <img src="{{categoria.imagen}}">
             </ion-thumbnail>
             <ion-label>
-              <h2>Ingles: {{categoria.detalle.nombreIngles}}</h2>
-              <p>Español: {{categoria.detalle.nombreEspanol}}</p>
+              <h2>Ingles:{{categoria.nombreIngles}}</h2>
+              <p>Español: {{categoria.nombreEspanol}}</p>
             </ion-label>
           </ion-item>
           <ion-item-options>
-            <ion-item-option color="danger" (click)="eliminarImagen(categoria)">
+            <ion-item-option color="danger" (click)="eliminarImagen(i,categoria)">
               <ion-icon slot="end" name="trash"></ion-icon>
               Eliminar
             </ion-item-option>
