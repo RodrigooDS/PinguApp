@@ -42,25 +42,24 @@ export class AgregarRepasoPage implements OnInit {
     this.cargarRepaso();
     // this.cargarImagenes();
     this.agregarImagenes();
-    if(!localStorage.getItem('imagenes')){
-      this.obtenerActividad();
-    }
+    // if(!localStorage.getItem('imagenes')){
+    //   this.obtenerActividad();
+    // }
   }
 
   ionViewWillEnter(){
     this.cargarRepaso();
     // this.cargarImagenes();
     this.agregarImagenes();
-    if(!localStorage.getItem('imagenes')){
-      this.obtenerActividad();
-    }
+    // if(!localStorage.getItem('imagenes')){
+    //   this.obtenerActividad();
+    // }
   }
 
   guardar() {
     this.guardarRepaso();
     localStorage.clear();
     this.router.navigate(['/tablinks/editar-repaso']);
-    
   }  
 
   cancelar() {
@@ -78,9 +77,9 @@ export class AgregarRepasoPage implements OnInit {
     if(json){
       this.data.push(json);
       localStorage.setItem('data', JSON.stringify(this.data))
-      console.log(this.data);
+      // console.log(this.data);
     }
-    // localStorage.removeItem('imagenes');
+    localStorage.removeItem('imagenes');
   }
 
   cargarImagenes(){
@@ -89,7 +88,7 @@ export class AgregarRepasoPage implements OnInit {
       for(var i in json) {
         this.data.push(json[i]);
     }
-      console.log(this.data);
+      // console.log(this.data);
     }
   }
 
@@ -101,22 +100,25 @@ export class AgregarRepasoPage implements OnInit {
     this.nombreImagen = this.json.nombreImagen;
   }
 
-  eliminarImagen(item, file) {
-    console.log(item);
+  eliminarImagen(file) {
+
     var json = JSON.parse(localStorage.getItem('data'));
-    const index = this.data.indexOf(item);
-    // console.log(index);
-    if (index == -1) {
-      json.splice(index, 1);
-      this.data.splice(index, 1);
+    var index = this.data.indexOf(file);
+    // console.log(item, file,index);
+     if (index !== -1) {
+        json.splice(index, 1);
+        this.data.splice(index, 1);
     }
+    // console.log('datos',this.data);
     localStorage.setItem('data',JSON.stringify(json));
-    // console.log(json);
-    try {
-      this.upload.remove(file,this.tituloActividad);
-    } catch (error) {
-      console.log(error);
-    } 
+    this.upload.remove(file,this.tituloActividad);
+    // // intentar
+    // try {
+      
+    //   this.upload.remove(file,this.tituloActividad);
+    // } catch (error) {
+    //   console.log(error);
+    // } 
     
   }
 
@@ -151,8 +153,9 @@ export class AgregarRepasoPage implements OnInit {
     .subscribe( resp => {
       this.data = resp;
       localStorage.setItem('data', JSON.stringify(this.data));
-      console.log(resp);
+      // console.log(resp);
     });
+    
   }
 
   //pueder ser un service

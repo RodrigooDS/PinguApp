@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 //service
 import { UploadService } from '../../../services/upload.service';
+import { Actividad } from '../../../shared/actividad.interfaces';
 
 @Component({
   selector: 'app-repaso',
@@ -12,6 +13,7 @@ import { UploadService } from '../../../services/upload.service';
 })
 export class RepasoPage implements OnInit {
 
+  data: any = [];
   fileImage: any;
   filename: string;
   item: {};
@@ -47,7 +49,6 @@ export class RepasoPage implements OnInit {
                 imagen       : this.imageURL,
                 nombreImagen : this.filename
     }
-    console.log('json',json);
     localStorage.setItem('repaso',JSON.stringify(json));
     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
   }  
@@ -62,12 +63,8 @@ export class RepasoPage implements OnInit {
     )
     .subscribe( resp => {
       this.actividades = resp;
-      console.log(this.actividades);
     });
-    // this.upload.obtenerActividad(this.tituloCategoria)
-    // .subscribe( resp => {
-    //   console.log(resp);
-    // });
+
   }
 
   editarActividad(imagen: string, actividad: string) {
@@ -78,7 +75,7 @@ export class RepasoPage implements OnInit {
       imagen       : imagen
   	}
     localStorage.setItem('repaso',JSON.stringify(json));
-     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
   }
 
   cargarArchivo(event) {
@@ -90,6 +87,10 @@ export class RepasoPage implements OnInit {
       this.imageURL = reader.result as string;
     }
     reader.readAsDataURL(file)
+  }
+
+  eliminarActividad(actividad) {
+    this.upload.eliminarTodo(actividad);    
   }
 }
 
