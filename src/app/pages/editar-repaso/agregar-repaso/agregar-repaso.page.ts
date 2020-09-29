@@ -34,7 +34,6 @@ export class AgregarRepasoPage implements OnInit {
     this.cargarImagenes();
     this.agregarImagenes();
     if(!localStorage.getItem('imagenes')){
-      console.log('wea')
       this.obtenerActividad();
     }
   }
@@ -44,7 +43,6 @@ export class AgregarRepasoPage implements OnInit {
     // this.cargarImagenes();
     this.agregarImagenes();
     if(!localStorage.getItem('imagenes')){
-      console.log('wea')
       this.obtenerActividad();
     }
   }
@@ -54,7 +52,6 @@ export class AgregarRepasoPage implements OnInit {
     // this.cargarImagenes();
     this.agregarImagenes();
     if(!localStorage.getItem('imagenes')){
-      console.log('wea')
       this.obtenerActividad();
     }
   }
