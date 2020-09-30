@@ -12,27 +12,24 @@
 
 <ion-content>
 
+  <ion-item lines="none">
+    <h3>Nuevo Repaso</h3>
+  </ion-item>
+
   <ion-card>
     <img [src]="imageURL">
     <ion-card-header>
-      <ion-card-title>Nuevo repaso</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      <h2>Nombre de la actividad</h2>
-      <ion-input name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre del repaso"></ion-input>
+      <!-- <ion-card-subtitle>Nombre Repaso</ion-card-subtitle> -->
+      <ion-card-title>Nombre Repaso</ion-card-title>
+      <ion-input type="text" autocapitalize name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre"></ion-input>
       <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
-      <!-- <ion-button type="submit"
-                  [disabled]="(imageURL === '' || this.tituloActividad ==='' )">
-        Cargar
-      </ion-button> -->
-      
-    </ion-card-content>
-
+    </ion-card-header>
   </ion-card>
+
+  
   
   <ion-item lines="none" *ngIf="actividades.length">
-    <h4>Editar Repaso</h4>
+    <h3>Editar Repaso</h3>
   </ion-item>
 
   <!-- <ion-list *ngFor=" let actividad of actividades">

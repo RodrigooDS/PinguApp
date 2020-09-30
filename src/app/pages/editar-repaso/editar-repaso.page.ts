@@ -35,7 +35,6 @@ export class EditarRepasoPage implements OnInit {
   
   obtenerTituloCategoria(categoria) {
     this.tipoCategoria = categoria
-    // console.log(this.tipoCategoria)
     this.router.navigate(['/tablinks/editar-repaso/repaso',{category: this.tipoCategoria}]);
   }
 }

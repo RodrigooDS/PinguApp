@@ -40,12 +40,7 @@ export class CargarRepasoPage implements OnInit {
                   imagen           : this.imageURL,
                   // nombreImagen     : this.nombreImagen
     }
-    console.log('json',json);
-    localStorage.setItem('imagenes',JSON.stringify(json));
-  }
-
-  eliminarArchivo(){
-
+    localStorage.setItem('imagenes',JSON.stringify(json));  
   }
 
   cargarArchivo(event) {

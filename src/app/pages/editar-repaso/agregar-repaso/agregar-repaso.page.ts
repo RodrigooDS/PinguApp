@@ -40,20 +40,12 @@ export class AgregarRepasoPage implements OnInit {
 
   ngOnInit() {
     this.cargarRepaso();
-    // this.cargarImagenes();
     this.agregarImagenes();
-    // if(!localStorage.getItem('imagenes')){
-    //   this.obtenerActividad();
-    // }
   }
 
   ionViewWillEnter(){
     this.cargarRepaso();
-    // this.cargarImagenes();
     this.agregarImagenes();
-    // if(!localStorage.getItem('imagenes')){
-    //   this.obtenerActividad();
-    // }
   }
 
   guardar() {
@@ -77,7 +69,6 @@ export class AgregarRepasoPage implements OnInit {
     if(json){
       this.data.push(json);
       localStorage.setItem('data', JSON.stringify(this.data))
-      // console.log(this.data);
     }
     localStorage.removeItem('imagenes');
   }
@@ -87,8 +78,7 @@ export class AgregarRepasoPage implements OnInit {
     if(json){
       for(var i in json) {
         this.data.push(json[i]);
-    }
-      // console.log(this.data);
+      }
     }
   }
 
@@ -104,26 +94,15 @@ export class AgregarRepasoPage implements OnInit {
 
     var json = JSON.parse(localStorage.getItem('data'));
     var index = this.data.indexOf(file);
-    // console.log(item, file,index);
      if (index !== -1) {
         json.splice(index, 1);
         this.data.splice(index, 1);
     }
-    // console.log('datos',this.data);
     localStorage.setItem('data',JSON.stringify(json));
     this.upload.remove(file,this.tituloActividad);
-    // // intentar
-    // try {
-      
-    //   this.upload.remove(file,this.tituloActividad);
-    // } catch (error) {
-    //   console.log(error);
-    // } 
-    
   }
 
   async guardarRepaso() {
-    // await this.presentLoading();
     try {
       //cuando es nuevo
       this.file = this.dataURLtoFile(this.imagen,this.nombreImagen);
@@ -153,12 +132,10 @@ export class AgregarRepasoPage implements OnInit {
     .subscribe( resp => {
       this.data = resp;
       localStorage.setItem('data', JSON.stringify(this.data));
-      // console.log(resp);
     });
     
   }
 
-  //pueder ser un service
   dataURLtoFile(dataurl, filename) {
  
     var arr = dataurl.split(','),
