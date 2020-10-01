@@ -3,15 +3,28 @@
 <ion-content>
 
     <h1 class="ion-padding">Categorias</h1>
-    <ion-list *ngFor="let categoria of categorias" >
+    <!-- <ion-list *ngFor="let categoria of categorias" >
         <ion-item detail>
             <ion-thumbnail slot="start">
                 <img src="{{categoria.imagen}}">
-              </ion-thumbnail>
+            </ion-thumbnail>
             <ion-label (click)="obtenerTituloCategoria(categoria.categoria)">
                 {{categoria.categoria}}
             </ion-label>
         </ion-item>
-    </ion-list>
-
+    </ion-list> -->
+    <div *ngFor="let categoria of categorias">
+        <ion-card (click)="obtenerTituloCategoria(categoria.categoria)">
+            <img src="{{categoria.imagen}}">
+            <ion-card-header>
+            <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+            <ion-card-title>{{categoria.categoria}}</ion-card-title>
+            </ion-card-header>
+<!--           
+            <ion-card-content>
+            Keep close to Nature's heart... and break clear away, once in awhile,
+            and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            </ion-card-content> -->
+        </ion-card>
+    </div>
 </ion-content>

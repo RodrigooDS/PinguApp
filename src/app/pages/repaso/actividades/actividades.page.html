@@ -9,21 +9,23 @@
 </ion-header>
 
 <ion-content>
-  <h1 class="ion-padding">Repaso</h1>
-  <h4 class="ion-padding">Deportes - Sports</h4>
-
+  
+  <h1 class="ion-padding">Deportes - Sports</h1>
+  <div *ngFor="let actividad of actividades">
+    <ion-card>
+      <img src="{{actividad.detalle.imageUrl}}">
+      <ion-card-header>
+        <ion-card-subtitle>Destination</ion-card-subtitle>
+        <ion-card-title>Madison, WI</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+      </ion-card-content>
+    </ion-card>
+  </div>
   <ion-list>
     <ion-item lines="none" *ngFor="let actividad of actividades">
-      <ion-card>
-        <img src="{{actividad.detalle.imageUrl}}">
-        <ion-card-header>
-          <ion-card-subtitle>Destination</ion-card-subtitle>
-          <ion-card-title>Madison, WI</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-        </ion-card-content>
-      </ion-card>
+      
     </ion-item>
   </ion-list>
 

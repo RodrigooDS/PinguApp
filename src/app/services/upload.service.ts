@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { asNativeElements, Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
@@ -32,10 +32,11 @@ export class UploadService {
     this.nombreImagen = event.target.files[0].name;
   }
 
-  async crearActividad(categoria: string, actividad: string, imagen) {
+  async crearActividad(categoria: string, actividad: string, imagen , nivel: string) {
     this.db.collection('repaso').doc(actividad).set({
       categoria: categoria,
       actividad: actividad,
+      nivel: nivel,
       detalle:{
         imageUrl: ''
       }

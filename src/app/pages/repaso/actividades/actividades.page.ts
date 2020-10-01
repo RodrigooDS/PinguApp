@@ -26,11 +26,13 @@ export class ActividadesPage implements OnInit {
   }
 
   obtenerActividades() {
-    this.upload.obtenerActividades(this.tituloCategoria).pipe(
-      map( (resp : [] ) => resp.map ( ({actividad, detalle}) => ({titulo : actividad, detalle})))
-    )
+    this.upload.obtenerActividades(this.tituloCategoria)
+    // .pipe(
+    //   map( (resp : [] ) => resp.map ( ({actividad, detalle}) => ({titulo : actividad, detalle})))
+    // )
     .subscribe( resp => {
-      this.actividades =resp;
+      this.actividades = resp;
+      console.log(resp);
     });
   }
 

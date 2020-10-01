@@ -20,6 +20,7 @@ export class RepasoPage implements OnInit {
 
   tituloActividad: string = '';
   tituloCategoria: string = '';
+  nivel : string = '';
   actividades: any[] = [];
   imageURL: string;
   
@@ -43,11 +44,16 @@ export class RepasoPage implements OnInit {
     this.tituloActividad.replace(/\b\w/g, l => l.toUpperCase())
   }
 
+  obtenerNivel(nivel) {
+    this.nivel = nivel;
+  }
+
   guardar() {
     var json = {categoria    : this.tituloCategoria,
                 actividad    : this.tituloActividad,
                 imagen       : this.imageURL,
-                nombreImagen : this.filename
+                nombreImagen : this.filename,
+                nivel        : this.nivel
     }
     localStorage.setItem('repaso',JSON.stringify(json));
     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);

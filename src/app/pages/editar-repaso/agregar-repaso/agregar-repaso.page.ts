@@ -26,6 +26,7 @@ export class AgregarRepasoPage implements OnInit {
   categorias: any[] = [];
   imageURL: string;
   id: string;
+  nivel: string;
   constructor(public router: Router, 
               private route: ActivatedRoute,
               public upload: UploadService,
@@ -88,6 +89,7 @@ export class AgregarRepasoPage implements OnInit {
     this.tituloActividad = this.json.actividad;
     this.imagen = this.json.imagen;
     this.nombreImagen = this.json.nombreImagen;
+    this.nivel = this.json.nivel;
   }
 
   eliminarImagen(file) {
@@ -106,7 +108,7 @@ export class AgregarRepasoPage implements OnInit {
     try {
       //cuando es nuevo
       this.file = this.dataURLtoFile(this.imagen,this.nombreImagen);
-      await this.upload.crearActividad(this.tituloCategoria,this.tituloActividad,this.file).then( async (resp) => {
+      await this.upload.crearActividad(this.tituloCategoria, this.tituloActividad, this.file, this.nivel).then( async (resp) => {
         for (var i = 0; i < this.data.length; i++){
             this.file = this.dataURLtoFile(this.data[i].imagen,this.data[i].nombreImagen);
             await this.upload.agregarData(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file)

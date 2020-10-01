@@ -35,4 +35,8 @@ export class RepasoPage implements OnInit {
     this.tipoCategoria = categoria
     this.router.navigate(['/tablinks/repaso/actividades',{category: this.tipoCategoria}]);
   }
+
+  test() {
+    console.log('hola');
+  }
 }
