@@ -12,10 +12,6 @@
 
 <ion-content>
   
-  <!-- <ion-item lines="none">
-    <h3>{{this.tituloCategoria}}</h3>
-  </ion-item> -->
-
   <ion-item lines="none">
     <h5>Nueva Actividad</h5>
   </ion-item>
@@ -27,7 +23,7 @@
       <ion-label>Nombre de la actividad</ion-label> 
       <ion-input type="text" autocapitalize name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre"></ion-input>
       <ion-label>Cargar Imagen</ion-label>
-      <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
+      <input type="file" #fileUploader name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
       
       <ion-list>
         <ion-list-header class="ion-no-padding">

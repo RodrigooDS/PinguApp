@@ -107,7 +107,6 @@ export class AgregarActividadPage implements OnInit {
   }
 
   async guardarActividad() {
-    console.log(this.data[0]);
     try {
       //cuando es nuevo
       this.file = this.dataURLtoFile(this.imagen,this.nombreImagen);

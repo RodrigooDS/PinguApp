@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UploadService } from '../../../services/upload.service';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-actividad',
@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class ActividadPage implements OnInit {
 
+  @ViewChild('fileUploader') fileUploader:ElementRef;
   // data: any = [];
   // fileImage: any;
   filename: string;
@@ -26,10 +27,12 @@ export class ActividadPage implements OnInit {
               private route: ActivatedRoute,
               public upload: UploadService) {
     this.tituloCategoria = this.route.snapshot.paramMap.get('category');
+    this.imageURL = '';
   }
 
   ngOnInit() {
     this.obtenerActividades();
+    this.imageURL = '';
   }
 
   ionViewWillEnter() {
@@ -63,6 +66,7 @@ export class ActividadPage implements OnInit {
   }  
 
   cancelar() {
+    this.fileUploader.nativeElement.value = null;
     this.router.navigate(['/tablinks/editar-actividad']);
   }
 
@@ -87,13 +91,18 @@ export class ActividadPage implements OnInit {
 
   cargarArchivo(event) {
     
-    const file = (event.target as HTMLInputElement).files[0];
-    const reader = new FileReader();
+    try {
+      const file = (event.target as HTMLInputElement).files[0];
+      const reader = new FileReader();
 
-    reader.onload = () => {
-      this.imageURL = reader.result as string;
+      reader.onload = () => {
+        this.imageURL = reader.result as string;
+      }
+      reader.readAsDataURL(file)
+    } catch (error) {
+      
     }
-    reader.readAsDataURL(file)
+    
   }
 
   eliminarActividad(actividad) {

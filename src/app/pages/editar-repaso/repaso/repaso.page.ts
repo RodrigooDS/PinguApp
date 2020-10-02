@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 //service
 import { UploadService } from '../../../services/upload.service';
-import { Actividad } from '../../../shared/actividad.interfaces';
 
 @Component({
   selector: 'app-repaso',
@@ -13,10 +12,10 @@ import { Actividad } from '../../../shared/actividad.interfaces';
 })
 export class RepasoPage implements OnInit {
 
-  // data: any = [];
-  // fileImage: any;
+  @ViewChild('fileUploader') fileUploader:ElementRef;
+
   filename: string;
-  // item: {};
+
 
   tituloActividad: string = '';
   tituloCategoria: string = '';

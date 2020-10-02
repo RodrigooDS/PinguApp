@@ -22,7 +22,7 @@
       <!-- <ion-card-subtitle>Nombre Repaso</ion-card-subtitle> -->
       <ion-card-title>Nombre Repaso</ion-card-title>
       <ion-input type="text" autocapitalize name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre"></ion-input>
-      <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
+      <input type="file" #fileUploader name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
       
       <ion-list>
         <ion-list-header class="ion-no-padding">
