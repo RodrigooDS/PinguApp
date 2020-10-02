@@ -32,7 +32,50 @@ export class UploadService {
     this.nombreImagen = event.target.files[0].name;
   }
 
-  async crearActividad(categoria: string, actividad: string, imagen , nivel: string) {
+  async crearActividad(categoria: string, actividad: string, imagen , nivel: string, interaccion: string) {
+    this.db.collection('actividad').doc(actividad).set({
+      categoria: categoria,
+      actividad: actividad,
+      interaccion: interaccion,
+      nivel: nivel,
+      detalle:{
+        imageUrl: ''
+      }
+    })
+    .then( async resp =>{
+      const fecha : string = Date.now().toString();
+      const imageUrl = await this.uploadFile(fecha, imagen, 'imagenes actividad');
+      this.db.collection('actividad').doc(actividad).update({
+        'detalle.imageUrl' : imageUrl || null
+      })
+    })
+    .catch(error =>{
+        console.log(error);
+    })
+  }
+
+  async agregarActividad(nombreImagen: string, fraseIngles: string, categoria: string, actividad: string, imagen: any) {
+    this.db.collection('actividad').doc(actividad).collection(actividad).add({
+      categoria: categoria,
+      actividad: actividad,
+      detalle: {
+        nombreImagen: nombreImagen,
+        fraseIngles: fraseIngles,
+        imageUrl: ''
+      }
+    }).then( async resp =>{
+      const imageUrl = await this.uploadFile(resp.id, imagen, 'imagenes actividad');
+      this.db.collection('actividad').doc(actividad).collection(actividad).doc(resp.id).update({
+        id: resp.id,
+        'detalle.imageUrl' : imageUrl || null
+      })
+    })
+    .catch(error =>{
+        console.log(error);
+    })
+  }
+
+  async crearRepaso(categoria: string, actividad: string, imagen , nivel: string) {
     this.db.collection('repaso').doc(actividad).set({
       categoria: categoria,
       actividad: actividad,
@@ -41,18 +84,17 @@ export class UploadService {
         imageUrl: ''
       }
     }).then( async resp =>{
-      const nombre : string = Date.now().toString();
-      const imageUrl = await this.uploadFile(nombre, imagen, actividad);
+      const fecha : string = Date.now().toString();
+      const imageUrl = await this.uploadFile(fecha, imagen, 'repaso');
       this.itemsRef.doc(actividad).update({
-      'detalle.imageUrl' : imageUrl || null
-      }
-      ).catch(error =>{
+        'detalle.imageUrl' : imageUrl || null
+      }).catch(error =>{
         console.log(error);
       })
     });
   }
   
-  async agregarData(tituloEspanol: string, tituloIngles: string, categoria: string, actividad: string, imagen: any) {
+  async agregarRepaso(tituloEspanol: string, tituloIngles: string, categoria: string, actividad: string, imagen: any) {
     this.db.collection('repaso').doc(actividad).collection(actividad).add({
       categoria: categoria,
       actividad: actividad,
@@ -62,7 +104,7 @@ export class UploadService {
         imageUrl: ''
       }
     }).then( async resp =>{
-      const imageUrl = await this.uploadFile(resp.id, imagen, actividad);
+      const imageUrl = await this.uploadFile(resp.id, imagen, 'repaso');
       this.itemsRef.doc(actividad).collection(actividad).doc(resp.id).update({
         id: resp.id,
         'detalle.imageUrl' : imageUrl || null
@@ -73,18 +115,28 @@ export class UploadService {
       })
   }
   
-  obtenerImagenes(categoria: string, actividad: string, id: string) {
+  obtenerImagenesRepaso(categoria: string, actividad: string, id: string) {
     return this.db.collection('repaso').doc(actividad).collection(actividad, 
       ref => ref.where('categoria', '==', categoria).where('actividad', '==', actividad)).valueChanges();
   }
 
-  obtenerActividades(categoria: string) {
+  obtenerRepasos(categoria: string) {
     return this.db.collection('repaso', 
       ref => ref.where('categoria', '==', categoria)).valueChanges();
   }
 
-  obtenerActividad(actividad : string) {
+  obtenerRepaso(actividad : string) {
     return this.db.collection('repaso').doc(actividad).collection(actividad, 
+      ref => ref.where('actividad', '==', actividad)).valueChanges();
+  }
+
+  obtenerActividades(categoria: string) {
+    return this.db.collection('actividad', 
+      ref => ref.where('categoria', '==', categoria)).valueChanges();
+  }
+
+  obtenerActividad(actividad : string) {
+    return this.db.collection('actividad').doc(actividad).collection(actividad, 
       ref => ref.where('actividad', '==', actividad)).valueChanges();
   }
 
@@ -95,8 +147,8 @@ export class UploadService {
   async uploadFile(id,file, actividad: string): Promise<any> {
     if(file) {
       try {
-        const task = await this.storage.ref('imagenes repaso').child(id).put(file)
-        return this.storage.ref(`imagenes repaso/${id}`).getDownloadURL().toPromise();
+        const task = await this.storage.ref(actividad).child(id).put(file)
+        return this.storage.ref(`${actividad}/${id}`).getDownloadURL().toPromise();
       } catch (error) {
         console.log(error);
       }
@@ -117,8 +169,22 @@ export class UploadService {
       console.log(error);
     }
   }
+  async removerActividad(item,actividad: string) {
+    
+    try {
+      if(item.id) {
+        console.log(item.id);
+        console.log(item);
+        // // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
+        await this.storage.storage.refFromURL(item.detalle.imageUrl).delete();
+        this.db.collection('actividad').doc(actividad).collection(actividad).doc(item.id).delete()
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  async eliminarTodo(actividad) {
+  async eliminarTodoRepaso(actividad) {
     try {
       this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad, 
           ref => ref.where('actividad', '==', actividad.actividad))
@@ -134,6 +200,28 @@ export class UploadService {
           await this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad).doc(this.test[i].id).delete())
       }
       await this.db.collection('repaso').doc(actividad.actividad).delete();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async eliminarTodoActividad(actividad) {
+    try {
+      this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad, 
+          ref => ref.where('actividad', '==', actividad.actividad))
+          .valueChanges()
+          .subscribe( resp => {
+            this.test = resp
+            console.log(this.test);
+          });
+          console.log(actividad);
+      await this.storage.storage.refFromURL(actividad.detalle.imageUrl).delete()
+      for (var i = 0; i < this.test.length; i++){
+        await this.storage.storage.refFromURL(this.test[i].detalle.imageUrl).delete()
+        .then( async resp =>
+          await this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad).doc(this.test[i].id).delete())
+      }
+      await this.db.collection('actividad').doc(actividad.actividad).delete();
     } catch (error) {
       console.log(error);
     }

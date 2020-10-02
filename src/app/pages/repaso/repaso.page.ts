@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { UploadService } from '../../services/upload.service';
@@ -36,7 +36,4 @@ export class RepasoPage implements OnInit {
     this.router.navigate(['/tablinks/repaso/actividades',{category: this.tipoCategoria}]);
   }
 
-  test() {
-    console.log('hola');
-  }
 }

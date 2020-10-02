@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UploadService } from '../../../services/upload.service';
 import { map } from 'rxjs/operators';
 
-//service
-import { UploadService } from '../../../services/upload.service';
-import { Actividad } from '../../../shared/actividad.interfaces';
-
 @Component({
-  selector: 'app-repaso',
-  templateUrl: './repaso.page.html',
-  styleUrls: ['./repaso.page.scss'],
+  selector: 'app-actividad',
+  templateUrl: './actividad.page.html',
+  styleUrls: ['./actividad.page.scss'],
 })
-export class RepasoPage implements OnInit {
+export class ActividadPage implements OnInit {
 
   // data: any = [];
   // fileImage: any;
@@ -21,6 +18,7 @@ export class RepasoPage implements OnInit {
   tituloActividad: string = '';
   tituloCategoria: string = '';
   nivel : string = '';
+  interaccion : string = '';
   actividades: any[] = [];
   imageURL: string;
   
@@ -48,25 +46,28 @@ export class RepasoPage implements OnInit {
     this.nivel = nivel;
   }
 
+  obtenerInteraccion(interaccion) {
+    this.interaccion = interaccion;
+  }
+
   guardar() {
     var json = {categoria    : this.tituloCategoria,
                 actividad    : this.tituloActividad,
                 imagen       : this.imageURL,
                 nombreImagen : this.filename,
-                nivel        : this.nivel
+                nivel        : this.nivel,
+                interaccion  : this.interaccion
     }
-    localStorage.setItem('repaso',JSON.stringify(json));
-    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+    localStorage.setItem('actividad',JSON.stringify(json));
+    this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);
   }  
 
   cancelar() {
-    this.router.navigate(['/tablinks/editar-repaso']);
+    this.router.navigate(['/tablinks/editar-actividad']);
   }
 
   obtenerActividades() {
-    this.upload.obtenerRepasos(this.tituloCategoria).pipe(
-      map( (resp : [] ) => resp.map ( ({actividad,categoria,detalle}) => ({actividad : actividad, categoria : categoria, imagen : detalle})))
-    )
+    this.upload.obtenerActividades(this.tituloCategoria)
     .subscribe( resp => {
       this.actividades = resp;
     });
@@ -80,8 +81,8 @@ export class RepasoPage implements OnInit {
       actividad    : actividad,
       imagen       : imagen
   	}
-    localStorage.setItem('repaso',JSON.stringify(json));
-    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+    localStorage.setItem('actividad',JSON.stringify(json));
+    this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);
   }
 
   cargarArchivo(event) {
@@ -96,9 +97,7 @@ export class RepasoPage implements OnInit {
   }
 
   eliminarActividad(actividad) {
-    this.upload.eliminarTodoRepaso(actividad);    
+    this.upload.eliminarTodoActividad(actividad);    
   }
+
 }
-
-  
-

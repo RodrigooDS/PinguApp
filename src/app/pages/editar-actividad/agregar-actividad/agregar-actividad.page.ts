@@ -1,19 +1,16 @@
-import { Repaso } from './../../../shared/repaso.interfaces';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
-
-//interfaces
 import { UploadService } from '../../../services/upload.service';
 import { LoadingController } from '@ionic/angular';
-
+import { map } from 'rxjs/operators';
+import { Actividad } from '../../../shared/actividad.interfaces';
 
 @Component({
-  selector: 'app-agregar-repaso',
-  templateUrl: './agregar-repaso.page.html',
-  styleUrls: ['./agregar-repaso.page.scss'],
+  selector: 'app-agregar-actividad',
+  templateUrl: './agregar-actividad.page.html',
+  styleUrls: ['./agregar-actividad.page.scss'],
 })
-export class AgregarRepasoPage implements OnInit {
+export class AgregarActividadPage implements OnInit {
 
   imagen : string;
   nombreImagen : string;
@@ -25,6 +22,7 @@ export class AgregarRepasoPage implements OnInit {
   tituloActividad: string;
   tituloCategoria: string;
   categorias: any[] = [];
+  interaccion: string;
   imageURL: string;
   id: string;
   nivel: string;
@@ -35,12 +33,14 @@ export class AgregarRepasoPage implements OnInit {
     this.cargarRepaso();
     this.cargarImagenes();
     this.agregarImagenes();
+    
     if(!localStorage.getItem('imagenes')){
       this.obtenerActividad();
     }
   }
 
   ngOnInit() {
+    // localStorage.removeItem('data');
     this.cargarRepaso();
     this.agregarImagenes();
   }
@@ -51,19 +51,19 @@ export class AgregarRepasoPage implements OnInit {
   }
 
   guardar() {
-    this.guardarRepaso();
+    this.guardarActividad();
     localStorage.clear();
-    this.router.navigate(['/tablinks/editar-repaso']);
+    this.router.navigate(['/tablinks/editar-actividad']);
   }  
 
   cancelar() {
     localStorage.clear();
-    this.router.navigate(['/tablinks/editar-repaso']);
+    this.router.navigate(['/tablinks/editar-actividad']);
   }
 
   agregarAccion() {
     localStorage.removeItem('imagenes');
-    this.router.navigate(['/tablinks/editar-repaso/cargar-repaso']);    
+    this.router.navigate(['/tablinks/editar-actividad/cargar-actividad']);    
   }
 
   agregarImagenes() {
@@ -85,12 +85,13 @@ export class AgregarRepasoPage implements OnInit {
   }
 
   cargarRepaso() {
-    this.json = JSON.parse(localStorage.getItem('repaso'))
+    this.json = JSON.parse(localStorage.getItem('actividad'))
     this.tituloCategoria = this.json.categoria;
     this.tituloActividad = this.json.actividad;
     this.imagen = this.json.imagen;
     this.nombreImagen = this.json.nombreImagen;
     this.nivel = this.json.nivel;
+    this.interaccion = this.json.interaccion
   }
 
   eliminarImagen(file) {
@@ -102,37 +103,40 @@ export class AgregarRepasoPage implements OnInit {
         this.data.splice(index, 1);
     }
     localStorage.setItem('data',JSON.stringify(json));
-    this.upload.remove(file,this.tituloActividad);
+    this.upload.removerActividad(file,this.tituloActividad);
   }
 
-  async guardarRepaso() {
+  async guardarActividad() {
+    console.log(this.data[0]);
     try {
       //cuando es nuevo
       this.file = this.dataURLtoFile(this.imagen,this.nombreImagen);
-      await this.upload.crearRepaso(this.tituloCategoria, this.tituloActividad, this.file, this.nivel).then( async (resp) => {
+      await this.upload.crearActividad(this.tituloCategoria, this.tituloActividad, this.file, this.nivel, this.interaccion).then( async (resp) => {
         for (var i = 0; i < this.data.length; i++){
             this.file = this.dataURLtoFile(this.data[i].imagen,this.data[i].nombreImagen);
-            await this.upload.agregarRepaso(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file)
-          }
+            await this.upload.agregarActividad(this.data[i].nombreImagen,this.data[i].fraseIngles,this.tituloCategoria,this.tituloActividad,this.file);
+        }
       });
     } catch (error) {
       //ya existe
       for (var i = 0; i < this.data.length; i++){
         if(!this.data[i].id){
           this.file = this.dataURLtoFile(this.data[i].imagen,this.data[i].nombreImagen);
-          await this.upload.agregarRepaso(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file);
+          await this.upload.agregarActividad(this.data[i].nombreImagen,this.data[i].fraseIngles,this.tituloCategoria,this.tituloActividad,this.file);
         }
       }
+      // console.log(error);
     }
   }
 
   obtenerActividad() {
-    this.upload.obtenerRepaso(this.tituloActividad)
+    this.upload.obtenerActividad(this.tituloActividad)
     .pipe(
-      map( (resp : Repaso[] ) => resp.map ( ({id, detalle}) => ({id: id,imagen : detalle.imageUrl, nombreIngles: detalle.nombreIngles, nombreEspanol: detalle.nombreEspanol})))
+      map( (resp : Actividad[] ) => resp.map ( ({id, detalle}) => ({id: id, imagen : detalle.imageUrl, nombreImagen: detalle.nombreImagen, fraseIngles: detalle.fraseIngles})))
     )
     .subscribe( resp => {
       this.data = resp;
+      console.log(resp);
       localStorage.setItem('data', JSON.stringify(this.data));
     });
     

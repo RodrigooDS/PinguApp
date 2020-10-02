@@ -26,7 +26,7 @@ export class ActividadesPage implements OnInit {
   }
 
   obtenerActividades() {
-    this.upload.obtenerActividades(this.tituloCategoria)
+    this.upload.obtenerRepasos(this.tituloCategoria)
     // .pipe(
     //   map( (resp : [] ) => resp.map ( ({actividad, detalle}) => ({titulo : actividad, detalle})))
     // )

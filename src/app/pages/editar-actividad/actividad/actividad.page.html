@@ -1,0 +1,98 @@
+<ion-header class="ion-no-border" mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-button (click)="cancelar()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end"> 
+      <ion-button (click)="guardar()" [disabled]="(imageURL === '' || this.tituloActividad ==='' || this.nivel ==='' || this.interaccion ==='' )">Guardar</ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Actividad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <!-- <ion-item lines="none">
+    <h3>{{this.tituloCategoria}}</h3>
+  </ion-item> -->
+
+  <ion-item lines="none">
+    <h5>Nueva Actividad</h5>
+  </ion-item>
+  
+  <ion-card>
+    <img [src]="imageURL">
+    <ion-card-header>
+      <ion-card-title>{{this.tituloCategoria}}</ion-card-title>
+      <ion-label>Nombre de la actividad Actividad</ion-label> 
+      <ion-input type="text" autocapitalize name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre"></ion-input>
+      <ion-label>Cargar Imagen</ion-label>
+      <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
+      
+      <ion-list>
+        <ion-list-header class="ion-no-padding">
+          <ion-label>
+            Dificultad
+          </ion-label>
+        </ion-list-header>
+      
+        <ion-item class="ion-no-padding" lines="none">
+          <ion-label>Nivel</ion-label>
+          <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="nivel" (ionChange)="obtenerNivel(nivel)" mode="ios">
+            <ion-select-option value="Fácil">Fácil</ion-select-option>
+            <ion-select-option value="Medio">Medio</ion-select-option>
+            <ion-select-option value="Difícil">Difícil</ion-select-option>
+          </ion-select>
+        </ion-item>  
+      </ion-list>
+
+      <ion-list>
+        <ion-list-header class="ion-no-padding">
+          <ion-label>
+            Interacción
+          </ion-label>
+        </ion-list-header>
+      
+        <ion-item class="ion-no-padding" lines="none">
+          <ion-label>Tipo de interacción</ion-label>
+          <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="interaccion" (ionChange)="obtenerInteraccion(interaccion)" mode="ios">
+            <ion-select-option value="Click, Escuchar">Click, Escuchar</ion-select-option>
+            <ion-select-option value="Arrastrar, Click, Escuchar">Arrastrar, Click, Escuchar</ion-select-option>
+            <!-- <ion-select-option value="3">Difícil</ion-select-option> -->
+          </ion-select>
+        </ion-item>  
+      </ion-list>
+
+    </ion-card-header>
+
+  </ion-card>
+  
+
+  
+  
+  <ion-item lines="none" *ngIf="actividades.length">
+    <h5>Editar Repaso</h5>
+  </ion-item>
+
+  <ion-list>
+    <ion-item-sliding *ngFor=" let actividad of actividades">
+      <ion-item detail>
+        <ion-thumbnail slot="start">
+          <img src="{{actividad.detalle.imageUrl}}">
+        </ion-thumbnail>
+        <ion-label (click)="editarActividad(actividad.detalle.imageUrl,actividad.actividad)">
+          <h3>{{actividad.actividad}}</h3>
+          <p>Categoria: {{actividad.categoria}}</p>
+          <p>Nivel: {{actividad.nivel}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="eliminarActividad(actividad)">
+          <ion-icon slot="end" name="trash"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

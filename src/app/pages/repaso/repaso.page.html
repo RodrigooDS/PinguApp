@@ -13,18 +13,17 @@
             </ion-label>
         </ion-item>
     </ion-list> -->
-    <div *ngFor="let categoria of categorias">
-        <ion-card (click)="obtenerTituloCategoria(categoria.categoria)">
-            <img src="{{categoria.imagen}}">
-            <ion-card-header>
-            <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-            <ion-card-title>{{categoria.categoria}}</ion-card-title>
-            </ion-card-header>
-<!--           
-            <ion-card-content>
-            Keep close to Nature's heart... and break clear away, once in awhile,
-            and climb a mountain or spend a week in the woods. Wash your spirit clean.
-            </ion-card-content> -->
-        </ion-card>
+        
+    <div *ngIf="this.categorias">
+        <div *ngFor="let categoria of categorias">
+            <ion-card (click)="obtenerTituloCategoria(categoria.categoria)">
+                <img src="{{categoria.imagen}}">
+                <ion-card-header>
+                <ion-card-title>{{categoria.categoria}}</ion-card-title>
+                </ion-card-header>
+            </ion-card>
+        </div>
+
     </div>
+    
 </ion-content>
