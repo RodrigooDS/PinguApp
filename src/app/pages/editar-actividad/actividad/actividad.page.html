@@ -24,7 +24,7 @@
     <img [src]="imageURL">
     <ion-card-header>
       <ion-card-title>{{this.tituloCategoria}}</ion-card-title>
-      <ion-label>Nombre de la actividad Actividad</ion-label> 
+      <ion-label>Nombre de la actividad</ion-label> 
       <ion-input type="text" autocapitalize name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre"></ion-input>
       <ion-label>Cargar Imagen</ion-label>
       <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
@@ -82,7 +82,7 @@
         </ion-thumbnail>
         <ion-label (click)="editarActividad(actividad.detalle.imageUrl,actividad.actividad)">
           <h3>{{actividad.actividad}}</h3>
-          <p>Categoria: {{actividad.categoria}}</p>
+          <p>Categoria: {{actividad.interaccion}}</p>
           <p>Nivel: {{actividad.nivel}}</p>
         </ion-label>
       </ion-item>
