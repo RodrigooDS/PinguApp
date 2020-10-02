@@ -125,7 +125,6 @@ export class AgregarActividadPage implements OnInit {
           await this.upload.agregarActividad(this.data[i].nombreImagen,this.data[i].fraseIngles,this.tituloCategoria,this.tituloActividad,this.file);
         }
       }
-      // console.log(error);
     }
   }
 
@@ -136,7 +135,6 @@ export class AgregarActividadPage implements OnInit {
     )
     .subscribe( resp => {
       this.data = resp;
-      console.log(resp);
       localStorage.setItem('data', JSON.stringify(this.data));
     });
     

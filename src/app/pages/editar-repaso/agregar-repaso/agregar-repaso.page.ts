@@ -102,7 +102,7 @@ export class AgregarRepasoPage implements OnInit {
         this.data.splice(index, 1);
     }
     localStorage.setItem('data',JSON.stringify(json));
-    this.upload.remove(file,this.tituloActividad);
+    this.upload.removerRepaso(file,this.tituloActividad);
   }
 
   async guardarRepaso() {

@@ -155,7 +155,7 @@ export class UploadService {
     }
   }
 
-  async remove(item,actividad: string) {
+  async removerRepaso(item,actividad: string) {
     
     try {
       if(item.id) {
@@ -176,7 +176,7 @@ export class UploadService {
         console.log(item.id);
         console.log(item);
         // // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
-        await this.storage.storage.refFromURL(item.detalle.imageUrl).delete();
+        await this.storage.storage.refFromURL(item.detalle.imagen).delete();
         this.db.collection('actividad').doc(actividad).collection(actividad).doc(item.id).delete()
       }
     } catch (error) {
