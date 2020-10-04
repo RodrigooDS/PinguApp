@@ -1,0 +1,31 @@
+<div class="ion-padding-start ion-padding-end">
+  <h4>
+      Answer the question, choosing the right word. Then, click on “Send” button.
+  </h4>
+</div>
+
+<ion-card>
+  <!-- <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-padding-top"> -->
+    <img src="{{this.datos[this.respuesta].detalle.imageUrl}}"/>
+    <ion-card-content>
+      <ion-label>What is this? It is…</ion-label>
+      <ion-list>
+        <ion-radio-group value="grape">
+          <ion-list-header>
+            <ion-label>Fruit</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let dato of datos,let i =  index">
+            <ion-label>{{dato.detalle.fraseIngles}}</ion-label>
+            <ion-radio slot="start" (click)="obtenerRespuetaCheckBox(i)"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      
+      <ion-button (click)="enviarDatos()"></ion-button>
+    </ion-card-content>
+  <!-- </form> -->
+</ion-card>
+
+
+
+

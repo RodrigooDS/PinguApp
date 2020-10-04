@@ -12,7 +12,6 @@ export class VoiceService {
   constructor() { 
      // will throw an exception if not browser supported
     if(this.speech.hasBrowserSupport()) { // returns a boolean
-      console.log("speech synthesis supported")
     }
     this.speech.init({
           'volume': 1,

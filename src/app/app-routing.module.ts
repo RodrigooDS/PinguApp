@@ -27,6 +27,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tablinks/tablinks.module').then(m => m.TablinksPageModule),
     
   }
+
   
 ];
 

@@ -7,10 +7,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FormloginComponent } from './formlogin/formlogin.component';
 import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpassword.component';
-import { CompletacionComponent } from './leccion/click-escuchar/completacion/completacion.component';
-import { AsociacionComponent } from './leccion/click-escuchar/asociacion/asociacion.component';
-
-
+import { CeParte1Component } from './actividad/click-escuchar/ce-parte1/ce-parte1.component';
+import { CeParte2Component } from './actividad/click-escuchar/ce-parte2/ce-parte2.component';
 
 @NgModule({
   declarations: [
@@ -18,16 +16,17 @@ import { AsociacionComponent } from './leccion/click-escuchar/asociacion/asociac
     HeaderComponent,
     FormloginComponent,
     FormforgotpasswordComponent,
-    CompletacionComponent,
-    AsociacionComponent  
+    CeParte1Component,
+    CeParte2Component
   ],
   exports:[
     FormregistroComponent,
     HeaderComponent,
     FormloginComponent,
     FormforgotpasswordComponent,
-    CompletacionComponent,
-    AsociacionComponent
+    CeParte1Component,
+    CeParte2Component
+
   ],
   imports: [
     ReactiveFormsModule,

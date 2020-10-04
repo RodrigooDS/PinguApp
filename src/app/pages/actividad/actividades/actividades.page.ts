@@ -32,7 +32,6 @@ export class ActividadesPage implements OnInit {
     )
     .subscribe( resp => {
       this.actividades = resp;
-      console.log(resp);
     });
   }
 
@@ -43,6 +42,9 @@ export class ActividadesPage implements OnInit {
     }
     // this.tituloActividad = actividad
     localStorage.setItem('actividad', JSON.stringify(actividad));
-    this.router.navigate(['/tablinks/actividad/leccion']);
+    if(interaccion == "Click, Escuchar"){
+      this.router.navigate(['/tablinks/actividad/asociacion']);
+    }
+    
   }
 }

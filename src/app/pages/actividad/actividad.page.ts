@@ -27,7 +27,6 @@ export class ActividadPage implements OnInit {
     )
     .subscribe( resp => {
       this.categorias = resp;
-      console.log(resp);
     });
   }
 

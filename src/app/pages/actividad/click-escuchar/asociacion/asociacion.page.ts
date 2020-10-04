@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { TabsService } from '../../../services/tabs.service';
+import { TabsService } from '../../../../services/tabs.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { UploadService } from '../../../services/upload.service';
+import { UploadService } from '../../../../services/upload.service';
 
 @Component({
-  selector: 'app-leccion',
-  templateUrl: './leccion.page.html',
-  styleUrls: ['./leccion.page.scss'],
+  selector: 'app-asociacion',
+  templateUrl: './asociacion.page.html',
+  styleUrls: ['./asociacion.page.scss'],
 })
-export class LeccionPage implements OnInit {
+export class AsociacionPage implements OnInit {
 
   categoria: string;
   actividad: string;
@@ -36,12 +36,11 @@ export class LeccionPage implements OnInit {
       this.router.navigate(['/tablinks/actividad/completacion']);
       // this.estado = true;
     }
-    console.log(event);
   }
 
   cancelar() {
     this.tabEstado.cambiarEstado(false);
     this.location.back();
-    
   }
+
 }

@@ -14,6 +14,14 @@ const routes: Routes = [
   },  {
     path: 'leccion',
     loadChildren: () => import('./leccion/leccion.module').then( m => m.LeccionPageModule)
+  },
+  {
+    path: 'asociacion',
+    loadChildren: () => import('./click-escuchar/asociacion/asociacion.module').then( m => m.AsociacionPageModule)
+  },
+  {
+    path: 'completacion',
+    loadChildren: () => import('./click-escuchar/completacion/completacion.module').then( m => m.CompletacionPageModule)
   }
 
 
