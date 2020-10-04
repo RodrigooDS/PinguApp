@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Menu } from '../components/interfaces/interfaces';
+import { Menu } from '../shared/interfaces';
+
 
 @Injectable({
   providedIn: 'root'

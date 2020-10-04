@@ -7,7 +7,16 @@ const routes: Routes = [
   {
     path: '',
     component: ActividadPage
+  },
+  {
+    path: 'actividades',
+    loadChildren: () => import('./actividades/actividades.module').then( m => m.ActividadesPageModule)
+  },  {
+    path: 'leccion',
+    loadChildren: () => import('./leccion/leccion.module').then( m => m.LeccionPageModule)
   }
+
+
 ];
 
 @NgModule({

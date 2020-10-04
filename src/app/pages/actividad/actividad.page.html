@@ -3,7 +3,7 @@
 <ion-content>
 
   <h1 class="ion-padding">Categorias</h1>
-  <ion-list *ngFor="let categoria of categorias" >
+  <!-- <ion-list *ngFor="let categoria of categorias" >
       <ion-item detail>
           <ion-thumbnail slot="start">
               <img src="{{categoria.imagen}}">
@@ -12,6 +12,18 @@
               {{categoria.categoria}}
           </ion-label>
       </ion-item>
-  </ion-list>
+  </ion-list> -->
+
+  <div *ngIf="this.categorias">
+      <div *ngFor="let categoria of categorias">
+          <ion-card (click)="obtenerTituloCategoria(categoria.categoria)">
+              <img src="{{categoria.imagen}}">
+              <ion-card-header>
+              <ion-card-title>{{categoria.categoria}}</ion-card-title>
+              </ion-card-header>
+          </ion-card>
+      </div>
+
+  </div>
 
 </ion-content>

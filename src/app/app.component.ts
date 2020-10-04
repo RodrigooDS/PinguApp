@@ -4,7 +4,7 @@ import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Observable } from 'rxjs';
-import { Menu } from './components/interfaces/interfaces';
+import { Menu } from './shared/interfaces';
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
 

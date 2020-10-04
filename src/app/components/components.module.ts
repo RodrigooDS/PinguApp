@@ -7,6 +7,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FormloginComponent } from './formlogin/formlogin.component';
 import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpassword.component';
+import { CompletacionComponent } from './leccion/click-escuchar/completacion/completacion.component';
+import { AsociacionComponent } from './leccion/click-escuchar/asociacion/asociacion.component';
 
 
 
@@ -16,16 +18,16 @@ import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpass
     HeaderComponent,
     FormloginComponent,
     FormforgotpasswordComponent,
-      
+    CompletacionComponent,
+    AsociacionComponent  
   ],
   exports:[
     FormregistroComponent,
     HeaderComponent,
     FormloginComponent,
     FormforgotpasswordComponent,
-    
-    
-    
+    CompletacionComponent,
+    AsociacionComponent
   ],
   imports: [
     ReactiveFormsModule,

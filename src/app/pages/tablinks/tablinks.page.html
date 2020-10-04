@@ -2,18 +2,18 @@
 
   <ion-tab-bar slot="bottom" color="light">
 
-    <ion-tab-button tab="actividad">
+    <ion-tab-button tab="actividad" [disabled]=tabStatus.estado>
       <ion-icon name="Home"></ion-icon>
       <ion-label>Actividad</ion-label>
     </ion-tab-button>
     
 
-    <ion-tab-button tab="repaso">
+    <ion-tab-button tab="repaso"  [disabled]=tabStatus.estado>
       <ion-icon name="book"></ion-icon>
       <ion-label>Repaso</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="user">
+    <ion-tab-button tab="user"  [disabled]=tabStatus.estado>
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>Mi perfil</ion-label>
     </ion-tab-button>

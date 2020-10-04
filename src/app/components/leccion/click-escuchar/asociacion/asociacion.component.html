@@ -1,0 +1,18 @@
+<div class="ion-padding-start ion-padding-end">
+  <p>
+    Click on each image. Then, read and listen. When you finish your work, select “Next Task” button.
+  </p>
+</div>
+
+
+
+    <ion-list *ngFor="let dato of datos, let i = index">
+      <ion-item (click)="onClick(i)" (click)="hablar(dato.detalle.nombreImagen)">
+        <img src="{{dato.detalle.imageUrl}}"/>
+        <ion-checkbox color="primary" slot="start"></ion-checkbox>
+        <ion-label *ngIf="i == this.numero && this.voice.estado()" class="ion-text-end">{{dato.detalle.nombreImagen}}</ion-label>
+      </ion-item>
+    </ion-list>
+
+  
+<ion-button>Next Task</ion-button>
