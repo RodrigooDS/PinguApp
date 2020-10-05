@@ -4,6 +4,8 @@ import { Actividad } from '../../../../shared/actividad.interfaces';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VoiceService } from '../../../../services/voice.service';
 import { UploadService } from '../../../../services/upload.service';
+import { Platform } from '@ionic/angular';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @Component({
   selector: 'app-ce-parte1',
@@ -16,14 +18,16 @@ export class CeParte1Component implements OnInit {
   @Output() onFormGroupChange = new EventEmitter<any>();
 
   form: FormGroup;
-  // estado: boolean = false;
+  seleccionRadioButton: boolean;
   actividad: any[] = [];
   posicionesElegidas: any[] = [];
   datos: Actividad [] = [];
   numero: number;
   constructor(public upload: UploadService,
               public voice:  VoiceService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder,
+              public platform: Platform,
+              private tts: TextToSpeech) { }
 
   ngOnInit() {
     this.obtenerDatosActividad();
@@ -51,6 +55,12 @@ export class CeParte1Component implements OnInit {
     });
   }
 
+  radioGroupChange(event) {
+    console.log("radioGroupChange",event.detail.checked);
+    this.seleccionRadioButton = event.detail.checked;
+    console.log(this.seleccionRadioButton);
+  }
+
   frutasAleatorias(){
     this.datos = [];
     
@@ -71,15 +81,37 @@ export class CeParte1Component implements OnInit {
     this.numero = item;
   }
 
-  hablar(texto: string) { 
-    this.voice.hablar(texto);
+  estadoCheckBox() {
+    // console.log(this.form.value);
+    if(this.form.value.checkbox0){
+      return true
+    }
+    else if(this.form.value.checkbox1){
+      return true
+    }
+    else if(this.form.value.checkbox2){
+      return true
+    }
+    else if(this.form.value.checkbox3){
+      return true
+    }
+  }
+
+  hablarFrutas(texto: string) { 
+    var plataforma = this.platform.platforms();
+    // console.log('plataforma',plataforma);
+    if(this.seleccionRadioButton){
+      // console.log(this.form.value)
+      this.voice.hablar(texto);
+    }  
   }
 
   enviarDatos() {
     // this.estado = false;
     // this.frutasAleatorias();
-    localStorage.setItem('datos', JSON.stringify(this.datos));
-    this.onFormGroupChange.emit(this.form.value);
+    console.log(this.form.value.checkbox0);
+    // localStorage.setItem('datos', JSON.stringify(this.datos));
+    // this.onFormGroupChange.emit(this.form.value);
     // this.datos
   }
 

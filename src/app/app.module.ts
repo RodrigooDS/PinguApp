@@ -20,6 +20,8 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,12 +33,14 @@ import { AuthService } from './services/auth.service';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AuthService,
+    TextToSpeech,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
