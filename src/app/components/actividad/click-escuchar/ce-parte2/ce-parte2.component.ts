@@ -12,12 +12,25 @@ export class CeParte2Component implements OnInit {
 
   datos: Actividad [] = [];
   respuesta: number;
+
+  incorrectas: number [] = [];
+  imagenes: number [] = [0,1,2,3];
+  random: number;
+
+
+
+  buena: number;
+  mala: number;
+  parcial: number;
+
   opcion: number;
   seleccionRadioButton: any;
 
-  constructor(public fb: FormBuilder) { 
+  constructor(public fb: FormBuilder, ) { 
     this.datos = JSON.parse(localStorage.getItem('datos'));
     this.seleccionarItem();
+    this.buena = 0 , this.mala = 0, this.parcial = 0
+    
   }
 
   ngOnInit() {
@@ -25,7 +38,15 @@ export class CeParte2Component implements OnInit {
   }
 
   seleccionarItem() {
-    this.respuesta = Math.floor(Math.random()*(this.datos.length));
+    
+    // this.respuesta = Math.floor(Math.random()*(this.imagenes.length));
+    this.random = Math.floor(Math.random()*(this.imagenes.length));
+    this.respuesta = this.imagenes[this.random];
+    this.incorrectas.splice(0,this.incorrectas.length);
+    console.log(this.buena, this.parcial, this.mala);
+    if(this.imagenes.length === 0){
+
+    }
   }
 
   obtenerRespuetaCheckBox(i: number) {
@@ -35,9 +56,18 @@ export class CeParte2Component implements OnInit {
   enviarDatos() {
     if(this.respuesta == this.opcion){
       console.log('buena');
-    }else{
+      this.imagenes.splice(this.random,1);
+      if(this.respuesta == this.opcion && this.incorrectas.length == 0){
+        this.buena++;
+      } else {
+        this.parcial++;
+      }
       this.seleccionarItem();
+      
+    }else{
+      this.incorrectas.push(this.opcion);
       console.log('esta mala crack');
+      this.mala= this.mala+1;
     }
   }
 
@@ -46,6 +76,8 @@ export class CeParte2Component implements OnInit {
     this.seleccionRadioButton = event.detail.checked;
     console.log(this.seleccionRadioButton);
   }
+
+
 
 
 

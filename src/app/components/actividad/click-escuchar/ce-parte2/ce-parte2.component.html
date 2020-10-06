@@ -4,17 +4,21 @@
   </h4>
 </div>
 
-<ion-card>
+<ion-card *ngIf="imagenes.length > 0">
   <!-- <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-padding-top"> -->
-    <img src="{{this.datos[this.respuesta].detalle.imageUrl}}"/>
+    <img src="{{this.datos[this.respuesta].detalle.imageUrl}}" />
     <ion-card-content>
       <ion-label>What is this? It is…</ion-label>
       <ion-list>
-        <ion-radio-group>      
+        <ion-radio-group >      
           <ion-item *ngFor="let dato of datos,let i =  index" (click)="obtenerRespuetaCheckBox(i)">
-            
-            <div *ngIf="">
-              <ion-radio slot="start" mode="md" value="op{{i}}"></ion-radio>
+            <!-- <div>
+              <ion-radio slot="start" mode="md" value="op{{i}}" ></ion-radio>
+            </div> -->
+
+            <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true" ></ion-radio>
+            <div>
+              <ion-radio mode="md"  value="op{{i}}" *ngIf = "this.incorrectas.includes(i)"  disabled= true></ion-radio>
             </div>
 
             <ion-label>{{dato.detalle.fraseIngles}}</ion-label>
