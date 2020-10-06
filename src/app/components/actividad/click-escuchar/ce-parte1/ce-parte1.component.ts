@@ -73,7 +73,6 @@ export class CeParte1Component implements OnInit {
       j--;
       this.datos.push(this.actividad[j]);
       this.posicionesElegidas.push(j);
-
     }
   }
 
@@ -81,37 +80,20 @@ export class CeParte1Component implements OnInit {
     this.numero = item;
   }
 
-  estadoCheckBox() {
-    // console.log(this.form.value);
-    if(this.form.value.checkbox0){
-      return true
-    }
-    else if(this.form.value.checkbox1){
-      return true
-    }
-    else if(this.form.value.checkbox2){
-      return true
-    }
-    else if(this.form.value.checkbox3){
-      return true
-    }
-  }
-
   hablarFrutas(texto: string) { 
     var plataforma = this.platform.platforms();
     // console.log('plataforma',plataforma);
     if(this.seleccionRadioButton){
       // console.log(this.form.value)
-      this.voice.hablar(texto);
+      // this.voice.hablar(texto);
     }  
   }
 
   enviarDatos() {
     // this.estado = false;
     // this.frutasAleatorias();
-    console.log(this.form.value.checkbox0);
-    // localStorage.setItem('datos', JSON.stringify(this.datos));
-    // this.onFormGroupChange.emit(this.form.value);
+    localStorage.setItem('datos', JSON.stringify(this.datos));
+    this.onFormGroupChange.emit(this.form.value);
     // this.datos
   }
 

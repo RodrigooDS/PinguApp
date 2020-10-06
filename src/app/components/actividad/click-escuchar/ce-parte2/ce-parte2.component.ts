@@ -13,8 +13,7 @@ export class CeParte2Component implements OnInit {
   datos: Actividad [] = [];
   respuesta: number;
   opcion: number;
-  // checkboxFields: string[];
-  // filters: any;
+  seleccionRadioButton: any;
 
   constructor(public fb: FormBuilder) { 
     this.datos = JSON.parse(localStorage.getItem('datos'));
@@ -24,8 +23,6 @@ export class CeParte2Component implements OnInit {
   ngOnInit() {
     
   }
-
-  
 
   seleccionarItem() {
     this.respuesta = Math.floor(Math.random()*(this.datos.length));
@@ -39,8 +36,15 @@ export class CeParte2Component implements OnInit {
     if(this.respuesta == this.opcion){
       console.log('buena');
     }else{
+      this.seleccionarItem();
       console.log('esta mala crack');
     }
+  }
+
+  radioGroupChange(event) {
+    console.log("radioGroupChange",event.detail.checked);
+    this.seleccionRadioButton = event.detail.checked;
+    console.log(this.seleccionRadioButton);
   }
 
 
