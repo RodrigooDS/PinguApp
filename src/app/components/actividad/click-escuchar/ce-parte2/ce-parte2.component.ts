@@ -18,9 +18,24 @@ export class CeParte2Component implements OnInit {
   random: number;
 
 
+  estadistica = {
+    buena: {
+          nombre:[], 
+           },
+    parcial: {
+          parciales: {
+            nombre: [],
+            erroneas: {}
+          }
+    },
+    errores: 0
+  }
+
+
 
   buena: number;
   mala: number;
+  mala2: any [] = [];
   parcial: number;
 
   opcion: number;
@@ -38,15 +53,15 @@ export class CeParte2Component implements OnInit {
   }
 
   seleccionarItem() {
-    
-    // this.respuesta = Math.floor(Math.random()*(this.imagenes.length));
     this.random = Math.floor(Math.random()*(this.imagenes.length));
     this.respuesta = this.imagenes[this.random];
     this.incorrectas.splice(0,this.incorrectas.length);
-    console.log(this.buena, this.parcial, this.mala);
-    if(this.imagenes.length === 0){
 
-    }
+    console.log('buena', this.buena, 'Parcial', this.parcial, 'Malas', this.mala);
+    // console.log( 'Nombre frutas buenas', this.estadistica.buena.nombre);
+    // console.log('Frutas parciales', this.estadistica.parcial.parciales);
+    // console.log('errores', this.estadistica.errores);
+    console.log(this.estadistica);
   }
 
   obtenerRespuetaCheckBox(i: number) {
@@ -54,20 +69,31 @@ export class CeParte2Component implements OnInit {
   }
 
   enviarDatos() {
-    if(this.respuesta == this.opcion){
+    console.log(this.mala2);
+    if(this.respuesta === this.opcion){
       console.log('buena');
       this.imagenes.splice(this.random,1);
-      if(this.respuesta == this.opcion && this.incorrectas.length == 0){
+      if(this.respuesta === this.opcion && this.incorrectas.length == 0){
         this.buena++;
+        this.estadistica.buena.nombre.push(this.datos[this.respuesta].detalle.nombreImagen);
+
       } else {
         this.parcial++;
+        this.estadistica.parcial.parciales.erroneas =  (this.mala2);
+        this.estadistica.parcial.parciales.nombre.push(this.datos[this.respuesta].detalle.nombreImagen);
+        // this.mala2.slice(this.mala2.length);
+        
       }
       this.seleccionarItem();
       
     }else{
       this.incorrectas.push(this.opcion);
-      console.log('esta mala crack');
-      this.mala= this.mala+1;
+      console.log('Incorrecta');
+      this.mala++;
+
+      this.estadistica.errores++;
+      this.mala2.push(this.datos[this.opcion].detalle.nombreImagen);
+
     }
   }
 
