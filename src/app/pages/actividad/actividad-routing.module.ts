@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'completacion',
     loadChildren: () => import('./click-escuchar/completacion/completacion.module').then( m => m.CompletacionPageModule)
+  },
+  {
+    path: 'estadistica',
+    loadChildren: () => import('./click-escuchar/estadistica/estadistica.module').then( m => m.EstadisticaPageModule)
   }
 
 

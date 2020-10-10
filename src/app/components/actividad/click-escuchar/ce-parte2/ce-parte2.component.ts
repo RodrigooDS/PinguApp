@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Actividad } from '../../../../shared/actividad.interfaces';
+import { ModalController } from '@ionic/angular';
+import { EstadisticaInfoPage } from '../../../../pages/actividad/click-escuchar/estadistica-info/estadistica-info.page';
 
 @Component({
   selector: 'app-ce-parte2',
@@ -9,14 +11,12 @@ import { Actividad } from '../../../../shared/actividad.interfaces';
 })
 export class CeParte2Component implements OnInit {
 
-
   datos: Actividad [] = [];
   respuesta: number;
 
   incorrectas: number [] = [];
   imagenes: number [] = [0,1,2,3];
   random: number;
-
 
   estadistica = {
     buena: {
@@ -31,8 +31,6 @@ export class CeParte2Component implements OnInit {
     errores: 0
   }
 
-
-
   buena: number;
   mala: number;
   mala2: any [] = [];
@@ -41,7 +39,7 @@ export class CeParte2Component implements OnInit {
   opcion: number;
   seleccionRadioButton: any;
 
-  constructor(public fb: FormBuilder, ) { 
+  constructor(public fb: FormBuilder, private modalCtrl : ModalController ) { 
     this.datos = JSON.parse(localStorage.getItem('datos'));
     this.seleccionarItem();
     this.buena = 0 , this.mala = 0, this.parcial = 0
@@ -103,7 +101,22 @@ export class CeParte2Component implements OnInit {
     console.log(this.seleccionRadioButton);
   }
 
+  async abrirModal() {
+    const modal = await this.modalCtrl.create({
+      component: EstadisticaInfoPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
 
+        buena: this.estadistica.buena.nombre,
+        parcial: this.estadistica.parcial.parciales.nombre,
+        error: this.estadistica.parcial.parciales.erroneas,
+        errores: this.estadistica.errores
+        
+      }
+    });
+      
+    return await modal.present();
+  }
 
 
 

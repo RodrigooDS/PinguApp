@@ -4,9 +4,14 @@
   </h4>
 </div>
 
+
+
 <ion-card *ngIf="imagenes.length > 0">
   <!-- <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-padding-top"> -->
-    <img src="{{this.datos[this.respuesta].detalle.imageUrl}}" />
+    <ion-avatar class="avatar">
+      <img src="{{this.datos[this.respuesta].detalle.imageUrl}}" />
+    </ion-avatar>
+    
     <ion-card-content>
       <ion-label>What is this? It is…</ion-label>
       <ion-list>
@@ -16,6 +21,14 @@
               <ion-radio slot="start" mode="md" value="op{{i}}" ></ion-radio>
             </div> -->
 
+            <!-- <div *ngIf="this.incorrectas.includes(i) != true"; else elseBlock>    
+              <ion-radio mode="md"  value="op{{i}}" *ngIf = "this.incorrectas.includes(i)"  disabled= true></ion-radio>          
+           
+            </div>
+            <ng-template #elseBlock>
+              <ion-radio slot="start" mode="md" value="op{{i}}"></ion-radio>
+            </ng-template> -->
+              
             <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true" ></ion-radio>
             <div>
               <ion-radio mode="md"  value="op{{i}}" *ngIf = "this.incorrectas.includes(i)"  disabled= true></ion-radio>
@@ -27,10 +40,14 @@
         </ion-radio-group>
       </ion-list>
       
-      <ion-button (click)="enviarDatos()"></ion-button>
+      <ion-button (click)="enviarDatos()" slot="center">Siguiente</ion-button>
     </ion-card-content>
   <!-- </form> -->
 </ion-card>
+  <ion-button *ngIf="imagenes.length == 0" class="botonModal" extend="full" (click)="abrirModal()">
+    Siguiente
+  </ion-button>
+
 
 
 

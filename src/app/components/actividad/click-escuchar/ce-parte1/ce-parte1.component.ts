@@ -85,7 +85,7 @@ export class CeParte1Component implements OnInit {
     // console.log('plataforma',plataforma);
     if(this.seleccionRadioButton){
       // console.log(this.form.value)
-      // this.voice.hablar(texto);
+      this.voice.hablar(texto);
     }  
   }
 
