@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Actividad } from '../../../../shared/actividad.interfaces';
 import { ModalController } from '@ionic/angular';
-import { EstadisticaInfoPage } from '../../../../pages/actividad/click-escuchar/estadistica-info/estadistica-info.page';
+import { CeEstadisticaPage } from '../../../../pages/actividad/click-escuchar/ce-estadistica/ce-estadistica.page';
 
 @Component({
   selector: 'app-ce-parte2',
@@ -103,7 +103,7 @@ export class CeParte2Component implements OnInit {
 
   async abrirModal() {
     const modal = await this.modalCtrl.create({
-      component: EstadisticaInfoPage,
+      component: CeEstadisticaPage,
       cssClass: 'my-custom-class',
       componentProps: {
 

@@ -3,16 +3,6 @@
 <ion-content>
 
   <h1 class="ion-padding">Categorias</h1>
-  <!-- <ion-list *ngFor="let categoria of categorias" >
-      <ion-item detail>
-          <ion-thumbnail slot="start">
-              <img src="{{categoria.imagen}}">
-            </ion-thumbnail>
-          <ion-label>
-              {{categoria.categoria}}
-          </ion-label>
-      </ion-item>
-  </ion-list> -->
 
   <div *ngIf="this.categorias">
       <div *ngFor="let categoria of categorias">

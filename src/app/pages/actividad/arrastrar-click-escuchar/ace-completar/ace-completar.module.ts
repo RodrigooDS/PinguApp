@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { EstadisticaInfoPageRoutingModule } from './estadistica-info-routing.module';
+import { AceCompletarPageRoutingModule } from './ace-completar-routing.module';
 
-import { EstadisticaInfoPage } from './estadistica-info.page';
+import { AceCompletarPage } from './ace-completar.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EstadisticaInfoPageRoutingModule
+    AceCompletarPageRoutingModule
   ],
-  declarations: [EstadisticaInfoPage]
+  declarations: [AceCompletarPage]
 })
-export class EstadisticaInfoPageModule {}
+export class AceCompletarPageModule {}

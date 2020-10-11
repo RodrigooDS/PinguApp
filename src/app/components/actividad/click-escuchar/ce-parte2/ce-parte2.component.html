@@ -21,7 +21,7 @@
               <ion-radio slot="start" mode="md" value="op{{i}}" ></ion-radio>
             </div> -->
 
-            <!-- <div *ngIf="this.incorrectas.includes(i) != true"; else elseBlock>    
+            <!-- <div *ngIf="this.incorrectas.includes(i) != true"ng-template #elseBlock>    
               <ion-radio mode="md"  value="op{{i}}" *ngIf = "this.incorrectas.includes(i)"  disabled= true></ion-radio>          
            
             </div>
@@ -29,12 +29,16 @@
               <ion-radio slot="start" mode="md" value="op{{i}}"></ion-radio>
             </ng-template> -->
               
-            <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true" ></ion-radio>
-            <div>
-              <ion-radio mode="md"  value="op{{i}}" *ngIf = "this.incorrectas.includes(i)"  disabled= true></ion-radio>
-            </div>
+            <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true; else mala" ></ion-radio>
 
-            <ion-label>{{dato.detalle.fraseIngles}}</ion-label>
+            <ng-template #mala >
+              <ion-radio mode="md"  value="op{{i}}" disabled= true></ion-radio>
+            </ng-template>
+
+            <div class="ion-padding-start">
+              <ion-label>{{dato.detalle.fraseIngles}}</ion-label>
+            </div>
+            
           </ion-item>
     
         </ion-radio-group>

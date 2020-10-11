@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { EstadisticaPageRoutingModule } from './estadistica-routing.module';
+import { CeEstadisticaPageRoutingModule } from './ce-estadistica-routing.module';
 
-import { EstadisticaPage } from './estadistica.page';
+import { CeEstadisticaPage } from './ce-estadistica.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EstadisticaPageRoutingModule
+    CeEstadisticaPageRoutingModule
   ],
-  declarations: [EstadisticaPage]
+  declarations: [CeEstadisticaPage]
 })
-export class EstadisticaPageModule {}
+export class CeEstadisticaPageModule {}

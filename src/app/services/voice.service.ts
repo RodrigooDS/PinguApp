@@ -69,9 +69,7 @@ export class VoiceService {
   hablarMovil(texto: string){
      this.tts.speak(texto)
     .then(() => this.estadoHablarMovil(false))
-    .catch((reason: any) => console.log(reason));
-    
-    
+    .catch((reason: any) => console.log(reason)); 
   }
 
   estadoHablarWeb() {

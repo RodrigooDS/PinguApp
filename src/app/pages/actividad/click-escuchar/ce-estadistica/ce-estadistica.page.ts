@@ -2,18 +2,20 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
-  selector: 'app-estadistica-info',
-  templateUrl: './estadistica-info.page.html',
-  styleUrls: ['./estadistica-info.page.scss'],
+  selector: 'app-ce-estadistica',
+  templateUrl: './ce-estadistica.page.html',
+  styleUrls: ['./ce-estadistica.page.scss'],
 })
-export class EstadisticaInfoPage implements OnInit {
+export class CeEstadisticaPage implements OnInit {
 
+  
   @Input() buena;
   @Input() parcial;
   @Input() error;
   @Input() errores;
 
-  constructor( private modalCtrl: ModalController, private navParams:NavParams) { }
+  constructor(private modalCtrl: ModalController, 
+              private navParams:NavParams) { }
 
   ngOnInit() {
     
@@ -32,6 +34,7 @@ export class EstadisticaInfoPage implements OnInit {
 
 
   }
+
 
 
 }

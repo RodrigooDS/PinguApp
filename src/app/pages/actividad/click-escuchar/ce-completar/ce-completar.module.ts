@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CompletacionPageRoutingModule } from './completacion-routing.module';
+import { CeCompletarPageRoutingModule } from './ce-completar-routing.module';
 
-import { CompletacionPage } from './completacion.page';
+import { CeCompletarPage } from './ce-completar.page';
 import { ComponentsModule } from '../../../../components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from '../../../../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    CompletacionPageRoutingModule,
+    CeCompletarPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [CompletacionPage]
+  declarations: [CeCompletarPage]
 })
-export class CompletacionPageModule {}
+export class CeCompletarPageModule {}

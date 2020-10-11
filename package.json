@@ -29,7 +29,7 @@
     "@ionic-native/text-to-speech": "^5.28.0",
     "@ionic/angular": "^5.0.0",
     "cordova-plugin-tts": "^0.2.3",
-    "firebase": "^7.21.0",
+    "firebase": "^7.23.0",
     "jetifier": "^1.6.6",
     "ngx-indexed-db": "^6.0.3",
     "rxjs": "~6.5.5",

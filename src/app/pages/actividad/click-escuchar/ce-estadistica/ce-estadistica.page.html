@@ -10,22 +10,22 @@
     <ion-card-header>
       <ion-card-title> <h1 class="titulo"> <b> Results </b> </h1></ion-card-title>
     </ion-card-header>    
-    
-    <ion-card>
+
+    <ion-card-content>
       <h2 class="titulos"><b> Right Answers </b></h2>
-      <h6 class="centrado"> <b> {{this.buena}} </b> </h6>
+      <h3 class="centrado"> <b> {{this.buena}} </b> </h3>
     <div>
       <h2 class="titulos"> <b> Partially right answers </b></h2>
-      <h6 class="centrado"> <b> {{this.parcial}}  </b></h6>
+      <h3 class="centrado"> <b> {{this.parcial}}  </b></h3>
     </div>
     
     <div>
       <h2 class="titulos"> <b> Wrong answers </b></h2>
-      <h6 class="centrado"> <b> {{(this.error)}} </b></h6> 
-      <h6 class="centrado"> <b> Count: {{this.errores}} </b></h6>  
+      <h3 class="centrado"> <b> {{(this.error)}} </b></h3> 
+      <h3 class="centrado"> <b> Count: {{this.errores}} </b></h3>  
     </div>
-      
-    </ion-card>
+    </ion-card-content>
+
      
   <ion-button expand="full" color="primary" (click)="menuPrincipal()"> Menu principal </ion-button>
 

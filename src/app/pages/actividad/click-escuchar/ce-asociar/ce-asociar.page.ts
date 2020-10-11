@@ -5,16 +5,17 @@ import { Location } from '@angular/common';
 import { UploadService } from '../../../../services/upload.service';
 
 @Component({
-  selector: 'app-asociacion',
-  templateUrl: './asociacion.page.html',
-  styleUrls: ['./asociacion.page.scss'],
+  selector: 'app-ce-asociar',
+  templateUrl: './ce-asociar.page.html',
+  styleUrls: ['./ce-asociar.page.scss'],
 })
-export class AsociacionPage implements OnInit {
+export class CeAsociarPage implements OnInit {
 
   categoria: string;
   actividad: string;
   interaccion: string
   estado: boolean = false;
+  
   constructor(public tabEstado: TabsService,
               public router: Router,
               private location: Location,
@@ -33,7 +34,7 @@ export class AsociacionPage implements OnInit {
 
   registro(event) {
     if(event){
-      this.router.navigate(['/tablinks/actividad/completacion']);
+      this.router.navigate(['/tablinks/actividad/ce-completar']);
       // this.estado = true;
     }
   }
@@ -42,5 +43,6 @@ export class AsociacionPage implements OnInit {
     this.tabEstado.cambiarEstado(false);
     this.location.back();
   }
+
 
 }

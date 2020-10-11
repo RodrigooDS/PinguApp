@@ -40,10 +40,14 @@ export class ActividadesPage implements OnInit {
       actividad : actividad,
       interaccion: interaccion
     }
-    // this.tituloActividad = actividad
     localStorage.setItem('actividad', JSON.stringify(actividad));
+
     if(interaccion == "Click, Escuchar"){
-      this.router.navigate(['/tablinks/actividad/asociacion']);
+      this.router.navigate(['/tablinks/actividad/ce-asociar']);
+    }
+    else if (interaccion == "Arrastrar, Click, Escuchar")
+    {
+      this.router.navigate(['/tablinks/actividad/ace-asociar']);
     }
     
   }

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CompletacionPage } from './completacion.page';
+import { CeCompletarPage } from './ce-completar.page';
 
-describe('CompletacionPage', () => {
-  let component: CompletacionPage;
-  let fixture: ComponentFixture<CompletacionPage>;
+describe('CeCompletarPage', () => {
+  let component: CeCompletarPage;
+  let fixture: ComponentFixture<CeCompletarPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CompletacionPage ],
+      declarations: [ CeCompletarPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CompletacionPage);
+    fixture = TestBed.createComponent(CeCompletarPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
