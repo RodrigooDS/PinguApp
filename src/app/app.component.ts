@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Menu } from './shared/interfaces';
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
+import { TabsService } from './services/tabs.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private dataService: DataService,
     private authService: AuthService,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    public tabEstado: TabsService) {
     this.initializeApp();
   }
 
@@ -39,6 +41,10 @@ export class AppComponent {
     this.alertaCerrarSesion();
   }
 
+  activarTabs() {
+    this.tabEstado.cambiarEstado(false);
+  }
+
   async alertaCerrarSesion() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
@@ -50,13 +56,11 @@ export class AppComponent {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Salir',
           handler: () => {
             this.authService.logout();
-            console.log('Confirm Okay');
           }
         }
       ]

@@ -4,6 +4,7 @@ import { UploadService } from '../../../services/upload.service';
 import { LoadingController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { Actividad } from '../../../shared/actividad.interfaces';
+import { TabsService } from '../../../services/tabs.service';
 
 @Component({
   selector: 'app-agregar-actividad',
@@ -29,7 +30,9 @@ export class AgregarActividadPage implements OnInit {
   constructor(public router: Router, 
               private route: ActivatedRoute,
               public upload: UploadService,
-              private loadingController: LoadingController) { 
+              private loadingController: LoadingController,
+              public tabEstado: TabsService) { 
+    this.tabEstado.cambiarEstado(true);
     this.cargarRepaso();
     this.cargarImagenes();
     this.agregarImagenes();
@@ -53,11 +56,13 @@ export class AgregarActividadPage implements OnInit {
   guardar() {
     this.guardarActividad();
     localStorage.clear();
+    this.tabEstado.cambiarEstado(false);
     this.router.navigate(['/tablinks/editar-actividad']);
   }  
 
   cancelar() {
     localStorage.clear();
+    this.tabEstado.cambiarEstado(false);
     this.router.navigate(['/tablinks/editar-actividad']);
   }
 

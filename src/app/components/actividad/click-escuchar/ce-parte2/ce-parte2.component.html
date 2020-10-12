@@ -6,7 +6,7 @@
 
 
 
-<ion-card *ngIf="imagenes.length > 0">
+<ion-card *ngIf="this.imagenes.length > 0">
   <!-- <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-padding-top"> -->
     <ion-avatar class="avatar">
       <img src="{{this.datos[this.respuesta].detalle.imageUrl}}" />
@@ -17,17 +17,6 @@
       <ion-list>
         <ion-radio-group >      
           <ion-item *ngFor="let dato of datos,let i =  index" (click)="obtenerRespuetaCheckBox(i)">
-            <!-- <div>
-              <ion-radio slot="start" mode="md" value="op{{i}}" ></ion-radio>
-            </div> -->
-
-            <!-- <div *ngIf="this.incorrectas.includes(i) != true"ng-template #elseBlock>    
-              <ion-radio mode="md"  value="op{{i}}" *ngIf = "this.incorrectas.includes(i)"  disabled= true></ion-radio>          
-           
-            </div>
-            <ng-template #elseBlock>
-              <ion-radio slot="start" mode="md" value="op{{i}}"></ion-radio>
-            </ng-template> -->
               
             <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true; else mala" ></ion-radio>
 
@@ -44,13 +33,14 @@
         </ion-radio-group>
       </ion-list>
       
-      <ion-button (click)="enviarDatos()" slot="center">Siguiente</ion-button>
+      <div class="ion-padding-top">
+        <ion-button (click)="enviarDatos()" slot="center" *ngIf="this.imagenes.length > 0">Siguiente</ion-button>
+      </div>
+      
     </ion-card-content>
   <!-- </form> -->
 </ion-card>
-  <ion-button *ngIf="imagenes.length == 0" class="botonModal" extend="full" (click)="abrirModal()">
-    Siguiente
-  </ion-button>
+
 
 
 

@@ -12,7 +12,7 @@
     <ion-content>
         <ion-list>
           <ion-menu-toggle autoHide="false" *ngFor="let c of componentes | async">   
-          <ion-item [routerLink]="c.redirectTo" lines="none">
+          <ion-item [routerLink]="c.redirectTo" lines="none" (click)="activarTabs()">
             <ion-icon slot="start" [name]="c.icon"></ion-icon>
             <ion-label>{{c.name}}</ion-label>
           </ion-item>

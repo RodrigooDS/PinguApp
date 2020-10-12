@@ -31,19 +31,18 @@ export class CeParte2Component implements OnInit {
     errores: 0
   }
 
-  buena: number;
-  mala: number;
+  buena: number = 0;
+  mala: number = 0;
   mala2: any [] = [];
-  parcial: number;
+  parcial: number = 0;
 
   opcion: number;
   seleccionRadioButton: any;
 
-  constructor(public fb: FormBuilder, private modalCtrl : ModalController ) { 
+  constructor(public fb: FormBuilder, 
+              private modalCtrl : ModalController ) { 
     this.datos = JSON.parse(localStorage.getItem('datos'));
     this.seleccionarItem();
-    this.buena = 0 , this.mala = 0, this.parcial = 0
-    
   }
 
   ngOnInit() {
@@ -55,11 +54,11 @@ export class CeParte2Component implements OnInit {
     this.respuesta = this.imagenes[this.random];
     this.incorrectas.splice(0,this.incorrectas.length);
 
-    console.log('buena', this.buena, 'Parcial', this.parcial, 'Malas', this.mala);
-    // console.log( 'Nombre frutas buenas', this.estadistica.buena.nombre);
-    // console.log('Frutas parciales', this.estadistica.parcial.parciales);
-    // console.log('errores', this.estadistica.errores);
-    console.log(this.estadistica);
+    if(this.imagenes.length == 0){
+      this.abrirModal();
+    }
+    // console.log('buena', this.buena, 'Parcial', this.parcial, 'Malas', this.mala);
+    // console.log(this.imagenes);
   }
 
   obtenerRespuetaCheckBox(i: number) {
@@ -95,12 +94,6 @@ export class CeParte2Component implements OnInit {
     }
   }
 
-  radioGroupChange(event) {
-    console.log("radioGroupChange",event.detail.checked);
-    this.seleccionRadioButton = event.detail.checked;
-    console.log(this.seleccionRadioButton);
-  }
-
   async abrirModal() {
     const modal = await this.modalCtrl.create({
       component: CeEstadisticaPage,
@@ -117,7 +110,5 @@ export class CeParte2Component implements OnInit {
       
     return await modal.present();
   }
-
-
 
 }

@@ -13,6 +13,7 @@ export class RepasoPage implements OnInit {
 
   tipoCategoria : string;
   categorias : any[] = [];
+  vistaCategorias: string = "tarjetas";
 
   constructor(public upload: UploadService,
               public router: Router) {
@@ -20,6 +21,10 @@ export class RepasoPage implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  vistaCategoria(ev: any) {
+    this.vistaCategorias = ev.detail.value;
   }
 
   obtenerCategorias() {

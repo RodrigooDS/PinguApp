@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 //interfaces
 import { UploadService } from '../../../services/upload.service';
 import { LoadingController } from '@ionic/angular';
+import { TabsService } from '../../../services/tabs.service';
 
 
 @Component({
@@ -31,7 +32,9 @@ export class AgregarRepasoPage implements OnInit {
   constructor(public router: Router, 
               private route: ActivatedRoute,
               public upload: UploadService,
-              private loadingController: LoadingController) { 
+              private loadingController: LoadingController,
+              public tabEstado: TabsService) { 
+    this.tabEstado.cambiarEstado(true);
     this.cargarRepaso();
     this.cargarImagenes();
     this.agregarImagenes();
@@ -51,12 +54,14 @@ export class AgregarRepasoPage implements OnInit {
   }
 
   guardar() {
+    this.tabEstado.cambiarEstado(false);
     this.guardarRepaso();
     localStorage.clear();
     this.router.navigate(['/tablinks/editar-repaso']);
   }  
 
   cancelar() {
+    this.tabEstado.cambiarEstado(false);
     localStorage.clear();
     this.router.navigate(['/tablinks/editar-repaso']);
   }

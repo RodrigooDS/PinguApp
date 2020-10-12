@@ -5,7 +5,7 @@
       "redirectTo":"/tablinks/editar-repaso"
     },
     {
-      "icon":"barbell",
+      "icon":"school",
       "name": "Editar Actividad",
       "redirectTo":"/tablinks/editar-actividad"
     }
