@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
     AngularFireStorageModule,
     AngularFireAuthModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     
   ],
   providers: [

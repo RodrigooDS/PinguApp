@@ -26,8 +26,7 @@ export class CeParte1Component implements OnInit {
   constructor(public upload: UploadService,
               public voice:  VoiceService,
               public fb: FormBuilder,
-              public platform: Platform,
-              private tts: TextToSpeech) { }
+              public platform: Platform) { }
 
   ngOnInit() {
     this.obtenerDatosActividad();

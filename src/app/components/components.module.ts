@@ -9,6 +9,8 @@ import { FormloginComponent } from './formlogin/formlogin.component';
 import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpassword.component';
 import { CeParte1Component } from './actividad/click-escuchar/ce-parte1/ce-parte1.component';
 import { CeParte2Component } from './actividad/click-escuchar/ce-parte2/ce-parte2.component';
+import { AceParte1Component } from './actividad/arrastrar-click-escuchar/ace-parte1/ace-parte1.component';
+import { AceParte2Component } from './actividad/arrastrar-click-escuchar/ace-parte2/ace-parte2.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CeParte2Component } from './actividad/click-escuchar/ce-parte2/ce-parte
     FormloginComponent,
     FormforgotpasswordComponent,
     CeParte1Component,
-    CeParte2Component
+    CeParte2Component,
+    AceParte1Component,
+    AceParte2Component
   ],
   exports:[
     FormregistroComponent,
@@ -25,8 +29,9 @@ import { CeParte2Component } from './actividad/click-escuchar/ce-parte2/ce-parte
     FormloginComponent,
     FormforgotpasswordComponent,
     CeParte1Component,
-    CeParte2Component
-
+    CeParte2Component,
+    AceParte1Component,
+    AceParte2Component
   ],
   imports: [
     ReactiveFormsModule,

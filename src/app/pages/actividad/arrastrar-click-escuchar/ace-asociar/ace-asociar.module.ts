@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { AceAsociarPageRoutingModule } from './ace-asociar-routing.module';
 
 import { AceAsociarPage } from './ace-asociar.page';
-
+import { ComponentsModule } from '../../../../components/components.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AceAsociarPageRoutingModule
+    AceAsociarPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [AceAsociarPage]
 })

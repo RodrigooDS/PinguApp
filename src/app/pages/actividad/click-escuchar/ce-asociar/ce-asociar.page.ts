@@ -23,15 +23,14 @@ export class CeAsociarPage implements OnInit {
               public upload: UploadService,
               private menuCtrl: MenuController) {
     this.menuCtrl.enable(false);
-    var test = JSON.parse(localStorage.getItem('actividad'));
-    this.actividad = test.actividad;
-    this.interaccion = test.interaccion;
+    this.tabEstado.cambiarEstado(true);
+    var datos = JSON.parse(localStorage.getItem('actividad'));
+    this.actividad = datos.actividad;
+    this.interaccion = datos.interaccion;
     
   }
 
   ngOnInit() {
-    // this.obtenerDatosActividad();
-    this.tabEstado.cambiarEstado(true);
   }
 
   registro(event) {
@@ -46,6 +45,4 @@ export class CeAsociarPage implements OnInit {
     this.tabEstado.cambiarEstado(false);
     this.location.back();
   }
-
-
 }
