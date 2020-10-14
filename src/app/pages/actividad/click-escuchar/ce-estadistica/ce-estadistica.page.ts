@@ -46,13 +46,7 @@ export class CeEstadisticaPage implements OnInit {
     this.modalCtrl.dismiss();
     this.menuCtrl.enable(false);
     this.tabEstado.cambiarEstado(false);
-    this.navCtrl.navigateRoot(['/tablinks/actividad/ce-asociar']);
-    // this.router.navigate(['/tablinks/actividad/ce-asociar']);
-
-    // this.navCtrl.navigateBack(['/tablinks/actividad/ce-asociar'])
-    // this.navCtrl.navigateRoot(['/tablinks/actividad/ce-asociar']);
-    // window.location.reload();
-    // location.replace(('/tablinks/actividad/ce-completar'));
+    this.router.navigate(['/tablinks/actividad/ce-asociar']);
   }
 
 

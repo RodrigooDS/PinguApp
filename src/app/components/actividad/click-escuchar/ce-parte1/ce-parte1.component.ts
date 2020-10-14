@@ -103,10 +103,6 @@ export class CeParte1Component implements OnInit {
     localStorage.setItem('datos', JSON.stringify(this.datos));
     this.onFormGroupChange.emit(this.form.value);
     location.replace(('/tablinks/actividad/ce-completar'));
-  
-    // window.location.reload();
-    // location.replace(('/tablinks/actividad/ce-completar'));
-    // location.reload;
  
   }
 
