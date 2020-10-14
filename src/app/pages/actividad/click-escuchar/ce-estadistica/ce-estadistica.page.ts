@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, MenuController, NavController } from '@ionic/angular';
+import { TabsService } from '../../../../services/tabs.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ce-estadistica',
@@ -15,7 +17,11 @@ export class CeEstadisticaPage implements OnInit {
   @Input() errores;
 
   constructor(private modalCtrl: ModalController, 
-              private navParams:NavParams) { }
+              private navParams:NavParams,
+              public tabEstado: TabsService,
+              public router: Router,
+              private menuCtrl: MenuController,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
     
@@ -27,12 +33,26 @@ export class CeEstadisticaPage implements OnInit {
   }
 
   menuPrincipal(){
+
     this.modalCtrl.dismiss();
+    this.menuCtrl.enable(true);
+    this.tabEstado.cambiarEstado(false);
+    this.router.navigate(['/tablinks/actividad']);
+    
   }
 
   reintentar(){
 
+    this.modalCtrl.dismiss();
+    this.menuCtrl.enable(false);
+    this.tabEstado.cambiarEstado(false);
+    this.navCtrl.navigateRoot(['/tablinks/actividad/ce-asociar']);
+    // this.router.navigate(['/tablinks/actividad/ce-asociar']);
 
+    // this.navCtrl.navigateBack(['/tablinks/actividad/ce-asociar'])
+    // this.navCtrl.navigateRoot(['/tablinks/actividad/ce-asociar']);
+    // window.location.reload();
+    // location.replace(('/tablinks/actividad/ce-completar'));
   }
 
 

@@ -31,6 +31,11 @@ export class CeAsociarPage implements OnInit {
   }
 
   ngOnInit() {
+   
+  }
+  ionViewWillEnter(){
+    console.log("Hola ion modal")
+    this.estado=false;
   }
 
   registro(event) {

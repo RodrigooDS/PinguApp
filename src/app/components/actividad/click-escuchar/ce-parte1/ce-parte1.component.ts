@@ -4,7 +4,7 @@ import { Actividad } from '../../../../shared/actividad.interfaces';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VoiceService } from '../../../../services/voice.service';
 import { UploadService } from '../../../../services/upload.service';
-import { Platform } from '@ionic/angular';
+import { MenuController, Platform } from '@ionic/angular';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @Component({
@@ -26,13 +26,22 @@ export class CeParte1Component implements OnInit {
   constructor(public upload: UploadService,
               public voice:  VoiceService,
               public fb: FormBuilder,
-              public platform: Platform) { }
+              public platform: Platform,
+              ) { }
 
   ngOnInit() {
+    
     this.obtenerDatosActividad();
     this.crearFormulario();
   }
- 
+
+  ionViewWillEnter(){
+    
+    this.obtenerDatosActividad();
+    this.crearFormulario();
+    console.log("Probando el ion");
+  }
+
   crearFormulario(){
     this.form = this.fb.group({
       checkbox0: [false, Validators.requiredTrue],
@@ -93,7 +102,12 @@ export class CeParte1Component implements OnInit {
     // this.frutasAleatorias();
     localStorage.setItem('datos', JSON.stringify(this.datos));
     this.onFormGroupChange.emit(this.form.value);
-    // this.datos
+    location.replace(('/tablinks/actividad/ce-completar'));
+  
+    // window.location.reload();
+    // location.replace(('/tablinks/actividad/ce-completar'));
+    // location.reload;
+ 
   }
 
 }
