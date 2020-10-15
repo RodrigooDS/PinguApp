@@ -27,10 +27,13 @@
                 <div *ngIf="this.categorias && this.vistaCategorias == 'tarjetas'" class="ion-padding-top">
                     <div *ngFor="let categoria of categorias">
                         <ion-card (click)="obtenerTituloCategoria(categoria.categoria)">
-                            <img src="{{categoria.imagen}}">
+                            
                             <ion-card-header>
                             <ion-card-title>{{categoria.categoria}}</ion-card-title>
                             </ion-card-header>
+                            <!-- <ion-card-content> -->
+                                <img src="{{categoria.imagen}}">
+                            <!-- </ion-card-content> -->
                         </ion-card>
                     </div>
                 </div>
