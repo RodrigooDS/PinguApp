@@ -4,6 +4,7 @@ import { Actividad } from '../../../../shared/actividad.interfaces';
 import { ModalController } from '@ionic/angular';
 import { CeEstadisticaPage } from '../../../../pages/actividad/click-escuchar/ce-estadistica/ce-estadistica.page';
 
+
 @Component({
   selector: 'app-ce-parte2',
   templateUrl: './ce-parte2.component.html',
@@ -25,7 +26,7 @@ export class CeParte2Component implements OnInit {
     parcial: {
           parciales: {
             nombre: [],
-            erroneas: {}
+            erroneas:[]
           }
     },
     errores: 0
@@ -40,14 +41,26 @@ export class CeParte2Component implements OnInit {
   seleccionRadioButton: any;
 
   constructor(public fb: FormBuilder, 
-              private modalCtrl : ModalController ) { 
+              private modalCtrl : ModalController, ) { 
     this.datos = JSON.parse(localStorage.getItem('datos'));
     this.seleccionarItem();
+    
   }
 
   ngOnInit() {
+    // window.location.reload();
+  }
+ 
+  ngOnDestroy(){
     
   }
+  // ionViewWillEnter(){
+  //   location.reload;
+  // }
+  // ionViewDidEnter(){
+  //   location.reload;
+  // }
+  
 
   seleccionarItem() {
     this.random = Math.floor(Math.random()*(this.imagenes.length));
