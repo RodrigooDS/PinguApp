@@ -10,7 +10,7 @@
   
             <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-                <ion-item lines="full" class="background">
+                <ion-item lines="full" mode="ios" class="ion-padding background">
                     <h1 style="font-weight: bold">Categorías</h1>
                 </ion-item>
                 
@@ -29,7 +29,6 @@
                 <div *ngIf="this.categorias && this.vistaCategorias == 'tarjetas'" class="ion-padding-top">
                     <div *ngFor="let categoria of categorias">
                         <ion-card (click)="obtenerTituloCategoria(categoria.categoria)">
-                            
                             <ion-card-header>
                             <ion-card-title>{{categoria.categoria}}</ion-card-title>
                             </ion-card-header>
@@ -40,7 +39,7 @@
                 
                 <div *ngIf="this.categorias && this.vistaCategorias == 'lista'" class="ion-padding-top">
                     <ion-list *ngFor="let categoria of categorias">
-                        <ion-item (click)="obtenerTituloCategoria(categoria.categoria)">
+                        <ion-item (click)="obtenerTituloCategoria(categoria.categoria)" class="ion-padding-bottom">
                             <ion-thumbnail slot="start" class="thumbnail">
                                 <img src="{{categoria.imagen}}">
                             </ion-thumbnail>

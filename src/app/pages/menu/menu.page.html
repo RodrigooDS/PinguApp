@@ -3,15 +3,16 @@
 <ion-content padding fullscreen>
 
   <ion-grid >
+    
       <ion-row>
 
           <ion-col></ion-col>
 
           <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-            <ion-item lines="full" class="background" mode="ios">
+            <ion-item lines="full" mode="ios" class="ion-padding background">
               <h1 style="font-weight: bold">Menú</h1>
-          </ion-item>
+            </ion-item>
 
             <div *ngFor="let c of componentes | async">
               <ion-card mode="ios" [routerLink]="c.redirectTo">
