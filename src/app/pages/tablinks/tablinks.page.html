@@ -1,6 +1,6 @@
-<ion-tabs>
+<ion-tabs fullscreen>
 
-  <ion-tab-bar slot="bottom">
+  <ion-tab-bar slot="bottom" class="background" translucent mode="ios">
 
     <ion-tab-button tab="actividad" [disabled]=tabStatus.estado>
       <ion-icon name="school"></ion-icon>
@@ -16,6 +16,11 @@
     <ion-tab-button tab="user"  [disabled]=tabStatus.estado>
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>Mi perfil</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="menu"  [disabled]=tabStatus.estado>
+      <ion-icon name="menu"></ion-icon>
+      <ion-label>Otros</ion-label>
     </ion-tab-button>
     
   </ion-tab-bar>

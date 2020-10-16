@@ -26,6 +26,10 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'menu',
+        loadChildren: () => import('../menu/menu.module').then( m => m.MenuPageModule)
+      },
+      {
         path: 'editar-repaso',
         loadChildren: () => import('../editar-repaso/editar-repaso.module').then( m => m.EditarRepasoPageModule),
         canActivate: [AuthGuard]

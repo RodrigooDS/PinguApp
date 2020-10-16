@@ -1,17 +1,19 @@
 <app-header titulo="Actividades"></app-header>
 
-<ion-content padding fullscreen>
+<ion-content padding fullscreen class="background">
 
     <ion-grid >
+
         <ion-row>
-            <ion-col size="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+  
+            <ion-col></ion-col>
+  
+            <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-                <ion-list>
-                    <ion-item lines="full">
-                        <h1>Categorías</h1>
-                    </ion-item>
-                </ion-list>
-
+                <ion-item lines="full" class="background">
+                    <h1>Categorías</h1>
+                </ion-item>
+                
                 <div class="ion-padding-top">
                     <ion-segment value="tarjetas" (ionChange)="vistaCategoria($event)" mode="ios">
                         <ion-segment-button value="tarjetas">
@@ -31,17 +33,15 @@
                             <ion-card-header>
                             <ion-card-title>{{categoria.categoria}}</ion-card-title>
                             </ion-card-header>
-                            <!-- <ion-card-content> -->
                                 <img src="{{categoria.imagen}}">
-                            <!-- </ion-card-content> -->
                         </ion-card>
                     </div>
                 </div>
-
+                
                 <div *ngIf="this.categorias && this.vistaCategorias == 'lista'" class="ion-padding-top">
                     <ion-list *ngFor="let categoria of categorias">
                         <ion-item (click)="obtenerTituloCategoria(categoria.categoria)">
-                            <ion-thumbnail slot="start">
+                            <ion-thumbnail slot="start" class="thumbnail">
                                 <img src="{{categoria.imagen}}">
                             </ion-thumbnail>
                             <ion-label>{{categoria.categoria}}</ion-label> 
@@ -50,7 +50,11 @@
                 </div>
         
             </ion-col>
+
+            <ion-col></ion-col>
+
         </ion-row>
     </ion-grid>
-
+    
 </ion-content>
+

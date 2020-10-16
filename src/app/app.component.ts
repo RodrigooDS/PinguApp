@@ -16,15 +16,15 @@ import { TabsService } from './services/tabs.service';
 })
 export class AppComponent {
 
-  componentes: Observable<Menu[]>;
+  // componentes: Observable<Menu[]>;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private dataService: DataService,
-    private authService: AuthService,
-    private alertCtrl: AlertController,
+    // private dataService: DataService,
+    // private authService: AuthService,
+    // private alertCtrl: AlertController,
     public tabEstado: TabsService) {
     this.initializeApp();
   }
@@ -33,39 +33,39 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.componentes = this.dataService.getMenuOpts();
+      // this.componentes = this.dataService.getMenuOpts();
     });
   }
 
-  cerrarSesion() {
-    this.alertaCerrarSesion();
-  }
+  // cerrarSesion() {
+  //   this.alertaCerrarSesion();
+  // }
 
-  activarTabs() {
-    this.tabEstado.cambiarEstado(false);
-  }
+  // activarTabs() {
+  //   this.tabEstado.cambiarEstado(false);
+  // }
 
-  async alertaCerrarSesion() {
-    const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
-      header: 'Cerrar sesión',
-      message: '¿Estás seguro de que quieres cerrar la sesión?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-          }
-        }, {
-          text: 'Salir',
-          handler: () => {
-            this.authService.logout();
-          }
-        }
-      ]
-    });
+  // async alertaCerrarSesion() {
+  //   const alert = await this.alertCtrl.create({
+  //     cssClass: 'my-custom-class',
+  //     header: 'Cerrar sesión',
+  //     message: '¿Estás seguro de que quieres cerrar la sesión?',
+  //     buttons: [
+  //       {
+  //         text: 'Cancelar',
+  //         role: 'cancel',
+  //         cssClass: 'secondary',
+  //         handler: (blah) => {
+  //         }
+  //       }, {
+  //         text: 'Salir',
+  //         handler: () => {
+  //           this.authService.logout();
+  //         }
+  //       }
+  //     ]
+  //   });
 
-    await alert.present();
-  }
+  //   await alert.present();
+  // }
 }

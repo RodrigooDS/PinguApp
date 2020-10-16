@@ -1,4 +1,14 @@
 ion-card{
         height: 250px;
-        // width: 100%;
+        // width: 60%;
 }
+
+.thumbnail{
+        min-width: 8rem;
+        min-height: 8rem;
+        img {
+            max-width: 8rem;
+            min-width: 8rem;
+        }
+}
+
