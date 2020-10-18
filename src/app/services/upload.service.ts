@@ -1,12 +1,8 @@
-import { asNativeElements, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { Observable } from 'rxjs';
 
-//
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
-import { Actividad } from '../shared/actividad.interfaces';
 
 
 @Injectable({
@@ -23,7 +19,8 @@ export class UploadService {
   nombreImagen: string;
   
   constructor(private db: AngularFirestore, 
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              public loadingCtrl: LoadingController) {
     this.itemsRef = this.db.collection('repaso');
   }
 
@@ -69,9 +66,8 @@ export class UploadService {
         id: resp.id,
         'detalle.imageUrl' : imageUrl || null
       })
-    })
-    .catch(error =>{
-        console.log(error);
+    }).catch(error =>{
+      console.log(error);
     })
   }
 
@@ -109,10 +105,9 @@ export class UploadService {
         id: resp.id,
         'detalle.imageUrl' : imageUrl || null
       })
-      }
-      ).catch(error =>{
+    }).catch(error =>{
         console.log(error);
-      })
+    })
   }
   
   obtenerImagenesRepaso(categoria: string, actividad: string, id: string) {
@@ -158,32 +153,36 @@ export class UploadService {
   async removerRepaso(item,actividad: string) {
     
     try {
+      this.alertLoading();
       if(item.id) {
         console.log(item.id);
-        // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
         await this.storage.storage.refFromURL(item.imagen).delete();
         this.db.collection('repaso').doc(actividad).collection(actividad).doc(item.id).delete()
       }
-      
+      this.alertLoadingClose();
     } catch (error) {
+      this.alertLoadingClose();
       console.log(error);
     }
   }
   async removerActividad(item,actividad: string) {
     
     try {
+      this.alertLoading();
       if(item.id) {
-        // this.storage.ref(`imagenes repaso'/${item.id}`).delete()
         await this.storage.storage.refFromURL(item.imagen).delete();
         this.db.collection('actividad').doc(actividad).collection(actividad).doc(item.id).delete()
       }
+      this.alertLoadingClose();
     } catch (error) {
+      this.alertLoadingClose();
       console.log(error);
     }
   }
 
   async eliminarTodoRepaso(actividad) {
     try {
+      this.alertLoading();
       this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad, 
           ref => ref.where('actividad', '==', actividad.actividad))
           .valueChanges()
@@ -198,13 +197,17 @@ export class UploadService {
           await this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad).doc(this.test[i].id).delete())
       }
       await this.db.collection('repaso').doc(actividad.actividad).delete();
+      this.alertLoadingClose();
     } catch (error) {
+      await this.db.collection('repaso').doc(actividad.actividad).delete();
+      this.alertLoadingClose();
       console.log(error);
     }
   }
 
   async eliminarTodoActividad(actividad) {
     try {
+      this.alertLoading();
       this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad, 
           ref => ref.where('actividad', '==', actividad.actividad))
           .valueChanges()
@@ -220,9 +223,30 @@ export class UploadService {
           await this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad).doc(this.test[i].id).delete())
       }
       await this.db.collection('actividad').doc(actividad.actividad).delete();
+      this.alertLoadingClose();
     } catch (error) {
+      await this.db.collection('actividad').doc(actividad.actividad).delete();
+      this.alertLoadingClose();
       console.log(error);
     }
+  }
+
+  async alertLoading() {
+    const loading = await this.loadingCtrl.create({
+      cssClass: 'my-custom-class',
+      message: 'Espere por favor.',
+    });
+    await loading.present();
+
+    // const { role, data } = await loading.onDidDismiss();
+    // console.log('Loading dismissed!');
+  }
+
+  async alertLoadingClose() {
+
+    this.loadingCtrl.dismiss();
+    // const { role, data } = await loading.onDidDismiss();
+    // console.log('Loading dismissed!');
   }
   
 }

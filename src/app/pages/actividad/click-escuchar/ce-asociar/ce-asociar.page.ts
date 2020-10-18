@@ -20,9 +20,7 @@ export class CeAsociarPage implements OnInit {
   constructor(public tabEstado: TabsService,
               public router: Router,
               private location: Location,
-              public upload: UploadService,
-              private menuCtrl: MenuController) {
-    this.menuCtrl.enable(false);
+              public upload: UploadService) {
     this.tabEstado.cambiarEstado(true);
     var datos = JSON.parse(localStorage.getItem('actividad'));
     this.actividad = datos.actividad;
@@ -46,7 +44,6 @@ export class CeAsociarPage implements OnInit {
   }
 
   cancelar() {
-    this.menuCtrl.enable(true);
     this.tabEstado.cambiarEstado(false);
     this.location.back();
   }

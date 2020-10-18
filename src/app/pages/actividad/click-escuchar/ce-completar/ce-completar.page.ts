@@ -11,22 +11,19 @@ import { MenuController } from '@ionic/angular';
 export class CeCompletarPage implements OnInit {
 
   constructor(public tabEstado: TabsService,
-              public router: Router,
-              private menuCtrl: MenuController) {
-    this.menuCtrl.enable(false);
+              public router: Router) {
+    
   }
 
   ngOnInit() {
   }
 
   cancelar() {
-    this.menuCtrl.enable(true);
     this.tabEstado.cambiarEstado(false);
     this.router.navigate(['/tablinks/actividad']);
   }
 
   guardar() {
-    this.menuCtrl.enable(true);
     this.tabEstado.cambiarEstado(false);
     this.router.navigate(['/tablinks/actividad']);
     localStorage.clear();

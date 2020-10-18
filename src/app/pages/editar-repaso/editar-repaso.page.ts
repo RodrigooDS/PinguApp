@@ -18,20 +18,21 @@ export class EditarRepasoPage implements OnInit {
   categorias : any[] = [];
    
   constructor(public upload: UploadService, public router: Router) { 
+    localStorage.clear();
   }
 
   ngOnInit() {
-    this.obtenerCategoria();
+    this.obtenerCategorias();
   }
 
-  obtenerCategoria() { 
+  obtenerCategorias() {
     this.upload.obtenerCategorias().pipe(
-      map( (resp: Categoria[]) => resp.map(({nombreCategoria}) => ({categoria: nombreCategoria})))
+      map( (resp : [] ) => resp.map( ({imageUrl,nombreCategoria}) => ({categoria : nombreCategoria, imagen : imageUrl}) ))
     )
-    .subscribe( resp =>{
-      this.categorias = resp
+    .subscribe( resp => {
+      this.categorias = resp;
     });
-  } 
+  }
   
   obtenerTituloCategoria(categoria) {
     this.tipoCategoria = categoria

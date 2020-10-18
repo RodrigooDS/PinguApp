@@ -10,7 +10,7 @@
   
             <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-                <ion-item lines="full" mode="ios" class="ion-padding background">
+                <ion-item lines="full" mode="ios" class="background">
                     <h1 style="font-weight: bold">Categorías</h1>
                 </ion-item>
                 
@@ -26,9 +26,9 @@
                 </div>
 
      
-                <div *ngIf="this.categorias && this.vistaCategorias == 'tarjetas'" class="ion-padding-top">
+                <div *ngIf="this.categorias && this.vistaCategorias == 'tarjetas'">
                     <div *ngFor="let categoria of categorias">
-                        <ion-card (click)="obtenerTituloCategoria(categoria.categoria)">
+                        <ion-card (click)="obtenerTituloCategoria(categoria.categoria)" mode="ios" class="ion-padding-top ion-padding-bottom">
                             <ion-card-header>
                             <ion-card-title>{{categoria.categoria}}</ion-card-title>
                             </ion-card-header>
@@ -37,15 +37,23 @@
                     </div>
                 </div>
                 
-                <div *ngIf="this.categorias && this.vistaCategorias == 'lista'" class="ion-padding-top">
-                    <ion-list *ngFor="let categoria of categorias">
-                        <ion-item (click)="obtenerTituloCategoria(categoria.categoria)" class="ion-padding-bottom">
+                <div *ngIf="this.categorias && this.vistaCategorias == 'lista'">
+                    <ion-card class="ion-padding-top ion-padding-bottom" mode="ios" *ngIf="this.categorias && this.vistaCategorias == 'lista'">
+                        <ion-item *ngFor="let categoria of categorias" mode="ios" (click)="obtenerTituloCategoria(categoria.categoria)" class="background" detail>
                             <ion-thumbnail slot="start" class="thumbnail">
                                 <img src="{{categoria.imagen}}">
                             </ion-thumbnail>
                             <ion-label>{{categoria.categoria}}</ion-label> 
                             </ion-item>
-                        </ion-list>
+                    </ion-card>
+                    <!-- <ion-list *ngFor="let categoria of categorias" mode="ios">
+                        <ion-item (click)="obtenerTituloCategoria(categoria.categoria)" class="background">
+                            <ion-thumbnail slot="start" class="thumbnail">
+                                <img src="{{categoria.imagen}}">
+                            </ion-thumbnail>
+                            <ion-label>{{categoria.categoria}}</ion-label> 
+                            </ion-item>
+                        </ion-list> -->
                 </div>
         
             </ion-col>

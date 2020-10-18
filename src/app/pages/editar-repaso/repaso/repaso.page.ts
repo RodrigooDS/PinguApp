@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 //service
 import { UploadService } from '../../../services/upload.service';
+import { TabsService } from '../../../services/tabs.service';
 
 @Component({
   selector: 'app-repaso',
@@ -15,8 +16,6 @@ export class RepasoPage implements OnInit {
   @ViewChild('fileUploader') fileUploader:ElementRef;
 
   filename: string;
-
-
   tituloActividad: string = '';
   tituloCategoria: string = '';
   nivel : string = '';
@@ -25,12 +24,16 @@ export class RepasoPage implements OnInit {
   
   constructor(public router: Router, 
               private route: ActivatedRoute,
-              public upload: UploadService) {
+              public upload: UploadService,
+              public tabEstado: TabsService) {
+    this.tabEstado.cambiarEstado(true);
     this.tituloCategoria = this.route.snapshot.paramMap.get('category');
+    this.imageURL = '';
   }
 
   ngOnInit() {
     this.obtenerActividades();
+    this.imageURL = '';
   }
 
   ionViewWillEnter() {
@@ -59,12 +62,14 @@ export class RepasoPage implements OnInit {
   }  
 
   cancelar() {
+    this.tabEstado.cambiarEstado(false);
+    this.fileUploader.nativeElement.value = null;
     this.router.navigate(['/tablinks/editar-repaso']);
   }
 
   obtenerActividades() {
     this.upload.obtenerRepasos(this.tituloCategoria).pipe(
-      map( (resp : [] ) => resp.map ( ({actividad,categoria,detalle}) => ({actividad : actividad, categoria : categoria, imagen : detalle})))
+      map( (resp : [] ) => resp.map ( ({actividad,categoria,detalle, nivel}) => ({actividad : actividad, categoria : categoria, imagen : detalle, nivel})))
     )
     .subscribe( resp => {
       this.actividades = resp;

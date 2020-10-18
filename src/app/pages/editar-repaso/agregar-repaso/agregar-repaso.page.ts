@@ -26,13 +26,13 @@ export class AgregarRepasoPage implements OnInit {
   tituloActividad: string;
   tituloCategoria: string;
   categorias: any[] = [];
-  imageURL: string;
+  // imageURL: string;
   id: string;
   nivel: string;
   constructor(public router: Router, 
               private route: ActivatedRoute,
               public upload: UploadService,
-              private loadingController: LoadingController,
+              public loadingCtrl: LoadingController,
               public tabEstado: TabsService) { 
     this.tabEstado.cambiarEstado(true);
     this.cargarRepaso();
@@ -120,6 +120,7 @@ export class AgregarRepasoPage implements OnInit {
             await this.upload.agregarRepaso(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file)
           }
       });
+      
     } catch (error) {
       //ya existe
       for (var i = 0; i < this.data.length; i++){
@@ -144,7 +145,6 @@ export class AgregarRepasoPage implements OnInit {
   }
 
   dataURLtoFile(dataurl, filename) {
- 
     var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), 

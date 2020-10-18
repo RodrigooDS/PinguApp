@@ -4,7 +4,7 @@
       <ion-button (click)="cancelar()">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end"> 
-      <ion-button (click)="guardar()" [disabled]="(imageURL === '' || this.tituloActividad ==='' || this.nivel ==='' || this.interaccion ==='' )">Guardar</ion-button>
+      <ion-button (click)="guardar()" [disabled]="(imageURL === '' || this.tituloActividad ==='' || this.nivel ==='' || this.interaccion ==='' )">Siguiente</ion-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Actividad</ion-title>
   </ion-toolbar>
@@ -20,18 +20,23 @@
 
       <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">    
   
-        <ion-item lines="full" mode="ios" class="ion-padding background">
+        <ion-item lines="full" mode="ios" class="background">
           <h1 style="font-weight: bold">Nueva Actividad</h1>
         </ion-item>
         
         <ion-card mode="ios">
 
-          <img [src]="imageURL">
+          <div class="vertical-center">
+            <img [src]="imageURL">
+          </div>
+
           <ion-card-header>
+
             <ion-card-title>{{this.tituloCategoria}}</ion-card-title>
             <ion-label>Nombre de la actividad</ion-label> 
             <ion-input type="text" autocapitalize name="todo" [(ngModel)]="tituloActividad" placeholder="Nombre"></ion-input>
             <ion-label>Cargar Imagen</ion-label>
+
             <div class="ion-padding-top">
               <input type="file" #fileUploader name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
             </div>
@@ -50,10 +55,12 @@
                   <ion-select-option value="Medio">Medio</ion-select-option>
                   <ion-select-option value="Difícil">Difícil</ion-select-option>
                 </ion-select>
-              </ion-item>  
+              </ion-item> 
+
             </ion-list>
 
             <ion-list>
+
               <ion-list-header class="ion-no-padding">
                 <ion-label>
                   Interacción
@@ -68,29 +75,33 @@
                   <!-- <ion-select-option value="3">Difícil</ion-select-option> -->
                 </ion-select>
               </ion-item>  
+
             </ion-list>
 
           </ion-card-header>
 
         </ion-card>
   
-      <ion-item lines="full" mode="ios" class="ion-padding background">
-        <h1 style="font-weight: bold">Editar Repaso</h1>
+      <ion-item lines="full" mode="ios" class="background">
+        <h1 style="font-weight: bold">Editar Actividad</h1>
       </ion-item>
 
       <ion-card mode="ios">
+
         <ion-list>
+
           <ion-item-sliding *ngFor=" let actividad of actividades">
             <ion-item detail>
               <ion-thumbnail slot="start">
                 <img src="{{actividad.detalle.imageUrl}}">
               </ion-thumbnail>
-              <ion-label (click)="editarActividad(actividad.detalle.imageUrl,actividad.actividad)">
+              <ion-label (click)="editarActividad(actividad.detalle.imageUrl, actividad.actividad, actividad.nivel)">
                 <h2>{{actividad.actividad}}</h2>
                 <p>Categoria: {{actividad.interaccion}}</p>
                 <p>Nivel: {{actividad.nivel}}</p>
               </ion-label>
             </ion-item>
+
             <ion-item-options>
               <ion-item-option color="danger" (click)="eliminarActividad(actividad)">
                 <ion-icon slot="end" name="trash"></ion-icon>
@@ -98,7 +109,9 @@
               </ion-item-option>
             </ion-item-options>
           </ion-item-sliding>
+          
         </ion-list>
+
       </ion-card>
 
     </ion-col>

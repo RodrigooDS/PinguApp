@@ -10,12 +10,12 @@
 
           <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">        
 
-            <ion-item lines="full" mode="ios" class="ion-padding background">
+            <ion-item lines="full" mode="ios" class="background">
               <h1 style="font-weight: bold">Categorías</h1>
             </ion-item>
 
-            <ion-card class="ion-padding-top">
-              <ion-item *ngFor=" let categoria of categorias" detail class="ion-padding-bottom">
+            <ion-card mode="ios" class="ion-padding-top">
+              <ion-item *ngFor=" let categoria of categorias" detail>
                 <ion-thumbnail slot="start" class="thumbnail">
                   <img src="{{categoria.imagen}}">
                 </ion-thumbnail>
@@ -23,6 +23,7 @@
                     {{categoria.categoria}}
                 </ion-label>
               </ion-item>
+              <div class="ion-padding-bottom"></div>
             </ion-card>
 
             </ion-col>

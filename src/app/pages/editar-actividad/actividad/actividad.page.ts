@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UploadService } from '../../../services/upload.service';
+import { TabsService } from '../../../services/tabs.service';
 
 
 @Component({
@@ -11,11 +12,8 @@ import { UploadService } from '../../../services/upload.service';
 export class ActividadPage implements OnInit {
 
   @ViewChild('fileUploader') fileUploader:ElementRef;
-  // data: any = [];
-  // fileImage: any;
+ 
   filename: string;
-  // item: {};
-
   tituloActividad: string = '';
   tituloCategoria: string = '';
   nivel : string = '';
@@ -25,7 +23,9 @@ export class ActividadPage implements OnInit {
   
   constructor(public router: Router, 
               private route: ActivatedRoute,
-              public upload: UploadService) {
+              public upload: UploadService,
+              public tabEstado: TabsService) {
+    this.tabEstado.cambiarEstado(true);
     this.tituloCategoria = this.route.snapshot.paramMap.get('category');
     this.imageURL = '';
   }
@@ -66,6 +66,7 @@ export class ActividadPage implements OnInit {
   }  
 
   cancelar() {
+    this.tabEstado.cambiarEstado(false);
     this.fileUploader.nativeElement.value = null;
     this.router.navigate(['/tablinks/editar-actividad']);
   }
@@ -78,12 +79,12 @@ export class ActividadPage implements OnInit {
 
   }
 
-  editarActividad(imagen: string, actividad: string) {
-    
+  editarActividad(imagen: string, actividad: string, nivel: string) {
     var json = {
       categoria    : this.tituloCategoria,
       actividad    : actividad,
-      imagen       : imagen
+      imagen       : imagen,
+      nivel        : nivel
   	}
     localStorage.setItem('actividad',JSON.stringify(json));
     this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);

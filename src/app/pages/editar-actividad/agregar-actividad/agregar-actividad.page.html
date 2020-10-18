@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border" mode="ios">
-  <ion-toolbar>
+<ion-header class="ion-no-border" mode="ios" collapse="condense" translucent>
+  <ion-toolbar class="backgroundHeader">
     <ion-buttons slot="start"> 
       <ion-button (click)="cancelar()">Cancelar</ion-button>
     </ion-buttons>
@@ -10,48 +10,70 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding fullscreen class="background">
+
+  <ion-grid >
+
+    <ion-row>
+
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">   
   
-  <ion-card>
-    <img [src]="imagen">
-    <ion-card-header>
-      <ion-card-subtitle>Dificultad {{this.nivel}}</ion-card-subtitle>
-      <ion-card-title>{{this.tituloActividad}}</ion-card-title>
-    </ion-card-header>
+        <ion-card mode="ios">
+          <div class="vertical-center">
+            <img [src]="imagen">
+          </div> 
+          
+          <ion-card-header>
+            <ion-card-subtitle>Dificultad {{this.nivel}}</ion-card-subtitle>
+            <ion-card-title>{{this.tituloActividad}}</ion-card-title>
+          </ion-card-header>
 
-    <ion-card-content>
-      <ion-item>
-        <ion-label (click)="agregarAccion()">Nuevo Ítem</ion-label>
-        <ion-icon name="add"></ion-icon>
-      </ion-item>
-      
-      <ion-item lines="none">
-        <ion-label>Acciones</ion-label>
-      </ion-item>
-    
-      <ion-list *ngIf="data">
-        <ion-item-sliding *ngFor="let categoria of data, let i = index ">
-          <ion-item detail>
-            <ion-thumbnail slot="start">
-              <img src="{{categoria.imagen}}">
-            </ion-thumbnail>
-            <ion-label>
-              <h2>Nombre: {{categoria.nombreImagen}}</h2>
-              <h2>Frase: {{categoria.fraseIngles}}</h2>
-            </ion-label>
-          </ion-item>
-          <ion-item-options>
-            <ion-item-option color="danger" (click)="eliminarImagen(categoria)">
-              <ion-icon slot="end" name="trash"></ion-icon>
-              Eliminar
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
+          <ion-card-content class="ion-no-padding">
+            <ion-item>
+              <ion-label (click)="agregarAccion()">Nuevo Ítem</ion-label>
+              <ion-icon name="add"></ion-icon>
+            </ion-item>
+            
+            <ion-item lines="none" mode="ios" class="ion-padding-top">
+              <h2 style="font-weight: bold">Acciones</h2>
+            </ion-item>
+          
+            <ion-list *ngIf="this.data" mode="ios">
 
-    </ion-card-content>
-  </ion-card>
+              <ion-item-sliding *ngFor="let categoria of data, let i = index">
+                <ion-item detail mode="ios">
+                  <ion-thumbnail slot="start">
+                    <img src="{{categoria.imagen}}">
+                  </ion-thumbnail>
+                  <ion-label>
+                    <h3>Nombre: {{categoria.nombreImagen}}</h3>
+                    <h3>Frase: {{categoria.fraseIngles}}</h3>
+                  </ion-label>
+                </ion-item>
 
+                <ion-item-options>
+                  <ion-item-option color="danger" (click)="eliminarImagen(categoria)">
+                    <ion-icon slot="end" name="trash"></ion-icon>
+                    Eliminar
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+
+          </ion-card-content>
+          
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col></ion-col>
   
-</ion-content>
+      </ion-row>
+  
+    </ion-grid>
+  
+  </ion-content>
+  
 

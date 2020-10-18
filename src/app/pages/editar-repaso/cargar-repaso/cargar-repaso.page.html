@@ -1,52 +1,74 @@
-<ion-header class="ion-no-border" mode="ios">
-  <ion-toolbar>
-
+<ion-header class="ion-no-border" mode="ios" collapse="condense" translucent>
+  <ion-toolbar class="backgroundHeader">
     <ion-buttons slot="start"> 
-
       <ion-back-button defaultHref="/tablinks/editar-repaso/agregar-repaso" text="Atrás"></ion-back-button>
     </ion-buttons>
-
     <ion-title class="ion-text-capitalize" class="ion-text-center">Nuevo Ítem</ion-title>
-
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
-    <img [src]="this.imageURL">
-    <ion-card-header>
+<ion-content padding fullscreen class="background">
 
-    </ion-card-header>
-         
-    <ion-card-content>
-      <form (submit)="subirArchivo()">
+  <ion-grid >
 
-        <ion-item>
-          <ion-label position="floating"> Nombre imagen (Español) </ion-label>
-          <ion-input name="todo" [(ngModel)]="tituloEspanol" placeholder="Nombre (Español)"></ion-input>
-        </ion-item>
-        
-        <ion-item> 
-          <ion-label position="floating"> Nombre imagen (Inglés) </ion-label>
-          <ion-input name="todo" [(ngModel)]="tituloIngles" placeholder="Nombre (Inglés)"></ion-input>
-        </ion-item>
-        
-        <div class="ion-padding-top">
-          <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
-        </div>
+    <ion-row>
+
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12"> 
+
+        <ion-card mode="ios">
+
+          <div class="vertical-center">
+            <img [src]="this.imageURL">
+          </div>
+          
+          <ion-card-header>
+
+          </ion-card-header>
+              
+          <ion-card-content>
+            <form (submit)="subirArchivo()">
+
+              <ion-item mode="ios">
+                <ion-label position="floating" mode="ios">Nombre imagen (Español)</ion-label>
+                <ion-input name="todo" [(ngModel)]="tituloEspanol" placeholder="Nombre (Español)" mode="ios" autocapitalize></ion-input>
+              </ion-item>
+              
+              <ion-item mode="ios"> 
+                <ion-label position="floating" mode="ios">Nombre imagen (Inglés)</ion-label>
+                <ion-input name="todo" [(ngModel)]="tituloIngles" placeholder="Nombre (Inglés)" mode="ios" autocapitalize></ion-input>
+              </ion-item>
+              
+              <div class="ion-padding-top">
+                <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
+              </div>
 
 
-        <div class="ion-padding-top">
-          <ion-button type="submit" 
-                      expand="block"
-                      mode="ios"
-                      [disabled]="(!imageURL || !this.tituloEspanol|| !this.tituloIngles)">
-                      Cargar 
-          </ion-button>
-        </div>
-      </form>
-    </ion-card-content>
-            
-  </ion-card>
+              <div class="ion-padding-top">
+
+                <ion-button type="submit" 
+                            expand="block"
+                            mode="ios"
+                            [disabled]="(!imageURL || !this.tituloEspanol|| !this.tituloIngles)">
+                            Cargar 
+                </ion-button>
+
+              </div>
+
+            </form>
+
+          </ion-card-content>
+                  
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>
+
