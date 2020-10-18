@@ -91,11 +91,11 @@
         <ion-list>
 
           <ion-item-sliding *ngFor=" let actividad of actividades">
-            <ion-item detail>
+            <ion-item detail (click)="editarActividad(actividad.detalle.imageUrl, actividad.actividad, actividad.nivel)">
               <ion-thumbnail slot="start">
                 <img src="{{actividad.detalle.imageUrl}}">
               </ion-thumbnail>
-              <ion-label (click)="editarActividad(actividad.detalle.imageUrl, actividad.actividad, actividad.nivel)">
+              <ion-label>
                 <h2>{{actividad.actividad}}</h2>
                 <p>Categoria: {{actividad.interaccion}}</p>
                 <p>Nivel: {{actividad.nivel}}</p>

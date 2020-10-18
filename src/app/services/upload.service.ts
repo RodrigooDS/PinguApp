@@ -11,7 +11,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 export class UploadService {
 
-  test : any[] = [];
+  item : any[] = [];
   itemsRef: AngularFirestoreCollection;
   loading: HTMLIonLoadingElement;
 
@@ -187,14 +187,14 @@ export class UploadService {
           ref => ref.where('actividad', '==', actividad.actividad))
           .valueChanges()
           .subscribe( resp => {
-            this.test = resp
+            this.item = resp
           });
       await this.storage.storage.refFromURL(actividad.imagen.imageUrl).delete()
-      for (var i = 0; i < this.test.length; i++){
-        console.log(this.test[i].detalle.imageUrl);
-        await this.storage.storage.refFromURL(this.test[i].detalle.imageUrl).delete()
+      for (var i = 0; i < this.item.length; i++){
+        console.log(this.item[i].detalle.imageUrl);
+        await this.storage.storage.refFromURL(this.item[i].detalle.imageUrl).delete()
         .then( async resp =>
-          await this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad).doc(this.test[i].id).delete())
+          await this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad).doc(this.item[i].id).delete())
       }
       await this.db.collection('repaso').doc(actividad.actividad).delete();
       this.alertLoadingClose();
@@ -212,15 +212,13 @@ export class UploadService {
           ref => ref.where('actividad', '==', actividad.actividad))
           .valueChanges()
           .subscribe( resp => {
-            this.test = resp
-            console.log(this.test);
+            this.item = resp
           });
-          console.log(actividad);
       await this.storage.storage.refFromURL(actividad.detalle.imageUrl).delete()
-      for (var i = 0; i < this.test.length; i++){
-        await this.storage.storage.refFromURL(this.test[i].detalle.imageUrl).delete()
+      for (var i = 0; i < this.item.length; i++){
+        await this.storage.storage.refFromURL(this.item[i].detalle.imageUrl).delete()
         .then( async resp =>
-          await this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad).doc(this.test[i].id).delete())
+          await this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad).doc(this.item[i].id).delete())
       }
       await this.db.collection('actividad').doc(actividad.actividad).delete();
       this.alertLoadingClose();
