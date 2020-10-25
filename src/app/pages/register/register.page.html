@@ -1,5 +1,5 @@
-<ion-header  mode="ios" class="ion-no-border">
-  <ion-toolbar>
+<ion-header class="ion-no-border" mode="ios" collapse="condense" translucent>
+  <ion-toolbar class="backgroundHeader">
     <ion-buttons slot="start"> 
       <ion-back-button color="primary" defaultHref="/" text="Atrás">
       </ion-back-button>
@@ -9,24 +9,25 @@
 </ion-header>
 
 
-<ion-content class="ion-padding">
+<ion-content padding fullscreen class="background">
 
-  <ion-grid fixed>
+  <ion-grid >
 
     <ion-row>
-  
-      <ion-col class="ion-col"></ion-col>
-  
-        <ion-col size="6" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="ion-align-self-center">
-         
-          <app-formregistro (onFormGroupChange)="registro($event)"></app-formregistro>
-  
-        </ion-col>
 
-        <ion-col class="ion-col"></ion-col>
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+         
+        <app-formregistro (onFormGroupChange)="registro($event)"></app-formregistro>
+  
+      </ion-col>
+
+      <ion-col></ion-col>
   
     </ion-row>
   
   </ion-grid>
   
 </ion-content>
+  

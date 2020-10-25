@@ -20,12 +20,12 @@ export class CeCompletarPage implements OnInit {
 
   cancelar() {
     this.tabEstado.cambiarEstado(false);
-    this.router.navigate(['/tablinks/actividad']);
+    this.router.navigate(['/tablinks/actividad'],{ replaceUrl: true });
   }
 
   guardar() {
     this.tabEstado.cambiarEstado(false);
-    this.router.navigate(['/tablinks/actividad']);
+    this.router.navigate(['/tablinks/actividad'],{ replaceUrl: true });
     localStorage.clear();
   }
 

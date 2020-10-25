@@ -4,8 +4,7 @@ import { Actividad } from '../../../../shared/actividad.interfaces';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VoiceService } from '../../../../services/voice.service';
 import { UploadService } from '../../../../services/upload.service';
-import { MenuController, Platform } from '@ionic/angular';
-import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-ce-parte1',
@@ -15,6 +14,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 export class CeParte1Component implements OnInit {
 
   @Input() tituloActividad: string;
+  
   @Output() onFormGroupChange = new EventEmitter<any>();
 
   form: FormGroup;
@@ -27,19 +27,12 @@ export class CeParte1Component implements OnInit {
               public voice:  VoiceService,
               public fb: FormBuilder,
               public platform: Platform,
-              ) { }
+              ) {}
 
   ngOnInit() {
     
     this.obtenerDatosActividad();
     this.crearFormulario();
-  }
-
-  ionViewWillEnter(){
-    
-    this.obtenerDatosActividad();
-    this.crearFormulario();
-    console.log("Probando el ion");
   }
 
   crearFormulario(){
@@ -102,7 +95,7 @@ export class CeParte1Component implements OnInit {
     // this.frutasAleatorias();
     localStorage.setItem('datos', JSON.stringify(this.datos));
     this.onFormGroupChange.emit(this.form.value);
-    location.replace(('/tablinks/actividad/ce-completar'));
+    // location.replace(('/tablinks/actividad/ce-completar'));
  
   }
 

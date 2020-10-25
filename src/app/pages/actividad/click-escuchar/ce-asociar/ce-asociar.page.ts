@@ -19,32 +19,26 @@ export class CeAsociarPage implements OnInit {
   
   constructor(public tabEstado: TabsService,
               public router: Router,
-              private location: Location,
               public upload: UploadService) {
     this.tabEstado.cambiarEstado(true);
     var datos = JSON.parse(localStorage.getItem('actividad'));
     this.actividad = datos.actividad;
     this.interaccion = datos.interaccion;
-    
+  
   }
 
   ngOnInit() {
-   
+    
   }
-  // ionViewWillEnter(){
-  //   console.log("Hola ion modal")
-  //   this.estado=false;
-  // }
 
   registro(event) {
     if(event){
-      this.router.navigate(['/tablinks/actividad/ce-completar']);
-      // this.estado = true;
+      this.router.navigate(['/tablinks/actividad/ce-completar']),{ replaceUrl: true };
     }
   }
 
   cancelar() {
     this.tabEstado.cambiarEstado(false);
-    this.location.back();
+    this.router.navigate(['/tablinks/actividad'], { replaceUrl: true });
   }
 }

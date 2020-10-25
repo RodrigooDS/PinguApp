@@ -37,16 +37,18 @@ export class CeEstadisticaPage implements OnInit {
     this.modalCtrl.dismiss();
     this.menuCtrl.enable(true);
     this.tabEstado.cambiarEstado(false);
-    this.router.navigate(['/tablinks/actividad']);
+    this.router.navigate(['/tablinks/actividad'],{ replaceUrl: true });
     
   }
 
   reintentar(){
-
+    // location.replace(('/tablinks/actividad/ce-asociar'));
     this.modalCtrl.dismiss();
     this.menuCtrl.enable(false);
     this.tabEstado.cambiarEstado(false);
-    this.router.navigate(['/tablinks/actividad/ce-asociar']);
+    setTimeout(() => {
+      location.replace(('/tablinks/actividad/ce-asociar'));
+    }, 1);
   }
 
 

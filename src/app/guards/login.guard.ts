@@ -19,7 +19,6 @@ export class LoginGuard implements CanActivate {
         map((user) => {
 
           if (!user) {
-            console.log('No esta logeado');
             return true;
           }
           this.router.navigate(['/tablinks']);

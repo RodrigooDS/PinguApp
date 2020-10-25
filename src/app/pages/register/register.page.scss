@@ -1,6 +1,6 @@
-ion-content{
-    --overflow: hidden;
-}
+// ion-content{
+//     // --overflow: hidden;
+// }
 
 .icon{
     max-width: 100px;
@@ -10,4 +10,8 @@ ion-content{
 
 .ion-col{
     margin:5%;
+}
+
+.backgroundHeader{
+    --background: #e6e6e6;
 }
