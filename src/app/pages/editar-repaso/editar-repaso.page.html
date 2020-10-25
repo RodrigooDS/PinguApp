@@ -1,0 +1,37 @@
+<app-header titulo="Editar Repaso"></app-header>
+
+<ion-content padding fullscreen class="background">
+
+  <ion-grid >
+
+      <ion-row>
+
+          <ion-col></ion-col>
+
+          <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">        
+
+            <ion-item lines="full" mode="ios" class="background">
+              <h1 style="font-weight: bold">Categorías</h1>
+            </ion-item>
+
+            <ion-card mode="ios" class="ion-padding-top">
+              <ion-item *ngFor=" let categoria of categorias" detail (click)="obtenerTituloCategoria(categoria.categoria)">
+                <ion-thumbnail slot="start" class="thumbnail">
+                  <img src="{{categoria.imagen}}">
+                </ion-thumbnail>
+                <ion-label>
+                    {{categoria.categoria}}
+                </ion-label>
+              </ion-item>
+              <div class="ion-padding-bottom"></div>
+            </ion-card>
+
+            </ion-col>
+
+          <ion-col></ion-col>
+
+        </ion-row>
+
+    </ion-grid>
+    
+</ion-content>

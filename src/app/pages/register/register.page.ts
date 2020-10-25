@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../../services/auth.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterPage implements OnInit {
   formRegistro : any  = '' 
 
   constructor(private auth: AuthService, 
-              private router: Router) {}
+              private router: Router,
+              private menuCtrl: MenuController) {}
          
   ngOnInit() {}
  
@@ -26,10 +28,15 @@ export class RegisterPage implements OnInit {
         // const isVerified = this.auth.isEmailVerified(user);
         // this.redirectUser(isVerified);
         this.router.navigate(['/tablinks']);
+        this.menuCtrl.enable(true);
       }
     } catch (error) {
       console.log('Error', error);
     }
   }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+  
 }

@@ -13,25 +13,37 @@ import { AppRoutingModule } from './app-routing.module';
 //firebase config
 import { AngularFirestoreModule } from "@angular/fire/firestore"; //Modulo Firestore (BD)
 import { AngularFireAuthModule } from "@angular/fire/auth";  //Modulo de authenticacion
-import { AngularFireModule } from "@angular/fire";            //Modulo para inicializar y que todo funcione bien vergas
+import { AngularFireModule } from "@angular/fire"; //Modulo para inicializar
+import { AngularFireStorageModule} from '@angular/fire/storage';
+
 import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
+  entryComponents: [ ],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireAuthModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
     
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    AuthService,
+    TextToSpeech,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,27 +1,27 @@
-<ion-tabs>
+<ion-tabs fullscreen>
 
-  <ion-tab-bar slot="bottom" color="light">
+  <ion-tab-bar slot="bottom" class="background" translucent mode="ios">
 
-    <ion-tab-button tab="actividad">
-      <ion-icon name="Home"></ion-icon>
+    <ion-tab-button tab="actividad" [disabled]=tabStatus.estado>
+      <ion-icon name="school"></ion-icon>
       <ion-label>Actividad</ion-label>
     </ion-tab-button>
     
-    <ion-tab-button tab="profile">
+
+    <ion-tab-button tab="repaso"  [disabled]=tabStatus.estado>
+      <ion-icon name="book"></ion-icon>
+      <ion-label>Repaso</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="user"  [disabled]=tabStatus.estado>
       <ion-icon name="person-circle-outline"></ion-icon>
-      <ion-label>Me</ion-label>
+      <ion-label>Mi perfil</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="dashboard">
-      <ion-icon name="easel-outline"></ion-icon>
-      <ion-label>Dashboard</ion-label>
+    <ion-tab-button tab="menu"  [disabled]=tabStatus.estado>
+      <ion-icon name="menu"></ion-icon>
+      <ion-label>Otros</ion-label>
     </ion-tab-button>
-
-    <ion-tab-button tab="settings">
-      <ion-icon name="settings-outline"></ion-icon>
-      <ion-label>Settings</ion-label>
-    </ion-tab-button>
-
     
   </ion-tab-bar>
 

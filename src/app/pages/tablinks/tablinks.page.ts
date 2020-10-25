@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { TabsService } from '../../services/tabs.service';
 
 @Component({
   selector: 'app-tablinks',
@@ -8,10 +9,14 @@ import { AuthService } from '../../services/auth.service';
 })
 export class TablinksPage implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  public estado : boolean;
+
+  constructor(private tabStatus: TabsService) { }
   
   ngOnInit() {
     
   }
+
+
 
 }

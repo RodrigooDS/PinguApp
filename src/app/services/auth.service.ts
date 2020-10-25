@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { User } from '../shared/user.interface';
-import { AngularFireAuth } from '@angular/fire/auth';
-
-import * as firebase from 'firebase';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap} from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
+//firebase import
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+// interfaces
 import { Error } from '../shared/error.interfaces';
-
-
+import { Categoria } from '../shared/categoria.interfaces';
+import { User } from '../shared/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +21,12 @@ export class AuthService {
 
   public usuario: Observable<User>;
   public error:   Observable<Error>;
-
+  public categoria: Observable<Categoria>
 
   constructor(public afAuth: AngularFireAuth, 
               private afs: AngularFirestore,
-              private alertController: AlertController) {
+              private alertController: AlertController,
+              private router: Router) {
     this.usuario = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
@@ -35,7 +38,7 @@ export class AuthService {
     
   }
 
-  async login(email: string, password: string): Promise<User>{
+  async login(email: string, password: string): Promise<User> {
     try{
       const {user}  = await this.afAuth.signInWithEmailAndPassword(email, password);
       this.updateUserData(user);
@@ -47,7 +50,6 @@ export class AuthService {
   }
 
   async register(email: string, password: string, form: any): Promise<User> {
-    
     try {
       const {user}  = await this.afAuth.createUserWithEmailAndPassword(email, password);
       this.registerData(form, user.uid)
@@ -59,7 +61,7 @@ export class AuthService {
     }
   }
 
-  errorMensaje(error){
+  errorMensaje(error) {
     let tituloMensaje: string ="";
     let subMensaje:    string ="";
 
@@ -84,15 +86,27 @@ export class AuthService {
     this.alertaCuenta(tituloMensaje,subMensaje);
   }
 
-  async registerData(form: any, uid: string){
+  async registerData(form: any, uid: string) {
     try{
       
-      this.afs.collection('alumnos').doc(uid).set({
+        this.afs.collection('alumnos').doc(uid).set({
         nombreEstudiante: form.nombreEstudiante,
         apellidoEstudiante: form.apellidoEstudiante,
         nombreApoderado: form.nombreApoderado,
         apellidoApoderado: form.apellidoApoderado,
         uid: uid
+      });    
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  async crearRepaso(categoria: string, titulo: string) {
+    try{
+      
+      await this.afs.collection('repaso').add({
+        categoria: categoria,
+        titulo: titulo,
       });    
     }catch(error){
       console.log(error);
@@ -110,6 +124,7 @@ export class AuthService {
   async logout(): Promise<void> {
     try {
       await this.afAuth.signOut();
+      this.router.navigate(['/login']);
     } catch (error) {
       console.log('Error->', error);
     }
@@ -117,7 +132,6 @@ export class AuthService {
 
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
     const data: User = {
       uid: user.uid,
       email: user.email,
@@ -130,7 +144,6 @@ export class AuthService {
 
 
   async alertaCuenta(tituloMensaje: string, subMensaje: string) {
-
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: tituloMensaje,
@@ -145,5 +158,5 @@ export class AuthService {
     });
     await alert.present();
   }
-  
+
 }

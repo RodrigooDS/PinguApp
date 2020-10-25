@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UploadService } from '../../services/upload.service';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actividad',
@@ -7,10 +10,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActividadPage implements OnInit {
 
-  constructor() { }
+  tipoCategoria : string;
+  categorias : any[] = [];
+  vistaCategorias: string = "tarjetas";
+
+  constructor(public upload: UploadService,
+              public router: Router) {
+    this.obtenerCategorias();
+   }
 
   ngOnInit() {
-    
+  }
+
+  vistaCategoria(ev: any) {
+    this.vistaCategorias = ev.detail.value;
+  }
+
+  obtenerCategorias() {
+    this.upload.obtenerCategorias().pipe(
+      map( (resp : [] ) => resp.map( ({imageUrl,nombreCategoria}) => ({categoria : nombreCategoria, imagen : imageUrl}) ))
+    )
+    .subscribe( resp => {
+      this.categorias = resp;
+    });
+  }
+
+  obtenerTituloCategoria(categoria) {
+    this.tipoCategoria = categoria
+    localStorage.setItem('categoria', JSON.stringify(this.tipoCategoria));
+    this.router.navigate(['/tablinks/actividad/actividades']);
   }
 
 }

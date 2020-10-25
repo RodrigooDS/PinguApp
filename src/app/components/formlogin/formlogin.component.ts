@@ -21,7 +21,7 @@ export class FormloginComponent implements OnInit {
   crearFormulario(){
     this.form = this.fb.group({
       email             : ['', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]],
-      password          : ['', [Validators.required, Validators.pattern((/^[a-z0-9_-]{6,18}$/))]],
+      password          : ['', [Validators.required, ]],
     });
   }
 

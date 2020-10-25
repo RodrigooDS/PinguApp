@@ -1,10 +1,7 @@
-ion-input, ion-item{
-    --background: transparent;
-}
-
 ion-content{
     --overflow: hidden;
 }
+
 .text-danger{
     color: #cf3c4f;
 }
@@ -15,6 +12,6 @@ ion-content{
     margin: 0 auto;
 }
 
-.ion-col{
-    margin:5%;
+.backgroundHeader{
+    --background: #e6e6e6;
 }

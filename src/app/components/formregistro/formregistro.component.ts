@@ -26,7 +26,7 @@ export class FormregistroComponent implements OnInit {
       apellidoEstudiante: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       nombreApoderado   : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       apellidoApoderado : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
-      password          : ['', [Validators.required, Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$')]],
+      password          : ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{6,}')]],
     });
   }
 

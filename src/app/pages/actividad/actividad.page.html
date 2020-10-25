@@ -1,14 +1,59 @@
 <app-header titulo="Actividades"></app-header>
 
-<ion-content>
+<ion-content padding fullscreen class="background">
 
-  <ion-list *ngFor="let item of [1,1,1,1,1,1,1]">
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="./assets/penguin.png">
-      </ion-avatar>
-      <ion-label>Actividad</ion-label>
-    </ion-item>
-  </ion-list>
+    <ion-grid >
 
+        <ion-row>
+  
+            <ion-col></ion-col>
+  
+            <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+
+                <ion-item lines="full" mode="ios" class="background">
+                    <h1 style="font-weight: bold">Categorías</h1>
+                </ion-item>
+                
+                <div class="ion-padding-top">
+                    <ion-segment value="tarjetas" (ionChange)="vistaCategoria($event)" mode="ios">
+                        <ion-segment-button value="tarjetas">
+                            <ion-label>Tarjetas</ion-label>
+                          </ion-segment-button>
+                        <ion-segment-button value="lista">
+                          <ion-label>Lista</ion-label>
+                        </ion-segment-button>
+                      </ion-segment>
+                </div>
+
+     
+                <div *ngIf="this.categorias && this.vistaCategorias == 'tarjetas'">
+                    <div *ngFor="let categoria of categorias">
+                        <ion-card (click)="obtenerTituloCategoria(categoria.categoria)" mode="ios" class="ion-padding-top ion-padding-bottom card-categoria">
+                            <ion-card-header>
+                            <ion-card-title>{{categoria.categoria}}</ion-card-title>
+                            </ion-card-header>
+                                <img src="{{categoria.imagen}}">
+                        </ion-card>
+                    </div>
+                </div>
+                
+                <div *ngIf="this.categorias && this.vistaCategorias == 'lista'">
+                    <ion-card class="ion-padding-top ion-padding-bottom" mode="ios">
+                        <ion-item *ngFor="let categoria of categorias" mode="ios" (click)="obtenerTituloCategoria(categoria.categoria)" class="background" detail>
+                            <ion-thumbnail slot="start" class="thumbnail">
+                                <img src="{{categoria.imagen}}">
+                            </ion-thumbnail>
+                            <ion-label>{{categoria.categoria}}</ion-label> 
+                            </ion-item>
+                    </ion-card>
+                </div>
+        
+            </ion-col>
+
+            <ion-col></ion-col>
+
+        </ion-row>
+    </ion-grid>
+    
 </ion-content>
+

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -15,12 +15,14 @@ export class LoginPage implements OnInit {
 
   formRegistro : any  = '' 
   
-  constructor(private alertController: AlertController,
-              private authService: AuthService, 
-              private router: Router) { }
+  constructor(private authService: AuthService, 
+              private router: Router,
+              private menuCtrl: MenuController) {
+    this.menuCtrl.enable(false);
+  }
 
   ngOnInit() {
-
+    
   }
 
   async login($event){
@@ -29,10 +31,15 @@ export class LoginPage implements OnInit {
       const user = await this.authService.login(this.formRegistro.email, this.formRegistro.password);
       if(user){
         this.router.navigate(['/tablinks']);
+        this.menuCtrl.enable(true);
       }
     }catch(error){
       console.log(error);
     }
   }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+  
 }
