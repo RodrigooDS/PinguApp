@@ -27,37 +27,7 @@
         <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('nombreEstudiante')">Minimo 6 letras :)</ion-label>
         <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('pattern')"> Solo letras de la A - Z</ion-label>
       </ion-item>
-  
-      <ion-item class="ion-padding-start ion-padding-end">
-        <ion-label position="floating">Apellido Estudiante</ion-label>
-        <ion-input formControlName="apellidoEstudiante" type="text"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="apelldioEstudianteNoValido" class="ion-padding-start ion-padding-end" lines="none">
-        <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('required')">Campo es obligatorio</ion-label>
-        <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('apellidoEstudiante')">Minimo 6 letras :)</ion-label>
-        <ion-label color="danger" class="label" *ngIf="form.get('apellidoEstudiante').hasError('pattern')">Solo letras de la A - Z</ion-label>
-      </ion-item>
-  
-      <ion-item class="ion-padding-start ion-padding-end">
-        <ion-label position="floating">Nombre Apoderado</ion-label>
-        <ion-input formControlName="nombreApoderado" type="text"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="nombreApoderadoNoValido" class="ion-padding-start ion-padding-end" lines="none">
-        <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('required')">Campo es obligatorio</ion-label>
-        <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('nombreApoderado')">Minimo 6 letras :)</ion-label>
-        <ion-label color="danger" class="label" *ngIf="form.get('nombreApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
-      </ion-item>
-  
-    <ion-item class="ion-padding-start ion-padding-end">
-        <ion-label position="floating">Apellido Apoderado</ion-label>
-        <ion-input formControlName="apellidoApoderado" type="text"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="apelldioApoderadoNoValido" class="ion-padding-start ion-padding-end" lines="none">
-        <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('required')">Campo es obligatorio</ion-label>
-        <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('apellidoApoderado')">Minimo 6 letras :)</ion-label>
-        <ion-label color="danger" class="label" *ngIf="form.get('apellidoApoderado').hasError('pattern')">Solo letras de la A - Z</ion-label>
-      </ion-item>
-  
+
       <ion-item class="ion-padding-start ion-padding-end">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input formControlName="password" type="password"></ion-input>
