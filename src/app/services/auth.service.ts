@@ -41,7 +41,6 @@ export class AuthService {
   async login(email: string, password: string): Promise<User> {
     try{
       const {user}  = await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.updateUserData(user);
       return user;
     }catch(error){
       console.log('Error ->', error);
@@ -52,8 +51,7 @@ export class AuthService {
   async register(email: string, password: string, form: any): Promise<User> {
     try {
       const {user}  = await this.afAuth.createUserWithEmailAndPassword(email, password);
-      this.registerData(form, user.uid)
-      this.updateUserData(user);
+      this.updateUserData(user,form);
       return user;
     } catch (error) {
       console.log('Error ->', error);
@@ -86,31 +84,10 @@ export class AuthService {
     this.alertaCuenta(tituloMensaje,subMensaje);
   }
 
-  async registerData(form: any, uid: string) {
-    try{
-      
-        this.afs.collection('alumnos').doc(uid).set({
-        nombreEstudiante: form.nombreEstudiante,
-        apellidoEstudiante: form.apellidoEstudiante,
-        nombreApoderado: form.nombreApoderado,
-        apellidoApoderado: form.apellidoApoderado,
-        uid: uid
-      });    
-    }catch(error){
-      console.log(error);
-    }
-  }
 
-  async crearRepaso(categoria: string, titulo: string) {
-    try{
-      
-      await this.afs.collection('repaso').add({
-        categoria: categoria,
-        titulo: titulo,
-      });    
-    }catch(error){
-      console.log(error);
-    }
+  
+  obtenerUsuario(uid: string){
+    return this.afs.collection('users').doc(uid).valueChanges();
   }
 
   async resetPassword(email: string): Promise<void> {
@@ -130,13 +107,13 @@ export class AuthService {
     }
   }
 
-  private updateUserData(user: User) {
+  private updateUserData(user: User, form: any) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email,
       emailVerified: user.emailVerified,
-      displayName: user.displayName,
+      displayName: form.nombreEstudiante,
     };
 
     return userRef.set(data, { merge: true });

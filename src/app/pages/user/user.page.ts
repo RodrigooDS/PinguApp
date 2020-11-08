@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { map } from 'rxjs/operators';
+import { User } from '../../shared/user.interface';
 
 @Component({
   selector: 'app-user',
@@ -8,10 +11,22 @@ import { Component, OnInit } from '@angular/core';
 
 export class UserPage implements OnInit {
 
-  constructor() { 
+  uid: string;
+  nombre: string;
+
+  constructor(private auth: AuthService) { 
+    this.auth.usuario.subscribe(resp => {
+      this.auth.obtenerUsuario(resp.uid).pipe(
+        map( (resp: User) => resp)
+      )
+      .subscribe(
+        resp => this.nombre = resp.displayName
+      );
+    })
   }
 
   ngOnInit() {
+
   }
 
 }
