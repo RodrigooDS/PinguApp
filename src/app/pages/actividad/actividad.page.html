@@ -31,8 +31,10 @@
                         <ion-card (click)="obtenerTituloCategoria(categoria.categoria)" mode="ios" class="ion-padding-top ion-padding-bottom card-categoria">
                             <ion-card-header>
                             <ion-card-title>{{categoria.categoria}}</ion-card-title>
-                            </ion-card-header>
-                                <img src="{{categoria.imagen}}">
+                            </ion-card-header>                     
+                                <ion-avatar>
+                                    <img src="{{categoria.imagen}}">
+                                </ion-avatar>                                                                                  
                         </ion-card>
                     </div>
                 </div>
