@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TabsService } from '../../../services/tabs.service';
+import { PhotoCameraService } from '../../../services/photo-camera.service';
+import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
+CameraPhoto, CameraSource } from '@capacitor/core';
+
+const { Camera, Filesystem, Storage } = Plugins;
 
 @Component({
   selector: 'app-editar-perfil',
@@ -8,11 +12,15 @@ import { TabsService } from '../../../services/tabs.service';
 })
 export class EditarPerfilPage implements OnInit {
 
-  constructor( ) { 
+  constructor(public photoService: PhotoCameraService) { 
     
   }
 
   ngOnInit() {
+  }
+
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
   }
 
 }

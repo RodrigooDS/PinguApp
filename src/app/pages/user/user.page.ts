@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { map } from 'rxjs/operators';
 import { User } from '../../shared/user.interface';
 import { Router } from '@angular/router';
-import { TabsService } from '../../services/tabs.service';
+
 
 @Component({
   selector: 'app-user',
@@ -35,5 +35,7 @@ export class UserPage implements OnInit {
   editarPerfil() {
     this.router.navigate(['/tablinks/user/editar-perfil']);
   }
+
+
 
 }
