@@ -10,11 +10,12 @@
   
             <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-                <ion-item lines="full" mode="ios" class="background">
+                <div class="ion-padding-start ion-padding-end">
                     <h1 style="font-weight: bold">Categorías</h1>
-                </ion-item>
+                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+                </div>
              
-                <div class="ion-padding-top">
+                <div class="ion-padding">
                     <ion-segment value="tarjetas" (ionChange)="vistaCategoria($event)" mode="ios">
                         <ion-segment-button value="tarjetas">
                             <ion-label>Tarjetas</ion-label>
@@ -40,21 +41,14 @@
                 
                 <div *ngIf="this.categorias && this.vistaCategorias == 'lista'">
                     <ion-card class="ion-padding-top ion-padding-bottom" mode="ios">
-                        <ion-item *ngFor="let categoria of categorias" mode="ios" (click)="obtenerTituloCategoria(categoria.categoria)" class="background" detail>
+                        <ion-item *ngFor="let categoria of categorias" mode="ios" (click)="obtenerTituloCategoria(categoria.categoria)" detail>
                             <ion-thumbnail slot="start" class="thumbnail">
                                 <img src="{{categoria.imagen}}">
                             </ion-thumbnail>
                             <ion-label>{{categoria.categoria}}</ion-label> 
                             </ion-item>
                     </ion-card>
-                    <!-- <ion-list *ngFor="let categoria of categorias" mode="ios">
-                        <ion-item (click)="obtenerTituloCategoria(categoria.categoria)" class="background">
-                            <ion-thumbnail slot="start" class="thumbnail">
-                                <img src="{{categoria.imagen}}">
-                            </ion-thumbnail>
-                            <ion-label>{{categoria.categoria}}</ion-label> 
-                            </ion-item>
-                        </ion-list> -->
+
                 </div>
         
             </ion-col>

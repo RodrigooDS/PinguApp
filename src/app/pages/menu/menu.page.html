@@ -1,4 +1,7 @@
-<!-- <app-header titulo="Menu"></app-header> -->
+<ion-header collapse="condense" class="ion-no-border" translucent>
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content padding fullscreen>
 
@@ -10,9 +13,10 @@
 
           <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-            <ion-item lines="full" mode="ios" class="background">
+            <div class="ion-padding-start ion-padding-end">
               <h1 style="font-weight: bold">Menú</h1>
-            </ion-item>
+              <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+            </div>
 
             <div *ngFor="let c of componentes | async">
               <ion-card mode="ios" [routerLink]="c.redirectTo">
