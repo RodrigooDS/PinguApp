@@ -6,49 +6,42 @@
 
     <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-      <div class="ion-padding-start ion-padding-end ion-padding-top" *ngIf="this.imagenes.length > 0">
+      <!-- <div class="ion-padding-start ion-padding-end ion-padding-top" *ngIf="this.imagenes.length > 0">
         <h3>
             Answer the question, choosing the right word. Then, click on “Send” button.
         </h3>
-      </div>
+      </div> -->
 
+      <ion-card *ngIf="this.imagenes.length > 0" mode="ios" class="ion-padding">
+        <ion-card-header>
+          <ion-card-title>
+            Answer the question, choosing the right word. Then, click on “Send” button.
+          </ion-card-title>
+        </ion-card-header>
 
-
-      <ion-card *ngIf="this.imagenes.length > 0" mode="ios">
-        <!-- <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-padding-top"> -->
-          <ion-avatar class="avatar">
-            <img src="{{this.datos[this.respuesta].detalle.imageUrl}}" />
-          </ion-avatar>
-          
           <ion-card-content>
-            <ion-label>What is this? It is…</ion-label>
+            <ion-thumbnail class="imagen">
+              <img src="{{this.datos[this.respuesta].detalle.imageUrl}}" />
+            </ion-thumbnail>
+            <ion-label color="dark">What is this? It is…</ion-label>
             <ion-list>
               <ion-radio-group >      
                 <ion-item *ngFor="let dato of datos,let i =  index" (click)="obtenerRespuetaCheckBox(i)" mode="ios">
-                    
                   <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true; else mala" ></ion-radio>
-
                   <ng-template #mala >
                     <ion-radio mode="md"  value="op{{i}}" disabled= true></ion-radio>
                   </ng-template>
-
                   <div class="ion-padding-start">
                     <ion-label>{{dato.detalle.fraseIngles}}</ion-label>
                   </div>
-                  
                 </ion-item>
-          
               </ion-radio-group>
             </ion-list>
-            
-            <div class="ion-padding ion-text-end">
-              <ion-button (click)="enviarDatos()" slot="center" *ngIf="this.imagenes.length > 0">Siguiente</ion-button>
-            </div>
-            
           </ion-card-content>
-        <!-- </form> -->
+            <div class=" ion-padding-top ion-text-end">
+              <ion-button (click)="enviarDatos()" slot="center" *ngIf="this.imagenes.length > 0">Send</ion-button>
+            </div>
       </ion-card>
-
 
     </ion-col>
 

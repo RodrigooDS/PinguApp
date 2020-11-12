@@ -57,9 +57,7 @@ export class CeParte1Component implements OnInit {
   }
 
   radioGroupChange(event) {
-    console.log("radioGroupChange",event.detail.checked);
     this.seleccionRadioButton = event.detail.checked;
-    console.log(this.seleccionRadioButton);
   }
 
   frutasAleatorias(){
@@ -83,19 +81,14 @@ export class CeParte1Component implements OnInit {
 
   hablarFrutas(texto: string) { 
     var plataforma = this.platform.platforms();
-    // console.log('plataforma',plataforma);
     if(this.seleccionRadioButton){
-      // console.log(this.form.value)
       this.voice.hablar(texto);
     }  
   }
 
   enviarDatos() {
-    // this.estado = false;
-    // this.frutasAleatorias();
     localStorage.setItem('datos', JSON.stringify(this.datos));
     this.onFormGroupChange.emit(this.form.value);
-    // location.replace(('/tablinks/actividad/ce-completar'));
  
   }
 

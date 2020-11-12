@@ -1,6 +1,6 @@
 <app-header titulo="Editar Actividad"></app-header>
 
-<ion-content padding fullscreen class="background">
+<ion-content fullscreen>
 
   <ion-grid >
 
@@ -10,20 +10,23 @@
 
           <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">        
 
-            <ion-item lines="full" mode="ios" class="background">
+            <div class="ion-padding-start ion-padding-end">
               <h1 style="font-weight: bold">Categorías</h1>
-            </ion-item>
+              <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+            </div>
 
-            <ion-card mode="ios" class="ion-padding-top">
-              <ion-item *ngFor=" let categoria of categorias" detail (click)="obtenerTituloCategoria(categoria.categoria)">
-                <ion-thumbnail slot="start" class="thumbnail">
-                  <img src="{{categoria.imagen}}">
-                </ion-thumbnail>
-                <ion-label>
-                    {{categoria.categoria}}
-                </ion-label>
-              </ion-item>
-              <div class="ion-padding-bottom"></div>
+            <ion-card mode="ios" class="ion-padding">
+              <ion-list *ngFor="let categoria of categorias">
+                <ion-item detail (click)="obtenerTituloCategoria(categoria.categoria)">
+                  <ion-thumbnail slot="start" class="thumbnail">
+                    <img src="{{categoria.imagen}}">
+                  </ion-thumbnail>
+                  <ion-label>
+                      {{categoria.categoria}}
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+              <!-- <div class="ion-padding-bottom"></div> -->
             </ion-card>
 
             </ion-col>

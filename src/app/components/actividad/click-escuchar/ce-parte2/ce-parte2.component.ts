@@ -14,9 +14,12 @@ export class CeParte2Component implements OnInit {
 
   datos: Actividad [] = [];
   respuesta: number;
+  
 
   incorrectas: number [] = [];
   imagenes: number [] = [0,1,2,3];
+  // Si se descomenta este se puede ir al modal 
+  // imagenes: number [] = [];
   random: number;
 
   estadistica = {
@@ -92,8 +95,9 @@ export class CeParte2Component implements OnInit {
     const modal = await this.modalCtrl.create({
       component: CeEstadisticaPage,
       cssClass: 'my-custom-class',
+      backdropDismiss: false,
+      mode: "ios",
       componentProps: {
-
         buena: this.estadistica.buena.nombre,
         parcial: this.estadistica.parcial.parciales.nombre,
         error: this.estadistica.parcial.parciales.erroneas,

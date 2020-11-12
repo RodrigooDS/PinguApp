@@ -13,10 +13,6 @@ const routes: Routes = [
     loadChildren: () => import('./actividades/actividades.module').then( m => m.ActividadesPageModule)
   },
   {
-    path: 'leccion',
-    loadChildren: () => import('./leccion/leccion.module').then( m => m.LeccionPageModule)
-  },
-  {
     path: 'ce-asociar',
     loadChildren: () => import('./click-escuchar/ce-asociar/ce-asociar.module').then( m => m.CeAsociarPageModule)
   },
@@ -27,7 +23,8 @@ const routes: Routes = [
   {
     path: 'ce-estadistica',
     loadChildren: () => import('./click-escuchar/ce-estadistica/ce-estadistica.module').then( m => m.CeEstadisticaPageModule)
-  },  {
+  },
+  {
     path: 'ace-asociar',
     loadChildren: () => import('./arrastrar-click-escuchar/ace-asociar/ace-asociar.module').then( m => m.AceAsociarPageModule)
   },
