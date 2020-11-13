@@ -12,6 +12,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Error } from '../shared/error.interfaces';
 import { Categoria } from '../shared/categoria.interfaces';
 import { User } from '../shared/user.interface';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class AuthService {
 
   constructor(public afAuth: AngularFireAuth, 
               private afs: AngularFirestore,
+              private storage: AngularFireStorage,
               private alertController: AlertController,
               private router: Router) {
     this.usuario = this.afAuth.authState.pipe(
@@ -134,6 +136,17 @@ export class AuthService {
       ]
     });
     await alert.present();
+  }
+
+  async updateImageUser(id,file): Promise<any> {
+    if(file) {
+      try {
+        const task = await this.storage.ref("UserImage").child(id).put(file)
+        return this.storage.ref(`${"UserImage"}/${id}`).getDownloadURL().toPromise();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
 }
