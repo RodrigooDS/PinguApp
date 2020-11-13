@@ -17,12 +17,30 @@
 
         <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
           <div class="ion-text-center">
-            <ion-avatar class="item-avatar">
+            <div *ngIf="!this.imagen ;else templateName">
+              <ion-avatar class="item-avatar" >
                 <img src="assets/userIcons/Rana.png">
             </ion-avatar>
+            </div>
+
+            <ng-template #templateName>
+              <ion-avatar class="item-avatar">
+                  <img [src]="this.imagen.dataUrl">
+              </ion-avatar>
+            </ng-template>
+
+            <!-- <ng-template> -->
+              <!-- <ion-avatar class="item-avatar">
+                <img [src]="this.imagen.dataUrl">
+              </ion-avatar> -->
+            <!-- </ng-template> -->
+
             <ion-item class="ion-text-center background" lines="none" detail="false" (click)="this.addPhotoToGallery()">
               <ion-label color="primary">Cambiar foto</ion-label>
             </ion-item>
+
+
+
           </div>
         </ion-col>
 

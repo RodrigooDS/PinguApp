@@ -12,11 +12,19 @@ export class PhotoCameraService {
   constructor() { }
 
   public async addNewToGallery() {
-    // Take a photo
-    const capturedPhoto = await Camera.getPhoto({
-      resultType: CameraResultType.Uri, 
-      source: CameraSource.Camera, 
-      quality: 100 
-    });
+    try {
+      // Take a photo
+      var capturedPhoto = await Camera.getPhoto({
+        resultType: CameraResultType.DataUrl, 
+        source: CameraSource.Camera, 
+        quality: 100 
+      });
+
+      return capturedPhoto
+      
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 }

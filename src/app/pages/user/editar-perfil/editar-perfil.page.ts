@@ -12,6 +12,8 @@ const { Camera, Filesystem, Storage } = Plugins;
 })
 export class EditarPerfilPage implements OnInit {
 
+  imagen: any;
+
   constructor(public photoService: PhotoCameraService) { 
     
   }
@@ -19,8 +21,9 @@ export class EditarPerfilPage implements OnInit {
   ngOnInit() {
   }
 
-  addPhotoToGallery() {
-    this.photoService.addNewToGallery();
+  async addPhotoToGallery() {
+    this.imagen = await this.photoService.addNewToGallery();
+    // console.log(this.imagen.dataUrl);
   }
 
 }
