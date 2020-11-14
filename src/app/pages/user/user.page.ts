@@ -15,6 +15,7 @@ export class UserPage implements OnInit {
 
   uid: string;
   nombre: string;
+  imageUrl: string;
 
   constructor(private auth: AuthService,
               private router: Router) { 
@@ -23,7 +24,10 @@ export class UserPage implements OnInit {
         map( (resp: User) => resp)
       )
       .subscribe(
-        resp => this.nombre = resp.displayName
+        resp => {this.nombre = resp.displayName,
+                this.imageUrl = resp.photoURL,
+                console.log(this.imageUrl)
+        }
       );
     })
   }

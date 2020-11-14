@@ -25,14 +25,14 @@ export class AuthService {
   public categoria: Observable<Categoria>
 
   constructor(public afAuth: AngularFireAuth, 
-              private afs: AngularFirestore,
+              private db: AngularFirestore,
               private storage: AngularFireStorage,
               private alertController: AlertController,
               private router: Router) {
     this.usuario = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.db.doc<User>(`users/${user.uid}`).valueChanges();
         }
         return of(null);
       })
@@ -50,10 +50,11 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string, form: any): Promise<User> {
+  async register(email: string, password: string, form: any){
     try {
       const {user}  = await this.afAuth.createUserWithEmailAndPassword(email, password);
       this.updateUserData(user,form);
+      // this.updateUserData();
       return user;
     } catch (error) {
       console.log('Error ->', error);
@@ -89,7 +90,7 @@ export class AuthService {
 
   
   obtenerUsuario(uid: string){
-    return this.afs.collection('users').doc(uid).valueChanges();
+    return this.db.collection('users').doc(uid).valueChanges();
   }
 
   async resetPassword(email: string): Promise<void> {
@@ -109,14 +110,28 @@ export class AuthService {
     }
   }
 
-  private updateUserData(user: User, form: any) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  async updateUserData(user: User, form: any) {
+  // async  updateUserData() {
+    // let  url: string;
+    const userRef: AngularFirestoreDocument<User> = this.db.doc('users/${user.uid}');
+    const imageUrl = await this.getImageFromStorage("gato.png");
+    console.log(imageUrl);
     const data: User = {
       uid: user.uid,
       email: user.email,
       emailVerified: user.emailVerified,
       displayName: form.nombreEstudiante,
+      photoURL: imageUrl
     };
+    //   const data: User = {
+    //   uid: "a",
+    //   email: "a",
+    //   emailVerified: false,
+    //   displayName: "a",
+    //   photoURL: imageUrl
+    // };
+
+    console.log(data);
 
     return userRef.set(data, { merge: true });
   }
@@ -138,15 +153,26 @@ export class AuthService {
     await alert.present();
   }
 
-  async updateImageUser(id,file): Promise<any> {
+  async upImageToStorage(id,file): Promise<any> {
     if(file) {
       try {
-        const task = await this.storage.ref("UserImage").child(id).put(file)
-        return this.storage.ref(`${"UserImage"}/${id}`).getDownloadURL().toPromise();
+        const task = await this.storage.ref('UserImage').child(id).put(file)
+        return this.storage.ref(`${'UserImage'}/${id}`).getDownloadURL().toPromise();
       } catch (error) {
         console.log(error);
       }
     }
   }
+
+  async updateImageUser(uid: string,imageUrl: string) {
+    this.db.collection('users').doc(uid).update({
+      photoURL: imageUrl
+    });
+
+  }
+
+  async getImageFromStorage(id){
+    return this.storage.ref(`${"UserImage"}/${id}`).getDownloadURL().toPromise();
+  } 
 
 }

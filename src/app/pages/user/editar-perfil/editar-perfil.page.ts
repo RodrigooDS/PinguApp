@@ -15,10 +15,10 @@ const { Camera, Filesystem, Storage } = Plugins;
 })
 export class EditarPerfilPage implements OnInit {
 
-  imageFile: any;
+  imageFile: File;
   imageCamera: any;
+  imageUrl: string;
   uid: string;
-
 
   constructor(public photoService: PhotoCameraService,
               private auth: AuthService) { 
@@ -26,37 +26,24 @@ export class EditarPerfilPage implements OnInit {
       this.auth.obtenerUsuario(resp.uid).pipe(
         map( (resp: User) => resp))
         .subscribe(
-          resp => {this.uid = resp.uid,
-                  console.log(resp.uid);
-                  }
-                  );
-                })
-    
-  }
+          resp => {
+                  this.uid = resp.uid,
+                  this.imageUrl = resp.photoURL
+          }
+        );
+      })
+    }
 
   ngOnInit() {
+  
   }
 
   async addPhotoToGallery() {
     var resp : any;
     this.imageCamera = await this.photoService.addNewToGallery();
-    this.imageFile = this.dataURLtoFile(this.imageCamera.dataUrl,this.uid)
-    resp = await this.auth.updateImageUser(this.uid,this.imageFile);
-    console.log(this.imageFile);
-  }
-
-  dataURLtoFile(dataurl, filename) {
- 
-    var arr = dataurl.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), 
-        n = bstr.length, 
-        u8arr = new Uint8Array(n);
-        
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, {type:mime});
+    this.imageFile = await this.photoService.dataURLtoFile(this.imageCamera.dataUrl,this.uid)
+    resp = await this.auth.upImageToStorage(this.uid,this.imageFile);
+    this.auth.updateImageUser(this.uid,resp);
   }
 
 }

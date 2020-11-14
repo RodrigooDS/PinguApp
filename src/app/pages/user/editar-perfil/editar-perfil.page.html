@@ -17,17 +17,17 @@
 
         <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
           <div class="ion-text-center">
-            <div *ngIf="!this.imagen ;else templateName">
+            <!-- <div *ngIf="!this.imagen ;else templateName"> -->
               <ion-avatar class="item-avatar" >
-                <img src="assets/userIcons/Rana.png">
+                <img [src]="this.imageUrl">
             </ion-avatar>
-            </div>
+            <!-- </div> -->
 
-            <ng-template #templateName>
+            <!-- <ng-template #templateName>
               <ion-avatar class="item-avatar">
                   <img [src]="this.imagen.dataUrl">
               </ion-avatar>
-            </ng-template>
+            </ng-template> -->
 
             <!-- <ng-template> -->
               <!-- <ion-avatar class="item-avatar">
