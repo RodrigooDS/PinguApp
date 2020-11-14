@@ -50,7 +50,7 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string, form: any){
+  async register(email: string, password: string, form: any): Promise<User> {
     try {
       const {user}  = await this.afAuth.createUserWithEmailAndPassword(email, password);
       this.updateUserData(user,form);
@@ -111,11 +111,8 @@ export class AuthService {
   }
 
   async updateUserData(user: User, form: any) {
-  // async  updateUserData() {
-    // let  url: string;
-    const userRef: AngularFirestoreDocument<User> = this.db.doc('users/${user.uid}');
+    const userRef: AngularFirestoreDocument<User> = this.db.doc(`users/${user.uid}`);
     const imageUrl = await this.getImageFromStorage("gato.png");
-    console.log(imageUrl);
     const data: User = {
       uid: user.uid,
       email: user.email,
@@ -123,16 +120,6 @@ export class AuthService {
       displayName: form.nombreEstudiante,
       photoURL: imageUrl
     };
-    //   const data: User = {
-    //   uid: "a",
-    //   email: "a",
-    //   emailVerified: false,
-    //   displayName: "a",
-    //   photoURL: imageUrl
-    // };
-
-    console.log(data);
-
     return userRef.set(data, { merge: true });
   }
 

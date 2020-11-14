@@ -25,8 +25,7 @@ export class UserPage implements OnInit {
       )
       .subscribe(
         resp => {this.nombre = resp.displayName,
-                this.imageUrl = resp.photoURL,
-                console.log(this.imageUrl)
+                this.imageUrl = resp.photoURL
         }
       );
     })
