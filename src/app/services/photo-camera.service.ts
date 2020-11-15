@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
-  CameraPhoto, CameraSource } from '@capacitor/core';
+import { Plugins, CameraResultType ,CameraSource} from '@capacitor/core';
 
-const { Camera, Filesystem, Storage } = Plugins;
+const { Camera } = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +10,17 @@ export class PhotoCameraService {
 
   constructor() { }
 
-  public async addNewToGallery() {
+  public async getImageFromCamera() {
     try {
       // Take a photo
       var capturedPhoto = await Camera.getPhoto({
         resultType: CameraResultType.DataUrl, 
-        source: CameraSource.Camera, 
-        quality: 100 
+        source: CameraSource.Prompt, 
+        quality: 100,
+        allowEditing: true,
+        promptLabelCancel: "Cancelar",	
+        promptLabelPhoto: "Elegir de la biblioteca",	
+        promptLabelPicture: "Tomar foto"
       });
 
       return capturedPhoto
@@ -25,7 +28,6 @@ export class PhotoCameraService {
     } catch (error) {
       console.log(error);
     }
-
   }
 
   dataURLtoFile(dataurl, filename) {

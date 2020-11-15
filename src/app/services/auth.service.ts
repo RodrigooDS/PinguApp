@@ -54,7 +54,6 @@ export class AuthService {
     try {
       const {user}  = await this.afAuth.createUserWithEmailAndPassword(email, password);
       this.updateUserData(user,form);
-      // this.updateUserData();
       return user;
     } catch (error) {
       console.log('Error ->', error);

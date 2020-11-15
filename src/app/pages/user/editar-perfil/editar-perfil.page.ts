@@ -40,7 +40,7 @@ export class EditarPerfilPage implements OnInit {
 
   async addPhotoToGallery() {
     var resp : any;
-    this.imageCamera = await this.photoService.addNewToGallery();
+    this.imageCamera = await this.photoService.getImageFromCamera();
     this.imageFile = await this.photoService.dataURLtoFile(this.imageCamera.dataUrl,this.uid)
     resp = await this.auth.upImageToStorage(this.uid,this.imageFile);
     this.auth.updateImageUser(this.uid,resp);

@@ -6,12 +6,6 @@
 
     <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-      <!-- <div class="ion-padding-start ion-padding-end ion-padding-top" *ngIf="this.imagenes.length > 0">
-        <h3>
-            Answer the question, choosing the right word. Then, click on “Send” button.
-        </h3>
-      </div> -->
-
       <ion-card *ngIf="this.imagenes.length > 0" mode="ios" class="ion-padding">
         <ion-card-header>
           <ion-card-title>
@@ -20,7 +14,7 @@
         </ion-card-header>
 
           <ion-card-content>
-            <ion-thumbnail class="imagen">
+            <ion-thumbnail class="imagen ion-padding">
               <img src="{{this.datos[this.respuesta].detalle.imageUrl}}" />
             </ion-thumbnail>
             <ion-label color="dark">What is this? It is…</ion-label>

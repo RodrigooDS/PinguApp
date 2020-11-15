@@ -12,7 +12,7 @@
 
         <div class="ion-text-center">
           <ion-avatar class="item-avatar">
-              <img [src]="this.imageUrl">
+              <img [src]="this.imageUrl" class="item-image-avatar">
           </ion-avatar>
           <h2 class="ion-padding-top">{{this.nombre}}</h2>
         </div>
@@ -88,7 +88,7 @@
                 
                   <ion-grid>
                     <ion-row>
-                      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+                      <ion-col>
                         <ion-label>Deportes</ion-label>
                         <ion-progress-bar value="0.5"></ion-progress-bar>
                       </ion-col>
@@ -98,7 +98,7 @@
               </ion-item>
               
             </ion-list>
-            
+
           </ion-card>
  
         </ion-col>
