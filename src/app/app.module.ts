@@ -9,7 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-
 //firebase config
 import { AngularFirestoreModule } from "@angular/fire/firestore"; //Modulo Firestore (BD)
 import { AngularFireAuthModule } from "@angular/fire/auth";  //Modulo de authenticacion
@@ -22,7 +21,7 @@ import { AuthService } from './services/auth.service';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,13 +35,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireAuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    
+    HttpClientModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AuthService,
     TextToSpeech,
+    NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

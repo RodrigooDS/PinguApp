@@ -16,7 +16,7 @@ export class PhotoCameraService {
       var capturedPhoto = await Camera.getPhoto({
         resultType: CameraResultType.DataUrl, 
         source: CameraSource.Prompt, 
-        quality: 100,
+        quality: 50,
         allowEditing: true,
         promptLabelCancel: "Cancelar",	
         promptLabelPhoto: "Elegir de la biblioteca",	

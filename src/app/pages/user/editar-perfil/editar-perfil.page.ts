@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
-import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
-CameraPhoto, CameraSource } from '@capacitor/core';
+// import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
+// CameraPhoto, CameraSource } from '@capacitor/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { map } from 'rxjs/operators';
 import { User } from 'firebase';
 
-const { Camera, Filesystem, Storage } = Plugins;
+// const { Camera, Filesystem, Storage } = Plugins;
 
 @Component({
   selector: 'app-editar-perfil',
