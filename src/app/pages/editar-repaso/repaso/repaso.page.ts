@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 //service
 import { UploadService } from '../../../services/upload.service';
 import { TabsService } from '../../../services/tabs.service';
+import { PhotoCameraService } from '../../../services/photo-camera.service';
 
 @Component({
   selector: 'app-repaso',
@@ -14,6 +15,10 @@ import { TabsService } from '../../../services/tabs.service';
 export class RepasoPage implements OnInit {
 
   @ViewChild('fileUploader') fileUploader:ElementRef;
+
+  imageFile: File;
+  imageCamera: any;
+  imageUrl: string;
 
   filename: string;
   tituloActividad: string = '';
@@ -25,7 +30,8 @@ export class RepasoPage implements OnInit {
   constructor(public router: Router, 
               private route: ActivatedRoute,
               public upload: UploadService,
-              public tabEstado: TabsService) {
+              public tabEstado: TabsService,
+              public photoService: PhotoCameraService) {
     this.tabEstado.cambiarEstado(true);
     this.tituloCategoria = this.route.snapshot.paramMap.get('category');
     this.imageURL = '';
@@ -63,14 +69,11 @@ export class RepasoPage implements OnInit {
 
   cancelar() {
     this.tabEstado.cambiarEstado(false);
-    this.fileUploader.nativeElement.value = null;
     this.router.navigate(['/tablinks/editar-repaso']);
   }
 
   obtenerActividades() {
-    this.upload.obtenerRepasos(this.tituloCategoria).pipe(
-      map( (resp : [] ) => resp.map ( ({actividad,categoria,detalle, nivel}) => ({actividad : actividad, categoria : categoria, imagen : detalle, nivel})))
-    )
+    this.upload.obtenerRepasos(this.tituloCategoria)
     .subscribe( resp => {
       this.actividades = resp;
     });
@@ -88,19 +91,13 @@ export class RepasoPage implements OnInit {
     this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
   }
 
-  cargarArchivo(event) {
-    
-    const file = (event.target as HTMLInputElement).files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      this.imageURL = reader.result as string;
-    }
-    reader.readAsDataURL(file)
-  }
-
   eliminarActividad(actividad) {
     this.upload.eliminarTodoRepaso(actividad);    
+  }
+
+  async seleccionarImagen(){
+    this.imageCamera = await this.photoService.getImageFromCamera();
+    this.imageURL = this.imageCamera.dataUrl;
   }
 }
 

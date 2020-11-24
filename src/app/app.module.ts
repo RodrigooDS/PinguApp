@@ -21,7 +21,7 @@ import { AuthService } from './services/auth.service';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,7 +42,6 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     SplashScreen,
     AuthService,
     TextToSpeech,
-    NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

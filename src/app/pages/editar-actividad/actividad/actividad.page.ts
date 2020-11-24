@@ -3,8 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UploadService } from '../../../services/upload.service';
 import { TabsService } from '../../../services/tabs.service';
 import { PhotoCameraService } from 'src/app/services/photo-camera.service';
-import { DatabaseService } from 'src/app/services/database.service';
-
 
 @Component({
   selector: 'app-actividad',
@@ -67,7 +65,6 @@ export class ActividadPage implements OnInit {
 
   cancelar() {
     this.tabEstado.cambiarEstado(false);
-    this.fileUploader.nativeElement.value = null;
     this.router.navigate(['/tablinks/editar-actividad']);
   }
 
@@ -90,30 +87,13 @@ export class ActividadPage implements OnInit {
     this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);
   }
 
-  cargarArchivo(event) {
-    
-    try {
-      const file = (event.target as HTMLInputElement).files[0];
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        this.imageUrl = reader.result as string;
-      }
-      
-      reader.readAsDataURL(file)
-    } catch (error) {
-      
-    }
-    
+  eliminarActividad(actividad) {
+    this.upload.eliminarTodoActividad(actividad);    
   }
 
   async seleccionarImagen(){
     this.imageCamera = await this.photoService.getImageFromCamera();
     console.log(this.imageCamera);
-  }
-
-  eliminarActividad(actividad) {
-    this.upload.eliminarTodoActividad(actividad);    
   }
 
 }

@@ -4,7 +4,7 @@
       <ion-button (click)="cancelar()">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end"> 
-      <ion-button (click)="guardar()" [disabled]="(imageURL === '' || this.tituloActividad ==='' || this.nivel ==='' || this.interaccion ==='' )">Siguiente</ion-button>
+      <ion-button (click)="guardar()" [disabled]="(this.imageCamera === '' || this.tituloActividad ==='' || this.nivel ==='' || this.interaccion ==='' )">Siguiente</ion-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Actividad</ion-title>
   </ion-toolbar>
@@ -23,7 +23,7 @@
         <div class="ion-padding-start ion-padding-end">
           <h1 class="text-title">Nueva Actividad</h1>
           <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-      </div>
+        </div>
           
         <ion-card mode="ios">
 
@@ -57,7 +57,6 @@
               <ion-item class="ion-no-padding">
                 <ion-label>Cargar Imagen</ion-label>
                 <ion-button (click)="this.seleccionarImagen()">Seleccionar imagen</ion-button>
-                <!-- <input type="file" #fileUploader name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required> -->
               </ion-item>
             </ion-list>
             
@@ -92,7 +91,6 @@
                 <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="interaccion" (ionChange)="obtenerInteraccion(interaccion)" mode="ios">
                   <ion-select-option value="Click, Escuchar">Click, Escuchar</ion-select-option>
                   <ion-select-option value="Arrastrar, Click, Escuchar">Arrastrar, Click, Escuchar</ion-select-option>
-                  <!-- <ion-select-option value="3">Difícil</ion-select-option> -->
                 </ion-select>
               </ion-item>  
 
@@ -102,17 +100,18 @@
       
         </ion-card>
 
-      <ion-item lines="full" mode="ios" class="background">
-        <h1 style="font-weight: bold">Editar Actividad</h1>
-      </ion-item>
+      
+        <div class="ion-padding-start ion-padding-end">
+          <h1 class="text-title">Editar Actividad</h1>
+          <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+        </div>
 
-      <ion-card mode="ios">
+       <ion-card mode="ios" class="ion-padding-top ion-padding-bottom">
 
         <ion-list>
-
           <ion-item-sliding *ngFor=" let actividad of actividades">
             <ion-item detail (click)="editarActividad(actividad.detalle.imageUrl, actividad.actividad, actividad.nivel)">
-              <ion-thumbnail slot="start">
+              <ion-thumbnail slot="start" class="thumbnail">
                 <img src="{{actividad.detalle.imageUrl}}">
               </ion-thumbnail>
               <ion-label>

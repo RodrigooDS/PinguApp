@@ -15,8 +15,7 @@
               <hr style="height:2px;border-width:0;color:gray;background-color:gray">
             </div>
 
-            <!-- <ion-card mode="ios" class="ion-padding"> -->
-            <div class="ion-padding">
+            <ion-card mode="ios" class="ion-padding-top ion-padding-bottom">
               <ion-list *ngFor="let categoria of categorias">
                 <ion-item detail (click)="obtenerTituloCategoria(categoria.categoria)">
                   <ion-thumbnail slot="start" class="thumbnail">
@@ -27,10 +26,7 @@
                   </ion-label>
                 </ion-item>
               </ion-list>
-            </div>
-              
-              <!-- <div class="ion-padding-bottom"></div> -->
-            <!-- </ion-card> -->
+            </ion-card>
 
             </ion-col>
 
