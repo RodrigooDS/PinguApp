@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
-import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
-CameraPhoto, CameraSource } from '@capacitor/core';
+// import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
+// CameraPhoto, CameraSource } from '@capacitor/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { map } from 'rxjs/operators';
+import { User } from 'firebase';
 
-const { Camera, Filesystem, Storage } = Plugins;
+// const { Camera, Filesystem, Storage } = Plugins;
 
 @Component({
   selector: 'app-editar-perfil',
@@ -12,15 +15,35 @@ const { Camera, Filesystem, Storage } = Plugins;
 })
 export class EditarPerfilPage implements OnInit {
 
-  constructor(public photoService: PhotoCameraService) { 
-    
-  }
+  imageFile: File;
+  imageCamera: any;
+  imageUrl: string;
+  uid: string;
+
+  constructor(public photoService: PhotoCameraService,
+              private auth: AuthService) { 
+    this.auth.usuario.subscribe(resp => {
+      this.auth.obtenerUsuario(resp.uid).pipe(
+        map( (resp: User) => resp))
+        .subscribe(
+          resp => {
+                  this.uid = resp.uid,
+                  this.imageUrl = resp.photoURL
+          }
+        );
+      })
+    }
 
   ngOnInit() {
+  
   }
 
-  addPhotoToGallery() {
-    this.photoService.addNewToGallery();
+  async addPhotoToGallery() {
+    var resp : any;
+    this.imageCamera = await this.photoService.getImageFromCamera();
+    this.imageFile = await this.photoService.dataURLtoFile(this.imageCamera.dataUrl,this.uid)
+    resp = await this.auth.upImageToStorage(this.uid,this.imageFile);
+    this.auth.updateImageUser(this.uid,resp);
   }
 
 }

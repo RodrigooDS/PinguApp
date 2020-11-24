@@ -6,33 +6,34 @@
 
       <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-
-      <div class="ion-padding-start ion-padding-end ion-padding-top">
+      <!-- <div class="ion-padding-start ion-padding-end ion-padding-top">
         <h3>
           Click on each image. Then, read and listen. When you finish your work, select “Next Task” button.
         </h3>
-      </div>
+      </div> -->
 
-
-      <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-padding-top ion-padding">
-        <ion-card mode="ios">
+      <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate>
+        <ion-card mode="ios" class="ion-padding">
+          <ion-card-header>
+            <ion-card-title>
+              Click on each image. Then, read and listen. When you finish your work, select “Next Task” button.
+            </ion-card-title>
+          </ion-card-header>
+          
           <ion-list *ngFor="let dato of datos, let i = index">
+            <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)">
             <ion-item (click)="posicionItem(i)" (click)="hablarFrutas(dato.detalle.nombreImagen)" mode="ios">
-              
-              <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)">
                 <ion-checkbox formControlName="checkbox{{i}}" color="primary" slot="start"></ion-checkbox>
-              </ion-radio-group>
-              <ion-thumbnail>
-                <img src="{{dato.detalle.imageUrl}}"/>
-              </ion-thumbnail>
-              <!-- <ion-label *ngIf="i == this.numero && this.voice.estadoHablarWeb() || i == this.numero && true" class="ion-text-center">{{dato.detalle.nombreImagen}}</ion-label> -->
-              <ion-label *ngIf="i == this.numero && this.seleccionRadioButton" class="ion-text-center">{{dato.detalle.nombreImagen}}</ion-label>
-              <!-- <ion-label class="ion-text-center">{{dato.detalle.nombreImagen}}</ion-label> -->
+                <ion-thumbnail>
+                  <img src="{{dato.detalle.imageUrl}}"/>
+                </ion-thumbnail>
+                <ion-label *ngIf="i == this.numero && this.seleccionRadioButton" class="ion-text-center">{{dato.detalle.nombreImagen}}</ion-label>
             </ion-item>
+          </ion-radio-group> 
           </ion-list>
 
 
-          <div class="ion-padding ion-text-end">
+          <div class=" ion-padding-top ion-text-end">
             <ion-button type="submit" [disabled]="form.invalid">Next Task</ion-button>
           </div>
           

@@ -31,6 +31,7 @@ export class MenuPage implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Cerrar sesión',
+      mode: "ios",
       message: '¿Estás seguro de que quieres cerrar la sesión?',
       buttons: [
         {

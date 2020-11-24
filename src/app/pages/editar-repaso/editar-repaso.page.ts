@@ -23,6 +23,7 @@ export class EditarRepasoPage implements OnInit {
 
   ngOnInit() {
     this.obtenerCategorias();
+    localStorage.clear();
   }
 
   obtenerCategorias() {

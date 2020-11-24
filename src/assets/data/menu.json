@@ -8,6 +8,18 @@
       "icon":"book",
       "name": "Editar Repaso",
       "redirectTo":"/tablinks/editar-repaso"
+    },
+    {
+      "icon":"bar-chart-outline",
+      "name": "Cursos"
+    },
+    {
+      "icon":"bar-chart-outline",
+      "name": "Estadistica"
+    },
+    {
+      "icon":"bar-chart-outline",
+      "name": "Alumnos"
     }
     
 ]

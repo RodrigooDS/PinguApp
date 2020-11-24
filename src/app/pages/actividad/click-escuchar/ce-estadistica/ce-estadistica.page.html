@@ -1,13 +1,17 @@
-<ion-header>
+<ion-header class="ion-no-border" mode="ios" translucent>
   <ion-toolbar>
-    <ion-title>Resultados de la actividad</ion-title>
+    <ion-title class="ion-text-capitalize ion-text-center">Resultados</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-card>
+  <ion-card mode="ios" class="ion-padding">
     <ion-card-header>
+      <ion-card-title>Mensaje</ion-card-title>
+    </ion-card-header>
+    <ion-img src="../assets/shapes.svg"></ion-img>
+    <!-- <ion-card-header>
       <ion-card-title> <h1 class="titulo"> <b> Results </b> </h1></ion-card-title>
     </ion-card-header>    
 
@@ -24,12 +28,18 @@
       <h3 class="centrado"> <b> {{(this.error)}} </b></h3> 
       <h3 class="centrado"> <b> Count: {{this.errores}} </b></h3>  
     </div>
-    </ion-card-content>
+    </ion-card-content> -->
 
-     
-  <ion-button expand="full" color="primary" (click)="menuPrincipal()"> Menu principal </ion-button>
-
-  <ion-button expand="full" color="primary" (click)="reintentar()" routerDirection="forward" > Reintentar </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" (click)="menuPrincipal()"> Menú Principal </ion-button>
+          <ion-row>
+            <ion-button color="primary" (click)="reintentar()" routerDirection="forward" > Reintentar </ion-button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
   </ion-card>
 

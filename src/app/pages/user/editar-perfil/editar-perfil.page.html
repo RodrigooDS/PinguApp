@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border" mode="ios" collapse="condense" translucent>
-  <ion-toolbar class="backgroundHeader">
+<ion-header class="ion-no-border" mode="ios" translucent>
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button text="Atrás" defaultHref="/tablinks/user"></ion-back-button>
     </ion-buttons>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding fullscreen class="background">
+<ion-content fullscreen>
 
   <ion-grid>
 
@@ -17,12 +17,14 @@
 
         <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
           <div class="ion-text-center">
-            <ion-avatar class="item-avatar">
-                <img src="assets/userIcons/Rana.png">
+              <ion-avatar class="item-avatar" >
+                <img [src]="this.imageUrl">
             </ion-avatar>
-            <ion-item class="ion-text-center background" lines="none" detail="false" (click)="this.addPhotoToGallery()">
+
+            <ion-item class="ion-text-center" lines="none" detail="false" (click)="this.addPhotoToGallery()">
               <ion-label color="primary">Cambiar foto</ion-label>
             </ion-item>
+
           </div>
         </ion-col>
 

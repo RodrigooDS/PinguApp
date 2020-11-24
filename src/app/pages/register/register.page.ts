@@ -15,8 +15,7 @@ export class RegisterPage implements OnInit {
   formRegistro : any  = '' 
 
   constructor(private auth: AuthService, 
-              private router: Router,
-              private menuCtrl: MenuController) {}
+              private router: Router) {}
          
   ngOnInit() {}
  
@@ -28,15 +27,10 @@ export class RegisterPage implements OnInit {
         // const isVerified = this.auth.isEmailVerified(user);
         // this.redirectUser(isVerified);
         this.router.navigate(['/tablinks']);
-        this.menuCtrl.enable(true);
       }
     } catch (error) {
       console.log('Error', error);
     }
   }
 
-  ionViewWillEnter() {
-    this.menuCtrl.enable(false);
-  }
-  
 }

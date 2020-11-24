@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../../services/upload.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { PhotoCameraService } from '../../../services/photo-camera.service';
 
 @Component({
   selector: 'app-cargar-repaso',
@@ -9,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CargarRepasoPage implements OnInit {
 
+  imageCamera: any;
   imagen : string;
   nombreImagen : string;
   json : any;
@@ -23,7 +25,8 @@ export class CargarRepasoPage implements OnInit {
 
   constructor(public upload: UploadService, 
               public router: Router, 
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              public photoService: PhotoCameraService) { }
 
   ngOnInit() {
     
@@ -43,13 +46,8 @@ export class CargarRepasoPage implements OnInit {
     localStorage.setItem('imagenes',JSON.stringify(json));  
   }
 
-  cargarArchivo(event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.nombreImagen = event.target.files[0].name
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imageURL = reader.result as string;
-    }
-    reader.readAsDataURL(file)
+  async seleccionarImagen(){
+    this.imageCamera = await this.photoService.getImageFromCamera();
+    this.imageURL = this.imageCamera.dataUrl
   }
 }

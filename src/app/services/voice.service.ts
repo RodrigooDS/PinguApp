@@ -53,6 +53,8 @@ export class VoiceService {
     this.speech.speak({
       text: texto,
       queue: false,
+      locale: 'en-GB',
+      rate: 1,
       listeners: {
         onstart: () => {
             // console.log("Start utterance")

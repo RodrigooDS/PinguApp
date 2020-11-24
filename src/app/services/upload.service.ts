@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Actividad } from '../shared/actividad.interfaces';
 
 
 @Injectable({
@@ -40,8 +41,8 @@ export class UploadService {
       }
     })
     .then( async resp =>{
-      const fecha : string = Date.now().toString();
-      const imageUrl = await this.uploadFile(fecha, imagen, 'imagenes actividad');
+      let id = this.randomID(20);
+      const imageUrl = await this.uploadFile(id, imagen, 'imagenes actividad');
       this.db.collection('actividad').doc(actividad).update({
         'detalle.imageUrl' : imageUrl || null
       })
@@ -80,8 +81,8 @@ export class UploadService {
         imageUrl: ''
       }
     }).then( async resp =>{
-      const fecha : string = Date.now().toString();
-      const imageUrl = await this.uploadFile(fecha, imagen, 'repaso');
+      let id = this.randomID(20);
+      const imageUrl = await this.uploadFile(id, imagen, 'imagenes repaso');
       this.itemsRef.doc(actividad).update({
         'detalle.imageUrl' : imageUrl || null
       }).catch(error =>{
@@ -100,7 +101,7 @@ export class UploadService {
         imageUrl: ''
       }
     }).then( async resp =>{
-      const imageUrl = await this.uploadFile(resp.id, imagen, 'repaso');
+      const imageUrl = await this.uploadFile(resp.id, imagen, 'imagenes repaso');
       this.itemsRef.doc(actividad).collection(actividad).doc(resp.id).update({
         id: resp.id,
         'detalle.imageUrl' : imageUrl || null
@@ -153,79 +154,102 @@ export class UploadService {
   async removerRepaso(item,actividad: string) {
     
     try {
-      this.alertLoading();
+      
       if(item.id) {
         console.log(item.id);
         await this.storage.storage.refFromURL(item.imagen).delete();
         this.db.collection('repaso').doc(actividad).collection(actividad).doc(item.id).delete()
       }
-      this.alertLoadingClose();
+      
     } catch (error) {
-      this.alertLoadingClose();
+      
       console.log(error);
     }
   }
   async removerActividad(item,actividad: string) {
     
     try {
-      this.alertLoading();
+      
       if(item.id) {
         await this.storage.storage.refFromURL(item.imagen).delete();
         this.db.collection('actividad').doc(actividad).collection(actividad).doc(item.id).delete()
       }
-      this.alertLoadingClose();
+      
     } catch (error) {
-      this.alertLoadingClose();
+      
       console.log(error);
     }
   }
 
+  async eliminarSubColleccionRepaso(actividad: any, item: any){
+    try {
+      for (var i = 0; i < item.length; i++){
+        await this.storage.storage.refFromURL(item[i].detalle.imageUrl).delete()
+        .then( resp =>
+          this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad).doc(item[i].id).delete())
+      }
+    } catch (error) {
+      
+    }
+  }
+
+  async eliminarColleccionRepaso(actividad: any){
+    try {
+      await this.storage.storage.refFromURL(actividad.detalle.imageUrl).delete()
+      await this.db.collection('repaso').doc(actividad.actividad).delete();
+    } catch (error) {
+      
+    }
+  }
   async eliminarTodoRepaso(actividad) {
     try {
-      this.alertLoading();
       this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad, 
           ref => ref.where('actividad', '==', actividad.actividad))
           .valueChanges()
           .subscribe( resp => {
             this.item = resp
+            this.eliminarSubColleccionRepaso(actividad,this.item);
+            this.eliminarColleccionRepaso(actividad);
           });
-      await this.storage.storage.refFromURL(actividad.imagen.imageUrl).delete()
-      for (var i = 0; i < this.item.length; i++){
-        console.log(this.item[i].detalle.imageUrl);
-        await this.storage.storage.refFromURL(this.item[i].detalle.imageUrl).delete()
-        .then( async resp =>
-          await this.db.collection('repaso').doc(actividad.actividad).collection(actividad.actividad).doc(this.item[i].id).delete())
-      }
-      await this.db.collection('repaso').doc(actividad.actividad).delete();
-      this.alertLoadingClose();
+      
     } catch (error) {
-      await this.db.collection('repaso').doc(actividad.actividad).delete();
-      this.alertLoadingClose();
-      console.log(error);
+      this.eliminarColleccionRepaso(actividad)
+    }
+  }
+
+  async eliminarSubColleccionActividad(actividad: any, item: any){
+    try {
+      for (var i = 0; i < item.length; i++){
+        await this.storage.storage.refFromURL(item[i].detalle.imageUrl).delete()
+        .then( resp =>
+          this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad).doc(item[i].id).delete())
+      }
+    } catch (error) {
+      
+    }
+  }
+
+  async eliminarColleccionActividad(actividad: any){
+    try {
+      await this.storage.storage.refFromURL(actividad.detalle.imageUrl).delete()
+      await this.db.collection('actividad').doc(actividad.actividad).delete();
+    } catch (error) {
+      
     }
   }
 
   async eliminarTodoActividad(actividad) {
     try {
-      this.alertLoading();
       this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad, 
           ref => ref.where('actividad', '==', actividad.actividad))
           .valueChanges()
           .subscribe( resp => {
             this.item = resp
+            this.eliminarSubColleccionActividad(actividad,this.item);
+            this.eliminarColleccionActividad(actividad);
           });
-      await this.storage.storage.refFromURL(actividad.detalle.imageUrl).delete()
-      for (var i = 0; i < this.item.length; i++){
-        await this.storage.storage.refFromURL(this.item[i].detalle.imageUrl).delete()
-        .then( async resp =>
-          await this.db.collection('actividad').doc(actividad.actividad).collection(actividad.actividad).doc(this.item[i].id).delete())
-      }
-      await this.db.collection('actividad').doc(actividad.actividad).delete();
-      this.alertLoadingClose();
     } catch (error) {
-      await this.db.collection('actividad').doc(actividad.actividad).delete();
-      this.alertLoadingClose();
-      console.log(error);
+      this.eliminarColleccionRepaso(actividad)
     }
   }
 
@@ -235,16 +259,20 @@ export class UploadService {
       message: 'Espere por favor.',
     });
     await loading.present();
-
-    // const { role, data } = await loading.onDidDismiss();
-    // console.log('Loading dismissed!');
   }
 
   async alertLoadingClose() {
-
     this.loadingCtrl.dismiss();
-    // const { role, data } = await loading.onDidDismiss();
-    // console.log('Loading dismissed!');
   }
+
+  randomID(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
   
 }

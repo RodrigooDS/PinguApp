@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border" mode="ios" collapse="condense" translucent>
-  <ion-toolbar class="backgroundHeader">
+<ion-header class="ion-no-border" mode="ios" translucent>
+  <ion-toolbar>
     <ion-buttons slot="start"> 
       <ion-back-button defaultHref="/tablinks/editar-repaso/agregar-repaso" text="Atrás"></ion-back-button>
     </ion-buttons>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding fullscreen class="background">
+<ion-content fullscreen>
 
   <ion-grid >
 
@@ -28,29 +28,33 @@
           </ion-card-header>
               
           <ion-card-content>
+
             <form (submit)="subirArchivo()">
 
-              <ion-item mode="ios">
+              <ion-item mode="ios" class="ion-no-padding">
                 <ion-label position="floating" mode="ios">Nombre imagen (Español)</ion-label>
                 <ion-input name="todo" [(ngModel)]="tituloEspanol" placeholder="Nombre (Español)" mode="ios" autocapitalize></ion-input>
               </ion-item>
               
-              <ion-item mode="ios"> 
+              <ion-item mode="ios" class="ion-no-padding"> 
                 <ion-label position="floating" mode="ios">Nombre imagen (Inglés)</ion-label>
                 <ion-input name="todo" [(ngModel)]="tituloIngles" placeholder="Nombre (Inglés)" mode="ios" autocapitalize></ion-input>
               </ion-item>
               
               <div class="ion-padding-top">
-                <input type="file" name="inputFile" accept="image/*" (change)="cargarArchivo($event)" required>
+                <ion-button expand="block"
+                            mode="ios"
+                            (click)="this.seleccionarImagen()">
+                            Seleccionar imagen
+                </ion-button>
               </div>
-
 
               <div class="ion-padding-top">
 
                 <ion-button type="submit" 
                             expand="block"
                             mode="ios"
-                            [disabled]="(!imageURL || !this.tituloEspanol|| !this.tituloIngles)">
+                            [disabled]="(!this.imageURL || !this.tituloEspanol|| !this.tituloIngles)">
                             Cargar 
                 </ion-button>
 

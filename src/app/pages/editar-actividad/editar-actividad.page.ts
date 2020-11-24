@@ -16,10 +16,12 @@ export class EditarActividadPage implements OnInit {
    
   constructor(public upload: UploadService, 
               public router: Router) { 
+    localStorage.clear();
   }
 
   ngOnInit() {
     this.obtenerCategorias();
+    localStorage.clear();
   }
 
   obtenerCategorias() {
