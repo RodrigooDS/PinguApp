@@ -14,6 +14,7 @@ import { Platform } from '@ionic/angular';
 export class CeParte1Component implements OnInit {
 
   @Input() tituloActividad: string;
+  @Input() tituloCategoria: string;
   
   @Output() onFormGroupChange = new EventEmitter<any>();
 
@@ -45,7 +46,7 @@ export class CeParte1Component implements OnInit {
   }
 
   obtenerDatosActividad() {
-    this.upload.obtenerActividad(this.tituloActividad).pipe(
+    this.upload.obtenerActividad(this.tituloActividad,this.tituloCategoria).pipe(
       map( (resp : Actividad[] ) => resp.map ( ({id, detalle}) => ({id, detalle})))
     )
     .subscribe( resp => {

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { UploadService } from '../../../services/upload.service';
 import { TabsService } from '../../../services/tabs.service';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-repaso',
@@ -31,7 +32,8 @@ export class RepasoPage implements OnInit {
               private route: ActivatedRoute,
               public upload: UploadService,
               public tabEstado: TabsService,
-              public photoService: PhotoCameraService) {
+              public photoService: PhotoCameraService,
+              public alertController: AlertController) {
     this.tabEstado.cambiarEstado(true);
     this.tituloCategoria = this.route.snapshot.paramMap.get('category');
     this.imageURL = '';
@@ -57,14 +59,22 @@ export class RepasoPage implements OnInit {
   }
 
   guardar() {
-    var json = {categoria    : this.tituloCategoria,
-                actividad    : this.tituloActividad,
-                imagen       : this.imageURL,
-                nombreImagen : this.filename,
-                nivel        : this.nivel
-    }
-    localStorage.setItem('repaso',JSON.stringify(json));
-    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+    this.upload.obtenerRepaso(this.tituloActividad,this.tituloCategoria)
+    .subscribe( resp => {
+        if(resp.length == 0){
+                var json = {categoria    : this.tituloCategoria,
+                  actividad    : this.tituloActividad,
+                  imagen       : this.imageURL,
+                  nombreImagen : this.filename,
+                  nivel        : this.nivel
+        }
+        localStorage.setItem('repaso',JSON.stringify(json));
+        this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+      }else{
+        this.errorCreacionAlerta();
+      }
+    });
+   
   }  
 
   cancelar() {
@@ -98,6 +108,17 @@ export class RepasoPage implements OnInit {
   async seleccionarImagen(){
     this.imageCamera = await this.photoService.getImageFromCamera();
     this.imageURL = this.imageCamera.dataUrl;
+  }
+
+  async errorCreacionAlerta() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: 'Ya existe esta actividad, intenta con otro nombre.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
 

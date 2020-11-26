@@ -22,9 +22,9 @@ export class CeAsociarPage implements OnInit {
               public upload: UploadService) {
     this.tabEstado.cambiarEstado(true);
     var datos = JSON.parse(localStorage.getItem('actividad'));
+    this.categoria = JSON.parse(localStorage.getItem('categoria'));
     this.actividad = datos.actividad;
     this.interaccion = datos.interaccion;
-  
   }
 
   ngOnInit() {

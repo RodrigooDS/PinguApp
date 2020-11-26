@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class AceParte1Component implements OnInit {
 
   @Input() tituloActividad: string;
+  @Input() tituloCategoria: string;
 
   actividad: any[] = [];
   imageUrl: string;
@@ -28,7 +29,7 @@ export class AceParte1Component implements OnInit {
   }
 
   obtenerDatosActividad() {
-    this.upload.obtenerActividad(this.tituloActividad)
+    this.upload.obtenerActividad(this.tituloActividad,this.tituloCategoria)
     .pipe(
       map( (resp : Actividad[] ) => resp.map ( ({id, detalle}) => ({id, detalle})))
     )
