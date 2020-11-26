@@ -15,7 +15,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class RepasoPage implements OnInit {
 
-  @ViewChild('fileUploader') fileUploader:ElementRef;
+  // @ViewChild('fileUploader') fileUploader:ElementRef;
 
   imageFile: File;
   imageCamera: any;
