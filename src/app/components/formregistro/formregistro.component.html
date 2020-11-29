@@ -1,6 +1,3 @@
-<!-- <div>
-  <img class="icon" src="assets/penguin.png" alt="">
-</div> -->
 
 <form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-margin-top">
   
@@ -9,32 +6,51 @@
     <ion-list>
 
       <ion-item class="ion-padding-start ion-padding-end">
-        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-label position="floating">Correo Electrónico
+          <p>(Por ejemplo: pinguapp@mail.com)</p>
+        </ion-label>
         <ion-input formControlName="email" type="mail"></ion-input>
       </ion-item>
       
       <ion-item *ngIf="emailNoValido" class="ion-padding-start ion-padding-end" lines="none">
         <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('required')">Campo es obligatorio</ion-label>
-        <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('pattern')">Correo electronico no valido</ion-label>
+        <ion-label color="danger" class="label" *ngIf="form.get('email').hasError('pattern')">Correo electrónico no valido</ion-label>
       </ion-item>
   
       <ion-item class="ion-padding-start ion-padding-end">
-        <ion-label position="floating">Nombre Estudiante</ion-label>
+        <ion-label position="floating">Nombre Completo
+          <p>(Por ejemplo: Sebastian Solar Morales)</p>
+        </ion-label>
         <ion-input formControlName="nombreEstudiante" type="text"></ion-input>
       </ion-item>
       <ion-item *ngIf="nombreEstudianteNoValido" class="ion-padding-start ion-padding-end" lines="none">
         <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('required')">Campo es obligatorio</ion-label>
-        <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('nombreEstudiante')">Minimo 6 letras :)</ion-label>
+        <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('nombreEstudiante')">Minimo 6 caracteres</ion-label>
         <ion-label color="danger" class="label"  *ngIf="form.get('nombreEstudiante').hasError('pattern')"> Solo letras de la A - Z</ion-label>
       </ion-item>
 
       <ion-item class="ion-padding-start ion-padding-end">
-        <ion-label position="floating">Contraseña</ion-label>
+        <ion-label position="floating">Contraseña
+          <p>(Debe contener letras, números y una letra en mayúscula)</p>
+        </ion-label>
         <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
       <ion-item *ngIf="passwordNoValido" class="ion-padding-start ion-padding-end" lines="none">
         <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('required')">Campo es obligatorio</ion-label>
         <ion-label color="danger" class="label" *ngIf="form.get('password').hasError('pattern')">Minimo 6 caracteres</ion-label>
+      </ion-item>
+
+      <!-- Rut del estudiante -->
+      <ion-item class="ion-padding-start ion-padding-end" mode="ios">
+        <ion-label position="floating" mode="ios">RUT
+          <p>(Ingrese RUT sin puntos y con guión)</p>
+        </ion-label>
+        <ion-input formControlName="rut" type="text" mode="ios"></ion-input>
+      </ion-item>
+      
+      <ion-item *ngIf="rutNoValido" class="ion-padding-start ion-padding-end" lines="none" mode="ios">
+        <ion-label color="danger" class="label" *ngIf="form.get('rut').hasError('required')" mode="ios">Campo es obligatorio</ion-label>
+        <ion-label color="danger" class="label" *ngIf="form.get('rut').hasError('pattern')" mode="ios">Formato de Rut no valido</ion-label>
       </ion-item>
   
     </ion-list>
@@ -43,7 +59,6 @@
       <ion-button class="button-border" 
                   expand="block"
                   mode="ios"
-                  ion-button 
                   block 
                   type="submit" 
                   [disabled]="form.invalid" 

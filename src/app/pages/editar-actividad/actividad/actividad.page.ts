@@ -12,8 +12,6 @@ import { AlertController } from '@ionic/angular';
 })
 export class ActividadPage implements OnInit {
 
-  // @ViewChild('fileUploader') fileUploader:ElementRef;
-
   imageFile: File;
   imageCamera: any;
   imageUrl: string;
@@ -83,7 +81,6 @@ export class ActividadPage implements OnInit {
     .subscribe( resp => {
       this.actividades = resp;
     });
-
   }
 
   editarActividad(imagen: string, actividad: string, nivel: string) {
@@ -109,9 +106,11 @@ export class ActividadPage implements OnInit {
   async errorCreacionAlerta() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Error',
+      header: 'Actividad ya existente',
+      mode: 'ios',
+      backdropDismiss: false,
       message: 'Ya existe esta actividad, intenta con otro nombre.',
-      buttons: ['OK']
+      buttons: ['Cerrar']
     });
 
     await alert.present();
