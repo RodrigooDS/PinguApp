@@ -1,0 +1,14 @@
+<ion-header class="ion-no-border" mode="ios" translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tablinks/alumnos" text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Nuevo Alumno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  
+  <app-form-registro-alumno (onFormGroupChange)="agregarNuevoAlumno($event)"></app-form-registro-alumno>
+
+</ion-content>

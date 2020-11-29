@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap} from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -160,5 +160,36 @@ export class AuthService {
   async getImageFromStorage(id){
     return this.storage.ref(`${"UserImage"}/${id}`).getDownloadURL().toPromise();
   } 
+
+  // funciones para la precarga de estudiantes estos deben ir en un nuevo service
+  async precargarAlumno(event: any, _nombreCompleto: string) {
+    const res = await this.db.collection('precargaEstudiantes').doc(event.rut).set({
+      nombre: event.nombre,
+      apellidoPaterno: event.apellidoPaterno,
+      apellidoMaterno: event.apellidoMaterno,
+      rut: event.rut,
+      fechaNacimiento: event.fechaNacimiento,
+      nombreCompleto: _nombreCompleto
+    });
+  }
+
+  obtenerPrecargaAlumnos() {
+    return this.db.collection('precargaEstudiantes').valueChanges();
+  }
+
+  async obtenerPrecargaAlumno(rut: string) {
+    let data: any;
+    await this.db.collection('precargaEstudiantes').doc(rut).ref.get()
+    .then(function (doc) {
+      if (doc.exists) {
+        data =  doc.data();
+      } else {
+        data = null
+      }
+    }).catch(function(error) {
+      console.log(error);
+    });
+    return data;
+  }
 
 }

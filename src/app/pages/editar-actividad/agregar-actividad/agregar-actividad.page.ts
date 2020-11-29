@@ -133,7 +133,7 @@ export class AgregarActividadPage implements OnInit {
   }
 
   obtenerActividad() {
-    this.upload.obtenerActividad(this.tituloActividad)
+    this.upload.obtenerActividad(this.tituloActividad,this.tituloCategoria)
     .pipe(
       map( (resp : Actividad[] ) => resp.map ( ({id, detalle}) => ({id: id, imagen : detalle.imageUrl, nombreImagen: detalle.nombreImagen, fraseIngles: detalle.fraseIngles})))
     )

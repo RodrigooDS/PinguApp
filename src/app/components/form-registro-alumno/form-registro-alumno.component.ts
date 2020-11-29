@@ -1,14 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
 import { validate, clean, format } from 'rut.js';
+import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-formregistro',
-  templateUrl: './formregistro.component.html',
-  styleUrls: ['./formregistro.component.scss'],
+  selector: 'app-form-registro-alumno',
+  templateUrl: './form-registro-alumno.component.html',
+  styleUrls: ['./form-registro-alumno.component.scss'],
 })
-export class FormregistroComponent implements OnInit {
+export class FormRegistroAlumnoComponent implements OnInit {
 
   @Output() onFormGroupChange = new EventEmitter<any>();
 
@@ -20,26 +20,28 @@ export class FormregistroComponent implements OnInit {
   ngOnInit() {
     this.crearFormulario();
   }
-  
+
   crearFormulario(){
     this.form = this.fb.group({
-      email             : ['', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]],
-      nombreEstudiante  : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
-      password          : ['', [Validators.required, Validators.pattern('((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})')]],
+      nombre            : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      apellidoPaterno   : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      apellidoMaterno   : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       rut               : ['', [Validators.required, Validators.pattern('[0-9]{7,8}-[0-9Kk]{1}')]],
+      fechaNacimiento   : ['', [Validators.required]],
+      // rut               : ['', [Validators.required, Validators.pattern('(^[0-9]{1,2}\.[0-9]{1,3}\.[0-9]{1,3}\-[0-9k]{1}$)')]],
     });
   }
 
-  get emailNoValido(){
-    return this.form.get('email').invalid && this.form.get('email').touched
+  get nombreNoValido(){
+    return this.form.get('nombre').invalid && this.form.get('nombre').touched
   }
 
-  get nombreEstudianteNoValido(){
-    return this.form.get('nombreEstudiante').invalid && this.form.get('nombreEstudiante').touched
+  get apellidoPaternoNoValido(){
+    return this.form.get('apellidoPaterno').invalid && this.form.get('apellidoPaterno').touched
   }
 
-  get passwordNoValido(){
-    return this.form.get('password').invalid && this.form.get('password').touched
+  get apellidoMaternoNoValido(){
+    return this.form.get('apellidoMaterno').invalid && this.form.get('apellidoMaterno').touched
   }
 
   get rutNoValido(){
@@ -49,7 +51,7 @@ export class FormregistroComponent implements OnInit {
   validarRut(){
     return validate(this.form.value.rut);
   }
-
+  
   enviarDatos(){
     if(this.validarRut()){
       this.onFormGroupChange.emit(this.form.value);
@@ -69,4 +71,5 @@ export class FormregistroComponent implements OnInit {
 
     await alert.present();
   }
+
 }

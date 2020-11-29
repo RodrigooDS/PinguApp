@@ -26,19 +26,8 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .button-border{
-    // --border-style: solid;
-    // --border-width: 1px;
-    // --border-color: rgb(0, 0, 0);
     --border-radius: 40px;
-    // --color: rgb(0, 0, 0);
-    // --background: rgb(255, 255, 255); 
-    // --background-activated: rgb(255, 255, 255); 
-    // --vertical-align: middle;
-    // --padding-start: 10px;
-    // --padding-end: 10px;
 }
-
-
 
 .thumbnail{
     min-width: 6rem;
@@ -49,21 +38,12 @@
     }
 }
 
-// .background {
-//      --background: #f5f5f5;
-// }
-
 .vertical-center{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
 }
-
-// .card-categoria{
-//     height: 250px;
-//     // width: 60%;
-// }
 
 .text-title{
     font-weight: bold;  

@@ -11,12 +11,14 @@ import { CeParte1Component } from './actividad/click-escuchar/ce-parte1/ce-parte
 import { CeParte2Component } from './actividad/click-escuchar/ce-parte2/ce-parte2.component';
 import { AceParte1Component } from './actividad/arrastrar-click-escuchar/ace-parte1/ace-parte1.component';
 import { AceParte2Component } from './actividad/arrastrar-click-escuchar/ace-parte2/ace-parte2.component';
+import { FormRegistroAlumnoComponent } from './form-registro-alumno/form-registro-alumno.component';
 
 @NgModule({
   declarations: [
     FormregistroComponent,
     HeaderComponent,
     FormloginComponent,
+    FormRegistroAlumnoComponent,
     FormforgotpasswordComponent,
     CeParte1Component,
     CeParte2Component,
@@ -27,6 +29,7 @@ import { AceParte2Component } from './actividad/arrastrar-click-escuchar/ace-par
     FormregistroComponent,
     HeaderComponent,
     FormloginComponent,
+    FormRegistroAlumnoComponent,
     FormforgotpasswordComponent,
     CeParte1Component,
     CeParte2Component,

@@ -40,6 +40,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'alumnos',
+        loadChildren: () => import('../alumnos/alumnos.module').then( m => m.AlumnosPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: '',
         redirectTo: '/tablinks/actividad',
         pathMatch: 'full'

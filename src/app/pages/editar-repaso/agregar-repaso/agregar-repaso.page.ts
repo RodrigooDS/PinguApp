@@ -133,7 +133,7 @@ export class AgregarRepasoPage implements OnInit {
   }
 
   obtenerActividad() {
-    this.upload.obtenerRepaso(this.tituloActividad)
+    this.upload.obtenerRepaso(this.tituloActividad,this.tituloCategoria)
     .pipe(
       map( (resp : Repaso[] ) => resp.map ( ({id, detalle}) => ({id: id,imagen : detalle.imageUrl, nombreIngles: detalle.nombreIngles, nombreEspanol: detalle.nombreEspanol})))
     )

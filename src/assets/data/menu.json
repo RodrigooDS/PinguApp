@@ -10,16 +10,17 @@
       "redirectTo":"/tablinks/editar-repaso"
     },
     {
-      "icon":"bar-chart-outline",
+      "icon":"easel-outline",
       "name": "Cursos"
     },
     {
       "icon":"bar-chart-outline",
-      "name": "Estadistica"
+      "name": "Estadística"
     },
     {
-      "icon":"bar-chart-outline",
-      "name": "Alumnos"
+      "icon":"people-circle-outline",
+      "name": "Alumnos",
+      "redirectTo":"/tablinks/alumnos"
     }
     
 ]
