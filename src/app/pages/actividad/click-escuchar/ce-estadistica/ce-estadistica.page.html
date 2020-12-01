@@ -8,9 +8,9 @@
 
   <ion-card mode="ios" class="ion-padding">
     <ion-card-header>
-      <ion-card-title>Mensaje</ion-card-title>
+      <ion-card-title class="centrado">Has terminado la actividad</ion-card-title>
     </ion-card-header>
-    <ion-img src="../assets/shapes.svg"></ion-img>
+    <ion-img src="../assets/Congratulations.png"></ion-img>
     <!-- <ion-card-header>
       <ion-card-title> <h1 class="titulo"> <b> Results </b> </h1></ion-card-title>
     </ion-card-header>    
@@ -32,11 +32,9 @@
 
     <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-button color="primary" (click)="menuPrincipal()"> Menú Principal </ion-button>
-          <ion-row>
-            <ion-button color="primary" (click)="reintentar()" routerDirection="forward" > Reintentar </ion-button>
-          </ion-row>
+        <ion-col class="centrado">
+          <ion-button  color="primary" (click)="menuPrincipal()"> Menú Principal </ion-button>
+          <ion-button color="secondary" (click)="reintentar()" routerDirection="forward" > Reintentar </ion-button>       
         </ion-col>
       </ion-row>
     </ion-grid>

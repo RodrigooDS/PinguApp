@@ -96,7 +96,6 @@ export class CeParte2Component implements OnInit {
 
       this.estadistica.fecha = this.obtenerFecha();
       this.estadistica.tiempo_termino = this.obtenerTiempo();
-      this.estadistica.tiempo_inicio = this.ce.tiempo;
 
       localStorage.setItem("Estadistica", JSON.stringify(this.estadistica));
       this.db.collection('Estadistica').doc('Estudiantes').collection(this.uid).doc("Click-Escuchar").collection(this.tituloActividad).add(this.estadistica);
@@ -161,7 +160,7 @@ export class CeParte2Component implements OnInit {
         buena: this.estadistica.buena.nombre,
         parcial: this.estadistica.parcial.parcialmente_correcto,
         error: this.estadistica.parcial.erroneas,
-        errores: this.estadistica.errores        
+        errores: this.estadistica.errores     
       }
     });
       
