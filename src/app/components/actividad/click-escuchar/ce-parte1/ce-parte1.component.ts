@@ -17,6 +17,7 @@ export class CeParte1Component implements OnInit {
   @Input() tituloCategoria: string;
   
   @Output() onFormGroupChange = new EventEmitter<any>();
+  @Output() tiempo = this.obtenerTiempoInicio();
 
   form: FormGroup;
   seleccionRadioButton: boolean;
@@ -34,6 +35,17 @@ export class CeParte1Component implements OnInit {
     
     this.obtenerDatosActividad();
     this.crearFormulario();
+    let hora_inicio = this.obtenerTiempoInicio();
+    console.log(hora_inicio);
+  }
+
+  obtenerTiempoInicio(){
+    let d = new Date();
+    let hora = d.getHours();
+    let minutos = d.getMinutes();
+    let segundos = d.getSeconds();
+    let hora_inicio = hora + ":" + minutos + ":" + segundos;
+    return hora_inicio;
   }
 
   crearFormulario(){
@@ -90,7 +102,6 @@ export class CeParte1Component implements OnInit {
   enviarDatos() {
     localStorage.setItem('datos', JSON.stringify(this.datos));
     this.onFormGroupChange.emit(this.form.value);
- 
   }
 
 }
