@@ -15,8 +15,6 @@ import { AlertController } from '@ionic/angular';
 })
 export class RepasoPage implements OnInit {
 
-  // @ViewChild('fileUploader') fileUploader:ElementRef;
-
   imageFile: File;
   imageCamera: any;
   imageUrl: string;
@@ -58,23 +56,21 @@ export class RepasoPage implements OnInit {
     this.nivel = nivel;
   }
 
-  guardar() {
-    this.upload.obtenerRepaso(this.tituloActividad,this.tituloCategoria)
-    .subscribe( resp => {
-        if(resp.length == 0){
-                var json = {categoria    : this.tituloCategoria,
+  async guardar() {
+    let existenciaRepaso : boolean;
+    existenciaRepaso = await this.upload.obtenerExistenciaDeRepaso(this.tituloActividad,this.tituloCategoria)
+    if(existenciaRepaso){
+      this.errorCreacionAlerta();
+    }else{
+      var json = {categoria    : this.tituloCategoria,
                   actividad    : this.tituloActividad,
                   imagen       : this.imageURL,
                   nombreImagen : this.filename,
                   nivel        : this.nivel
-        }
-        localStorage.setItem('repaso',JSON.stringify(json));
-        this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
-      }else{
-        this.errorCreacionAlerta();
       }
-    });
-   
+      localStorage.setItem('repaso',JSON.stringify(json));
+      this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+      }   
   }  
 
   cancelar() {
@@ -113,9 +109,11 @@ export class RepasoPage implements OnInit {
   async errorCreacionAlerta() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Error',
-      message: 'Ya existe esta actividad, intenta con otro nombre.',
-      buttons: ['OK']
+      header: 'Repaso ya existente',
+      mode: 'ios',
+      backdropDismiss: false,
+      message: 'Ya existe este repaso, intenta con otro nombre.',
+      buttons: ['Cerrar']
     });
 
     await alert.present();

@@ -107,8 +107,9 @@ export class AgregarActividadPage implements OnInit {
         json.splice(index, 1);
         this.data.splice(index, 1);
     }
+    console.log(file)
     localStorage.setItem('data',JSON.stringify(json));
-    this.upload.removerActividad(file,this.tituloActividad);
+    this.upload.removerActividad(file,this.tituloActividad,this.tituloCategoria );
   }
 
   async guardarActividad() {

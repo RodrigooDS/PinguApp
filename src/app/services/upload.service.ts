@@ -13,7 +13,7 @@ import { Categoria } from '../shared/categoria.interfaces';
 
 export class UploadService {
 
-  item : any[] = [];
+  // item : any[] = [];
   itemsRef: AngularFirestoreCollection;
   loading: HTMLIonLoadingElement;
 
@@ -144,6 +144,48 @@ export class UploadService {
       ref => ref.where('actividad', '==', actividad)).valueChanges();
   }
 
+  async obtenerExistenciaDeActividad(actividad : string, categoria: string) {
+    let nombreActividad: string;
+    let existenciaActividad : boolean;
+    nombreActividad = actividad +" - "+ categoria;
+    try {
+      var docRef = await this.db.collection('actividad').doc(nombreActividad);
+      await docRef.ref.get().then(function(doc) {
+        if (doc.exists) {
+          existenciaActividad = doc.exists;
+        } else {
+          existenciaActividad = false;
+        }
+      });
+
+      return existenciaActividad;
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async obtenerExistenciaDeRepaso(actividad : string, categoria: string) {
+    let nombreActividad: string;
+    let existenciaActividad : boolean;
+    nombreActividad = actividad +" - "+ categoria;
+    try {
+      var docRef = await this.db.collection('repaso').doc(nombreActividad);
+      await docRef.ref.get().then(function(doc) {
+        if (doc.exists) {
+          existenciaActividad = doc.exists;
+        } else {
+          existenciaActividad = false;
+        }
+      });
+
+      return existenciaActividad;
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   obtenerCategorias() {
     return this.db.collection('categorias').valueChanges();
   }
@@ -160,41 +202,35 @@ export class UploadService {
   }
 
   async removerRepaso(item,actividad: string) {
-    
     try {
-      
       if(item.id) {
         console.log(item.id);
         await this.storage.storage.refFromURL(item.imagen).delete();
-        this.db.collection('repaso').doc(actividad).collection(actividad).doc(item.id).delete()
+        await this.db.collection('repaso').doc(actividad).collection(actividad).doc(item.id).delete()
       }
-      
     } catch (error) {
-      
       console.log(error);
     }
   }
-  async removerActividad(item,actividad: string) {
-    
+  async removerActividad(item, actividad: string, categoria: string) {
+    let actividades : any[] = [];
+    let nombreActividad: string;
+    nombreActividad = actividad +" - "+ categoria;
     try {
-      
       if(item.id) {
         await this.storage.storage.refFromURL(item.imagen).delete();
-        this.db.collection('actividad').doc(actividad).collection(actividad).doc(item.id).delete()
+        await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).doc(item.id).delete()
       }
-      
     } catch (error) {
-      
       console.log(error);
     }
   }
 
-  async eliminarSubColleccionRepaso(nombreActividad: string, item: any){
+  async eliminarSubColleccionRepaso(nombreActividad: string, item: any, cantidadActividades: number){
     try {
-      for (var i = 0; i < item.length; i++){
+      for (var i = 0; i < cantidadActividades; i++){
         await this.storage.storage.refFromURL(item[i].detalle.imageUrl).delete()
-        .then( resp =>
-          this.db.collection('repaso').doc(nombreActividad).collection(nombreActividad).doc(item[i].id).delete())
+        await this.db.collection('repaso').doc(nombreActividad).collection(nombreActividad).doc(item[i].id).delete()
       }
     } catch (error) {
       console.log(error);
@@ -209,33 +245,38 @@ export class UploadService {
       console.log(error);
     }
   }
+
   async eliminarTodoRepaso(actividad) {
     let nombreActividad: string;
+    let cantidadActividades: number;
+    let actividades : any[] = [];
     nombreActividad = actividad.actividad +" - "+ actividad.categoria;
     try {
-      this.db.collection('repaso').doc(nombreActividad).collection(nombreActividad, 
-          ref => ref.where('actividad', '==', actividad.actividad))
-          .valueChanges()
-          .subscribe( resp => {
-            this.item = resp
-            this.eliminarSubColleccionRepaso(nombreActividad,this.item);
-            this.eliminarColleccionRepaso(nombreActividad,actividad);
+      await this.db.collection('repaso').doc(nombreActividad).collection(nombreActividad).ref.get()
+          .then(function(doc){
+            cantidadActividades = doc.size;
           });
-      
+      await this.db.collection('repaso').doc(nombreActividad).collection(nombreActividad).ref.get()
+      .then(function (ququerySnapshotery) {
+        ququerySnapshotery.forEach(function(doc){
+          actividades.push(doc.data());
+        })
+      });
+      await this.eliminarSubColleccionRepaso(nombreActividad,actividades,cantidadActividades);
+      await this.eliminarColleccionRepaso(nombreActividad,actividad);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async eliminarSubColleccionActividad(nombreActividad: string, item: any){
+  async eliminarSubColleccionActividad(nombreActividad: string, item: any, cantidadActividades: number){
     try {
-      for (var i = 0; i < item.length; i++){
+      for (var i = 0; i < cantidadActividades; i++){
         await this.storage.storage.refFromURL(item[i].detalle.imageUrl).delete()
-        .then( resp =>
-          this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).doc(item[i].id).delete())
+        await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).doc(item[i].id).delete()
       }
     } catch (error) {
-      
+      console.log(error);
     }
   }
 
@@ -244,22 +285,28 @@ export class UploadService {
       await this.storage.storage.refFromURL(actividad.detalle.imageUrl).delete()
       await this.db.collection('actividad').doc(nombreActividad).delete();
     } catch (error) {
-      
+      console.log(error);
     }
   }
 
   async eliminarTodoActividad(actividad) {
     let nombreActividad: string;
+    let cantidadActividades: number;
+    let actividades : any[] = [];
     nombreActividad = actividad.actividad +" - "+ actividad.categoria;
     try {
-      this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad, 
-          ref => ref.where('actividad', '==', actividad.actividad))
-          .valueChanges()
-          .subscribe( resp => {
-            this.item = resp
-            this.eliminarSubColleccionActividad(nombreActividad,this.item);
-            this.eliminarColleccionActividad(nombreActividad,actividad);
+      await this.db.collection('actiividad').doc(nombreActividad).collection(nombreActividad).ref.get()
+          .then(function(doc){
+            cantidadActividades = doc.size;
           });
+      await this.db.collection('actiividad').doc(nombreActividad).collection(nombreActividad).ref.get()
+      .then(function (ququerySnapshotery) {
+        ququerySnapshotery.forEach(function(doc){
+          actividades.push(doc.data());
+        })
+      });
+      await this.eliminarSubColleccionActividad(nombreActividad,actividades,cantidadActividades);
+      await this.eliminarColleccionActividad(nombreActividad,actividad);
     } catch (error) {
       console.log(error);
     }
@@ -277,7 +324,6 @@ export class UploadService {
     this.loadingCtrl.dismiss();
   }
 
-  
   randomID(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
