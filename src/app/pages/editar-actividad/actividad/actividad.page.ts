@@ -52,23 +52,21 @@ export class ActividadPage implements OnInit {
   }
 
   async guardar() {
-    this.upload.obtenerActividad(this.tituloActividad,this.tituloCategoria)
-    .subscribe( resp => {
-      if(resp.length == 0){
-        var json = {categoria    : this.tituloCategoria,
-                    actividad    : this.tituloActividad,
-                    imagen       : this.imageCamera.dataUrl,
-                    nombreImagen : this.filename,
-                    nivel        : this.nivel,
-                    interaccion  : this.interaccion
-        }
-        localStorage.setItem('actividad',JSON.stringify(json));
-        this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);
-      }else{
-        this.errorCreacionAlerta();
+    let existenciaActividad : boolean;
+    existenciaActividad = await this.upload.obtenerExistenciaDeActividad(this.tituloActividad,this.tituloCategoria);
+    if(existenciaActividad){
+      this.errorCreacionAlerta();
+    }else{
+      var json = {categoria    : this.tituloCategoria,
+        actividad    : this.tituloActividad,
+        imagen       : this.imageCamera.dataUrl,
+        nombreImagen : this.filename,
+        nivel        : this.nivel,
+        interaccion  : this.interaccion
       }
-    });
-    
+      localStorage.setItem('actividad',JSON.stringify(json));
+      this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);   
+    }
   }  
 
   cancelar() {
@@ -100,7 +98,6 @@ export class ActividadPage implements OnInit {
 
   async seleccionarImagen(){
     this.imageCamera = await this.photoService.getImageFromCamera();
-    console.log(this.imageCamera);
   }
 
   async errorCreacionAlerta() {
