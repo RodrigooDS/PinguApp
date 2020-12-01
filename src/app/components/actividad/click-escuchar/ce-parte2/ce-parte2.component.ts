@@ -21,6 +21,8 @@ export class CeParte2Component implements OnInit {
 
   @Input() tiempo: string;
 
+  tiempo_inicio: number;
+
   datos: Actividad [] = [];
   respuesta: number;
   incorrectas: number [] = [];
@@ -36,8 +38,9 @@ export class CeParte2Component implements OnInit {
 
   estadistica = {
     fecha:"",
-    tiempo_inicio:"",
-    tiempo_termino:"",
+    hora_inicio:"",
+    hora_termino:"",
+    tiempo_total:"",
     buena: {
           nombre:[], 
            },
@@ -69,7 +72,7 @@ export class CeParte2Component implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.tiempo_inicio = window.performance.now(); 
   }
 
   obtenerUsuario(){
@@ -92,31 +95,53 @@ export class CeParte2Component implements OnInit {
 
     if(this.imagenes.length == 0){
       this.abrirModal();
+      this.subirEstadisticas();
+    }
+  }
+
+
+  subirEstadisticas(){
+
       this.tituloActividad = localStorage.getItem('actividad');    
 
       this.estadistica.fecha = this.obtenerFecha();
-      this.estadistica.tiempo_termino = this.obtenerTiempo();
+      this.estadistica.hora_termino = this.obtenerTiempo();
+      this.estadistica.hora_inicio = localStorage.getItem("hora_inicio");
+      localStorage.setItem("estadistica", JSON.stringify(this.estadistica));
 
-      localStorage.setItem("Estadistica", JSON.stringify(this.estadistica));
-      this.db.collection('Estadistica').doc('Estudiantes').collection(this.uid).doc("Click-Escuchar").collection(this.tituloActividad).add(this.estadistica);
-    }
+      let end = window.performance.now();
+      let tiempo_total2 = (Math.round((end-this.tiempo_inicio)/1000));
+
+      this.estadistica.tiempo_total = (parseInt(localStorage.getItem("tiempo_total")) + (tiempo_total2)).toString() +  " Segundos.";
+      console.log(this.estadistica.tiempo_total);
+
+      this.db.collection('estadistica').doc('Estudiantes').collection(this.uid).doc("Click-Escuchar").collection(this.tituloActividad).add(this.estadistica);
+
   }
+
+
 
   obtenerFecha(){
     var d = new Date();
       var dd = d.getDate();
       var mm = d.getMonth() + 1;
       var yy = d.getFullYear();
-    
+   
       var myDateString = dd + "-" + mm + "-" + yy;
       return myDateString;
   }
 
   obtenerTiempo(){
+
     let d = new Date();
-    let hora = d.getHours();
-    let minutos = d.getMinutes();
-    let segundos = d.getSeconds();
+    let hora = d.getHours().toString();
+    let minutos = d.getMinutes().toString();
+    let segundos = d.getSeconds().toString();
+
+    if(parseInt(hora) < 10) { hora = '0' + hora; }
+    if(parseInt(minutos) < 10) { minutos = '0' + minutos; }
+    if(parseInt(segundos) < 10) { segundos = '0' + segundos; }
+
     let hora_final = hora + ":" + minutos + ":" + segundos;
     console.log(hora_final);
     return hora_final;

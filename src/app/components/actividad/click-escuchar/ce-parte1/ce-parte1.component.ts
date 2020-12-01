@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { bufferTime, map } from 'rxjs/operators';
 import { Actividad } from '../../../../shared/actividad.interfaces';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VoiceService } from '../../../../services/voice.service';
@@ -17,7 +17,6 @@ export class CeParte1Component implements OnInit {
   @Input() tituloCategoria: string;
   
   @Output() onFormGroupChange = new EventEmitter<any>();
-  @Output() tiempo = this.obtenerTiempoInicio();
 
   form: FormGroup;
   seleccionRadioButton: boolean;
@@ -25,6 +24,7 @@ export class CeParte1Component implements OnInit {
   posicionesElegidas: any[] = [];
   datos: Actividad [] = [];
   numero: number;
+  tiempo_inicio: number;
   constructor(public upload: UploadService,
               public voice:  VoiceService,
               public fb: FormBuilder,
@@ -36,14 +36,19 @@ export class CeParte1Component implements OnInit {
     this.obtenerDatosActividad();
     this.crearFormulario();
     let hora_inicio = this.obtenerTiempoInicio();
-    console.log(hora_inicio);
+    localStorage.setItem("hora_inicio", hora_inicio);; 
+    this.tiempo_inicio = window.performance.now(); 
   }
 
   obtenerTiempoInicio(){
     let d = new Date();
-    let hora = d.getHours();
-    let minutos = d.getMinutes();
-    let segundos = d.getSeconds();
+    let hora = d.getHours().toString();
+    let minutos = d.getMinutes().toString();
+    let segundos = d.getSeconds().toString();
+
+    if(parseInt(hora) < 10) { hora = '0' + hora; }
+    if(parseInt(minutos) < 10) { minutos = '0' + minutos; }
+    if(parseInt(segundos) < 10) { segundos = '0' + segundos; }
     let hora_inicio = hora + ":" + minutos + ":" + segundos;
     return hora_inicio;
   }
@@ -100,8 +105,15 @@ export class CeParte1Component implements OnInit {
   }
 
   enviarDatos() {
+
     localStorage.setItem('datos', JSON.stringify(this.datos));
     this.onFormGroupChange.emit(this.form.value);
+
+    let end = window.performance.now();
+    let tiempo_total1 = (Math.round((end-this.tiempo_inicio)/1000));
+    console.log(tiempo_total1);
+    localStorage.setItem("tiempo_total", tiempo_total1.toString());
+    
   }
 
 }
