@@ -17,7 +17,6 @@ export class PhotoCameraService {
         resultType: CameraResultType.DataUrl, 
         source: CameraSource.Prompt, 
         quality: 50,
-        allowEditing: true,
         promptLabelCancel: "Cancelar",	
         promptLabelPhoto: "Elegir de la biblioteca",	
         promptLabelPicture: "Tomar foto"
