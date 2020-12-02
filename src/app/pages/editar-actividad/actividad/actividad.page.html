@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border" mode="ios" translucent>
   <ion-toolbar>
     <ion-buttons slot="start"> 
-      <ion-button (click)="cancelar()">Cancelar</ion-button>
+      <ion-button (click)="cancelar()" color="danger">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end"> 
       <ion-button (click)="guardar()" [disabled]="(this.imageCamera === '' || this.tituloActividad ==='' || this.nivel ==='' || this.interaccion ==='' )">Siguiente</ion-button>
@@ -63,16 +63,16 @@
             <ion-list>
               <ion-list-header class="ion-no-padding">
                 <ion-label>
-                  Dificultad
+                  Nivel
                 </ion-label>
               </ion-list-header>
             
               <ion-item class="ion-no-padding" lines="none">
                 <ion-label>Nivel</ion-label>
                 <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="nivel" (ionChange)="obtenerNivel(nivel)" mode="ios">
-                  <ion-select-option value="Fácil">Fácil</ion-select-option>
-                  <ion-select-option value="Medio">Medio</ion-select-option>
-                  <ion-select-option value="Difícil">Difícil</ion-select-option>
+                  <ion-select-option value="1">1</ion-select-option>
+                  <ion-select-option value="2">2</ion-select-option>
+                  <ion-select-option value="3">3</ion-select-option>
                 </ion-select>
               </ion-item> 
 
@@ -89,8 +89,18 @@
               <ion-item class="ion-no-padding" lines="none">
                 <ion-label>Tipo de interacción</ion-label>
                 <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="interaccion" (ionChange)="obtenerInteraccion(interaccion)" mode="ios">
-                  <ion-select-option value="Click, Escuchar">Click, Escuchar</ion-select-option>
-                  <ion-select-option value="Arrastrar, Click, Escuchar">Arrastrar, Click, Escuchar</ion-select-option>
+                  <ion-select-option value="Click, Escuchar">Audio + Texto</ion-select-option>
+                  <ion-select-option value="Audio">Audio</ion-select-option>
+                  <ion-select-option value="Texto">Texto</ion-select-option>
+                </ion-select>
+              </ion-item> 
+              
+              <ion-item class="ion-no-padding" lines="none">
+                <ion-label>Contenido de Actividad</ion-label>
+                <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="interaccion" (ionChange)="obtenerInteraccion(interaccion)" mode="ios">
+                  <ion-select-option value="Click, Escuchar">Imagen</ion-select-option>
+                  <ion-select-option value="Audio">Texto</ion-select-option>
+                  <ion-select-option value="Texto">Texto + Imagen</ion-select-option>
                 </ion-select>
               </ion-item>  
 

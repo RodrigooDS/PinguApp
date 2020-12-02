@@ -193,8 +193,8 @@ export class UploadService {
   async uploadFile(id,file, actividad: string): Promise<any> {
     if(file) {
       try {
-        const task = await this.storage.ref(actividad).child(id).put(file)
-        return this.storage.ref(`${actividad}/${id}`).getDownloadURL().toPromise();
+        await this.storage.ref(actividad).child(id).put(file)
+        return await this.storage.ref(`${actividad}/${id}`).getDownloadURL().toPromise();
       } catch (error) {
         console.log(error);
       }

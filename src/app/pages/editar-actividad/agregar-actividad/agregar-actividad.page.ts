@@ -43,7 +43,6 @@ export class AgregarActividadPage implements OnInit {
   }
 
   ngOnInit() {
-    // localStorage.removeItem('data');
     this.cargarRepaso();
     this.agregarImagenes();
   }
