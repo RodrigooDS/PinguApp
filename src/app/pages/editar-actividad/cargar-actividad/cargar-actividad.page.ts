@@ -19,13 +19,17 @@ export class CargarActividadPage implements OnInit {
   file : any;
   data = [];
 
+  tipoActividad: string;
+  contenidoActividad: string;
+
   selectedFile: any;
   // tituloIngles: string;
 
   constructor(public upload: UploadService, 
-              public router: Router, 
-              private route: ActivatedRoute,
-              public photoService: PhotoCameraService) { }
+              public router: Router,
+              public photoService: PhotoCameraService) {
+    this.obtenerLocalStorage()
+  }
 
   ngOnInit() {
     
@@ -47,6 +51,13 @@ export class CargarActividadPage implements OnInit {
   async seleccionarImagen(){
     this.imageCamera = await this.photoService.getImageFromCamera();
     this.imageURL = this.imageCamera.dataUrl
+  }
+
+
+  obtenerLocalStorage() {
+  this.json = JSON.parse(localStorage.getItem('actividad'))
+  this.tipoActividad = this.json.tipoActividad;
+  this.contenidoActividad = this.json.contenidoActividad;
   }
 
 }

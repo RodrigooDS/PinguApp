@@ -1,0 +1,85 @@
+<form (submit)="enviarDatos()">
+
+  <ion-card>
+    <ion-card-title class="ion-text-center ion-padding">
+      <h2>Ingrese la pregunta</h2>
+    </ion-card-title>
+
+    <ion-input placeholder="texto"></ion-input>
+
+    <ion-list class="ion-padding-top ion-padding-bottom">
+      <ion-radio-group value="biff" mode="md" value="1" (ionChange)="radioGroupChange($event)">
+        <ion-list-header>
+          <ion-label>Items</ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+
+          <div *ngIf="!this.imagenes[0], else a">
+            <ion-thumbnail>
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-thumbnail>
+          </div>
+
+          <ng-template #a>
+            <div>
+              <ion-thumbnail>
+                <img [src]="this.imagenes[0]">
+              </ion-thumbnail>
+            </div>
+          </ng-template>
+
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(0)">Cargar</ion-button>
+          <ion-radio slot="start" value="1"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <div *ngIf="!this.imagenes[1], else b">
+            <ion-thumbnail>
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-thumbnail>
+          </div>
+
+          <ng-template #b>
+            <ion-thumbnail #loggedOut>
+              <img [src]="this.imagenes[1]">
+            </ion-thumbnail>
+          </ng-template>
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(1)">Cargar</ion-button>
+          <ion-radio slot="start" value="2"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-thumbnail *ngIf="!this.imagenes[2], else loggedOut">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-thumbnail>
+
+          <ng-template #loggedOut>
+            <ion-thumbnail>
+              <img [src]="this.imagenes[2]">
+            </ion-thumbnail>
+          </ng-template>
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(2)">Cargar</ion-button>
+          <ion-radio slot="start" value="3"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail *ngIf="!this.imagenes[3], else loggedOut">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-thumbnail>
+
+          <ng-template #loggedOut>
+            <ion-thumbnail>
+              <img [src]="this.imagenes[3]">
+            </ion-thumbnail>
+          </ng-template>
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(3)">Cargar</ion-button>
+          <ion-radio slot="start" value="4"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+    </ion-list>
+    <ion-button (click)="test()"></ion-button>
+  </ion-card>
+
+</form>

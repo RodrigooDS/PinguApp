@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AceParte2Component } from './ace-parte2.component';
+import { ContenidoSoloImagenesComponent } from './contenido-solo-imagenes.component';
 
-describe('AceParte2Component', () => {
-  let component: AceParte2Component;
-  let fixture: ComponentFixture<AceParte2Component>;
+describe('ContenidoSoloImagenesComponent', () => {
+  let component: ContenidoSoloImagenesComponent;
+  let fixture: ComponentFixture<ContenidoSoloImagenesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AceParte2Component ],
+      declarations: [ ContenidoSoloImagenesComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AceParte2Component);
+    fixture = TestBed.createComponent(ContenidoSoloImagenesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
