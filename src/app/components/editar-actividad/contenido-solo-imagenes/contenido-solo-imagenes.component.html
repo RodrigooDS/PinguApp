@@ -1,0 +1,95 @@
+
+  <ion-card>
+    <ion-card-title class="ion-text-center ion-padding">
+      <h2>Ingrese la pregunta</h2>
+    </ion-card-title>
+
+    <div class="ion-text-center">
+      <ion-input type="text" placeholder="texto" [(ngModel)]="this.pregunta"></ion-input>
+    </div>
+
+
+    <ion-list class="ion-padding-top ion-padding-bottom">
+      <ion-radio-group value="biff" mode="md"  (ionChange)="radioGroupChange($event)">
+        <ion-list-header>
+          <ion-label>
+            <h2>Items</h2>
+          </ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+
+          <ion-thumbnail *ngIf="!this.imagenes[0], else a">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-thumbnail>
+          
+          <ng-template #a>
+            <ion-thumbnail>
+              <img [src]="this.imagenes[0]">
+            </ion-thumbnail>
+          </ng-template>
+
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(0)">Cargar</ion-button>
+          <ion-radio slot="start" value="0"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+   
+          <ion-thumbnail *ngIf="!this.imagenes[1], else b">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-thumbnail>
+
+          <ng-template #b>
+            <ion-thumbnail>
+              <img [src]="this.imagenes[1]">
+            </ion-thumbnail>
+          </ng-template>
+
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(1)">Cargar</ion-button>
+          <ion-radio slot="start" value="1"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+
+          <ion-thumbnail *ngIf="!this.imagenes[2], else c">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-thumbnail>
+
+          <ng-template #c>
+            <ion-thumbnail>
+              <img [src]="this.imagenes[2]">
+            </ion-thumbnail>
+          </ng-template>
+
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(2)">Cargar</ion-button>
+          <ion-radio slot="start" value="2"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail *ngIf="!this.imagenes[3], else d">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-thumbnail>
+
+          <ng-template #d>
+            <ion-thumbnail>
+              <img [src]="this.imagenes[3]">
+            </ion-thumbnail>
+          </ng-template>
+          <ion-button slot="end" expand="block" mode="ios" (click)="this.seleccionarImagen(3)">Cargar</ion-button>
+          <ion-radio slot="start" value="3"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+    </ion-list>
+    <div class="ion-padding">
+      <ion-button expand="block" 
+                mode="ios" 
+                (click)="guardarDatos()" 
+                [disabled]=" !this.selectedRadioGroup || !this.pregunta || !this.imagenes[0] || !this.imagenes[1] || !this.imagenes[2] || !this.imagenes[3] "
+      >
+      Cargar
+      </ion-button>
+    </div>
+    
+  </ion-card>
+

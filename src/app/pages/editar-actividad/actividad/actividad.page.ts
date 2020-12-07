@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UploadService } from '../../../services/upload.service';
 import { TabsService } from '../../../services/tabs.service';
 import { PhotoCameraService } from 'src/app/services/photo-camera.service';
 import { AlertController } from '@ionic/angular';
+import { ActividadesService } from '../../../services/actividades.service';
 
 @Component({
   selector: 'app-actividad',
@@ -17,24 +17,35 @@ export class ActividadPage implements OnInit {
   imageUrl: string;
  
   filename: string;
-  tituloActividad: string = '';
-  tituloCategoria: string = '';
-  nivel : string = '';
-  interaccion : string = '';
-  actividades: any[] = [];
+  tituloActividad: string;
+  tituloCategoria: string;
+  nivel : string;
+  tipoActividad : string;
+  contenidoActividad : string;
+  // Contenido que devulve Firebase
+  data: any[] = [];
   
   constructor(public router: Router, 
               private route: ActivatedRoute,
-              public upload: UploadService,
+              public actividadService: ActividadesService,
               public tabEstado: TabsService,
               public photoService: PhotoCameraService,
               public alertController: AlertController) {
+
+    this.imageUrl = "";
+    this.tituloActividad = "";
+    this.tipoActividad = "";
+    this.contenidoActividad = "";
     this.tabEstado.cambiarEstado(true);
-    this.tituloCategoria = this.route.snapshot.paramMap.get('category');
-    this.imageUrl = '';
+    // this.obtenerActividades();
   }
 
   ngOnInit() {
+    this.imageUrl = "";
+    this.tituloActividad = "";
+    this.tipoActividad = "";
+    this.contenidoActividad = "";
+    this.tabEstado.cambiarEstado(true);
     this.obtenerActividades();
   }
 
@@ -47,22 +58,35 @@ export class ActividadPage implements OnInit {
     this.nivel = nivel;
   }
 
-  obtenerInteraccion(interaccion) {
-    this.interaccion = interaccion;
+  obtenerTipoActividad(interaccion) {
+    this.tipoActividad = interaccion;
   }
 
+  obtenerContenidoActividad(interaccion) {
+    this.contenidoActividad = interaccion;
+  }
+
+  // Obtener las actidades desde Firebase en tiempo real
+  async obtenerCategoria() {
+    this.tituloCategoria = await this.route.snapshot.paramMap.get('category');
+  }
+
+  // Guarda la actividad en el localStorage
   async guardar() {
     let existenciaActividad : boolean;
-    existenciaActividad = await this.upload.obtenerExistenciaDeActividad(this.tituloActividad,this.tituloCategoria);
+    // El obtenerExistenciaDeActividad funciona pasar el nuevo service
+    existenciaActividad = await this.actividadService.obtenerExistenciaDeActividad(this.tituloActividad,this.tituloCategoria);
     if(existenciaActividad){
       this.errorCreacionAlerta();
     }else{
-      var json = {categoria    : this.tituloCategoria,
+      var json = {
+        categoria    : this.tituloCategoria,
         actividad    : this.tituloActividad,
         imagen       : this.imageCamera.dataUrl,
         nombreImagen : this.filename,
         nivel        : this.nivel,
-        interaccion  : this.interaccion
+        tipoActividad  : this.tipoActividad,
+        contenidoActividad  : this.contenidoActividad
       }
       localStorage.setItem('actividad',JSON.stringify(json));
       this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);   
@@ -74,32 +98,44 @@ export class ActividadPage implements OnInit {
     this.router.navigate(['/tablinks/editar-actividad']);
   }
 
-  obtenerActividades() {
-    this.upload.obtenerActividades(this.tituloCategoria)
+  // retorna tadoas las actividades del la coleccion actividades
+  async obtenerActividades() {
+
+    await this.obtenerCategoria();
+    await this.actividadService.obtenerActividades()
     .subscribe( resp => {
-      this.actividades = resp;
+      this.data = resp;
+      console.log(resp);
     });
   }
 
-  editarActividad(imagen: string, actividad: string, nivel: string) {
+  // Permite acceder a la actividad para eliminar algun contenido
+  editarActividad(data: any) {
+    
     var json = {
-      categoria    : this.tituloCategoria,
-      actividad    : actividad,
-      imagen       : imagen,
-      nivel        : nivel
-  	}
+        categoria    : data.categoria,
+        actividad    : data.actividad,
+        imagen       : data.imagen,
+        nivel        : data.nivel,
+        tipoActividad  : data.tipoActividad,
+        contenidoActividad  : data.contenidoActividad
+    }
+
     localStorage.setItem('actividad',JSON.stringify(json));
-    this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);
+    this.router.navigate(['/tablinks/editar-actividad/agregar-actividad',{editar : 'editar-actividad'}]);
   }
 
+  // Falta arreglar
   eliminarActividad(actividad) {
-    this.upload.eliminarTodoActividad(actividad);    
+    this.actividadService.removerActividad(actividad);    
   }
 
+  // Permite cargar imagenes desde la camara o de la biblioteca
   async seleccionarImagen(){
     this.imageCamera = await this.photoService.getImageFromCamera();
   }
 
+  // Alerta al ya existir una actividad con el mismo nombre
   async errorCreacionAlerta() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',

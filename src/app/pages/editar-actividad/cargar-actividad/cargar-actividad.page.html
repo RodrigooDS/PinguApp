@@ -16,49 +16,70 @@
       <ion-col></ion-col>
 
       <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12"> 
+        <div *ngIf="this.tipoActividad === 'click, escuchar' ">
+          <!-- <ion-card mode="ios">
 
-        <ion-card mode="ios">
-
-          <div class="vertical-center">
-            <img [src]="this.imageURL">
-          </div> 
-          
-          <ion-card-content>
-
-            <form (submit)="subirArchivo()">
-
-              <ion-item mode="ios" class="ion-no-padding">
-                <ion-label position="floating" mode="ios"> Nombre imagen (Inglés)</ion-label>
-                <ion-input name="todo" [(ngModel)]="nombreImagen" placeholder="Apple" mode="ios" autocapitalize></ion-input>
-              </ion-item>
-              
-              <ion-item mode="ios" class="ion-no-padding"> 
-                <ion-label position="floating" mode="ios"> Frase de la imagen (Inglés) </ion-label>
-                <ion-input name="todo" [(ngModel)]="fraseIngles" placeholder="An Apple" mode="ios" autocapitalize></ion-input>
-              </ion-item>
-              
-              <div class="ion-padding-top">
-                <ion-button expand="block"
-                            mode="ios"
-                            (click)="this.seleccionarImagen()">
-                            Seleccionar imagen
-                </ion-button>
-              </div>
-
-              <div class="ion-padding-top">
-                <ion-button type="submit" 
-                            expand="block"
-                            mode="ios"
-                            [disabled]="(!this.imageURL || !this.nombreImagen|| !this.fraseIngles)">
-                            Cargar 
-                </ion-button>
-              </div>
-
-            </form>
+            <div class="vertical-center">
+              <img [src]="this.imageURL">
+            </div> 
             
-          </ion-card-content>
-                  
-        </ion-card>
+            <ion-card-content>
+              
+              <form (submit)="subirArchivo()">
+
+                <ion-item mode="ios" class="ion-no-padding">
+                  <ion-label position="floating" mode="ios"> Nombre imagen (Inglés)</ion-label>
+                  <ion-input name="todo" [(ngModel)]="nombreImagen" placeholder="Apple" mode="ios" autocapitalize></ion-input>
+                </ion-item>
+                
+                <ion-item mode="ios" class="ion-no-padding"> 
+                  <ion-label position="floating" mode="ios"> Frase de la imagen (Inglés) </ion-label>
+                  <ion-input name="todo" [(ngModel)]="fraseIngles" placeholder="An Apple" mode="ios" autocapitalize></ion-input>
+                </ion-item>
+                
+                <div class="ion-padding-top">
+                  <ion-button expand="block"
+                              mode="ios"
+                              (click)="this.seleccionarImagen()">
+                              Seleccionar imagen
+                  </ion-button>
+                </div>
+
+                <div class="ion-padding-top">
+                  <ion-button type="submit" 
+                              expand="block"
+                              mode="ios"
+                              [disabled]="(!this.imageURL || !this.nombreImagen|| !this.fraseIngles)">
+                              Cargar 
+                  </ion-button>
+                </div>
+
+              </form>
+              
+            </ion-card-content>
+                    
+          </ion-card> -->
+      </div>
+
+      <div *ngIf="this.contenidoActividad == 'Solo imágenes' ">
+        
+        <app-contenido-solo-imagenes></app-contenido-solo-imagenes>
+        
+      </div>
+
+      <div *ngIf="this.contenidoActividad == 'Solo texto' ">
+        
+        <app-contenido-solo-texto></app-contenido-solo-texto>
+        
+      </div>
+
+      <div *ngIf="this.contenidoActividad == 'Solo imágenes y texto' ">
+        
+        <app-contenido-texto-imagen></app-contenido-texto-imagen>
+        
+      </div>
+
+      
 
       </ion-col>
 

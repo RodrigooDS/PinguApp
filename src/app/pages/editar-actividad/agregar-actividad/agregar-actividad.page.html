@@ -4,7 +4,7 @@
       <ion-button (click)="cancelar()" color="danger">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end"> 
-      <ion-button (click)="guardar()">Guardar</ion-button>
+      <ion-button (click)="guardar()" [disabled]="(this.cantidadItem === 0)">Guardar</ion-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Actividad</ion-title>
   </ion-toolbar>
@@ -26,45 +26,32 @@
           </div> 
           
           <ion-card-header>
-            <ion-card-subtitle>Dificultad {{this.nivel}}</ion-card-subtitle>
             <ion-card-title>{{this.tituloActividad}}</ion-card-title>
+            <ion-card-subtitle>Nivel {{this.nivel}}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content class="ion-no-padding">
-            <ion-item>
+            <ion-item class="ion-padding-bottom">
               <ion-label (click)="agregarAccion()">Nuevo Ítem</ion-label>
               <ion-icon name="add"></ion-icon>
             </ion-item>
-            
-            <ion-item lines="none" mode="ios" class="ion-padding-top">
-              <h2 style="font-weight: bold">Acciones</h2>
-            </ion-item>
-          
-            <ion-list *ngIf="this.data" mode="ios" class="ion-padding-bottom">
-
-              <ion-item-sliding *ngFor="let categoria of data, let i = index">
-                <ion-item detail mode="ios" >
-                  <ion-thumbnail slot="start" class="thumbnail">
-                    <img src="{{categoria.imagen}}">
-                  </ion-thumbnail>
-                  <ion-label>
-                    <h3>Nombre: {{categoria.nombreImagen}}</h3>
-                    <h3>Frase: {{categoria.fraseIngles}}</h3>
-                  </ion-label>
-                </ion-item>
-
-                <ion-item-options>
-                  <ion-item-option color="danger" (click)="eliminarImagen(categoria)">
-                    <ion-icon slot="end" name="trash"></ion-icon>
-                    Eliminar
-                  </ion-item-option>
-                </ion-item-options>
-              </ion-item-sliding>
-            </ion-list>
-
+        
           </ion-card-content>
           
         </ion-card>
+
+        <div *ngIf="this.contenidoActividad == 'Solo imágenes y texto' ">
+          <app-lista-solo-texto-imagen></app-lista-solo-texto-imagen>
+        </div>
+        
+        <div *ngIf="this.contenidoActividad == 'Solo imágenes' ">
+          <app-lista-solo-imagenes></app-lista-solo-imagenes>
+        </div>
+
+        <div *ngIf="this.contenidoActividad == 'Solo texto' ">
+          <app-lista-solo-texto></app-lista-solo-texto>
+        </div>
+        
 
       </ion-col>
 

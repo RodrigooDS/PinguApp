@@ -1,3 +1,4 @@
+import { ContenidoSoloTextoComponent } from './editar-actividad/contenido-solo-texto/contenido-solo-texto.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -9,9 +10,12 @@ import { FormloginComponent } from './formlogin/formlogin.component';
 import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpassword.component';
 import { CeParte1Component } from './actividad/click-escuchar/ce-parte1/ce-parte1.component';
 import { CeParte2Component } from './actividad/click-escuchar/ce-parte2/ce-parte2.component';
-import { AceParte1Component } from './actividad/arrastrar-click-escuchar/ace-parte1/ace-parte1.component';
-import { AceParte2Component } from './actividad/arrastrar-click-escuchar/ace-parte2/ace-parte2.component';
 import { FormRegistroAlumnoComponent } from './form-registro-alumno/form-registro-alumno.component';
+import { ContenidoSoloImagenesComponent } from './editar-actividad/contenido-solo-imagenes/contenido-solo-imagenes.component';
+import { ContenidoTextoImagenComponent } from './editar-actividad/contenido-texto-imagen/contenido-texto-imagen.component';
+import { ListaSoloImagenesComponent } from './editar-actividad/lista-solo-imagenes/lista-solo-imagenes.component';
+import { ListaSoloTextoComponent } from './editar-actividad/lista-solo-texto/lista-solo-texto.component';
+import { ListaSoloTextoImagenComponent } from './editar-actividad/lista-solo-texto-imagen/lista-solo-texto-imagen.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +26,12 @@ import { FormRegistroAlumnoComponent } from './form-registro-alumno/form-registr
     FormforgotpasswordComponent,
     CeParte1Component,
     CeParte2Component,
-    AceParte1Component,
-    AceParte2Component
+    ContenidoSoloImagenesComponent,
+    ContenidoSoloTextoComponent,
+    ContenidoTextoImagenComponent,
+    ListaSoloImagenesComponent,
+    ListaSoloTextoComponent,
+    ListaSoloTextoImagenComponent
   ],
   exports:[
     FormregistroComponent,
@@ -33,8 +41,12 @@ import { FormRegistroAlumnoComponent } from './form-registro-alumno/form-registr
     FormforgotpasswordComponent,
     CeParte1Component,
     CeParte2Component,
-    AceParte1Component,
-    AceParte2Component
+    ContenidoSoloImagenesComponent,
+    ContenidoSoloTextoComponent,
+    ContenidoTextoImagenComponent,
+    ListaSoloImagenesComponent,
+    ListaSoloTextoComponent,
+    ListaSoloTextoImagenComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -44,4 +56,5 @@ import { FormRegistroAlumnoComponent } from './form-registro-alumno/form-registr
     FormsModule
   ]
 })
+
 export class ComponentsModule { }

@@ -4,7 +4,7 @@
       <ion-button (click)="cancelar()" color="danger">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end"> 
-      <ion-button (click)="guardar()" [disabled]="(this.imageCamera === '' || this.tituloActividad ==='' || this.nivel ==='' || this.interaccion ==='' )">Siguiente</ion-button>
+      <ion-button (click)="guardar()" [disabled]="(this.imageCamera === '' || this.tituloActividad ==='' || this.nivel ==='' || this.tipoActividad ===''|| this.contenidoActividad ===''  )">Siguiente</ion-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Actividad</ion-title>
   </ion-toolbar>
@@ -82,25 +82,25 @@
 
               <ion-list-header class="ion-no-padding">
                 <ion-label>
-                  Interacción
+                  Interacción de la actividad
                 </ion-label>
               </ion-list-header>
             
               <ion-item class="ion-no-padding" lines="none">
-                <ion-label>Tipo de interacción</ion-label>
-                <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="interaccion" (ionChange)="obtenerInteraccion(interaccion)" mode="ios">
-                  <ion-select-option value="Click, Escuchar">Audio + Texto</ion-select-option>
-                  <ion-select-option value="Audio">Audio</ion-select-option>
-                  <ion-select-option value="Texto">Texto</ion-select-option>
+                <ion-label>Tipo de pregunta</ion-label>
+                <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="tipoActividad" (ionChange)="obtenerTipoActividad(tipoActividad)" mode="ios">
+                  <ion-select-option value="Pregunta audio mas texto">Pregunta audio mas texto</ion-select-option>
+                  <ion-select-option value="Pregunta solo audio">Pregunta solo audio</ion-select-option>
+                  <ion-select-option value="Pregunta solo texto">Pregunta solo texto</ion-select-option>
                 </ion-select>
               </ion-item> 
               
               <ion-item class="ion-no-padding" lines="none">
-                <ion-label>Contenido de Actividad</ion-label>
-                <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="interaccion" (ionChange)="obtenerInteraccion(interaccion)" mode="ios">
-                  <ion-select-option value="Click, Escuchar">Imagen</ion-select-option>
-                  <ion-select-option value="Audio">Texto</ion-select-option>
-                  <ion-select-option value="Texto">Texto + Imagen</ion-select-option>
+                <ion-label>Tipo de actividad</ion-label>
+                <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="contenidoActividad" (ionChange)="obtenerContenidoActividad(contenidoActividad)" mode="ios">
+                  <ion-select-option value="Solo imágenes">Solo imágenes</ion-select-option>
+                  <ion-select-option value="Solo texto">Solo texto</ion-select-option>
+                  <ion-select-option value="Solo imágenes y texto">Solo imágenes y texto</ion-select-option>
                 </ion-select>
               </ion-item>  
 
@@ -119,14 +119,16 @@
        <ion-card mode="ios" class="ion-padding-top ion-padding-bottom">
 
         <ion-list>
-          <ion-item-sliding *ngFor=" let actividad of actividades">
-            <ion-item detail (click)="editarActividad(actividad.detalle.imageUrl, actividad.actividad, actividad.nivel)">
+          <ion-item-sliding *ngFor=" let actividad of data">
+            <ion-item detail (click)="editarActividad(actividad)">
               <ion-thumbnail slot="start" class="thumbnail">
-                <img src="{{actividad.detalle.imageUrl}}">
+                <img src="{{actividad.imagen}}">
               </ion-thumbnail>
-              <ion-label>
-                <h2>{{actividad.actividad}}</h2>
-                <p>Categoria: {{actividad.interaccion}}</p>
+              <ion-label class="ion-text-wrap">
+                <h3>{{actividad.actividad}}</h3>
+                <p>Tipo de pregunta: {{actividad.tipoActividad}}</p>
+                <p>Tipo de actividad: {{actividad.contenidoActividad}}</p>
+                <p>Categoria: {{actividad.categoria}}</p>
                 <p>Nivel: {{actividad.nivel}}</p>
               </ion-label>
             </ion-item>

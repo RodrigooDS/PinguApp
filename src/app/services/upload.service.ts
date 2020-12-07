@@ -3,7 +3,7 @@ import { LoadingController } from '@ionic/angular';
 
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Actividad } from '../shared/actividad.interfaces';
+// import { Actividad } from '../shared/actividad.interfaces';
 import { Categoria } from '../shared/categoria.interfaces';
 
 
@@ -305,8 +305,9 @@ export class UploadService {
           actividades.push(doc.data());
         })
       });
-      await this.eliminarSubColleccionActividad(nombreActividad,actividades,cantidadActividades);
-      await this.eliminarColleccionActividad(nombreActividad,actividad);
+      // await this.eliminarSubColleccionActividad(nombreActividad,actividades,cantidadActividades);
+      // await this.eliminarColleccionActividad(nombreActividad,actividad);
+      console.log(actividades);
     } catch (error) {
       console.log(error);
     }
