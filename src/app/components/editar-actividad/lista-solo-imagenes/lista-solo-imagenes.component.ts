@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActividadesService } from '../../../services/actividades.service';
-import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { Actividad } from '../../../shared/actividades.interfaces';
 
 @Component({
   selector: 'app-lista-solo-imagenes',
@@ -10,7 +10,7 @@ import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfa
 export class ListaSoloImagenesComponent implements OnInit {
 
   data = [];
-  dataActividad: ActividadImagenes;
+  dataActividad: Actividad;
 
   constructor(public actividadService: ActividadesService) { 
     this.cargarDatosLocalStorage();

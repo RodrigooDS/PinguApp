@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { Actividad } from '../../../shared/actividades.interfaces';
 import { ActividadesService } from '../../../services/actividades.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActividadesService } from '../../../services/actividades.service';
 export class ListaSoloTextoImagenComponent implements OnInit {
 
   data = [];
-  dataActividad: ActividadImagenes;
+  dataActividad: Actividad;
 
   constructor(public actividadService: ActividadesService) { 
     this.cargarDatosLocalStorage();

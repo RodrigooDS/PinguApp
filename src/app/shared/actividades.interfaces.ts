@@ -1,5 +1,5 @@
 // Cambiar el nombre de esta interfaz
-export interface ActividadImagenes {
+export interface Actividad {
     actividad: string,
     categoria: string,
     contenidoActividad: string,

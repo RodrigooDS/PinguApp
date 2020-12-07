@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TabsService } from '../../../../services/tabs.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { UploadService } from '../../../../services/upload.service';
+// import { UploadService } from '../../../../services/upload.service';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -19,7 +19,8 @@ export class CeAsociarPage implements OnInit {
   
   constructor(public tabEstado: TabsService,
               public router: Router,
-              public upload: UploadService) {
+              // public upload: UploadService
+              ) {
     this.tabEstado.cambiarEstado(true);
     var datos = JSON.parse(localStorage.getItem('actividad'));
     this.categoria = JSON.parse(localStorage.getItem('categoria'));

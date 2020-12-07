@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActividadesService } from '../../../services/actividades.service';
-import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { Actividad } from '../../../shared/actividades.interfaces';
 
 @Component({
   selector: 'app-contenido-texto-imagen',
@@ -55,7 +55,7 @@ export class ContenidoTextoImagenComponent implements OnInit {
 
   async enviarDatos() {
 
-    let dataActividad: ActividadImagenes;
+    let dataActividad: Actividad;
     let contenido: {};
     dataActividad = await JSON.parse(localStorage.getItem("actividad"))
 

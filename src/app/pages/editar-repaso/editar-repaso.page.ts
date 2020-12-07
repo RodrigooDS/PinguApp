@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 //interfaces
 import { Categoria } from '../../shared/categoria.interfaces';
 //service
-import { UploadService } from '../../services/upload.service';
+// import { UploadService } from '../../services/upload.service';
 
 @Component({
   selector: 'app-editar-repaso',
@@ -17,7 +17,9 @@ export class EditarRepasoPage implements OnInit {
   tipoCategoria : string;
   categorias : any[] = [];
    
-  constructor(public upload: UploadService, public router: Router) { 
+  constructor(
+    // public upload: UploadService, 
+    public router: Router) { 
     localStorage.clear();
   }
 
@@ -27,12 +29,12 @@ export class EditarRepasoPage implements OnInit {
   }
 
   obtenerCategorias() {
-    this.upload.obtenerCategorias().pipe(
-      map( (resp : [] ) => resp.map( ({imageUrl,nombreCategoria}) => ({categoria : nombreCategoria, imagen : imageUrl}) ))
-    )
-    .subscribe( resp => {
-      this.categorias = resp;
-    });
+    // this.upload.obtenerCategorias().pipe(
+    //   map( (resp : [] ) => resp.map( ({imageUrl,nombreCategoria}) => ({categoria : nombreCategoria, imagen : imageUrl}) ))
+    // )
+    // .subscribe( resp => {
+    //   this.categorias = resp;
+    // });
   }
   
   obtenerTituloCategoria(categoria) {
