@@ -14,6 +14,8 @@ import { FormRegistroAlumnoComponent } from './form-registro-alumno/form-registr
 import { ContenidoSoloImagenesComponent } from './editar-actividad/contenido-solo-imagenes/contenido-solo-imagenes.component';
 import { ContenidoTextoImagenComponent } from './editar-actividad/contenido-texto-imagen/contenido-texto-imagen.component';
 import { ListaSoloImagenesComponent } from './editar-actividad/lista-solo-imagenes/lista-solo-imagenes.component';
+import { ListaSoloTextoComponent } from './editar-actividad/lista-solo-texto/lista-solo-texto.component';
+import { ListaSoloTextoImagenComponent } from './editar-actividad/lista-solo-texto-imagen/lista-solo-texto-imagen.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,9 @@ import { ListaSoloImagenesComponent } from './editar-actividad/lista-solo-imagen
     ContenidoSoloImagenesComponent,
     ContenidoSoloTextoComponent,
     ContenidoTextoImagenComponent,
-    ListaSoloImagenesComponent
-
+    ListaSoloImagenesComponent,
+    ListaSoloTextoComponent,
+    ListaSoloTextoImagenComponent
   ],
   exports:[
     FormregistroComponent,
@@ -41,8 +44,9 @@ import { ListaSoloImagenesComponent } from './editar-actividad/lista-solo-imagen
     ContenidoSoloImagenesComponent,
     ContenidoSoloTextoComponent,
     ContenidoTextoImagenComponent,
-    ListaSoloImagenesComponent
-
+    ListaSoloImagenesComponent,
+    ListaSoloTextoComponent,
+    ListaSoloTextoImagenComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -52,4 +56,5 @@ import { ListaSoloImagenesComponent } from './editar-actividad/lista-solo-imagen
     FormsModule
   ]
 })
+
 export class ComponentsModule { }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActividadesService } from '../../../services/actividades.service';
+import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
 
 @Component({
   selector: 'app-contenido-solo-texto',
@@ -7,12 +10,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContenidoSoloTextoComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  selectedRadioGroup: any;
+  respuestas = [];
 
-  ngOnInit() {}
+  constructor(private fb: FormBuilder,
+              public actividadService: ActividadesService) {
+    this.crearFormulario();
+  }
 
-  enviarDatos() {
-    
+  ngOnInit() {
+  }
+
+  crearFormulario(){
+    this.form = this.fb.group({
+      pregunta                : ['', [Validators.required]],
+      respuesta1              : ['', [Validators.required]],
+      respuesta2              : ['', [Validators.required]],
+      respuesta3              : ['', [Validators.required]],
+      respuesta4              : ['', [Validators.required]],
+      item                    : ['', [Validators.required]]
+    });
+  }
+
+  async enviarDatos() {
+    let dataActividad: ActividadImagenes;
+    let contenido: {};
+    dataActividad = await JSON.parse(localStorage.getItem("actividad"))
+
+    contenido = {
+      correcta      : this.form.value.item,
+      pregunta      : this.form.value.pregunta,
+      respuestas    : [this.form.value.respuesta1, this.form.value.respuesta2, this.form.value.respuesta3, this.form.value.respuesta4]
+    }
+
+    this.actividadService.agregarActividadSoloTexto(contenido,dataActividad);
   }
 
 

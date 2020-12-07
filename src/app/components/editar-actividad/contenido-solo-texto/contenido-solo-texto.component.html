@@ -1,45 +1,58 @@
-<form (submit)="enviarDatos()">
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate class="ion-margin-top">
 
-  <ion-card>
-    <ion-card-title class="ion-text-center">Ingrese la pregunta</ion-card-title>
+  <ion-card mode="ios">
+    
+    <ion-card-title class="ion-text-center ion-padding">
+      <h2>Ingrese la pregunta</h2>
+    </ion-card-title>
+
+    <div class="ion-text-center">
+      <ion-input formControlName="pregunta" type="text" placeholder="Pregunta"></ion-input>
+    </div>
 
     <ion-list class="ion-padding-top ion-padding-bottom">
-      <ion-radio-group value="biff" mode="md">
+
+      <ion-radio-group value="biff" formControlName="item">
         <ion-list-header>
           <ion-label>Items</ion-label>
         </ion-list-header>
     
         <ion-item>
-          <ion-thumbnail>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-          </ion-thumbnail>
-          <ion-radio slot="start" value="1"></ion-radio>
+          <ion-input formControlName="respuesta1" mode="ios" placeholder="Alternativa 1"></ion-input>
+          <ion-radio mode="md" slot="start" value="0"></ion-radio>
         </ion-item>
     
         <ion-item>
-          <ion-thumbnail>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-          </ion-thumbnail>
-          <ion-radio slot="start" value="2"></ion-radio>
+          <ion-input formControlName="respuesta2" mode="ios" placeholder="Alternativa 2"></ion-input>
+          <ion-radio mode="md" slot="start" value="1"></ion-radio>
         </ion-item>
     
         <ion-item>
-          <ion-thumbnail>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-          </ion-thumbnail>
-          <ion-radio slot="start" value="3"></ion-radio>
+          <ion-input formControlName="respuesta3" mode="ios" placeholder="Alternativa 3"></ion-input>
+          <ion-radio mode="md" slot="start" value="2"></ion-radio>
         </ion-item>
 
         <ion-item>
-          <ion-thumbnail>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-          </ion-thumbnail>
-          <ion-radio slot="start" value="4"></ion-radio>
+          <ion-input formControlName="respuesta4" mode="ios" placeholder="Alternativa 4"></ion-input>
+          <ion-radio mode="md" slot="start" value="3"></ion-radio>
         </ion-item>
 
       </ion-radio-group>
+
     </ion-list>
 
+    <div padding class="ion-padding-start ion-padding-end ion-padding-top ion-padding-bottom">
+      <ion-button class="button-border" 
+                  expand="block"
+                  mode="ios"
+                  block 
+                  type="submit" 
+                  [disabled]="this.form.invalid" 
+                  >
+        Guardar
+      </ion-button>   
+    </div>
+    
   </ion-card>
 
 </form>

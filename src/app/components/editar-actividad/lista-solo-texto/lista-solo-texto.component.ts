@@ -1,20 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActividadesService } from '../../../services/actividades.service';
+import { Component, OnInit } from '@angular/core';
 import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { ActividadesService } from '../../../services/actividades.service';
 
 @Component({
-  selector: 'app-lista-solo-imagenes',
-  templateUrl: './lista-solo-imagenes.component.html',
-  styleUrls: ['./lista-solo-imagenes.component.scss'],
+  selector: 'app-lista-solo-texto',
+  templateUrl: './lista-solo-texto.component.html',
+  styleUrls: ['./lista-solo-texto.component.scss'],
 })
-export class ListaSoloImagenesComponent implements OnInit {
+export class ListaSoloTextoComponent implements OnInit {
 
   data = [];
   dataActividad: ActividadImagenes;
 
   constructor(public actividadService: ActividadesService) { 
     this.cargarDatosLocalStorage();
-    
   }
 
   ngOnInit() {}
@@ -29,7 +28,7 @@ export class ListaSoloImagenesComponent implements OnInit {
   }
 
   async eliminarItem(item: any){
-    this.actividadService.removerItemSoloImagenes(item);
+    this.actividadService.removerItemSoloTexto(item);
   }
 
 }

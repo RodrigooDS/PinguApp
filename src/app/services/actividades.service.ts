@@ -13,8 +13,8 @@ export class ActividadesService {
               public storage: AngularFireStorage,
               public loadingCtrl: LoadingController) { }
 
-  async crearActividadSoloImagenes(data: ActividadImagenes) {
-
+  // Se crear la coleccion que contiene  las actividades
+  async crearActividad(data: ActividadImagenes) {
     let nombreActividad: string;
     let fileImage: any;
     nombreActividad = data.actividad +" - "+ data.categoria;
@@ -42,6 +42,7 @@ export class ActividadesService {
 
   }
 
+  // Sirve para agregar actividad solo imagenes
   async agregarActividadSoloImagenes(dataContent : any, data: ActividadImagenes) {
 
     let id = this.randomID(20);
@@ -56,6 +57,61 @@ export class ActividadesService {
       categoria : data.categoria,
       correcta  : dataContent.correcta,
       pregunta  : dataContent.pregunta,
+      imagenes  : [] 
+    })
+
+    for (let i = 0; i < 4; i++){
+      id = await this.randomID(50);
+      fileImage = await this.dataURLtoFile(dataContent.imagen[i],id);
+      imageList[i] = await this.uploadFile(id, fileImage, 'imagenes actividad');
+    }
+
+    await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).doc(resp.id).update({
+      'id'      : resp.id,
+      'imagenes': imageList
+    })
+
+  }
+
+  // Sirve para agregar actividad solo texto
+  async agregarActividadSoloTexto (dataContent : any, data: ActividadImagenes) {
+
+    let nombreActividad: string;
+    let resp: any;
+    nombreActividad = data.actividad +" - "+ data.categoria;
+    try {
+      resp = await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).add({
+        actividad : data.actividad,
+        categoria : data.categoria,
+        correcta  : dataContent.correcta,
+        pregunta  : dataContent.pregunta,
+        respuestas  : dataContent.respuestas
+      })
+
+      await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).doc(resp.id).update({
+        'id'      : resp.id
+      })
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async agregarActividadImagenesTexto(dataContent : any, data: ActividadImagenes) {
+
+    let id = this.randomID(20);
+    let nombreActividad: string;
+    let fileImage: any;
+    let resp: any;
+    let imageList = [];
+    nombreActividad = data.actividad +" - "+ data.categoria;
+
+    resp = await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).add({
+      actividad : data.actividad,
+      categoria : data.categoria,
+      correcta  : dataContent.correcta,
+      pregunta  : dataContent.pregunta,
+      respuestas  : dataContent.respuestas,
       imagenes  : [] 
     })
 
@@ -114,7 +170,7 @@ export class ActividadesService {
     }
   }
 
-  async removerItemActividad(data: any) {
+  async removerItemSoloImagenes(data: any) {
     let nombreActividad: string;
     nombreActividad = data.actividad +" - "+ data.categoria;
     try {
@@ -122,6 +178,18 @@ export class ActividadesService {
         for (let i = 0; i < data.imagenes.length; i++){
            await this.storage.storage.refFromURL(data.imagenes[i]).delete();
         }
+        await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).doc(data.id).delete()
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async removerItemSoloTexto(data: any) {
+    let nombreActividad: string;
+    nombreActividad = data.actividad +" - "+ data.categoria;
+    try {
+      if(data.id) {
         await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).doc(data.id).delete()
       }
     } catch (error) {
@@ -147,17 +215,20 @@ export class ActividadesService {
       await this.eliminarColeccionActividad(data);
       
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
+  // Se puede poner un if para ver si elimina o no
   async eliminarImagenesSubColeccion(data : any){
     try {
-      for (var a = 0; a < data.length; a++){
-        for (var b = 0; b < data[a].imagenes.length; b++){
-          await this.storage.storage.refFromURL(data[a].imagenes[b]).delete();
-        }
-      }     
+      if(data.imagenes){
+        for (var a = 0; a < data.length; a++){
+          for (var b = 0; b < data[a].imagenes.length; b++){
+            await this.storage.storage.refFromURL(data[a].imagenes[b]).delete();
+          }
+        } 
+      }
     } catch (error) {
       console.log(error);
     }

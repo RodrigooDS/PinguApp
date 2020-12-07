@@ -10,16 +10,16 @@ import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfa
   styleUrls: ['./contenido-solo-imagenes.component.scss'],
 })
 export class ContenidoSoloImagenesComponent implements OnInit {
-
   
-
-  constructor(public photoService: PhotoCameraService, public actividadService: ActividadesService) { }
-
   imageURL: string;
   imageCamera: any;
   imagenes = [];
   selectedRadioGroup: any;
   pregunta: string;
+  
+
+  constructor(public photoService: PhotoCameraService, 
+              public actividadService: ActividadesService) { }
 
   ngOnInit() {
     

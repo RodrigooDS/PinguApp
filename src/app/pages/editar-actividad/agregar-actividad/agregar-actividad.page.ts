@@ -3,8 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TabsService } from '../../../services/tabs.service';
 import { ActividadesService } from '../../../services/actividades.service';
 import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
-import { stringify } from 'querystring';
-
 
 @Component({
   selector: 'app-agregar-actividad',
@@ -14,13 +12,12 @@ import { stringify } from 'querystring';
 export class AgregarActividadPage implements OnInit {
 
   // Nuevas variables
-
   imagen : string;
   nombreImagen : string;
   json : any;
   file : any;
-  loading: HTMLIonLoadingElement;
-  // data = [];
+  
+  cantidadItem: any;
 
   contenidoActividad : string;
   tituloActividad: string;
@@ -29,7 +26,10 @@ export class AgregarActividadPage implements OnInit {
   id: string;
   nivel: string;
 
-  categorias: any[] = [];
+  // categorias: any[] = [];
+
+    // data = [];
+  // loading: HTMLIonLoadingElement;
 
   constructor(public router: Router, 
               public tabEstado: TabsService,
@@ -37,27 +37,35 @@ export class AgregarActividadPage implements OnInit {
               public actividadService: ActividadesService) { 
     this.tabEstado.cambiarEstado(true);
     this.cargarActividad();
-    // this.cargarImagenes();
-    // this.agregarImagenes();
-    
-    if(!localStorage.getItem('imagenes')){
-      // this.obtenerActividad();
-    }
   }
 
-  ngOnInit() {
-    // this.cargarRepaso();
-    // this.agregarImagenes();
+  async ngOnInit() {
+    await this.obtenerCantidadItem();
+    await this.cargarActividad();
+  }
+
+  async ionViewWillEnter() {
+    await this.obtenerCantidadItem();
+    await this.cargarActividad();
   }
 
 
   async guardar() {
-    let dataActividad: ActividadImagenes
-    dataActividad = await JSON.parse(localStorage.getItem("actividad"))
-    await this.actividadService.crearActividadSoloImagenes(dataActividad);
-    this.tabEstado.cambiarEstado(false);
-    this.router.navigate(['/tablinks/editar-actividad']);
-    localStorage.clear();
+    let dataActividad: ActividadImagenes;
+    let editarActividad: string;
+
+    dataActividad = await JSON.parse(localStorage.getItem("actividad"));
+    editarActividad = await this.route.snapshot.paramMap.get('editar');
+    if(editarActividad){
+      this.tabEstado.cambiarEstado(false);
+      this.router.navigate(['/tablinks/editar-actividad']);
+      localStorage.clear();
+    }else{
+      await this.actividadService.crearActividad(dataActividad);
+      this.tabEstado.cambiarEstado(false);
+      this.router.navigate(['/tablinks/editar-actividad']);
+      localStorage.clear();
+    }    
   }  
 
   async cancelar() {
@@ -72,12 +80,20 @@ export class AgregarActividadPage implements OnInit {
       this.router.navigate(['/tablinks/editar-actividad']);
       localStorage.clear();
     }else{
+      // if(dataActividad.contenidoActividad == "Solo imágenes"){
+      //     await this.actividadService.removerActividad(dataActividad);
+      // }else if(dataActividad.contenidoActividad == "Solo texto"){
+      //     await this.actividadService.remo(dataActividad);
+      // }
       await this.actividadService.removerActividad(dataActividad);
       this.tabEstado.cambiarEstado(false);
       this.router.navigate(['/tablinks/editar-actividad']);
       localStorage.clear();
     }
-    
+  }
+
+  obtenerCantidadItem() {
+    this.actividadService.obtenerActividad(this.tituloActividad,this.tituloCategoria).subscribe(resp=>{console.log(resp), this.cantidadItem = resp.length})
   }
 
   agregarAccion() {

@@ -1,3 +1,4 @@
+// Cambiar el nombre de esta interfaz
 export interface ActividadImagenes {
     actividad: string,
     categoria: string,

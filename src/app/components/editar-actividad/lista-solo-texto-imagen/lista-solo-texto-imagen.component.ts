@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActividadesService } from '../../../services/actividades.service';
+import { Component, OnInit } from '@angular/core';
 import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { ActividadesService } from '../../../services/actividades.service';
 
 @Component({
-  selector: 'app-lista-solo-imagenes',
-  templateUrl: './lista-solo-imagenes.component.html',
-  styleUrls: ['./lista-solo-imagenes.component.scss'],
+  selector: 'app-lista-solo-texto-imagen',
+  templateUrl: './lista-solo-texto-imagen.component.html',
+  styleUrls: ['./lista-solo-texto-imagen.component.scss'],
 })
-export class ListaSoloImagenesComponent implements OnInit {
+export class ListaSoloTextoImagenComponent implements OnInit {
 
   data = [];
   dataActividad: ActividadImagenes;

@@ -32,15 +32,21 @@ export class ActividadPage implements OnInit {
               public photoService: PhotoCameraService,
               public alertController: AlertController) {
 
-    this.imageUrl = '';
+    this.imageUrl = "";
+    this.tituloActividad = "";
+    this.tipoActividad = "";
+    this.contenidoActividad = "";
+    this.tabEstado.cambiarEstado(true);
+    // this.obtenerActividades();
+  }
+
+  ngOnInit() {
+    this.imageUrl = "";
     this.tituloActividad = "";
     this.tipoActividad = "";
     this.contenidoActividad = "";
     this.tabEstado.cambiarEstado(true);
     this.obtenerActividades();
-  }
-
-  ngOnInit() {
   }
 
   obtenerTituloActividad($event) {
@@ -99,6 +105,7 @@ export class ActividadPage implements OnInit {
     await this.actividadService.obtenerActividades()
     .subscribe( resp => {
       this.data = resp;
+      console.log(resp);
     });
   }
 

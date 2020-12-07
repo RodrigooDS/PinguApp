@@ -4,7 +4,7 @@
       <ion-button (click)="cancelar()" color="danger">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end"> 
-      <ion-button (click)="guardar()">Guardar</ion-button>
+      <ion-button (click)="guardar()" [disabled]="(this.cantidadItem === 0)">Guardar</ion-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Actividad</ion-title>
   </ion-toolbar>
@@ -31,23 +31,27 @@
           </ion-card-header>
 
           <ion-card-content class="ion-no-padding">
-            <ion-item>
+            <ion-item class="ion-padding-bottom">
               <ion-label (click)="agregarAccion()">Nuevo Ítem</ion-label>
               <ion-icon name="add"></ion-icon>
             </ion-item>
-            
-            <ion-item lines="none" mode="ios" class="ion-padding-top">
-              <h2 style="font-weight: bold">Acciones</h2>
-            </ion-item>
-            
-            <div *ngIf="this.contenidoActividad == 'Solo imágenes' ">
-              <app-lista-solo-imagenes></app-lista-solo-imagenes>
-            </div>
-            
-
+        
           </ion-card-content>
           
         </ion-card>
+
+        <div *ngIf="this.contenidoActividad == 'Solo imágenes y texto' ">
+          <app-lista-solo-texto-imagen></app-lista-solo-texto-imagen>
+        </div>
+        
+        <div *ngIf="this.contenidoActividad == 'Solo imágenes' ">
+          <app-lista-solo-imagenes></app-lista-solo-imagenes>
+        </div>
+
+        <div *ngIf="this.contenidoActividad == 'Solo texto' ">
+          <app-lista-solo-texto></app-lista-solo-texto>
+        </div>
+        
 
       </ion-col>
 

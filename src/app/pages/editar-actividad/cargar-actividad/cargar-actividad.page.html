@@ -67,11 +67,19 @@
         
       </div>
 
-      <div *ngIf="this.contenidoActividad == 'Solo texto y imágenes' ">
+      <div *ngIf="this.contenidoActividad == 'Solo texto' ">
+        
+        <app-contenido-solo-texto></app-contenido-solo-texto>
+        
+      </div>
+
+      <div *ngIf="this.contenidoActividad == 'Solo imágenes y texto' ">
         
         <app-contenido-texto-imagen></app-contenido-texto-imagen>
         
       </div>
+
+      
 
       </ion-col>
 

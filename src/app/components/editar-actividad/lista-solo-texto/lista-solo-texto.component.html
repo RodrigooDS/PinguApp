@@ -12,12 +12,10 @@
         <h2>Pregunta</h2>
         <ion-label class="ion-padding-bottom">{{pregunta.pregunta}}</ion-label>
 
-        <ion-list *ngFor="let item of data[i].imagenes, let a = index">
+        <ion-list *ngFor="let item of data[i].respuestas, let a = index">
           <ion-radio-group value=pregunta.correcta >
           <ion-item class="ion-padding-bottom">
-            <ion-thumbnail>
-              <img src={{pregunta.imagenes[a]}}>
-            </ion-thumbnail>
+            <ion-label>{{item}}</ion-label>
             <ion-radio mode="md" slot="start" *ngIf="pregunta.correcta == a" value = pregunta.correcta></ion-radio>
             <ion-radio mode="md" slot="start" disabled="true" *ngIf="pregunta.correcta != a"></ion-radio>
           </ion-item>

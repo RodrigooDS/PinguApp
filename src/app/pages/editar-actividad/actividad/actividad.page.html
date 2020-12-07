@@ -87,7 +87,7 @@
               </ion-list-header>
             
               <ion-item class="ion-no-padding" lines="none">
-                <ion-label>Tipo de actividad</ion-label>
+                <ion-label>Tipo de pregunta</ion-label>
                 <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="tipoActividad" (ionChange)="obtenerTipoActividad(tipoActividad)" mode="ios">
                   <ion-select-option value="Pregunta audio mas texto">Pregunta audio mas texto</ion-select-option>
                   <ion-select-option value="Pregunta solo audio">Pregunta solo audio</ion-select-option>
@@ -96,11 +96,11 @@
               </ion-item> 
               
               <ion-item class="ion-no-padding" lines="none">
-                <ion-label>Contenido de la actividad</ion-label>
+                <ion-label>Tipo de actividad</ion-label>
                 <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="contenidoActividad" (ionChange)="obtenerContenidoActividad(contenidoActividad)" mode="ios">
                   <ion-select-option value="Solo imágenes">Solo imágenes</ion-select-option>
                   <ion-select-option value="Solo texto">Solo texto</ion-select-option>
-                  <ion-select-option value="Solo texto y imágenes">Solo texto y imágenes</ion-select-option>
+                  <ion-select-option value="Solo imágenes y texto">Solo imágenes y texto</ion-select-option>
                 </ion-select>
               </ion-item>  
 
@@ -124,8 +124,10 @@
               <ion-thumbnail slot="start" class="thumbnail">
                 <img src="{{actividad.imagen}}">
               </ion-thumbnail>
-              <ion-label>
+              <ion-label class="ion-text-wrap">
                 <h3>{{actividad.actividad}}</h3>
+                <p>Tipo de pregunta: {{actividad.tipoActividad}}</p>
+                <p>Tipo de actividad: {{actividad.contenidoActividad}}</p>
                 <p>Categoria: {{actividad.categoria}}</p>
                 <p>Nivel: {{actividad.nivel}}</p>
               </ion-label>
