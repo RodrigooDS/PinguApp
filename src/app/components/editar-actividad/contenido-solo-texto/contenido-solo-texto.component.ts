@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActividadesService } from '../../../services/actividades.service';
-import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { Actividad } from '../../../shared/actividades.interfaces';
 
 @Component({
   selector: 'app-contenido-solo-texto',
@@ -34,7 +34,7 @@ export class ContenidoSoloTextoComponent implements OnInit {
   }
 
   async enviarDatos() {
-    let dataActividad: ActividadImagenes;
+    let dataActividad: Actividad;
     let contenido: {};
     dataActividad = await JSON.parse(localStorage.getItem("actividad"))
 

@@ -24,13 +24,13 @@
           
 
             <div *ngFor="let actividad of actividades">
-              <ion-card (click)="obtenerActividad(actividad.titulo, actividad.interaccion)" mode="ios" class="card-categoria">
+              <ion-card (click)="obtenerActividad(actividad.actividad, actividad.contenidoActividad)" mode="ios" class="card-categoria">
                 <ion-card-header>
                   <ion-card-subtitle>Dificultad {{actividad.nivel}}</ion-card-subtitle>
-                  <ion-card-title>{{actividad.titulo}}</ion-card-title>
+                  <ion-card-title>{{actividad.actividad}}</ion-card-title>
                 </ion-card-header>
                 <div class="ion-text-center">
-                  <img src="{{actividad.detalle.imageUrl}}"/>
+                  <img src="{{actividad.imagen}}"/>
                 </div> 
               </ion-card>
             </div>

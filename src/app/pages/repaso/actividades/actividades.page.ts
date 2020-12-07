@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UploadService } from '../../../services/upload.service';
-import { map } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,8 +13,7 @@ export class ActividadesPage implements OnInit {
   actividades: any[] = [];
 
   constructor(public router: Router, 
-              private route: ActivatedRoute,
-              public upload: UploadService) {
+              private route: ActivatedRoute) {
     this.tituloCategoria = this.route.snapshot.paramMap.get('category');
     this.obtenerActividades();
   }
@@ -26,13 +23,7 @@ export class ActividadesPage implements OnInit {
   }
 
   obtenerActividades() {
-    this.upload.obtenerRepasos(this.tituloCategoria)
-    // .pipe(
-    //   map( (resp : [] ) => resp.map ( ({actividad, detalle}) => ({titulo : actividad, detalle})))
-    // )
-    .subscribe( resp => {
-      this.actividades = resp;
-    });
+    
   }
 
 }

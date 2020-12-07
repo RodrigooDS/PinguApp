@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TabsService } from '../../../../services/tabs.service';
 import { Router } from '@angular/router';
-import { UploadService } from '../../../../services/upload.service';
+// import { UploadService } from '../../../../services/upload.service';
 import { MenuController } from '@ionic/angular';
 import { Location } from '@angular/common';
 // import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -21,7 +21,7 @@ export class AceAsociarPage implements OnInit {
   constructor(public tabEstado: TabsService,
               public router: Router,
               private location: Location,
-              public upload: UploadService,
+              // public upload: UploadService,
               private menuCtrl: MenuController) {
     this.menuCtrl.enable(false);
     this.tabEstado.cambiarEstado(true);

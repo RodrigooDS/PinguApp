@@ -1,6 +1,6 @@
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Actividad } from '../../../../shared/actividad.interfaces';
+// import { Actividad } from '../../../../shared/actividad.interfaces';
 import { ModalController } from '@ionic/angular';
 import { CeEstadisticaPage } from '../../../../pages/actividad/click-escuchar/ce-estadistica/ce-estadistica.page';
 import { User } from '../../../../shared/user.interface';
@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../../../services/auth.service';
 import { Router } from '@angular/router';
-import { UploadService } from '../../../../services/upload.service';
+// import { UploadService } from '../../../../services/upload.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class CeParte2Component implements OnInit {
 
   tiempo_inicio: number;
 
-  datos: Actividad [] = [];
+  // datos: Actividad [] = [];
   respuesta: number;
   incorrectas: number [] = [];
   imagenes: number [] = [0,1,2,3];
@@ -64,9 +64,9 @@ export class CeParte2Component implements OnInit {
               private db: AngularFirestore,
               private auth: AuthService,
               private router: Router,
-              public upload: UploadService, 
+              // public upload: UploadService, 
                ) { 
-    this.datos = JSON.parse(localStorage.getItem('datos'));
+    // this.datos = JSON.parse(localStorage.getItem('datos'));
     this.seleccionarItem();
     this.obtenerUsuario();
   }
@@ -153,26 +153,26 @@ export class CeParte2Component implements OnInit {
 
   enviarDatos() {
 
-    if(this.respuesta === this.opcion){
-      this.imagenes.splice(this.random,1);
-      if(this.respuesta === this.opcion && this.incorrectas.length == 0){
-        this.buena++;
-        this.estadistica.buena.nombre.push(this.datos[this.respuesta].detalle.nombreImagen);
+    // if(this.respuesta === this.opcion){
+    //   this.imagenes.splice(this.random,1);
+    //   if(this.respuesta === this.opcion && this.incorrectas.length == 0){
+    //     this.buena++;
+    //     this.estadistica.buena.nombre.push(this.datos[this.respuesta].detalle.nombreImagen);
 
-      } else {
-        this.parcial++;
-        this.estadistica.parcial.erroneas =  (this.mala2);
-        this.estadistica.parcial.parcialmente_correcto.push(this.datos[this.respuesta].detalle.nombreImagen);        
-      }
-      this.seleccionarItem();
+    //   } else {
+    //     this.parcial++;
+    //     this.estadistica.parcial.erroneas =  (this.mala2);
+    //     this.estadistica.parcial.parcialmente_correcto.push(this.datos[this.respuesta].detalle.nombreImagen);        
+    //   }
+    //   this.seleccionarItem();
       
-    }else{
-      this.incorrectas.push(this.opcion);
-      this.mala++;
-      this.estadistica.errores++;
-      this.mala2.push(this.datos[this.opcion].detalle.nombreImagen);
+    // }else{
+    //   this.incorrectas.push(this.opcion);
+    //   this.mala++;
+    //   this.estadistica.errores++;
+    //   this.mala2.push(this.datos[this.opcion].detalle.nombreImagen);
 
-    }
+    // }
   }
 
   async abrirModal() {

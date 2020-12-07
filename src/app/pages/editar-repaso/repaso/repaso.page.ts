@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 //service
-import { UploadService } from '../../../services/upload.service';
+
 import { TabsService } from '../../../services/tabs.service';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
 import { AlertController } from '@ionic/angular';
@@ -28,7 +28,6 @@ export class RepasoPage implements OnInit {
   
   constructor(public router: Router, 
               private route: ActivatedRoute,
-              public upload: UploadService,
               public tabEstado: TabsService,
               public photoService: PhotoCameraService,
               public alertController: AlertController) {
@@ -57,20 +56,20 @@ export class RepasoPage implements OnInit {
   }
 
   async guardar() {
-    let existenciaRepaso : boolean;
-    existenciaRepaso = await this.upload.obtenerExistenciaDeRepaso(this.tituloActividad,this.tituloCategoria)
-    if(existenciaRepaso){
-      this.errorCreacionAlerta();
-    }else{
-      var json = {categoria    : this.tituloCategoria,
-                  actividad    : this.tituloActividad,
-                  imagen       : this.imageURL,
-                  nombreImagen : this.filename,
-                  nivel        : this.nivel
-      }
-      localStorage.setItem('repaso',JSON.stringify(json));
-      this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
-      }   
+    // let existenciaRepaso : boolean;
+    // existenciaRepaso = await this.upload.obtenerExistenciaDeRepaso(this.tituloActividad,this.tituloCategoria)
+    // if(existenciaRepaso){
+    //   this.errorCreacionAlerta();
+    // }else{
+    //   var json = {categoria    : this.tituloCategoria,
+    //               actividad    : this.tituloActividad,
+    //               imagen       : this.imageURL,
+    //               nombreImagen : this.filename,
+    //               nivel        : this.nivel
+    //   }
+    //   localStorage.setItem('repaso',JSON.stringify(json));
+    //   this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+    //   }   
   }  
 
   cancelar() {
@@ -79,10 +78,10 @@ export class RepasoPage implements OnInit {
   }
 
   obtenerActividades() {
-    this.upload.obtenerRepasos(this.tituloCategoria)
-    .subscribe( resp => {
-      this.actividades = resp;
-    });
+    // this.upload.obtenerRepasos(this.tituloCategoria)
+    // .subscribe( resp => {
+    //   this.actividades = resp;
+    // });
 
   }
 
@@ -98,7 +97,7 @@ export class RepasoPage implements OnInit {
   }
 
   eliminarActividad(actividad) {
-    this.upload.eliminarTodoRepaso(actividad);    
+    // this.upload.eliminarTodoRepaso(actividad);    
   }
 
   async seleccionarImagen(){

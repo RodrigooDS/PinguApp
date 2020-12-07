@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UploadService } from '../../../services/upload.service';
+// import { UploadService } from '../../../services/upload.service';
 import { map } from 'rxjs/operators';
+import { ObtenerActivadesService } from '../../../services/obtener-activades.service';
 
 @Component({
   selector: 'app-actividades',
@@ -14,10 +15,10 @@ export class ActividadesPage implements OnInit {
   tituloCategoria: string = '';
   actividades: any[] = [];
 
-  constructor(public router: Router, 
-              private route: ActivatedRoute,
-              public upload: UploadService) {
-    // this.tituloCategoria = this.route.snapshot.paramMap.get('category');
+  constructor(public router: Router,
+              private actividadesService: ObtenerActivadesService
+  ) {
+
     this.tituloCategoria = JSON.parse(localStorage.getItem('categoria'));
   }
 
@@ -25,30 +26,21 @@ export class ActividadesPage implements OnInit {
     this.obtenerActividades();
   }
 
-  obtenerActividades() {
-    this.upload.obtenerActividades(this.tituloCategoria)
-    .pipe(
-      map( (resp : [] ) => resp.map ( ({actividad, nivel, interaccion, detalle}) => ({titulo : actividad, nivel, interaccion, detalle})))
-    )
-    .subscribe( resp => {
-      this.actividades = resp;
-    });
+  async obtenerActividades() {
+    this.actividades =  await this.actividadesService.obtenerActividades(this.tituloCategoria);
   }
 
-  obtenerActividad(actividad, interaccion) {
-    actividad = {
-      actividad : actividad,
-      interaccion: interaccion
-    }
-    localStorage.setItem('actividad', JSON.stringify(actividad));
+  obtenerActividad(actividad: string, contenidoActividad: string) {
 
-    if(interaccion == "Click, Escuchar"){
+    let datos = {
+      actividad : actividad,
+      interaccion: contenidoActividad
+    }
+    localStorage.setItem('actividad', JSON.stringify(datos));
+
+    if(contenidoActividad == "Solo imágenes"){
       this.router.navigate(['/tablinks/actividad/ce-asociar']);
     }
-    else if (interaccion == "Arrastrar, Click, Escuchar")
-    {
-      this.router.navigate(['/tablinks/actividad/ace-asociar']);
-    }
-    
+       
   }
 }

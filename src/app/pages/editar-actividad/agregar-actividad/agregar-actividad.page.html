@@ -3,8 +3,11 @@
     <ion-buttons slot="start"> 
       <ion-button (click)="cancelar()" color="danger">Cancelar</ion-button>
     </ion-buttons>
-    <ion-buttons slot="end"> 
-      <ion-button (click)="guardar()" [disabled]="(this.cantidadItem === 0)">Guardar</ion-button>
+    <ion-buttons slot="end" *ngIf="!this.editarActividad"> 
+      <ion-button (click)="guardar()" [disabled]="(this.cantidadItem === 0 )">Guardar</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="this.editarActividad"> 
+      <ion-button (click)="guardar()">Guardar</ion-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Editar Actividad</ion-title>
   </ion-toolbar>

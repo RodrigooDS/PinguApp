@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 //interfaces
-import { UploadService } from '../../../services/upload.service';
+// import { UploadService } from '../../../services/upload.service';
 import { LoadingController } from '@ionic/angular';
 import { TabsService } from '../../../services/tabs.service';
 
@@ -31,7 +31,7 @@ export class AgregarRepasoPage implements OnInit {
   nivel: string;
   constructor(public router: Router, 
               private route: ActivatedRoute,
-              public upload: UploadService,
+              // public upload: UploadService,
               public loadingCtrl: LoadingController,
               public tabEstado: TabsService) { 
     this.tabEstado.cambiarEstado(true);
@@ -107,40 +107,40 @@ export class AgregarRepasoPage implements OnInit {
         this.data.splice(index, 1);
     }
     localStorage.setItem('data',JSON.stringify(json));
-    this.upload.removerRepaso(file,this.tituloActividad);
+    // this.upload.removerRepaso(file,this.tituloActividad);
   }
 
   async guardarRepaso() {
-    try {
-      //cuando es nuevo
-      this.file = this.dataURLtoFile(this.imagen,this.nombreImagen);
-      await this.upload.crearRepaso(this.tituloCategoria, this.tituloActividad, this.file, this.nivel).then( async (resp) => {
-        for (var i = 0; i < this.data.length; i++){
-            this.file = this.dataURLtoFile(this.data[i].imagen,this.data[i].nombreImagen);
-            await this.upload.agregarRepaso(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file)
-          }
-      });
+    // try {
+    //   //cuando es nuevo
+    //   this.file = this.dataURLtoFile(this.imagen,this.nombreImagen);
+    //   await this.upload.crearRepaso(this.tituloCategoria, this.tituloActividad, this.file, this.nivel).then( async (resp) => {
+    //     for (var i = 0; i < this.data.length; i++){
+    //         this.file = this.dataURLtoFile(this.data[i].imagen,this.data[i].nombreImagen);
+    //         await this.upload.agregarRepaso(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file)
+    //       }
+    //   });
       
-    } catch (error) {
-      //ya existe
-      for (var i = 0; i < this.data.length; i++){
-        if(!this.data[i].id){
-          this.file = this.dataURLtoFile(this.data[i].imagen,this.data[i].nombreImagen);
-          await this.upload.agregarRepaso(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file);
-        }
-      }
-    }
+    // } catch (error) {
+    //   //ya existe
+    //   for (var i = 0; i < this.data.length; i++){
+    //     if(!this.data[i].id){
+    //       this.file = this.dataURLtoFile(this.data[i].imagen,this.data[i].nombreImagen);
+    //       await this.upload.agregarRepaso(this.data[i].nombreEspanol,this.data[i].nombreIngles,this.tituloCategoria,this.tituloActividad,this.file);
+    //     }
+    //   }
+    // }
   }
 
   obtenerActividad() {
-    this.upload.obtenerRepaso(this.tituloActividad,this.tituloCategoria)
-    .pipe(
-      map( (resp : Repaso[] ) => resp.map ( ({id, detalle}) => ({id: id,imagen : detalle.imageUrl, nombreIngles: detalle.nombreIngles, nombreEspanol: detalle.nombreEspanol})))
-    )
-    .subscribe( resp => {
-      this.data = resp;
-      localStorage.setItem('data', JSON.stringify(this.data));
-    });
+    // this.upload.obtenerRepaso(this.tituloActividad,this.tituloCategoria)
+    // .pipe(
+    //   map( (resp : Repaso[] ) => resp.map ( ({id, detalle}) => ({id: id,imagen : detalle.imageUrl, nombreIngles: detalle.nombreIngles, nombreEspanol: detalle.nombreEspanol})))
+    // )
+    // .subscribe( resp => {
+    //   this.data = resp;
+    //   localStorage.setItem('data', JSON.stringify(this.data));
+    // });
     
   }
 

@@ -36,6 +36,7 @@ export class ActividadPage implements OnInit {
     this.tituloActividad = "";
     this.tipoActividad = "";
     this.contenidoActividad = "";
+    this.nivel = "";
     this.tabEstado.cambiarEstado(true);
     // this.obtenerActividades();
   }
@@ -45,6 +46,7 @@ export class ActividadPage implements OnInit {
     this.tituloActividad = "";
     this.tipoActividad = "";
     this.contenidoActividad = "";
+    this.nivel = "";
     this.tabEstado.cambiarEstado(true);
     this.obtenerActividades();
   }
@@ -105,7 +107,6 @@ export class ActividadPage implements OnInit {
     await this.actividadService.obtenerActividades()
     .subscribe( resp => {
       this.data = resp;
-      console.log(resp);
     });
   }
 

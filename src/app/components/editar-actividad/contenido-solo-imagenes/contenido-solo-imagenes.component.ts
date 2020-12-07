@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActividadesService } from '../../../services/actividades.service';
-import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { Actividad } from '../../../shared/actividades.interfaces';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-contenido-solo-imagenes',
@@ -19,7 +20,9 @@ export class ContenidoSoloImagenesComponent implements OnInit {
   
 
   constructor(public photoService: PhotoCameraService, 
-              public actividadService: ActividadesService) { }
+              public actividadService: ActividadesService,
+              private router: Router,
+              public loadingController: LoadingController) { }
 
   ngOnInit() {
     
@@ -40,10 +43,11 @@ export class ContenidoSoloImagenesComponent implements OnInit {
   }
 
   async guardarDatos () {
-    let dataActividad: ActividadImagenes;
+    let dataActividad: Actividad;
     let contenido: {};
+    await this.presentLoading();
     dataActividad = await JSON.parse(localStorage.getItem("actividad"))
-
+    
     contenido = {
       correcta  : this.selectedRadioGroup.value,
       pregunta  : this.pregunta,
@@ -51,6 +55,17 @@ export class ContenidoSoloImagenesComponent implements OnInit {
     }
     
     await this.actividadService.agregarActividadSoloImagenes(contenido,dataActividad);
+    await this.loadingController.dismiss();
+    this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);   
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Espere por favor ...',
+    });
+
+    await loading.present();
 
   }
 }

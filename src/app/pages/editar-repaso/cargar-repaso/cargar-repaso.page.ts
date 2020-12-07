@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UploadService } from '../../../services/upload.service';
+// import { UploadService } from '../../../services/upload.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
 
@@ -23,7 +23,8 @@ export class CargarRepasoPage implements OnInit {
 
   imageURL: string;
 
-  constructor(public upload: UploadService, 
+  constructor(
+    // public upload: UploadService, 
               public router: Router, 
               private route: ActivatedRoute,
               public photoService: PhotoCameraService) { }

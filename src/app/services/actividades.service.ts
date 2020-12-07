@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { LoadingController } from '@ionic/angular';
-import { ActividadImagenes } from '../shared/actividadSoloImagenes.interfaces';
+import { Actividad } from '../shared/actividades.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ActividadesService {
               public loadingCtrl: LoadingController) { }
 
   // Se crear la coleccion que contiene  las actividades
-  async crearActividad(data: ActividadImagenes) {
+  async crearActividad(data: Actividad) {
     let nombreActividad: string;
     let fileImage: any;
     nombreActividad = data.actividad +" - "+ data.categoria;
@@ -43,7 +43,7 @@ export class ActividadesService {
   }
 
   // Sirve para agregar actividad solo imagenes
-  async agregarActividadSoloImagenes(dataContent : any, data: ActividadImagenes) {
+  async agregarActividadSoloImagenes(dataContent : any, data: Actividad) {
 
     let id = this.randomID(20);
     let nombreActividad: string;
@@ -74,7 +74,7 @@ export class ActividadesService {
   }
 
   // Sirve para agregar actividad solo texto
-  async agregarActividadSoloTexto (dataContent : any, data: ActividadImagenes) {
+  async agregarActividadSoloTexto (dataContent : any, data: Actividad) {
 
     let nombreActividad: string;
     let resp: any;
@@ -97,7 +97,7 @@ export class ActividadesService {
     }
   }
 
-  async agregarActividadImagenesTexto(dataContent : any, data: ActividadImagenes) {
+  async agregarActividadImagenesTexto(dataContent : any, data: Actividad) {
 
     let id = this.randomID(20);
     let nombreActividad: string;
@@ -215,7 +215,7 @@ export class ActividadesService {
       await this.eliminarColeccionActividad(data);
       
     } catch (error) {
-      console.log(error)
+      await this.eliminarColeccionActividad(data);
     }
   }
 
@@ -279,6 +279,10 @@ export class ActividadesService {
       u8arr[n] = bstr.charCodeAt(n);
   }
   return new File([u8arr], filename, {type:mime});
+  }
+
+  obtenerCategorias() {
+    return this.db.collection('categorias').valueChanges();
   }
 
 }
