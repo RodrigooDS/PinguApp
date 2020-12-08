@@ -21,6 +21,7 @@ export class ActividadPage implements OnInit {
    }
 
   ngOnInit() {
+    
   }
 
   vistaCategoria(ev: any) {

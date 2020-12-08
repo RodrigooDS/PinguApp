@@ -1,8 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
 import { ActividadesService } from '../../../services/actividades.service';
 import { Actividad } from '../../../shared/actividades.interfaces';
-import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -21,14 +21,10 @@ export class ContenidoSoloImagenesComponent implements OnInit {
 
   constructor(public photoService: PhotoCameraService, 
               public actividadService: ActividadesService,
-              private router: Router,
+              private location: Location,
               public loadingController: LoadingController) { }
 
   ngOnInit() {
-    
-  }
-
-  enviarDatos() {
     
   }
 
@@ -56,16 +52,16 @@ export class ContenidoSoloImagenesComponent implements OnInit {
     
     await this.actividadService.agregarActividadSoloImagenes(contenido,dataActividad);
     await this.loadingController.dismiss();
-    this.router.navigate(['/tablinks/editar-actividad/agregar-actividad']);   
+    this.location.back();   
   }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Espere por favor ...',
+      message: 'Espere por favor...',
+      mode: 'ios'
     });
-
     await loading.present();
-
   }
+  
 }

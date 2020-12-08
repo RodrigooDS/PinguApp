@@ -12,8 +12,7 @@ import { AlertController, MenuController } from '@ionic/angular';
 
 export class RegisterPage implements OnInit {
   
-  // formRegistro : any  = '' 
-
+  
   constructor(private auth: AuthService, 
               private router: Router,
               public alertController: AlertController) {}

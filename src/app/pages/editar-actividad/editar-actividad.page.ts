@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { UploadService } from '../../services/upload.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Categoria } from '../../shared/categoria.interfaces';
 import { ActividadesService } from '../../services/actividades.service';
 
 @Component({

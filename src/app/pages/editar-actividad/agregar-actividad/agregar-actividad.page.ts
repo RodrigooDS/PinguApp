@@ -11,26 +11,17 @@ import { Actividad } from '../../../shared/actividades.interfaces';
 })
 export class AgregarActividadPage implements OnInit {
 
-  // Nuevas variables
   imagen : string;
   nombreImagen : string;
   json : any;
   file : any;
   editarActividad: string;
-  
   cantidadItem: any;
-
   contenidoActividad : string;
   tituloActividad: string;
   tituloCategoria: string;
-  interaccion: string;
   id: string;
   nivel: string;
-
-  // categorias: any[] = [];
-
-    // data = [];
-  // loading: HTMLIonLoadingElement;
 
   constructor(public router: Router, 
               public tabEstado: TabsService,
@@ -55,9 +46,7 @@ export class AgregarActividadPage implements OnInit {
 
   async guardar() {
     let dataActividad: Actividad;
-
     dataActividad = await JSON.parse(localStorage.getItem("actividad"));
-
     if(this.editarActividad){
       this.tabEstado.cambiarEstado(false);
       this.router.navigate(['/tablinks/editar-actividad']);
@@ -96,6 +85,15 @@ export class AgregarActividadPage implements OnInit {
     this.router.navigate(['/tablinks/editar-actividad/cargar-actividad']);    
   }
 
+  async cargarActividad() {
+    this.json = await JSON.parse(localStorage.getItem('actividad'))
+    this.tituloCategoria = this.json.categoria;
+    this.tituloActividad = this.json.actividad;
+    this.imagen = this.json.imagen;
+    this.contenidoActividad = this.json.contenidoActividad;
+    this.nivel = this.json.nivel;
+  }
+
   // agregarImagenes() {
   //   var json = JSON.parse(localStorage.getItem('imagenes'));
   //   if(json){
@@ -113,15 +111,6 @@ export class AgregarActividadPage implements OnInit {
   //     }
   //   }
   // }
-
-  async cargarActividad() {
-    this.json = await JSON.parse(localStorage.getItem('actividad'))
-    this.tituloCategoria = this.json.categoria;
-    this.tituloActividad = this.json.actividad;
-    this.imagen = this.json.imagen;
-    this.contenidoActividad = this.json.contenidoActividad;
-    this.nivel = this.json.nivel;
-  }
 
   // eliminarImagen(file) {
 
