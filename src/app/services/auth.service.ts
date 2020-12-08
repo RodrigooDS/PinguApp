@@ -86,8 +86,6 @@ export class AuthService {
     this.alertaCuenta(tituloMensaje,subMensaje);
   }
 
-
-  
   obtenerUsuario(uid: string){
     return this.db.collection('users').doc(uid).valueChanges();
   }
@@ -119,6 +117,11 @@ export class AuthService {
       displayName: form.nombreEstudiante,
       photoURL: imageUrl
     };
+
+    const resp = await this.db.collection("precargaEstudiantes").doc(form.rut).update({
+      'uid' : user.uid
+    });
+    
     return userRef.set(data, { merge: true });
   }
 
@@ -150,11 +153,13 @@ export class AuthService {
     }
   }
 
-  async updateImageUser(uid: string,imageUrl: string) {
-    this.db.collection('users').doc(uid).update({
+  async updateImageUser(uid: string,imageUrl: string, id: string) {
+    await this.db.collection('users').doc(uid).update({
       photoURL: imageUrl
     });
-
+    await this.db.collection('precargaEstudiantes').doc(id).update({
+      'imagen' : imageUrl
+    });
   }
 
   async getImageFromStorage(id){
@@ -163,13 +168,21 @@ export class AuthService {
 
   // funciones para la precarga de estudiantes estos deben ir en un nuevo service
   async precargarAlumno(event: any, _nombreCompleto: string) {
-    const res = await this.db.collection('precargaEstudiantes').doc(event.rut).set({
+    let resp = await this.db.collection('precargaEstudiantes').doc(event.rut).set({
       nombre: event.nombre,
       apellidoPaterno: event.apellidoPaterno,
       apellidoMaterno: event.apellidoMaterno,
       rut: event.rut,
       fechaNacimiento: event.fechaNacimiento,
-      nombreCompleto: _nombreCompleto
+      nombreCompleto: _nombreCompleto,
+      imagen: "",
+      uid: ""
+    });
+
+    const imageUrl = await this.getImageFromStorage("gato.png");
+
+    const res = await this.db.collection('precargaEstudiantes').doc(event.rut).update({
+      'imagen'  : imageUrl
     });
   }
 
@@ -190,6 +203,22 @@ export class AuthService {
       console.log(error);
     });
     return data;
+  }
+
+  async obtenerPrecargaPorAlumno(uid : string) {
+    let id: string
+    await this.db.collection('precargaEstudiantes').ref.where("uid","==",uid).get()
+    .then(function (ququerySnapshotery) {
+      ququerySnapshotery.forEach(function(doc){
+        id = doc.id;
+      })
+    });
+
+    return id
+  }
+
+  obtenerTodosLosAlumnos() {
+    return this.db.collection('users').valueChanges();
   }
 
 }

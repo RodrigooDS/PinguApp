@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TabsService } from '../../../services/tabs.service';
 import { ActividadesService } from '../../../services/actividades.service';
-import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfaces';
+import { Actividad } from '../../../shared/actividades.interfaces';
 
 @Component({
   selector: 'app-agregar-actividad',
@@ -11,25 +11,17 @@ import { ActividadImagenes } from '../../../shared/actividadSoloImagenes.interfa
 })
 export class AgregarActividadPage implements OnInit {
 
-  // Nuevas variables
   imagen : string;
   nombreImagen : string;
   json : any;
   file : any;
-  
+  editarActividad: string;
   cantidadItem: any;
-
   contenidoActividad : string;
   tituloActividad: string;
   tituloCategoria: string;
-  interaccion: string;
   id: string;
   nivel: string;
-
-  // categorias: any[] = [];
-
-    // data = [];
-  // loading: HTMLIonLoadingElement;
 
   constructor(public router: Router, 
               public tabEstado: TabsService,
@@ -42,21 +34,20 @@ export class AgregarActividadPage implements OnInit {
   async ngOnInit() {
     await this.obtenerCantidadItem();
     await this.cargarActividad();
+    this.editarActividad = await this.route.snapshot.paramMap.get('editar');
   }
 
   async ionViewWillEnter() {
     await this.obtenerCantidadItem();
     await this.cargarActividad();
+    this.editarActividad = await this.route.snapshot.paramMap.get('editar');
   }
 
 
   async guardar() {
-    let dataActividad: ActividadImagenes;
-    let editarActividad: string;
-
+    let dataActividad: Actividad;
     dataActividad = await JSON.parse(localStorage.getItem("actividad"));
-    editarActividad = await this.route.snapshot.paramMap.get('editar');
-    if(editarActividad){
+    if(this.editarActividad){
       this.tabEstado.cambiarEstado(false);
       this.router.navigate(['/tablinks/editar-actividad']);
       localStorage.clear();
@@ -69,22 +60,15 @@ export class AgregarActividadPage implements OnInit {
   }  
 
   async cancelar() {
-    let dataActividad: ActividadImagenes
-    let editarActividad: string;
+    let dataActividad: Actividad
     
     dataActividad = await JSON.parse(localStorage.getItem("actividad"))
-    editarActividad = await this.route.snapshot.paramMap.get('editar');
 
-    if(editarActividad){
+    if(this.editarActividad){
       this.tabEstado.cambiarEstado(false);
       this.router.navigate(['/tablinks/editar-actividad']);
       localStorage.clear();
     }else{
-      // if(dataActividad.contenidoActividad == "Solo imágenes"){
-      //     await this.actividadService.removerActividad(dataActividad);
-      // }else if(dataActividad.contenidoActividad == "Solo texto"){
-      //     await this.actividadService.remo(dataActividad);
-      // }
       await this.actividadService.removerActividad(dataActividad);
       this.tabEstado.cambiarEstado(false);
       this.router.navigate(['/tablinks/editar-actividad']);
@@ -93,12 +77,21 @@ export class AgregarActividadPage implements OnInit {
   }
 
   obtenerCantidadItem() {
-    this.actividadService.obtenerActividad(this.tituloActividad,this.tituloCategoria).subscribe(resp=>{console.log(resp), this.cantidadItem = resp.length})
+    this.actividadService.obtenerActividad(this.tituloActividad,this.tituloCategoria).subscribe(resp=>{this.cantidadItem = resp.length})
   }
 
   agregarAccion() {
     localStorage.removeItem('imagenes');
     this.router.navigate(['/tablinks/editar-actividad/cargar-actividad']);    
+  }
+
+  async cargarActividad() {
+    this.json = await JSON.parse(localStorage.getItem('actividad'))
+    this.tituloCategoria = this.json.categoria;
+    this.tituloActividad = this.json.actividad;
+    this.imagen = this.json.imagen;
+    this.contenidoActividad = this.json.contenidoActividad;
+    this.nivel = this.json.nivel;
   }
 
   // agregarImagenes() {
@@ -118,15 +111,6 @@ export class AgregarActividadPage implements OnInit {
   //     }
   //   }
   // }
-
-  async cargarActividad() {
-    this.json = await JSON.parse(localStorage.getItem('actividad'))
-    this.tituloCategoria = this.json.categoria;
-    this.tituloActividad = this.json.actividad;
-    this.imagen = this.json.imagen;
-    this.contenidoActividad = this.json.contenidoActividad;
-    this.nivel = this.json.nivel;
-  }
 
   // eliminarImagen(file) {
 

@@ -1,10 +1,12 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { bufferTime, map } from 'rxjs/operators';
-import { Actividad } from '../../../../shared/actividad.interfaces';
+// import { Actividad } from '../../../../shared/actividad.interfaces';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { VoiceService } from '../../../../services/voice.service';
-import { UploadService } from '../../../../services/upload.service';
+// import { UploadService } from '../../../../services/upload.service';
 import { Platform } from '@ionic/angular';
+import { ObtenerActivadesService } from '../../../../services/obtener-activades.service';
+import { Categoria } from '../../../../shared/categoria.interfaces';
 
 @Component({
   selector: 'app-ce-parte1',
@@ -22,13 +24,15 @@ export class CeParte1Component implements OnInit {
   seleccionRadioButton: boolean;
   actividad: any[] = [];
   posicionesElegidas: any[] = [];
-  datos: Actividad [] = [];
+  // datos: Actividad [] = [];
   numero: number;
   tiempo_inicio: number;
-  constructor(public upload: UploadService,
+  constructor(
+    // public upload: UploadService,
               public voice:  VoiceService,
               public fb: FormBuilder,
               public platform: Platform,
+              private actividadService: ObtenerActivadesService
               ) {}
 
   ngOnInit() {
@@ -62,16 +66,9 @@ export class CeParte1Component implements OnInit {
     });
   }
 
-  obtenerDatosActividad() {
-    this.upload.obtenerActividad(this.tituloActividad,this.tituloCategoria).pipe(
-      map( (resp : Actividad[] ) => resp.map ( ({id, detalle}) => ({id, detalle})))
-    )
-    .subscribe( resp => {
-      this.actividad = resp;
-      setTimeout(() => {
-        this.frutasAleatorias();
-      }, 500);
-    });
+  async obtenerDatosActividad() {
+    this.actividad =  await this.actividadService.obtenerActividad(this.tituloActividad,this.tituloCategoria);
+    console.log(this.actividad);
   }
 
   radioGroupChange(event) {
@@ -79,18 +76,18 @@ export class CeParte1Component implements OnInit {
   }
 
   frutasAleatorias(){
-    this.datos = [];
+    // this.datos = [];
     
-    var i,j,r,c;
-    for (i = 0 ; i<4 ; i++){
-      r = Math.floor(Math.random()*(this.actividad.length-this.posicionesElegidas.length))+1;
-      c = 0;
-      j = 0;
-      do if (this.posicionesElegidas.indexOf(j++)==-1) c++; while(c<r);
-      j--;
-      this.datos.push(this.actividad[j]);
-      this.posicionesElegidas.push(j);
-    }
+    // var i,j,r,c;
+    // for (i = 0 ; i<4 ; i++){
+    //   r = Math.floor(Math.random()*(this.actividad.length-this.posicionesElegidas.length))+1;
+    //   c = 0;
+    //   j = 0;
+    //   do if (this.posicionesElegidas.indexOf(j++)==-1) c++; while(c<r);
+    //   j--;
+    //   this.datos.push(this.actividad[j]);
+    //   this.posicionesElegidas.push(j);
+    // }
   }
 
   posicionItem(item) {
@@ -106,13 +103,13 @@ export class CeParte1Component implements OnInit {
 
   enviarDatos() {
 
-    localStorage.setItem('datos', JSON.stringify(this.datos));
-    this.onFormGroupChange.emit(this.form.value);
+    // localStorage.setItem('datos', JSON.stringify(this.datos));
+    // this.onFormGroupChange.emit(this.form.value);
 
-    let end = window.performance.now();
-    let tiempo_total1 = (Math.round((end-this.tiempo_inicio)/1000));
-    console.log(tiempo_total1);
-    localStorage.setItem("tiempo_total", tiempo_total1.toString());
+    // let end = window.performance.now();
+    // let tiempo_total1 = (Math.round((end-this.tiempo_inicio)/1000));
+    // console.log(tiempo_total1);
+    // localStorage.setItem("tiempo_total", tiempo_total1.toString());
     
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UploadService } from '../../../services/upload.service';
+// import { UploadService } from '../../../services/upload.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
 
@@ -25,8 +25,7 @@ export class CargarActividadPage implements OnInit {
   selectedFile: any;
   // tituloIngles: string;
 
-  constructor(public upload: UploadService, 
-              public router: Router,
+  constructor(public router: Router,
               public photoService: PhotoCameraService) {
     this.obtenerLocalStorage()
   }

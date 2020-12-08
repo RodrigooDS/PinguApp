@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-
-//interfaces
-import { Categoria } from '../../shared/categoria.interfaces';
-//service
-import { UploadService } from '../../services/upload.service';
+import { ActividadesService } from '../../services/actividades.service';
 
 @Component({
   selector: 'app-editar-repaso',
@@ -17,7 +12,8 @@ export class EditarRepasoPage implements OnInit {
   tipoCategoria : string;
   categorias : any[] = [];
    
-  constructor(public upload: UploadService, public router: Router) { 
+  constructor(public actividadService: ActividadesService,
+              public router: Router) { 
     localStorage.clear();
   }
 
@@ -27,9 +23,7 @@ export class EditarRepasoPage implements OnInit {
   }
 
   obtenerCategorias() {
-    this.upload.obtenerCategorias().pipe(
-      map( (resp : [] ) => resp.map( ({imageUrl,nombreCategoria}) => ({categoria : nombreCategoria, imagen : imageUrl}) ))
-    )
+    this.actividadService.obtenerCategorias()
     .subscribe( resp => {
       this.categorias = resp;
     });

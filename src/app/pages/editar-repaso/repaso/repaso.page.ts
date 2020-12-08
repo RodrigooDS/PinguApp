@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 //service
-import { UploadService } from '../../../services/upload.service';
+
 import { TabsService } from '../../../services/tabs.service';
 import { PhotoCameraService } from '../../../services/photo-camera.service';
 import { AlertController } from '@ionic/angular';
+import { RepasosService } from '../../../services/repasos.service';
 
 @Component({
   selector: 'app-repaso',
@@ -23,14 +24,16 @@ export class RepasoPage implements OnInit {
   tituloActividad: string = '';
   tituloCategoria: string = '';
   nivel : string = '';
-  actividades: any[] = [];
+
+  repasos: any[] = [];
+
   imageURL: string;
   
   constructor(public router: Router, 
               private route: ActivatedRoute,
-              public upload: UploadService,
               public tabEstado: TabsService,
               public photoService: PhotoCameraService,
+              public repasoService: RepasosService,
               public alertController: AlertController) {
     this.tabEstado.cambiarEstado(true);
     this.tituloCategoria = this.route.snapshot.paramMap.get('category');
@@ -38,7 +41,7 @@ export class RepasoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.obtenerActividades();
+    this.obtenerRepasos();
     this.imageURL = '';
   }
 
@@ -58,10 +61,10 @@ export class RepasoPage implements OnInit {
 
   async guardar() {
     let existenciaRepaso : boolean;
-    existenciaRepaso = await this.upload.obtenerExistenciaDeRepaso(this.tituloActividad,this.tituloCategoria)
-    if(existenciaRepaso){
-      this.errorCreacionAlerta();
-    }else{
+    // existenciaRepaso = await this.upload.obtenerExistenciaDeRepaso(this.tituloActividad,this.tituloCategoria)
+    // if(existenciaRepaso){
+    //   this.errorCreacionAlerta();
+    // }else{
       var json = {categoria    : this.tituloCategoria,
                   actividad    : this.tituloActividad,
                   imagen       : this.imageURL,
@@ -70,7 +73,7 @@ export class RepasoPage implements OnInit {
       }
       localStorage.setItem('repaso',JSON.stringify(json));
       this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
-      }   
+      // }   
   }  
 
   cancelar() {
@@ -78,27 +81,23 @@ export class RepasoPage implements OnInit {
     this.router.navigate(['/tablinks/editar-repaso']);
   }
 
-  obtenerActividades() {
-    this.upload.obtenerRepasos(this.tituloCategoria)
-    .subscribe( resp => {
-      this.actividades = resp;
-    });
-
+  obtenerRepasos() {
+    this.repasoService.obtenerRepasos().subscribe(resp => this.repasos = resp);
   }
 
-  editarActividad(imagen: string, actividad: string) {
+  editarActividad(data: any) {
     
     var json = {
-      categoria    : this.tituloCategoria,
-      actividad    : actividad,
-      imagen       : imagen
+      categoria    : data.categoria,
+      actividad    : data.actividad,
+      imagen       : data.imagen
   	}
     localStorage.setItem('repaso',JSON.stringify(json));
-    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
+    this.router.navigate(['/tablinks/editar-repaso/agregar-repaso',{editar : 'editar-actividad'}]);
   }
 
-  eliminarActividad(actividad) {
-    this.upload.eliminarTodoRepaso(actividad);    
+  eliminarActividad(repaso) {
+    this.repasoService.removerActividad(repaso);     
   }
 
   async seleccionarImagen(){

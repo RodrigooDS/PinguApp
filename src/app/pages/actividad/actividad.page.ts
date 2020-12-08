@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UploadService } from '../../services/upload.service';
+// import { UploadService } from '../../services/upload.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ActividadesService } from '../../services/actividades.service';
 
 @Component({
   selector: 'app-actividad',
@@ -14,12 +15,13 @@ export class ActividadPage implements OnInit {
   categorias : any[] = [];
   vistaCategorias: string = "tarjetas";
 
-  constructor(public upload: UploadService,
+  constructor(public actividadService: ActividadesService,
               public router: Router) {
     this.obtenerCategorias();
    }
 
   ngOnInit() {
+    
   }
 
   vistaCategoria(ev: any) {
@@ -27,9 +29,7 @@ export class ActividadPage implements OnInit {
   }
 
   obtenerCategorias() {
-    this.upload.obtenerCategorias().pipe(
-      map( (resp : [] ) => resp.map( ({imageUrl,nombreCategoria}) => ({categoria : nombreCategoria, imagen : imageUrl}) ))
-    )
+    this.actividadService.obtenerCategorias().pipe()
     .subscribe( resp => {
       this.categorias = resp;
     });

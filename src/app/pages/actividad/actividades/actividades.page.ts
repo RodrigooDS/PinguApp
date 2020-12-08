@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { UploadService } from '../../../services/upload.service';
-import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { ObtenerActivadesService } from '../../../services/obtener-activades.service';
 
 @Component({
   selector: 'app-actividades',
@@ -14,10 +13,10 @@ export class ActividadesPage implements OnInit {
   tituloCategoria: string = '';
   actividades: any[] = [];
 
-  constructor(public router: Router, 
-              private route: ActivatedRoute,
-              public upload: UploadService) {
-    // this.tituloCategoria = this.route.snapshot.paramMap.get('category');
+  constructor(public router: Router,
+              private actividadesService: ObtenerActivadesService
+  ) {
+
     this.tituloCategoria = JSON.parse(localStorage.getItem('categoria'));
   }
 
@@ -25,26 +24,6 @@ export class ActividadesPage implements OnInit {
     this.obtenerActividades();
   }
 
-  obtenerActividades() {
-    this.upload.obtenerActividades(this.tituloCategoria)
-    .pipe(
-      map( (resp : [] ) => resp.map ( ({actividad, nivel, tipoActividad, contenidoActividad, imagen, detalle}) => ({titulo : actividad, nivel, tipoActividad, contenidoActividad, imagen, detalle})))
-    )
-    .subscribe( resp => {
-      this.actividades = resp;
-    });
-  }
-
-  obtenerActividad(actividad, tipoActividad, contenidoActividad, imagen, interaccion) {
-    actividad = {
-
-      actividad : actividad,
-      tipoActividad: tipoActividad,
-      contenidoActividad: contenidoActividad,
-      imagen: imagen,
-      //interaccion: interaccion
-
-    }
     localStorage.setItem('actividad', JSON.stringify(actividad));
     console.log(actividad);
 
@@ -62,13 +41,21 @@ export class ActividadesPage implements OnInit {
       console.log(contenidoActividad);
     }
 
-    // if(interaccion == "Click, Escuchar"){
-    //   this.router.navigate(['/tablinks/actividad/ce-asociar']);
-    // }
-    // else if (interaccion == "Arrastrar, Click, Escuchar")
-    // {
-    //   this.router.navigate(['/tablinks/actividad/ace-asociar']);
-    // }
-    
+  async obtenerActividades() {
+    this.actividades =  await this.actividadesService.obtenerActividades(this.tituloCategoria);
+  }
+
+  obtenerActividad(actividad: string, contenidoActividad: string) {
+
+    let datos = {
+      actividad : actividad,
+      interaccion: contenidoActividad
+    }
+    localStorage.setItem('actividad', JSON.stringify(datos));
+
+    if(contenidoActividad == "Solo imágenes"){
+      this.router.navigate(['/tablinks/actividad/ce-asociar']);
+    }
+       
   }
 }
