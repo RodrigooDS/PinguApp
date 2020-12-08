@@ -140,8 +140,7 @@ export class UploadService {
   obtenerActividad(actividad : string, categoria: string) {
     let nombreActividad: string;
     nombreActividad = actividad +" - "+ categoria;
-    return this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad, 
-      ref => ref.where('actividad', '==', actividad)).valueChanges();
+    return this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).valueChanges();
   }
 
   async obtenerExistenciaDeActividad(actividad : string, categoria: string) {

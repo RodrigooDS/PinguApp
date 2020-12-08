@@ -28,27 +28,47 @@ export class ActividadesPage implements OnInit {
   obtenerActividades() {
     this.upload.obtenerActividades(this.tituloCategoria)
     .pipe(
-      map( (resp : [] ) => resp.map ( ({actividad, nivel, interaccion, detalle}) => ({titulo : actividad, nivel, interaccion, detalle})))
+      map( (resp : [] ) => resp.map ( ({actividad, nivel, tipoActividad, contenidoActividad, imagen, detalle}) => ({titulo : actividad, nivel, tipoActividad, contenidoActividad, imagen, detalle})))
     )
     .subscribe( resp => {
       this.actividades = resp;
     });
   }
 
-  obtenerActividad(actividad, interaccion) {
+  obtenerActividad(actividad, tipoActividad, contenidoActividad, imagen, interaccion) {
     actividad = {
+
       actividad : actividad,
-      interaccion: interaccion
+      tipoActividad: tipoActividad,
+      contenidoActividad: contenidoActividad,
+      imagen: imagen,
+      //interaccion: interaccion
+
     }
     localStorage.setItem('actividad', JSON.stringify(actividad));
+    console.log(actividad);
 
-    if(interaccion == "Click, Escuchar"){
-      this.router.navigate(['/tablinks/actividad/ce-asociar']);
+    if(contenidoActividad == "Solo texto"){
+      this.router.navigate(['/tablinks/actividad/solo-texto'], contenidoActividad);
+      console.log(contenidoActividad);
     }
-    else if (interaccion == "Arrastrar, Click, Escuchar")
+    else if (contenidoActividad == "Solo imágenes"){
+      this.router.navigate(['/tablinks/actividad/solo-texto'], contenidoActividad);
+      console.log(contenidoActividad);
+    }
+    else if (contenidoActividad == "Solo imágenes y texto")
     {
-      this.router.navigate(['/tablinks/actividad/ace-asociar']);
+      this.router.navigate(['/tablinks/actividad/solo-texto'], contenidoActividad);
+      console.log(contenidoActividad);
     }
+
+    // if(interaccion == "Click, Escuchar"){
+    //   this.router.navigate(['/tablinks/actividad/ce-asociar']);
+    // }
+    // else if (interaccion == "Arrastrar, Click, Escuchar")
+    // {
+    //   this.router.navigate(['/tablinks/actividad/ace-asociar']);
+    // }
     
   }
 }

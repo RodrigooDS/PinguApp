@@ -10,7 +10,7 @@
 <ion-content fullscreen>
 
   <ion-grid >
-
+    
       <ion-row>
 
           <ion-col></ion-col>
@@ -24,19 +24,19 @@
           
 
             <div *ngFor="let actividad of actividades">
-              <ion-card (click)="obtenerActividad(actividad.titulo, actividad.interaccion)" mode="ios" class="card-categoria">
+              <ion-card (click)="obtenerActividad(actividad.titulo, actividad.tipoActividad, actividad.contenidoActividad, actividad.imagen)" mode="ios" class="card-categoria">
                 <ion-card-header>
-                  <ion-card-subtitle>Dificultad {{actividad.nivel}}</ion-card-subtitle>
-                  <ion-card-title>{{actividad.titulo}}</ion-card-title>
+                  <ion-card-subtitle>Tipo pregunta: {{actividad.tipoActividad}}</ion-card-subtitle>
+                  <ion-card-subtitle>Contenido: {{actividad.contenidoActividad}}</ion-card-subtitle>
+                  <ion-card-title>Actividad: {{actividad.titulo}}</ion-card-title>
                 </ion-card-header>
                 <div class="ion-text-center">
-                  <img src="{{actividad.detalle.imageUrl}}"/>
+                  <img src="{{actividad.imagen}}"/>
                 </div> 
               </ion-card>
             </div>
-
+            
           </ion-col>
-
           <ion-col></ion-col>
 
       </ion-row>

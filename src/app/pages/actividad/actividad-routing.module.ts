@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'ace-completar',
     loadChildren: () => import('./arrastrar-click-escuchar/ace-completar/ace-completar.module').then( m => m.AceCompletarPageModule)
+  },
+  {
+    path: 'solo-texto',
+    loadChildren: () => import('./solo-texto/solo-texto.module').then( m => m.SoloTextoPageModule)
   }
 
 

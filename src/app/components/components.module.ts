@@ -16,6 +16,7 @@ import { ContenidoTextoImagenComponent } from './editar-actividad/contenido-text
 import { ListaSoloImagenesComponent } from './editar-actividad/lista-solo-imagenes/lista-solo-imagenes.component';
 import { ListaSoloTextoComponent } from './editar-actividad/lista-solo-texto/lista-solo-texto.component';
 import { ListaSoloTextoImagenComponent } from './editar-actividad/lista-solo-texto-imagen/lista-solo-texto-imagen.component';
+import { SoloTextoComponent } from './actividad/solo-texto/solo-texto.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ListaSoloTextoImagenComponent } from './editar-actividad/lista-solo-tex
     ContenidoTextoImagenComponent,
     ListaSoloImagenesComponent,
     ListaSoloTextoComponent,
-    ListaSoloTextoImagenComponent
+    ListaSoloTextoImagenComponent,
+    SoloTextoComponent,
   ],
   exports:[
     FormregistroComponent,
@@ -46,7 +48,8 @@ import { ListaSoloTextoImagenComponent } from './editar-actividad/lista-solo-tex
     ContenidoTextoImagenComponent,
     ListaSoloImagenesComponent,
     ListaSoloTextoComponent,
-    ListaSoloTextoImagenComponent
+    ListaSoloTextoImagenComponent,
+    SoloTextoComponent
   ],
   imports: [
     ReactiveFormsModule,
