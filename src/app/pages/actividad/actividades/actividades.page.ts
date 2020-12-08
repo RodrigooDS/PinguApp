@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-// import { UploadService } from '../../../services/upload.service';
-import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { ObtenerActivadesService } from '../../../services/obtener-activades.service';
 
 @Component({

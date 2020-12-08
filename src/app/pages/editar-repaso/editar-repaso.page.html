@@ -16,12 +16,12 @@
             </div>
 
             <ion-card mode="ios" class="ion-padding-top">
-              <ion-item *ngFor=" let categoria of categorias" detail (click)="obtenerTituloCategoria(categoria.categoria)">
+              <ion-item *ngFor=" let categoria of categorias" detail (click)="obtenerTituloCategoria(categoria.nombreCategoria)">
                 <ion-thumbnail slot="start" class="thumbnail">
-                  <img src="{{categoria.imagen}}">
+                  <img src="{{categoria.imageUrl}}">
                 </ion-thumbnail>
                 <ion-label>
-                    {{categoria.categoria}}
+                    {{categoria.nombreCategoria}}
                 </ion-label>
               </ion-item>
               <div class="ion-padding-bottom"></div>

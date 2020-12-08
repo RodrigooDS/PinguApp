@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AlumnosPage implements OnInit {
 
-  alumnos: any;
+  alumnosPrecarga: any;
 
   constructor(public router: Router,
               public auth: AuthService) { 
@@ -24,8 +24,8 @@ export class AlumnosPage implements OnInit {
   }
 
   async obtenerAlumnos() {
-    await this.auth.obtenerPrecargaAlumnos().subscribe(resp => {this.alumnos = resp;
-    });
+    
+    await this.auth.obtenerPrecargaAlumnos().subscribe(resp => {this.alumnosPrecarga = resp;console.log(resp)});
 
   }
 

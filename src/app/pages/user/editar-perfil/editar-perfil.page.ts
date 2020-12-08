@@ -37,13 +37,19 @@ export class EditarPerfilPage implements OnInit {
   ngOnInit() {
   
   }
+  
+  async test() {
+    
+  }
 
   async addPhotoToGallery() {
     var resp : any;
+    let id: any;
     this.imageCamera = await this.photoService.getImageFromCamera();
     this.imageFile = await this.photoService.dataURLtoFile(this.imageCamera.dataUrl,this.uid)
+    id = await this.auth.obtenerPrecargaPorAlumno(this.uid);
     resp = await this.auth.upImageToStorage(this.uid,this.imageFile);
-    this.auth.updateImageUser(this.uid,resp);
+    this.auth.updateImageUser(this.uid,resp,id);
   }
 
 }

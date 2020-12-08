@@ -38,7 +38,6 @@ export class ActividadPage implements OnInit {
     this.contenidoActividad = "";
     this.nivel = "";
     this.tabEstado.cambiarEstado(true);
-    // this.obtenerActividades();
   }
 
   ngOnInit() {
