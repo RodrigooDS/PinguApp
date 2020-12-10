@@ -9,23 +9,33 @@
 
       <ion-card *ngIf="this.data" mode="ios" class="ion-padding">
         <ion-card-header>
-          <ion-card-title>
+          <ion-card-title class="ion-text-center">
             {{this.preguntas[this.posicion]}}
           </ion-card-title>
         </ion-card-header>
 
-        <ion-card-content *ngIf="this.data">
+        <ion-card-content *ngIf="this.data" style="margin-top: 5%;">
           <ion-list>
             <ion-radio-group >      
               <ion-item *ngFor="let respuesta of respuestas[this.posicion] ; let i =  index" (click)="obtenerRespuetaCheckBox(i)" mode="ios">
-                <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true; else mala" ></ion-radio>
-                <ng-template #mala >
-                  <ion-radio mode="md" value="op{{i}}" disabled= true></ion-radio>
-                </ng-template>
-                <div *ngFor="let imagen of imagenes[this.posicion] " class="ion-padding-start">
-                  <img  src="{{imagenes}}">
-                  <!-- <ion-label>{{respuesta}}</ion-label> -->
-                </div>
+                  <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true; else mala" ></ion-radio>
+                  <ng-template #mala >
+                    <ion-radio mode="md" value="op{{i}}" disabled= true></ion-radio>
+                  </ng-template>
+                  <div class="ion-padding-start"  *ngFor="let imagen of imagenes">
+                    <tr>
+                      <td>
+                        <ion-thumbnail>
+                          <img  src="{{imagen[i]}}">
+                        </ion-thumbnail>
+                      </td>
+                      <td>
+                        <div class="ion-padding-start">
+                          <ion-label class="ion-padding-start ion-text-uppercase">{{respuesta}}</ion-label> 
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
               </ion-item>
             </ion-radio-group>
           </ion-list>
