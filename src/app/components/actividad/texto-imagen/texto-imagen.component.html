@@ -22,8 +22,9 @@
                 <ng-template #mala >
                   <ion-radio mode="md" value="op{{i}}" disabled= true></ion-radio>
                 </ng-template>
-                <div class="ion-padding-start">
-                  <ion-label>{{respuesta}}</ion-label>
+                <div *ngFor="let imagen of imagenes[this.posicion] " class="ion-padding-start">
+                  <img  src="{{imagenes}}">
+                  <!-- <ion-label>{{respuesta}}</ion-label> -->
                 </div>
               </ion-item>
             </ion-radio-group>

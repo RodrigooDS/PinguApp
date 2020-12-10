@@ -17,6 +17,8 @@ import { ListaSoloImagenesComponent } from './editar-actividad/lista-solo-imagen
 import { ListaSoloTextoComponent } from './editar-actividad/lista-solo-texto/lista-solo-texto.component';
 import { ListaSoloTextoImagenComponent } from './editar-actividad/lista-solo-texto-imagen/lista-solo-texto-imagen.component';
 import { SoloTextoComponent } from './actividad/solo-texto/solo-texto.component';
+import { SoloImagenesComponent } from './actividad/solo-imagenes/solo-imagenes.component';
+import { TextoImagenComponent } from './actividad/texto-imagen/texto-imagen.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SoloTextoComponent } from './actividad/solo-texto/solo-texto.component'
     ListaSoloImagenesComponent,
     ListaSoloTextoComponent,
     ListaSoloTextoImagenComponent,
-    SoloTextoComponent
+    SoloTextoComponent,
+    SoloImagenesComponent,
+    TextoImagenComponent
   ],
   exports:[
     FormregistroComponent,
@@ -49,7 +53,9 @@ import { SoloTextoComponent } from './actividad/solo-texto/solo-texto.component'
     ListaSoloImagenesComponent,
     ListaSoloTextoComponent,
     ListaSoloTextoImagenComponent,
-    SoloTextoComponent
+    SoloTextoComponent,
+    SoloImagenesComponent,
+    TextoImagenComponent
   ],
   imports: [
     ReactiveFormsModule,
