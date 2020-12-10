@@ -1,0 +1,44 @@
+
+<ion-grid >
+
+  <ion-row>
+
+    <ion-col></ion-col>
+
+    <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+
+      <ion-card *ngIf="this.data" mode="ios" class="ion-padding">
+        <ion-card-header>
+          <ion-card-title>
+            {{this.preguntas[this.posicion]}}
+          </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content *ngIf="this.data">
+          <ion-list>
+            <ion-radio-group >      
+              <ion-item *ngFor="let respuesta of respuestas[this.posicion] ; let i =  index" (click)="obtenerRespuetaCheckBox(i)" mode="ios">
+                <ion-radio slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true; else mala" ></ion-radio>
+                <ng-template #mala >
+                  <ion-radio mode="md" value="op{{i}}" disabled= true></ion-radio>
+                </ng-template>
+                <div class="ion-padding-start">
+                  <ion-label>{{respuesta}}</ion-label>
+                </div>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-card-content>
+        <div class=" ion-padding-top ion-text-end">
+          <ion-button (click)="enviarDatos()" slot="center" *ngIf="this.data.length"> Next question </ion-button>
+        </div>
+      
+      </ion-card>
+
+    </ion-col>
+
+    <ion-col></ion-col>
+
+  </ion-row>
+
+</ion-grid>

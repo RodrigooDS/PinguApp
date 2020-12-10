@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border" mode="ios" translucent>
+  <ion-toolbar>
+    <ion-title class="ion-text-capitalize ion-text-center">Resultados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card mode="ios" class="ion-padding">
+    <ion-card-header>
+      <ion-card-title class="centrado">Has terminado la actividad</ion-card-title>
+    </ion-card-header>
+    <ion-img src="../assets/Congratulations.png"></ion-img>
+    <ion-grid>
+      <ion-row>
+        <ion-col class="centrado">
+          <ion-button  color="primary" (click)="menuPrincipal()"> Menú Principal </ion-button>
+          <ion-button color="secondary" (click)="reintentar()" routerDirection="forward" > Reintentar </ion-button>       
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card>
+
+</ion-content>
