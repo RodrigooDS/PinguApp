@@ -36,7 +36,7 @@ export class ActividadesPage implements OnInit {
     }
     localStorage.setItem('actividad', JSON.stringify(datos));
 
-    if(contenidoActividad == "Solo texto" || contenidoActividad == "Solo imagenes" || contenidoActividad == "Solo imágenes y texto"){
+    if(contenidoActividad == "Solo texto" || contenidoActividad == "Solo imágenes" || contenidoActividad == "Solo imágenes y texto"){
       this.router.navigate(['/tablinks/actividad/desarrollo-actividad']);
     } 
        

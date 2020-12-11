@@ -7,6 +7,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="this.contenido == 'Solo texto'">
   <app-solo-texto [tituloActividad]="this.actividad" [tituloCategoria]="this.categoria" [actividadContenido]="this.contenido"> </app-solo-texto>
+</ion-content>
+
+<ion-content *ngIf="this.contenido == 'Solo imágenes'">
+  <app-solo-imagenes [tituloActividad]="this.actividad" [tituloCategoria]="this.categoria" [actividadContenido]="this.contenido"> </app-solo-imagenes>
+</ion-content>
+
+<ion-content *ngIf="this.contenido == 'Solo imágenes y texto'">
+  <app-texto-imagen [tituloActividad]="this.actividad" [tituloCategoria]="this.categoria" [actividadContenido]="this.contenido">  </app-texto-imagen>
 </ion-content>
