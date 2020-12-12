@@ -4,6 +4,8 @@ import { Menu } from '../../shared/interfaces';
 import { DataService } from '../../services/data.service';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../shared/user.interface';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -14,10 +16,21 @@ export class MenuPage implements OnInit {
 
   componentes: Observable<Menu[]>;
 
+  uid: any;
+  tipoUsuario: string;
+
   constructor(private dataService: DataService,
               private alertCtrl: AlertController,
               private authService: AuthService) { 
     this.componentes = this.dataService.getMenuOpts();
+    this.authService.usuario.subscribe(resp => {
+      this.authService.obtenerUsuario(resp.uid).pipe(
+        map( (resp: User) => resp)
+      )
+      .subscribe(
+        resp => {this.uid = resp.uid,this.obtenerTipoUsuario(resp.uid)}
+      )
+    })
   }
 
   ngOnInit() {
@@ -25,6 +38,10 @@ export class MenuPage implements OnInit {
 
   cerrarSesion() {
     this.alertaCerrarSesion();
+  }
+
+  async obtenerTipoUsuario(uid: any) {
+    this.tipoUsuario = await this.authService.obtenerTipoDeUsuario(this.uid);
   }
 
   async alertaCerrarSesion() {

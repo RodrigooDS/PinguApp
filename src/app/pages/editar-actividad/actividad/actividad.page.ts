@@ -101,12 +101,8 @@ export class ActividadPage implements OnInit {
 
   // retorna tadoas las actividades del la coleccion actividades
   async obtenerActividades() {
-
     await this.obtenerCategoria();
-    await this.actividadService.obtenerActividades()
-    .subscribe( resp => {
-      this.data = resp;
-    });
+    this.data = await this.actividadService.obtenerActividades(this.tituloCategoria)
   }
 
   // Permite acceder a la actividad para eliminar algun contenido

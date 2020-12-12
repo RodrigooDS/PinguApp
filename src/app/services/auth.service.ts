@@ -45,7 +45,6 @@ export class AuthService {
       const {user}  = await this.afAuth.signInWithEmailAndPassword(email, password);
       return user;
     }catch(error){
-      console.log('Error ->', error);
       this.errorMensaje(error);
     }
   }
@@ -118,7 +117,7 @@ export class AuthService {
       photoURL: imageUrl
     };
 
-    const resp = await this.db.collection("precargaEstudiantes").doc(form.rut).update({
+    const resp = await this.db.collection("precargaUsuarios").doc(form.rut).update({
       'uid' : user.uid
     });
     
@@ -131,6 +130,7 @@ export class AuthService {
       cssClass: 'my-custom-class',
       header: tituloMensaje,
       message: subMensaje,
+      mode: 'ios',
       buttons: [
         {
           text: "Salir",
@@ -157,7 +157,7 @@ export class AuthService {
     await this.db.collection('users').doc(uid).update({
       photoURL: imageUrl
     });
-    await this.db.collection('precargaEstudiantes').doc(id).update({
+    await this.db.collection('precargaUsuarios').doc(id).update({
       'imagen' : imageUrl
     });
   }
@@ -167,32 +167,33 @@ export class AuthService {
   } 
 
   // funciones para la precarga de estudiantes estos deben ir en un nuevo service
-  async precargarAlumno(event: any, _nombreCompleto: string) {
-    let resp = await this.db.collection('precargaEstudiantes').doc(event.rut).set({
+  async precargar(event: any, _nombreCompleto: string) {
+    let resp = await this.db.collection('precargaUsuarios').doc(event.rut).set({
       nombre: event.nombre,
       apellidoPaterno: event.apellidoPaterno,
       apellidoMaterno: event.apellidoMaterno,
       rut: event.rut,
       fechaNacimiento: event.fechaNacimiento,
       nombreCompleto: _nombreCompleto,
+      tipoUsuario: event.tipoUsuario,
       imagen: "",
       uid: ""
     });
 
     const imageUrl = await this.getImageFromStorage("gato.png");
 
-    const res = await this.db.collection('precargaEstudiantes').doc(event.rut).update({
+    const res = await this.db.collection('precargaUsuarios').doc(event.rut).update({
       'imagen'  : imageUrl
     });
   }
 
   obtenerPrecargaAlumnos() {
-    return this.db.collection('precargaEstudiantes').valueChanges();
+    return this.db.collection('precargaUsuarios').valueChanges();
   }
 
   async obtenerPrecargaAlumno(rut: string) {
     let data: any;
-    await this.db.collection('precargaEstudiantes').doc(rut).ref.get()
+    await this.db.collection('precargaUsuarios').doc(rut).ref.get()
     .then(function (doc) {
       if (doc.exists) {
         data =  doc.data();
@@ -207,7 +208,7 @@ export class AuthService {
 
   async obtenerPrecargaPorAlumno(uid : string) {
     let id: string
-    await this.db.collection('precargaEstudiantes').ref.where("uid","==",uid).get()
+    await this.db.collection('precargaUsuarios').ref.where("uid","==",uid).get()
     .then(function (ququerySnapshotery) {
       ququerySnapshotery.forEach(function(doc){
         id = doc.id;
@@ -219,6 +220,17 @@ export class AuthService {
 
   obtenerTodosLosAlumnos() {
     return this.db.collection('users').valueChanges();
+  }
+
+  async obtenerTipoDeUsuario(uid : string) {
+    let tipoUsuario: any
+    await this.db.collection('precargaUsuarios').ref.where("uid","==",uid).get()
+    .then(function (ququerySnapshotery) {
+      ququerySnapshotery.forEach(function(doc){
+        tipoUsuario = doc.data().tipoUsuario;
+      })
+    });
+    return tipoUsuario;
   }
 
 }

@@ -1,0 +1,76 @@
+
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="enviarDatos()" novalidate>
+  
+  <ion-card mode="ios" class="ion-padding-top ion-padding-bottom">
+
+    <ion-list>
+
+      <!-- Nombre del estudiante -->
+      <ion-item class="ion-padding-start ion-padding-end" mode="ios">
+        <ion-label position="floating" mode="ios">Nombre</ion-label>
+        <ion-input formControlName="nombre" type="text" mode="ios"></ion-input>
+      </ion-item>
+      
+      <ion-item *ngIf="nombreNoValido" class="ion-padding-start ion-padding-end" lines="none" mode="ios">
+        <ion-label color="danger" class="label" *ngIf="form.get('nombre').hasError('required')" mode="ios">Campo es obligatorio</ion-label>
+        <ion-label color="danger" class="label" *ngIf="form.get('nombre').hasError('pattern')" mode="ios">Nombre no valido</ion-label>
+      </ion-item>
+
+      <!-- apellido paterno del estudiante -->
+      <ion-item class="ion-padding-start ion-padding-end" mode="ios">
+        <ion-label position="floating" mode="ios">Apellido paterno</ion-label>
+        <ion-input formControlName="apellidoPaterno" type="text" mode="ios"></ion-input>
+      </ion-item>
+      
+      <ion-item *ngIf="apellidoPaternoNoValido" class="ion-padding-start ion-padding-end" lines="none" mode="ios">
+        <ion-label color="danger" class="label" *ngIf="form.get('apellidoPaterno').hasError('required')" mode="ios">Campo es obligatorio</ion-label>
+        <ion-label color="danger" class="label" *ngIf="form.get('apellidoPaterno').hasError('pattern')" mode="ios">Apellido paterno no valido</ion-label>
+      </ion-item>
+
+      <!-- apellido materno del estudiante -->
+      <ion-item class="ion-padding-start ion-padding-end" mode="ios">
+        <ion-label position="floating" mode="ios">Apellido materno</ion-label>
+        <ion-input formControlName="apellidoMaterno" type="text" mode="ios"></ion-input>
+      </ion-item>
+      
+      <ion-item *ngIf="apellidoMaternoNoValido" class="ion-padding-start ion-padding-end" lines="none" mode="ios">
+        <ion-label color="danger" class="label" *ngIf="form.get('apellidoMaterno').hasError('required')" mode="ios">Campo es obligatorio</ion-label>
+        <ion-label color="danger" class="label" *ngIf="form.get('apellidoMaterno').hasError('pattern')" mode="ios">Apellido materno no valido</ion-label>
+      </ion-item>
+
+      <!-- Rut del estudiante -->
+      <ion-item class="ion-padding-start ion-padding-end" mode="ios">
+        <ion-label position="floating" mode="ios">RUT
+          <p>(Ingrese RUT sin puntos y con guión)</p>
+        </ion-label>
+        <ion-input formControlName="rut" type="text" mode="ios"></ion-input>
+      </ion-item>
+      
+      <ion-item *ngIf="rutNoValido" class="ion-padding-start ion-padding-end" lines="none" mode="ios">
+        <ion-label color="danger" class="label" *ngIf="form.get('rut').hasError('required')" mode="ios">Campo es obligatorio</ion-label>
+        <ion-label color="danger" class="label" *ngIf="form.get('rut').hasError('pattern')" mode="ios">Formato de Rut no valido</ion-label>
+      </ion-item>
+
+      <!-- Fecha -->
+      <ion-item class="ion-padding-start ion-padding-end" mode="ios">
+        <ion-label position="floating" mode="ios">Fecha de nacimiento</ion-label>
+        <ion-datetime pickerFormat="DD MMM YYYY" displayFormat="MM/DD/YYYY" formControlName="fechaNacimiento" min="1900-01-01"cancelText="Cancelar" doneText="Listo" mode="ios"></ion-datetime>
+      </ion-item>
+  
+    </ion-list>
+
+    <div padding class="ion-padding-start ion-padding-end ion-padding-top ion-padding-bottom">
+      <ion-button class="button-border" 
+                  expand="block"
+                  mode="ios"
+                  block 
+                  type="submit" 
+                  [disabled]="form.invalid" 
+                  >
+        Guardar
+      </ion-button>        
+    </div>
+
+  </ion-card>
+  
+</form>

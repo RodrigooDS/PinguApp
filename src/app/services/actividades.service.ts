@@ -128,8 +128,16 @@ export class ActividadesService {
 
   }
 
-  obtenerActividades() {
-    return this.db.collection('actividad').valueChanges();
+  async obtenerActividades(categoria) {
+    let actividades : any[] = [];
+    await this.db.collection('actividad').ref.where('categoria', '==', categoria).get()
+    .then(function (ququerySnapshotery) {
+      ququerySnapshotery.forEach(function(doc){
+        actividades.push(doc.data());
+      })
+    });
+    
+    return actividades;
   }
 
   obtenerActividad(actividad : string, categoria: string) {
