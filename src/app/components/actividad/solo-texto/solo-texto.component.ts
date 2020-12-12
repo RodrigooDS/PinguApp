@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { AngularFirestore} from '@angular/fire/firestore';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
+import { VoiceService } from '../../../services/voice.service';
 
 @Component({
   selector: 'app-solo-texto',
@@ -17,6 +18,7 @@ export class SoloTextoComponent implements OnInit {
   @Input() tituloActividad: string;
   @Input() tituloCategoria: string;
   @Input() actividadContenido: string;
+  @Input() tipoPregunta: string;
 
   uid: string;
 
@@ -55,6 +57,7 @@ export class SoloTextoComponent implements OnInit {
     private modalCtrl : ModalController,
     private db: AngularFirestore,
     private auth: AuthService,
+    public voice:  VoiceService,
     ) {}
 
   async ngOnInit() {
@@ -174,6 +177,14 @@ export class SoloTextoComponent implements OnInit {
                 }
       );
     })
+  }
+
+  hablarPregunta(texto: string) { 
+    this.voice.hablar(texto);
+  }
+  
+  hablarRespuesta(texto: string) { 
+  this.voice.hablar(texto);
   }
 
   async abrirModal() {

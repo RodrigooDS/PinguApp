@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { AngularFirestore} from '@angular/fire/firestore';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
+import { VoiceService } from '../../../services/voice.service';
 
 @Component({
   selector: 'app-texto-imagen',
@@ -17,6 +18,7 @@ export class TextoImagenComponent implements OnInit {
   @Input() tituloActividad: string;
   @Input() tituloCategoria: string;
   @Input() actividadContenido: string;
+  @Input() tipoPregunta: string;
 
   uid: string;
 
@@ -55,7 +57,8 @@ export class TextoImagenComponent implements OnInit {
   constructor(public obtener_actividades: ObtenerActivadesService,
     private modalCtrl : ModalController,
     private db: AngularFirestore,
-    private auth: AuthService,) { }
+    private auth: AuthService,
+    public voice:  VoiceService,) { }
 
   async ngOnInit() {
 
@@ -177,6 +180,13 @@ export class TextoImagenComponent implements OnInit {
     })
   }
 
+  hablarPregunta(texto: string) { 
+    this.voice.hablar(texto);
+  }
+
+  hablarRespuesta(texto: string) { 
+    this.voice.hablar(texto);
+  }
   async abrirModal() {
     
     const modal = await this.modalCtrl.create({

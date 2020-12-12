@@ -12,6 +12,7 @@ export class DesarrolloActividadPage implements OnInit {
   categoria: string;
   actividad: string;
   contenido: string;
+  tipo: string;
 
   constructor(public tabEstado: TabsService,
     public router: Router) {
@@ -20,11 +21,13 @@ export class DesarrolloActividadPage implements OnInit {
     this.categoria = JSON.parse(localStorage.getItem('categoria'));
     this.actividad = datos.actividad;
     this.contenido = datos.interaccion;
-    
+    this.tipo = datos.tipoPregunta;
+
+    console.log(datos);
    }
 
   ngOnInit() {
-    console.log(this.contenido);
+    console.log(this.actividad);
   }
 
   cancelar() {

@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { AngularFirestore} from '@angular/fire/firestore';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
+import { VoiceService } from '../../../services/voice.service';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-solo-imagenes',
@@ -17,8 +19,10 @@ export class SoloImagenesComponent implements OnInit {
   @Input() tituloActividad: string;
   @Input() tituloCategoria: string;
   @Input() actividadContenido: string;
+  @Input() tipoPregunta: string;
 
   uid: string;
+  
 
   seleccionRadioButton: boolean;
   data: any[] = [];
@@ -55,7 +59,10 @@ export class SoloImagenesComponent implements OnInit {
   constructor(public obtener_actividades: ObtenerActivadesService,
     private modalCtrl : ModalController,
     private db: AngularFirestore,
-    private auth: AuthService,) { }
+    private auth: AuthService,
+    public voice:  VoiceService,
+    public storage: AngularFireStorage
+) { }
 
   async ngOnInit() {
     await this.obtenerUsuario();
@@ -64,8 +71,7 @@ export class SoloImagenesComponent implements OnInit {
 
     this.hora_inicio = this.obtenerTiempo();
     this.inicio = window.performance.now();
-
-    console.log(this.data);
+    console.log(this.tipoPregunta);
   }
 
    //Se obtienen los valores de las actividades.
@@ -174,6 +180,10 @@ export class SoloImagenesComponent implements OnInit {
                 }
       );
     })
+  }
+
+  hablarPregunta(texto: string) { 
+      this.voice.hablar(texto);
   }
 
   async abrirModal() {
