@@ -18,13 +18,16 @@
               <hr style="height:2px;border-width:0;color:gray;background-color:gray">
             </div>
 
-            <div *ngFor="let c of componentes | async">
-              <ion-card mode="ios" [routerLink]="c.redirectTo">
-                <ion-item lines="none">
-                  <ion-icon slot="start" [name]="c.icon" color="primary"></ion-icon>
-                  <ion-label>{{c.name}}</ion-label>
-                </ion-item>
-              </ion-card>
+            <div *ngIf="this.tipoUsuario == 'profesor'">
+              <div *ngFor="let c of componentes | async">
+                <ion-card mode="ios" [routerLink]="c.redirectTo">
+                  <ion-item lines="none">
+                    <ion-icon slot="start" [name]="c.icon" color="primary"></ion-icon>
+                    <ion-label>{{c.name}}</ion-label>
+                  </ion-item>
+                </ion-card>
+              </div>
+
             </div>
 
             <ion-card mode="ios" (click)="cerrarSesion()">

@@ -4,11 +4,11 @@ import { validate } from 'rut.js';
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-form-registro-alumno',
-  templateUrl: './form-registro-alumno.component.html',
-  styleUrls: ['./form-registro-alumno.component.scss'],
+  selector: 'app-form-registro-profesor',
+  templateUrl: './form-registro-profesor.component.html',
+  styleUrls: ['./form-registro-profesor.component.scss'],
 })
-export class FormRegistroAlumnoComponent implements OnInit {
+export class FormRegistroProfesorComponent implements OnInit {
 
   @Output() onFormGroupChange = new EventEmitter<any>();
 
@@ -28,7 +28,7 @@ export class FormRegistroAlumnoComponent implements OnInit {
       apellidoMaterno   : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       rut               : ['', [Validators.required, Validators.pattern('[0-9]{7,8}-[0-9Kk]{1}')]],
       fechaNacimiento   : ['', [Validators.required]],
-      tipoUsuario       : ['alumno']
+      tipoUsuario       : ['profesor']
     });
   }
 

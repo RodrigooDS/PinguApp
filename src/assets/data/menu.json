@@ -21,6 +21,11 @@
       "icon":"people-circle-outline",
       "name": "Alumnos",
       "redirectTo":"/tablinks/alumnos"
+    },
+    {
+      "icon":"people-circle-outline",
+      "name": "Profesores",
+      "redirectTo":"/tablinks/profesor"
     }
     
 ]

@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-agregar-alumno',
-  templateUrl: './agregar-alumno.page.html',
-  styleUrls: ['./agregar-alumno.page.scss'],
+  selector: 'app-agregar-profesor',
+  templateUrl: './agregar-profesor.page.html',
+  styleUrls: ['./agregar-profesor.page.scss'],
 })
-export class AgregarAlumnoPage implements OnInit {
+export class AgregarProfesorPage implements OnInit {
 
   constructor(private auth: AuthService,
-              private router: Router,
               public alertController: AlertController) { }
 
   ngOnInit() {
   }
 
-  async agregarNuevoAlumno( event ){
+  async agregarNuevoProfesor( event ){
     let data : any;
     let nombreCompleto: string;
     data = await this.auth.obtenerPrecargaAlumno(event.rut);
@@ -29,7 +27,6 @@ export class AgregarAlumnoPage implements OnInit {
       nombreCompleto = this.nombreCompleto(event);
       this.auth.precargar(event,nombreCompleto);
       this.creacionCorrectaAlerta();
-      this.router.navigate(['/tablinks/alumnos']);
     }
   }
 

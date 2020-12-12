@@ -19,6 +19,7 @@ import { ListaSoloTextoImagenComponent } from './editar-actividad/lista-solo-tex
 import { SoloTextoComponent } from './actividad/solo-texto/solo-texto.component';
 import { SoloImagenesComponent } from './actividad/solo-imagenes/solo-imagenes.component';
 import { TextoImagenComponent } from './actividad/texto-imagen/texto-imagen.component';
+import { FormRegistroProfesorComponent } from './form-registro-profesor/form-registro-profesor.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TextoImagenComponent } from './actividad/texto-imagen/texto-imagen.comp
     HeaderComponent,
     FormloginComponent,
     FormRegistroAlumnoComponent,
+    FormRegistroProfesorComponent,
     FormforgotpasswordComponent,
     CeParte1Component,
     CeParte2Component,
@@ -44,6 +46,7 @@ import { TextoImagenComponent } from './actividad/texto-imagen/texto-imagen.comp
     HeaderComponent,
     FormloginComponent,
     FormRegistroAlumnoComponent,
+    FormRegistroProfesorComponent,
     FormforgotpasswordComponent,
     CeParte1Component,
     CeParte2Component,
