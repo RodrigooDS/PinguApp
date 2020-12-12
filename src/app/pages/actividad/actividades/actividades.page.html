@@ -24,7 +24,7 @@
           
 
             <div *ngFor="let actividad of actividades">
-              <ion-card (click)="obtenerActividad(actividad.actividad, actividad.contenidoActividad)" mode="ios" class="card-categoria">
+              <ion-card (click)="obtenerActividad(actividad.actividad, actividad.contenidoActividad, actividad.tipoActividad)" mode="ios" class="card-categoria">
                 <ion-card-header>
                   <ion-card-subtitle>Dificultad {{actividad.nivel}}</ion-card-subtitle>
                   <ion-card-title>{{actividad.actividad}}</ion-card-title>

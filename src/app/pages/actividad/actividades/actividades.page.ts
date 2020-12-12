@@ -13,6 +13,7 @@ export class ActividadesPage implements OnInit {
 
   tituloActividad: string = '';
   tituloCategoria: string = '';
+  tipoPregunta: string = '';
   actividades: any[] = [];
 
   constructor(public router: Router,
@@ -20,6 +21,7 @@ export class ActividadesPage implements OnInit {
   ) {
 
     this.tituloCategoria = JSON.parse(localStorage.getItem('categoria'));
+  
   }
 
   ngOnInit() {
@@ -30,11 +32,12 @@ export class ActividadesPage implements OnInit {
     this.actividades =  await this.actividadesService.obtenerActividades(this.tituloCategoria);
   }
 
-  obtenerActividad(actividad: string, contenidoActividad: string) {
+  obtenerActividad(actividad: string, contenidoActividad: string, tipoPregunta: string) {
 
     let datos = {
       actividad : actividad,
-      interaccion: contenidoActividad
+      interaccion: contenidoActividad,
+      tipoPregunta: tipoPregunta
     }
     localStorage.setItem('actividad', JSON.stringify(datos));
 
