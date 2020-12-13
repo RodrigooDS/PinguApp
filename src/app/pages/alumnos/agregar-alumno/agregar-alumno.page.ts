@@ -20,7 +20,7 @@ export class AgregarAlumnoPage implements OnInit {
   async agregarNuevoAlumno( event ){
     let data : any;
     let nombreCompleto: string;
-    data = await this.auth.obtenerPrecargaAlumno(event.rut);
+    data = await this.auth.obtenerPrecargaUsuariosPorRut(event.rut);
 
     if(data){
       this.errorCreacionAlerta();

@@ -22,8 +22,10 @@
           <h1 class="text-title">Lista de Alumnos</h1>
           <hr style="height:2px;border-width:0;color:red;background-color:red">
         </div>
+        
         <ion-list mode="ios" *ngFor="let alumno of this.alumnosPrecarga" class="ion-padding-end">
-            <ion-item mode="ios">
+          <ion-item-sliding>
+          <ion-item mode="ios">
               <ion-avatar slot="start">
                 <img [src]=alumno.imagen>
               </ion-avatar>
@@ -31,6 +33,14 @@
                 <h2>{{alumno.nombreCompleto}}</h2>
               </ion-label>
             </ion-item>
+
+            <ion-item-options>
+              <ion-item-option color="danger" (click)="eliminarAlumno(alumno)">
+                <ion-icon slot="end" name="trash"></ion-icon>
+                Eliminar
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>  
 
         </ion-list>
 

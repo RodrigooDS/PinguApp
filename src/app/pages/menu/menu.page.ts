@@ -41,7 +41,7 @@ export class MenuPage implements OnInit {
   }
 
   async obtenerTipoUsuario(uid: any) {
-    this.tipoUsuario = await this.authService.obtenerTipoDeUsuario(this.uid);
+    this.tipoUsuario = await this.authService.obtenerTipoDeUsuario(uid);
   }
 
   async alertaCerrarSesion() {
