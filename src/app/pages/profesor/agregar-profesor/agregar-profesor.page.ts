@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-profesor',
@@ -10,6 +11,7 @@ import { AlertController } from '@ionic/angular';
 export class AgregarProfesorPage implements OnInit {
 
   constructor(private auth: AuthService,
+              private router: Router,
               public alertController: AlertController) { }
 
   ngOnInit() {
@@ -18,7 +20,7 @@ export class AgregarProfesorPage implements OnInit {
   async agregarNuevoProfesor( event ){
     let data : any;
     let nombreCompleto: string;
-    data = await this.auth.obtenerPrecargaAlumno(event.rut);
+    data = await this.auth.obtenerPrecargaUsuariosPorRut(event.rut);
 
     if(data){
       this.errorCreacionAlerta();
@@ -27,6 +29,7 @@ export class AgregarProfesorPage implements OnInit {
       nombreCompleto = this.nombreCompleto(event);
       this.auth.precargar(event,nombreCompleto);
       this.creacionCorrectaAlerta();
+      this.router.navigate(['/tablinks/profesor']);
     }
   }
 
@@ -57,7 +60,7 @@ export class AgregarProfesorPage implements OnInit {
       header: 'Error',
       mode: 'ios',
       backdropDismiss: false,
-      message: 'Ya existe este alumno.',
+      message: 'Ya existe este profesor.',
       buttons: ['Salir']
     });
 
@@ -70,7 +73,7 @@ export class AgregarProfesorPage implements OnInit {
       header: 'Correcto',
       mode: 'ios',
       backdropDismiss: false,
-      message: 'El alumno fue cargado correctamente.',
+      message: 'El profesor fue cargado correctamente.',
       buttons: ['Cerrar']
     });
 

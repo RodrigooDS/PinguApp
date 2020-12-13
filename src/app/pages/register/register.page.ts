@@ -21,7 +21,7 @@ export class RegisterPage implements OnInit {
  
   async registro(event) {
     let data : any;
-    data = await this.auth.obtenerPrecargaAlumno(event.rut);
+    data = await this.auth.obtenerPrecargaUsuariosPorRut(event.rut);
 
     if(data){
       this.crearCuenta(event);

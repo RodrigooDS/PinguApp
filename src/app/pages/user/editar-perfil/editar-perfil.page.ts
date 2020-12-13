@@ -47,7 +47,7 @@ export class EditarPerfilPage implements OnInit {
     let id: any;
     this.imageCamera = await this.photoService.getImageFromCamera();
     this.imageFile = await this.photoService.dataURLtoFile(this.imageCamera.dataUrl,this.uid)
-    id = await this.auth.obtenerPrecargaPorAlumno(this.uid);
+    id = await this.auth.obtenerPrecargaUsuriosPorUid(this.uid);
     resp = await this.auth.upImageToStorage(this.uid,this.imageFile);
     this.auth.updateImageUser(this.uid,resp,id);
   }

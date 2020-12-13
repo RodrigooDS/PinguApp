@@ -23,7 +23,7 @@ export class FormRegistroProfesorComponent implements OnInit {
 
   crearFormulario(){
     this.form = this.fb.group({
-      nombre            : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      nombre            : ['', [Validators.required, Validators.pattern('[a-zA-Z ]+')]],
       apellidoPaterno   : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       apellidoMaterno   : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       rut               : ['', [Validators.required, Validators.pattern('[0-9]{7,8}-[0-9Kk]{1}')]],

@@ -187,11 +187,11 @@ export class AuthService {
     });
   }
 
-  obtenerPrecargaAlumnos() {
-    return this.db.collection('precargaUsuarios').valueChanges();
+  obtenerPrecargaUsuariosFiltrados(tipoUsuario: string) {
+    return this.db.collection('precargaUsuarios', ref => ref.where('tipoUsuario', '==', tipoUsuario)).valueChanges();
   }
 
-  async obtenerPrecargaAlumno(rut: string) {
+  async obtenerPrecargaUsuariosPorRut(rut: string) {
     let data: any;
     await this.db.collection('precargaUsuarios').doc(rut).ref.get()
     .then(function (doc) {
@@ -206,7 +206,7 @@ export class AuthService {
     return data;
   }
 
-  async obtenerPrecargaPorAlumno(uid : string) {
+  async obtenerPrecargaUsuriosPorUid(uid : string) {
     let id: string
     await this.db.collection('precargaUsuarios').ref.where("uid","==",uid).get()
     .then(function (ququerySnapshotery) {
@@ -231,6 +231,51 @@ export class AuthService {
       })
     });
     return tipoUsuario;
+  }
+
+  // Este metodo elimina el usuario de todas las colecciones y del auth
+  async eliminarTodoUsuario(usuario: any) {
+    try {
+      await this.eliminarUsuario(usuario.uid);
+      await this.eliminarPreCargaUsuario(usuario.rut);
+      await this.eliminarAuth(usuario.uid);
+    } catch (error) {
+      
+    }
+  }
+
+  // Este metodo elimina el usuario de la coleccion precarga
+  async eliminarPreCargaUsuario(rut: string) {
+    try {
+      this.db.collection('precargaUsuarios').doc(rut).delete();
+    } catch (error) {
+      
+    }
+  }
+
+  // Este metodo elimina el usurio de la coleccion users
+  async eliminarUsuario(uid: string) {
+    try {
+      this.db.collection('users').doc(uid).delete();
+    } catch (error) {
+      
+    }
+  }
+
+  // Este metodo elimina del auth
+  async eliminarAuth(uid: string) {
+    try {
+    //   var admin = require('firebase');
+    //   admin.auth().deleteUser(uid)
+    //   .then(function() {
+    //     console.log("Successfully deleted user");
+    //   })
+    //   .catch(function(error) {
+    //     console.log("Error deleting user:", error);
+    //   }); 
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }

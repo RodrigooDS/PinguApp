@@ -11,11 +11,13 @@
     },
     {
       "icon":"easel-outline",
-      "name": "Cursos"
+      "name": "Cursos",
+      "redirectTo":"/tablinks/cursos"
     },
     {
       "icon":"bar-chart-outline",
-      "name": "Estadística"
+      "name": "Estadística",
+      "redirectTo":"/tablinks/estadistica"
     },
     {
       "icon":"people-circle-outline",

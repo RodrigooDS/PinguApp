@@ -50,6 +50,16 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'cursos',
+        loadChildren: () => import('../cursos/cursos.module').then( m => m.CursosPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'estadistica',
+        loadChildren: () => import('../estadistica/estadistica.module').then( m => m.EstadisticaPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: '',
         redirectTo: '/tablinks/actividad',
         pathMatch: 'full'
