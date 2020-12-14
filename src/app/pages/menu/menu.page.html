@@ -28,14 +28,40 @@
                 </ion-card>
               </div>
 
+              <ion-card mode="ios" (click)="cerrarSesion()">
+                <ion-item lines="none">
+                  <ion-icon slot="start" name="log-out" color="danger"></ion-icon>
+                  <ion-label>Cerrar Sesión</ion-label>
+                </ion-item>
+              </ion-card>
+
             </div>
 
-            <ion-card mode="ios" (click)="cerrarSesion()">
-              <ion-item lines="none">
-                <ion-icon slot="start" name="log-out" color="danger"></ion-icon>
-                <ion-label>Cerrar Sesión</ion-label>
-              </ion-item>
-            </ion-card>
+            <div *ngIf="this.tipoUsuario == 'alumno'">
+              <ion-card mode="ios" (click)="cerrarSesion()">
+                <ion-item lines="none">
+                  <ion-icon slot="start" name="log-out" color="danger"></ion-icon>
+                  <ion-label>Cerrar Sesión</ion-label>
+                </ion-item>
+              </ion-card>
+            </div>
+
+            <div *ngIf="!this.tipoUsuario">
+            
+              <div *ngFor="let item of [1,1,1,1,1,1,1]">
+                <ion-card mode="ios">
+                  <ion-item lines="none">
+                    <ion-avatar slot="start">
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                    </ion-avatar>
+                    <ion-skeleton-text animated style="width: 120px; height: 27px" slot="start"></ion-skeleton-text>
+                  </ion-item>
+                </ion-card>
+              </div>
+
+            </div>
+
+            
           </ion-col>
 
           <ion-col></ion-col>
