@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EstadisticaService } from '../../../services/estadistica.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ver-estadistica',
@@ -10,9 +11,9 @@ export class VerEstadisticaPage implements OnInit {
 
   uid: string;
   actividades: any[] = [];
-  estadistica: any[] = [];
 
-  constructor(private estadisticaService: EstadisticaService) { }
+  constructor(private estadisticaService: EstadisticaService,
+              private router: Router) { }
 
   async ngOnInit() {
     this.uid = await localStorage.getItem('user');
@@ -24,8 +25,10 @@ export class VerEstadisticaPage implements OnInit {
   }
 
   async verEstadistica(actividad: string) {
-    this.estadistica = await this.estadisticaService.obtenerEstadisticaPorActividad(actividad, "UXMRG6Mm2OXeqLkpGyfP60uVa3E2");
-    console.log(this.estadistica)
+    localStorage.setItem('actividad',actividad)
+    this.router.navigate(['/tablinks/estadistica/detalle-estadistica']);
+    // this.estadistica = await this.estadisticaService.obtenerEstadisticaPorActividad(actividad, "UXMRG6Mm2OXeqLkpGyfP60uVa3E2");
+    // console.log(this.estadistica)
   }
 
 }

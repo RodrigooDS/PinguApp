@@ -24,10 +24,9 @@ export class EstadisticaPage implements OnInit {
     this.estadistica.obtenerPrecargaUsuariosFiltrados("alumno").subscribe(resp => {this.alumnos = resp,console.log(resp)})
   }
 
-  verEstadistica (uid: string) {
+  estadisticaPorActividad (uid: string) {
     localStorage.setItem('user',uid);
     this.router.navigate(['/tablinks/estadistica/ver-estadistica']);
-
   }
 
 }

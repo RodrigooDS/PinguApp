@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'ver-estadistica',
     loadChildren: () => import('./ver-estadistica/ver-estadistica.module').then( m => m.VerEstadisticaPageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'detalle-estadistica',
+    loadChildren: () => import('./detalle-estadistica/detalle-estadistica.module').then( m => m.DetalleEstadisticaPageModule)
   }
 ];
 
