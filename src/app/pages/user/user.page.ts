@@ -24,7 +24,8 @@ export class UserPage implements OnInit {
         map( (resp: User) => resp)
       )
       .subscribe(
-        resp => {this.nombre = resp.displayName,
+        resp => {
+          // this.nombre = resp.displayName,
                 this.imageUrl = resp.photoURL
         }
       );

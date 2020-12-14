@@ -21,14 +21,12 @@ export class VerEstadisticaPage implements OnInit {
   }
 
   obtenerActividades (uid: string) {
-    this.estadisticaService.obtenerActividades("UXMRG6Mm2OXeqLkpGyfP60uVa3E2").subscribe(resp => {this.actividades = resp,console.log(resp)})
+    this.estadisticaService.obtenerActividades(this.uid).subscribe(resp => {this.actividades = resp,console.log(resp)})
   }
 
   async verEstadistica(actividad: string) {
     localStorage.setItem('actividad',actividad)
     this.router.navigate(['/tablinks/estadistica/detalle-estadistica']);
-    // this.estadistica = await this.estadisticaService.obtenerEstadisticaPorActividad(actividad, "UXMRG6Mm2OXeqLkpGyfP60uVa3E2");
-    // console.log(this.estadistica)
   }
 
 }

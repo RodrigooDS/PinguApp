@@ -20,16 +20,16 @@
           <hr style="height:2px;border-width:0;color:red;background-color:red">
         </div>
 
-      <ion-list *ngFor="let alumno of this.alumnos" class="ion-padding">
-        <ion-item (click)="estadisticaPorActividad(alumno.uid)">
-          <ion-avatar slot="start">
-            <img [src]=alumno.imagen>
-          </ion-avatar>
-          <ion-label>
-            <h2>{{alumno.nombreCompleto}}</h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
+        <ion-list *ngFor="let alumno of this.alumnos" mode="ios">
+          <ion-item (click)="estadisticaPorActividad(alumno.uid)" mode="ios">
+            <ion-avatar slot="start" mode="ios">
+              <img [src]=alumno.imagen>
+            </ion-avatar>
+            <ion-label mode="ios">
+              <h2>{{alumno.nombreCompleto}}</h2>
+            </ion-label>
+          </ion-item>
+        </ion-list>
 
       </ion-col>
 
