@@ -18,14 +18,11 @@ export class ProfesorPage implements OnInit {
   constructor(public router: Router,
               public authService: AuthService) {
     this.obtenerProfesor()
-    this.authService.usuario.subscribe(resp => {
-    this.authService.obtenerUsuario(resp.uid).pipe(map( (resp: User) => resp)).subscribe(
-      resp => {this.uid = resp.uid,this.obtenerTipoUsuario(resp.uid)}
-    )
-    })
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let user = await this.authService.afAuth.currentUser
+    await this.obtenerTipoUsuario(user.uid);
   }
 
   nuevoProfesor() {
