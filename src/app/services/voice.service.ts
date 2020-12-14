@@ -24,7 +24,7 @@ export class VoiceService {
           'lang': 'en-GB',
           'rate': 1,
           'pitch': 1,
-          'voice':'Google UK English Male',
+          'voice':'Google UK English Female',
           'splitSentences': true,
           'listeners': {
              'onvoiceschanged': (voices) => {
@@ -53,8 +53,6 @@ export class VoiceService {
     this.speech.speak({
       text: texto,
       queue: false,
-      locale: 'en-GB',
-      rate: 1,
       listeners: {
         onstart: () => {
             // console.log("Start utterance")

@@ -20,6 +20,28 @@
           <hr style="height:2px;border-width:0;color:red;background-color:red">
         </div>
 
+        <div class="ion-padding">
+          <ion-segment value="Alumnos" (ionChange)="vistaCategoria($event)" mode="ios">
+              <ion-segment-button value="Alumnos">
+                  <ion-label>Alumnos</ion-label>
+                </ion-segment-button>
+              <ion-segment-button value="Actividad">
+                <ion-label>Actividad</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+      </div>
+
+      <ion-list *ngFor="let alumno of this.alumnos">
+        <ion-item>
+          <ion-avatar slot="start">
+            <img [src]=alumno.imagen>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{alumno.nombreCompleto}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
       </ion-col>
 
       <ion-col></ion-col>
