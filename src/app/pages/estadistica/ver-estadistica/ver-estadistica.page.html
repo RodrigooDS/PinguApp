@@ -9,4 +9,34 @@
 
 <ion-content>
 
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+
+        <div class="ion-padding-start ion-padding-end">
+          <h1 class="text-title"></h1>
+          <hr style="height:2px;border-width:0;color:red;background-color:red">
+        </div>
+
+        <ion-list *ngFor="let actividad of this.actividades" class="ion-padding-start ion-padding-end">
+          <ion-item (click)="verEstadistica(actividad.actividad)">
+            <ion-thumbnail slot="start">
+              <img src={{actividad.imagen}}>
+            </ion-thumbnail>
+            <ion-label>{{actividad.actividad}}</ion-label>
+          </ion-item>
+        </ion-list>
+
+      </ion-col>
+
+    <ion-col></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
 </ion-content>

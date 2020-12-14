@@ -9,18 +9,23 @@ import { EstadisticaService } from '../../../services/estadistica.service';
 export class VerEstadisticaPage implements OnInit {
 
   uid: string;
-  data: any[] = [];
+  actividades: any[] = [];
+  estadistica: any[] = [];
 
-  constructor(private estadistica: EstadisticaService) { }
+  constructor(private estadisticaService: EstadisticaService) { }
 
   async ngOnInit() {
-    let uid = await localStorage.getItem('user');
-    await this.obtenerActividades(uid);
-    console.log(uid);
+    this.uid = await localStorage.getItem('user');
+    await this.obtenerActividades(this.uid);
   }
 
   obtenerActividades (uid: string) {
-    this.estadistica.obtenerEstadisticaPorActividad("UXMRG6Mm2OXeqLkpGyfP60uVa3E2").subscribe(resp => console.log(resp))
+    this.estadisticaService.obtenerActividades("UXMRG6Mm2OXeqLkpGyfP60uVa3E2").subscribe(resp => {this.actividades = resp,console.log(resp)})
+  }
+
+  async verEstadistica(actividad: string) {
+    this.estadistica = await this.estadisticaService.obtenerEstadisticaPorActividad(actividad, "UXMRG6Mm2OXeqLkpGyfP60uVa3E2");
+    console.log(this.estadistica)
   }
 
 }
