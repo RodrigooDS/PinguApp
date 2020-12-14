@@ -22,23 +22,39 @@
           <hr style="height:2px;border-width:0;color:red;background-color:red">
         </div>
 
-        <ion-card *ngFor="let item of this.estadistica">
-          <ion-list>
-            <ion-item>
-              Buenas: {{item.tiempo_total}}
+        <ion-card *ngFor="let item of this.estadistica" mode="ios">
+          <ion-card-header>
+            <ion-list>
+
+              <ion-list-header class="ion-no-padding">
+                <ion-label>
+                  Alternativas Correctas
+                </ion-label>
+              </ion-list-header>
+
               <ion-list>
                 <ion-item>
-                  Hola
+                  Pregunta: {{item.buenas.pregunta[0]}}
+                </ion-item>
+                <ion-item>
+                  Respuesta: {{item.buenas.respuesta[0]}}
                 </ion-item>
               </ion-list>
-            </ion-item>
-            <ion-item>
-              Tiempo: {{item.tiempo_total}}
-            </ion-item>
-            <ion-item>
-              Tiempo: {{item.tiempo_total}}
-            </ion-item>
-          </ion-list>
+
+              <ion-list-header class="ion-no-padding">
+                <ion-label>
+                  Tiempo
+                </ion-label>
+              </ion-list-header>
+
+                <ion-list>
+                  <ion-item>Fecha: {{item.fecha}}</ion-item>
+                  <ion-item>Hora de inicio: {{item.hora_inicio}}</ion-item>
+                  <ion-item>Hora de termino: {{item.hora_termino}}</ion-item>
+                  <ion-item>Duración: {{item.tiempo_total}}</ion-item>
+                </ion-list>
+            </ion-list>
+        </ion-card-header>
         </ion-card>
 
       </ion-col>
