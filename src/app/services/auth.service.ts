@@ -113,7 +113,6 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       emailVerified: user.emailVerified,
-      displayName: form.nombreEstudiante,
       photoURL: imageUrl
     };
 
