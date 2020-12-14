@@ -13,6 +13,7 @@ export class DesarrolloActividadPage implements OnInit {
   actividad: string;
   contenido: string;
   tipo: string;
+  imagen: string;
 
   constructor(public tabEstado: TabsService,
     public router: Router) {
@@ -22,12 +23,10 @@ export class DesarrolloActividadPage implements OnInit {
     this.actividad = datos.actividad;
     this.contenido = datos.interaccion;
     this.tipo = datos.tipoPregunta;
-
-    console.log(datos);
+    this.imagen = datos.imagen;
    }
 
   ngOnInit() {
-    console.log(this.actividad);
   }
 
   cancelar() {

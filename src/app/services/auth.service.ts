@@ -231,6 +231,7 @@ export class AuthService {
       })
     });
     return tipoUsuario;
+    // return this.db.collection('precargaUsuarios',ref => ref.where("uid","==",uid)).valueChanges();
   }
 
   // Este metodo elimina el usuario de todas las colecciones y del auth

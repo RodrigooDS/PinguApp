@@ -30,12 +30,13 @@ export class ActividadesPage implements OnInit {
     this.actividades =  await this.actividadesService.obtenerActividades(this.tituloCategoria);
   }
 
-  obtenerActividad(actividad: string, contenidoActividad: string, tipoPregunta: string) {
+  obtenerActividad(actividad: string, contenidoActividad: string, tipoPregunta: string, imagen: string) {
 
     let datos = {
       actividad : actividad,
       interaccion: contenidoActividad,
-      tipoPregunta: tipoPregunta
+      tipoPregunta: tipoPregunta,
+      imagen: imagen
     }
     localStorage.setItem('actividad', JSON.stringify(datos));
 

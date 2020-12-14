@@ -3,11 +3,10 @@ import { ObtenerActivadesService } from '../../../services/obtener-activades.ser
 import { map } from 'rxjs/operators';
 import { FinActividadPage } from '../../../pages/actividad/fin-actividad/fin-actividad.page';
 import { ModalController } from '@ionic/angular';
-import { AngularFirestore} from '@angular/fire/firestore';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { EstadisticaService } from '../../../services/estadistica.service';
 
 @Component({
   selector: 'app-solo-imagenes',
@@ -20,6 +19,7 @@ export class SoloImagenesComponent implements OnInit {
   @Input() tituloCategoria: string;
   @Input() actividadContenido: string;
   @Input() tipoPregunta: string;
+  @Input() imagen: string
 
   uid: string;
   
@@ -56,12 +56,11 @@ export class SoloImagenesComponent implements OnInit {
   }
 
 
-  constructor(public obtener_actividades: ObtenerActivadesService,
+  constructor(private obtener_actividades: ObtenerActivadesService,
     private modalCtrl : ModalController,
-    private db: AngularFirestore,
     private auth: AuthService,
-    public voice:  VoiceService,
-    public storage: AngularFireStorage
+    private voice:  VoiceService,
+    private estadisticaService: EstadisticaService
 ) { }
 
   async ngOnInit() {
@@ -136,7 +135,7 @@ export class SoloImagenesComponent implements OnInit {
     let tiempo_total = (Math.round((end-this.inicio)/1000));
     this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos.";
     
-    this.db.collection('estadistica').doc('Estudiantes').collection(this.uid).doc(this.actividadContenido).collection(this.tituloActividad).add(this.estadistica);
+    this.estadisticaService.guardarEstadistica(this.uid,this.tituloActividad,this.imagen,this.estadistica);
   }
 
 

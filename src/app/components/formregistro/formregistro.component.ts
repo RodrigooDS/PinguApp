@@ -24,7 +24,7 @@ export class FormregistroComponent implements OnInit {
   crearFormulario(){
     this.form = this.fb.group({
       email             : ['', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]],
-      nombreEstudiante  : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+      // nombreEstudiante  : ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       password          : ['', [Validators.required, Validators.pattern('((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})')]],
       rut               : ['', [Validators.required, Validators.pattern('[0-9]{7,8}-[0-9Kk]{1}')]],
     });
@@ -34,9 +34,9 @@ export class FormregistroComponent implements OnInit {
     return this.form.get('email').invalid && this.form.get('email').touched
   }
 
-  get nombreEstudianteNoValido(){
-    return this.form.get('nombreEstudiante').invalid && this.form.get('nombreEstudiante').touched
-  }
+  // get nombreEstudianteNoValido(){
+  //   return this.form.get('nombreEstudiante').invalid && this.form.get('nombreEstudiante').touched
+  // }
 
   get passwordNoValido(){
     return this.form.get('password').invalid && this.form.get('password').touched
