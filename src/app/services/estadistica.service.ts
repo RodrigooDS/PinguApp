@@ -29,7 +29,7 @@ export class EstadisticaService {
     return estadistica;
   }
 
-  async guardarEstadistica (uid:string, actividad: string, imagen:string,estadistica: any) {
+  async guardarEstadistica(uid:string, actividad: string, imagen:string,estadistica: any) {
     await this.db.collection('estadistica').doc(uid).set({
       uid: uid
     });
@@ -41,4 +41,7 @@ export class EstadisticaService {
 
     await this.db.collection('estadistica').doc(uid).collection(uid).doc(actividad).collection(actividad).add(estadistica)
   }
+
+
+
 }
