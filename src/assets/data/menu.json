@@ -1,11 +1,11 @@
 [
     {
-      "icon":"school",
+      "icon":"clipboard-outline",
       "name": "Editar Actividad",
       "redirectTo":"/tablinks/editar-actividad"
     },
     {
-      "icon":"book",
+      "icon":"book-outline",
       "name": "Editar Repaso",
       "redirectTo":"/tablinks/editar-repaso"
     },
@@ -25,7 +25,7 @@
       "redirectTo":"/tablinks/alumnos"
     },
     {
-      "icon":"people-circle-outline",
+      "icon":"school-outline",
       "name": "Profesores",
       "redirectTo":"/tablinks/profesor"
     }
