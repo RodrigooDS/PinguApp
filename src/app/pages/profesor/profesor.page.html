@@ -23,7 +23,9 @@
           <hr style="height:2px;border-width:0;color:red;background-color:red">
         </div>
 
-        <ion-list mode="ios" *ngFor="let profesor of this.profesorPrecarga" class="ion-padding-end">
+        <ion-searchbar placeholder="Alumnos" showCancelButton="focus" cancelButtonText="Cancelar" (ionChange)="onSearchChange($event)" mode="ios"></ion-searchbar>
+
+        <ion-list mode="ios" *ngFor="let profesor of this.profesorPrecarga | filtroProfesores:textoBuscar:'title'" class="ion-padding-end">
           <ion-item-sliding>
           <ion-item mode="ios">
               <ion-avatar slot="start">

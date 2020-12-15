@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border" mode="ios" translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-back-button defaultHref="/tablinks/asignacion" text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Asignación de actividades</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+
+        <div class="ion-padding-start ion-padding-end">
+          <h1 class="text-title">{{this.tituloCategoria}}</h1>
+          <hr style="height:2px;border-width:0;color:red;background-color:red">
+        </div>
+
+        <div class="ion-padding">
+          <ion-segment value="1" (ionChange)="vistaCategoria($event)" mode="ios">
+              <ion-segment-button value="1">
+                  <ion-label>Nivel 1</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="2">
+                  <ion-label>Nivel 2</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="3">
+                  <ion-label>Nivel 3</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+      </div>
+
+          <ion-list mode="ios">
+
+            <ion-item *ngFor="let actividad of this.actividades | filtroActividades:this.vistaCategorias" mode="ios" detail (click)="agregarAlumnos()">
+
+              <ion-thumbnail slot="start" mode="ios" class="thumbnail">
+                <img src="{{actividad.imagen}}">
+              </ion-thumbnail>
+
+              <ion-label mode="ios" class="ion-text-wrap">
+                <h3>{{actividad.actividad}}</h3>
+                <p>Tipo de pregunta: {{actividad.tipoActividad}}</p>
+                <p>Tipo de actividad: {{actividad.contenidoActividad}}</p>
+                <p>Nivel: {{actividad.nivel}}</p>
+              </ion-label>
+              
+            </ion-item>
+          </ion-list>
+        
+      </ion-col>
+
+      <ion-col></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-alumnos',
-  templateUrl: './alumnos.page.html',
-  styleUrls: ['./alumnos.page.scss'],
+  selector: 'app-asignacion-agregar-alumno',
+  templateUrl: './asignacion-agregar-alumno.page.html',
+  styleUrls: ['./asignacion-agregar-alumno.page.scss'],
 })
-export class AlumnosPage implements OnInit {
+export class AsignacionAgregarAlumnoPage implements OnInit {
 
   alumnosPrecarga: any;
   textoBuscar: string = '';
@@ -29,7 +29,7 @@ export class AlumnosPage implements OnInit {
   }
 
   async eliminarAlumno(item: any) {
-    this.auth.eliminarTodoUsuario(item);
+    // this.auth.eliminarTodoUsuario(item);
   }
 
   onSearchChange( event ) {

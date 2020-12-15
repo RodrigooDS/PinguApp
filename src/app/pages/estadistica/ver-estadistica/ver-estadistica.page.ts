@@ -21,7 +21,7 @@ export class VerEstadisticaPage implements OnInit {
   }
 
   obtenerActividades (uid: string) {
-    this.estadisticaService.obtenerActividades(uid).subscribe(resp => {this.actividades = resp,console.log(resp)})
+    this.estadisticaService.obtenerActividades(uid).subscribe(resp => {this.actividades = resp})
   }
 
   async verEstadistica(actividad: string) {

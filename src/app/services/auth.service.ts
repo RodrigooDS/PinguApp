@@ -175,6 +175,7 @@ export class AuthService {
       fechaNacimiento: event.fechaNacimiento,
       nombreCompleto: _nombreCompleto,
       tipoUsuario: event.tipoUsuario,
+      nivel: event.nivel,
       imagen: "",
       uid: ""
     });

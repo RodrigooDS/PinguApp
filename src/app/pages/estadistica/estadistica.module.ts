@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EstadisticaPageRoutingModule } from './estadistica-routing.module';
 
 import { EstadisticaPage } from './estadistica.page';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EstadisticaPageRoutingModule
+    EstadisticaPageRoutingModule,
+    PipesModule
   ],
   declarations: [EstadisticaPage]
 })
