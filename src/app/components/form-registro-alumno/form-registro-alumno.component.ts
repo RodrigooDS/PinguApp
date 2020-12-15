@@ -28,6 +28,7 @@ export class FormRegistroAlumnoComponent implements OnInit {
       apellidoMaterno   : ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       rut               : ['', [Validators.required, Validators.pattern('[0-9]{7,8}-[0-9Kk]{1}')]],
       fechaNacimiento   : ['', [Validators.required]],
+      nivel             : ['', [Validators.required]],
       tipoUsuario       : ['alumno']
     });
   }
@@ -47,6 +48,7 @@ export class FormRegistroAlumnoComponent implements OnInit {
   get rutNoValido(){
     return this.form.get('rut').invalid && this.form.get('rut').touched
   }
+  
 
   validarRut(){
     return validate(this.form.value.rut);

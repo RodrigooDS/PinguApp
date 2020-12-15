@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { RepasoPage } from './repaso.page';
+import { AuthGuard } from '../../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,11 +11,13 @@ const routes: Routes = [
   },
   {
     path: 'actividades',
-    loadChildren: () => import('./actividades/actividades.module').then( m => m.ActividadesPageModule)
+    loadChildren: () => import('./actividades/actividades.module').then( m => m.ActividadesPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'actividad-repaso',
-    loadChildren: () => import('./actividad-repaso/actividad-repaso.module').then( m => m.ActividadRepasoPageModule)
+    loadChildren: () => import('./actividad-repaso/actividad-repaso.module').then( m => m.ActividadRepasoPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

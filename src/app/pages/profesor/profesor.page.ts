@@ -14,6 +14,7 @@ export class ProfesorPage implements OnInit {
   profesorPrecarga: any;
   tipoUsuario: string;
   uid: any;
+  textoBuscar: string = '';
 
   constructor(public router: Router,
               public authService: AuthService) {
@@ -34,11 +35,15 @@ export class ProfesorPage implements OnInit {
   }
 
   async obtenerProfesor() {
-    await this.authService.obtenerPrecargaUsuariosFiltrados("profesor").subscribe(resp => {this.profesorPrecarga = resp; console.log(resp)});
+    await this.authService.obtenerPrecargaUsuariosFiltrados("profesor").subscribe(resp => {this.profesorPrecarga = resp;});
   }
 
   async eliminarProfesor(item: any) {
     this.authService.eliminarTodoUsuario(item);
+  }
+
+  onSearchChange( event ) {
+    this.textoBuscar = event.detail.value;
   }
 
 }

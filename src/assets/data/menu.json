@@ -11,8 +11,8 @@
     },
     {
       "icon":"easel-outline",
-      "name": "Cursos",
-      "redirectTo":"/tablinks/cursos"
+      "name": "Asignación de Actividades",
+      "redirectTo":"/tablinks/asignacion"
     },
     {
       "icon":"bar-chart-outline",

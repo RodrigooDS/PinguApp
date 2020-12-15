@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'detalle-estadistica',
-    loadChildren: () => import('./detalle-estadistica/detalle-estadistica.module').then( m => m.DetalleEstadisticaPageModule)
+    loadChildren: () => import('./detalle-estadistica/detalle-estadistica.module').then( m => m.DetalleEstadisticaPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

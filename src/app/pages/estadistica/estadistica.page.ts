@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class EstadisticaPage implements OnInit {
 
   alumnos: any;
+  textoBuscar: string = '';
 
   constructor(private estadistica: EstadisticaService,
               private router: Router) {
@@ -21,7 +22,7 @@ export class EstadisticaPage implements OnInit {
   }
 
   async obtenerAlumnos() {
-    this.estadistica.obtenerPrecargaUsuariosFiltrados("alumno").subscribe(resp => {this.alumnos = resp,console.log(resp)})
+    this.estadistica.obtenerPrecargaUsuariosFiltrados("alumno").subscribe(resp => {this.alumnos = resp})
   }
 
   estadisticaPorActividad (uid: string) {
@@ -29,4 +30,7 @@ export class EstadisticaPage implements OnInit {
     this.router.navigate(['/tablinks/estadistica/ver-estadistica']);
   }
 
+  onSearchChange( event ) {
+    this.textoBuscar = event.detail.value;
+  }
 }

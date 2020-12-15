@@ -9,12 +9,10 @@ export class EstadisticaService {
   constructor(private db: AngularFirestore) { }
 
   obtenerPrecargaUsuariosFiltrados (tipoUsuario: string) {
-    console.log(tipoUsuario);
     return this.db.collection('precargaUsuarios', ref => ref.where('tipoUsuario','==',tipoUsuario)).valueChanges();
   }
 
   obtenerActividades (uid: string) {
-    console.log(uid);
     return this.db.collection('estadistica').doc(uid).collection(uid).valueChanges();
   }
 

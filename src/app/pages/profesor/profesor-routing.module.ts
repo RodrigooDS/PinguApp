@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ProfesorPage } from './profesor.page';
+import { AuthGuard } from '../../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: 'agregar-profesor',
-    loadChildren: () => import('./agregar-profesor/agregar-profesor.module').then( m => m.AgregarProfesorPageModule)
+    loadChildren: () => import('./agregar-profesor/agregar-profesor.module').then( m => m.AgregarProfesorPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

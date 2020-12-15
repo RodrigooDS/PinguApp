@@ -1,0 +1,41 @@
+<ion-header class="ion-no-border" mode="ios" translucent>
+  <ion-toolbar>
+    <ion-title class="ion-text-capitalize">Asignación de actividades</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+
+        <div class="ion-padding-start ion-padding-end">
+          <h1 class="text-title">Categorías</h1>
+          <hr style="height:2px;border-width:0;color:red;background-color:red">
+        </div>
+
+        <ion-card mode="ios" class="ion-padding-top ion-padding-bottom">
+          <ion-list mode="ios">
+            <ion-item *ngFor="let categoria of this.categorias" mode="ios" detail (click)="obtenerTituloCategoria(categoria.nombreCategoria)">
+              <ion-thumbnail slot="start" mode="ios" class="thumbnail">
+                <img src="{{categoria.imageUrl}}">
+              </ion-thumbnail>
+              <ion-label mode="ios">{{categoria.nombreCategoria}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+        
+      </ion-col>
+
+      <ion-col></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

@@ -1,7 +1,5 @@
-// tablinks-routing.module.ts
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { TablinksPage } from './tablinks.page';
 import { AuthGuard } from '../../guards/auth.guard';
 
@@ -27,7 +25,8 @@ const routes: Routes = [
       },
       {
         path: 'menu',
-        loadChildren: () => import('../menu/menu.module').then( m => m.MenuPageModule)
+        loadChildren: () => import('../menu/menu.module').then( m => m.MenuPageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'editar-repaso',
@@ -50,8 +49,8 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'cursos',
-        loadChildren: () => import('../cursos/cursos.module').then( m => m.CursosPageModule),
+        path: 'asignacion',
+        loadChildren: () => import('../asignacion/asignacion.module').then( m => m.AsignacionPageModule),
         canActivate: [AuthGuard]
       },
       {

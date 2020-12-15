@@ -51,6 +51,17 @@
         <ion-label color="danger" class="label" *ngIf="form.get('rut').hasError('pattern')" mode="ios">Formato de Rut no valido</ion-label>
       </ion-item>
 
+      <ion-item class="ion-padding-start ion-padding-end" lines="none" mode="ios">
+        <ion-label position="floating" mode="ios">Nivel de Aprendizaje
+        </ion-label>
+        <!-- <ion-select okText="Ok" cancelText="Salir" [(ngModel)]="nivel" (ionChange)="obtenerNivel(nivel)" mode="ios"></ion-select> -->
+        <ion-select okText="Ok" cancelText="Salir" formControlName="nivel" mode="ios">
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+        </ion-select>
+      </ion-item> 
+
       <!-- Fecha -->
       <ion-item class="ion-padding-start ion-padding-end" mode="ios">
         <ion-label position="floating" mode="ios">Fecha de nacimiento</ion-label>
