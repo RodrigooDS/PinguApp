@@ -15,7 +15,7 @@ export class DetalleEstadisticaPage implements OnInit {
   constructor(private estadisticaService: EstadisticaService) { }
 
   async ngOnInit() {
-    this.uid = await localStorage.getItem('uid');
+    this.uid = await localStorage.getItem('user');
     this.actividad = await localStorage.getItem('actividad');
     await this.obtenerEstadistica();
   }
