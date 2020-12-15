@@ -26,35 +26,137 @@
           <ion-card-header>
             <ion-list>
 
-              <ion-list-header class="ion-no-padding">
-                <ion-label>
-                  Alternativas Correctas
-                </ion-label>
-              </ion-list-header>
+              <div *ngIf="item.buenas.pregunta.length >0">
+                <ion-list-header class="ion-no-padding">
+                  <ion-label>
+                    Alternativas Correctas
+                  </ion-label>
+                </ion-list-header>
+  
+                <ion-list *ngFor="let a of item.buenas.pregunta;let i= index">
+                  <ion-item lines="none">
+                    Pregunta: {{item.buenas.pregunta[i]}}
+                  </ion-item>
+                  <div *ngIf="item.contenido_actividad == 'Solo imágenes'">
+                    <ion-item lines="none">
+                      <ion-label>
+                        Respuesta: 
+                      </ion-label>  
+                    </ion-item>
+                    <ion-item >
+                      <ion-thumbnail slot="start">
+                        <img src={{item.buenas.respuesta[i]}}>
+                      </ion-thumbnail>
+                    </ion-item>
+                  </div>
 
-              <ion-list>
-                <ion-item>
-                  Pregunta: {{item.buenas.pregunta[0]}}
-                </ion-item>
-                <ion-item>
-                  Respuesta: {{item.buenas.respuesta[0]}}
-                </ion-item>
-              </ion-list>
+                  <div *ngIf="item.contenido_actividad == 'Solo texto'">
+                    <ion-item lines="none">
+                      <ion-label>
+                        Respuesta: 
+                      </ion-label>  
+                    </ion-item>
+                    <ion-item >
+                      <ion-label>{{item.buenas.respuesta[i]}}</ion-label>
+                    </ion-item>
+                  </div>
+                  
+                </ion-list>
 
-              <ion-list-header class="ion-no-padding">
-                <ion-label>
-                  Tiempo
-                </ion-label>
-              </ion-list-header>
+              </div>
 
+              <div>
+                <ion-list-header class="ion-no-padding">
+                  <ion-label>
+                    Tiempo
+                  </ion-label>
+                </ion-list-header>
+  
                 <ion-list>
                   <ion-item>Fecha: {{item.fecha}}</ion-item>
                   <ion-item>Hora de inicio: {{item.hora_inicio}}</ion-item>
                   <ion-item>Hora de termino: {{item.hora_termino}}</ion-item>
                   <ion-item>Duración: {{item.tiempo_total}}</ion-item>
                 </ion-list>
+              </div>
+
+
+              <div *ngIf="item.parcial.erroneas.length>0">
+                <ion-list-header class="ion-no-padding">
+                  <ion-label>
+                    Preguntas parcialmente correctas 
+                  </ion-label>
+                </ion-list-header>
+
+                <ion-list *ngFor="let a of item.parcial.parcialmente_correcto_pregunta; let i= index">           
+                    <ion-item lines="none">
+                      <ion-label>
+                        Pregunta: 
+                      </ion-label>  
+                    </ion-item>
+                    <ion-item >
+                      <ion-label>{{a}}</ion-label>
+                    </ion-item>
+
+                    <div *ngIf="item.contenido_actividad == 'Solo imágenes'">
+                      <ion-item >
+                        <ion-thumbnail slot="start">
+                          <img src={{item.parcial.parcialmente_correcto_respuesta[i]}}>
+                        </ion-thumbnail>
+                      </ion-item>
+                    </div>
+
+                    <div *ngIf="item.contenido_actividad == 'Solo texto'">
+                      <ion-item >
+                        <ion-label>{{item.parcial.parcialmente_correcto_respuesta[i]}}</ion-label>
+                      </ion-item>
+                    </div>
+
+                </ion-list>
+              </div>
+
+              
+
+              <div *ngIf="item.parcial.erroneas.length>0">
+                <ion-list-header class="ion-no-padding">
+                  <ion-label>
+                    Alternativas Incorrectas 
+                  </ion-label>
+                </ion-list-header>
+  
+                <ion-list *ngFor="let a of item.parcial.erroneas;let i= index">
+                  <div *ngIf="item.contenido_actividad == 'Solo imágenes'">
+                    <ion-item lines="none">
+                      <ion-label>
+                        Respuesta: 
+                      </ion-label>  
+                    </ion-item>
+                    <ion-item >
+                      <ion-thumbnail slot="start">
+                        <img src={{item.parcial.erroneas[i]}}>
+                      </ion-thumbnail>
+                    </ion-item>
+                  </div>
+
+                  <div *ngIf="item.contenido_actividad == 'Solo texto'">
+                    <ion-item lines="none">
+                      <ion-label>
+                        Respuesta: 
+                      </ion-label>  
+                    </ion-item>
+                    <ion-item >
+                      <ion-label>{{item.parcial.erroneas[i]}}</ion-label>
+                    </ion-item>
+                  </div>
+
+                </ion-list>
+              </div>
+              
+              
             </ion-list>
-        </ion-card-header>
+
+          </ion-card-header>
+
         </ion-card>
 
       </ion-col>

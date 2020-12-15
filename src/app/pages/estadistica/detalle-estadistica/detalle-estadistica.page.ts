@@ -15,13 +15,13 @@ export class DetalleEstadisticaPage implements OnInit {
   constructor(private estadisticaService: EstadisticaService) { }
 
   async ngOnInit() {
-    this.uid = await localStorage.getItem('uid');
+    this.uid = await localStorage.getItem('user');
     this.actividad = await localStorage.getItem('actividad');
     await this.obtenerEstadistica();
   }
 
   async obtenerEstadistica() {
-    this.estadistica = await this.estadisticaService.obtenerEstadisticaPorActividad(this.actividad, "UXMRG6Mm2OXeqLkpGyfP60uVa3E2");
+    this.estadistica = await this.estadisticaService.obtenerEstadisticaPorActividad(this.actividad, this.uid);
     console.log(this.estadistica)
   }
 

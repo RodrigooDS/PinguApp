@@ -39,6 +39,7 @@ export class SoloImagenesComponent implements OnInit {
   inicio: number;
 
   estadistica = {
+    contenido_actividad:"",
     fecha:"",
     hora_inicio:"",
     hora_termino:"",
@@ -123,7 +124,8 @@ export class SoloImagenesComponent implements OnInit {
   };
 
   subirEstadisticas(){
-
+    
+    this.estadistica.contenido_actividad = this.actividadContenido;
     this.estadistica.fecha = this.obtenerFecha();
 
     this.estadistica.hora_termino = this.obtenerTiempo();
@@ -133,7 +135,7 @@ export class SoloImagenesComponent implements OnInit {
 
     let end = window.performance.now();
     let tiempo_total = (Math.round((end-this.inicio)/1000));
-    this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos.";
+    this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos";
     
     this.estadisticaService.guardarEstadistica(this.uid,this.tituloActividad,this.imagen,this.estadistica);
   }

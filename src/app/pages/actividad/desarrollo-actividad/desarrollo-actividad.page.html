@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content *ngIf="this.contenido == 'Solo texto'">
-  <app-solo-texto [tituloActividad]="this.actividad" [tituloCategoria]="this.categoria" [actividadContenido]="this.contenido" [tipoPregunta]="this.tipo"> </app-solo-texto>
+  <app-solo-texto [tituloActividad]="this.actividad" [tituloCategoria]="this.categoria" [actividadContenido]="this.contenido" [tipoPregunta]="this.tipo" [imagen]="this.imagen"> </app-solo-texto>
 </ion-content>
 
 <ion-content *ngIf="this.contenido == 'Solo imágenes'">
@@ -16,5 +16,5 @@
 </ion-content>
 
 <ion-content *ngIf="this.contenido == 'Solo imágenes y texto'">
-  <app-texto-imagen [tituloActividad]="this.actividad" [tituloCategoria]="this.categoria" [actividadContenido]="this.contenido" [tipoPregunta]="this.tipo">  </app-texto-imagen>
+  <app-texto-imagen [tituloActividad]="this.actividad" [tituloCategoria]="this.categoria" [actividadContenido]="this.contenido" [tipoPregunta]="this.tipo" [imagen]="this.imagen">  </app-texto-imagen>
 </ion-content>

@@ -3,10 +3,11 @@ import { ObtenerActivadesService } from '../../../services/obtener-activades.ser
 import { map } from 'rxjs/operators';
 import { FinActividadPage } from '../../../pages/actividad/fin-actividad/fin-actividad.page';
 import { ModalController } from '@ionic/angular';
-import { AngularFirestore} from '@angular/fire/firestore';
+
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
+import { EstadisticaService } from '../../../services/estadistica.service';
 
 @Component({
   selector: 'app-solo-texto',
@@ -19,6 +20,7 @@ export class SoloTextoComponent implements OnInit {
   @Input() tituloCategoria: string;
   @Input() actividadContenido: string;
   @Input() tipoPregunta: string;
+  @Input() imagen: string
 
   uid: string;
 
@@ -37,6 +39,7 @@ export class SoloTextoComponent implements OnInit {
   inicio: number;
 
   estadistica = {
+    contenido_actividad:"",
     fecha:"",
     hora_inicio:"",
     hora_termino:"",
@@ -55,9 +58,9 @@ export class SoloTextoComponent implements OnInit {
 
   constructor(public obtener_actividades: ObtenerActivadesService,
     private modalCtrl : ModalController,
-    private db: AngularFirestore,
     private auth: AuthService,
     public voice:  VoiceService,
+    private estadisticaService: EstadisticaService
     ) {}
 
   async ngOnInit() {
@@ -122,6 +125,7 @@ export class SoloTextoComponent implements OnInit {
 
   subirEstadisticas(){
 
+    this.estadistica.contenido_actividad = this.actividadContenido;
     this.estadistica.fecha = this.obtenerFecha();
 
     this.estadistica.hora_termino = this.obtenerTiempo();
@@ -131,9 +135,9 @@ export class SoloTextoComponent implements OnInit {
 
     let end = window.performance.now();
     let tiempo_total = (Math.round((end-this.inicio)/1000));
-    this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos.";
+    this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos";
     
-    this.db.collection('estadistica').doc('Estudiantes').collection(this.uid).doc(this.actividadContenido).collection(this.tituloActividad).add(this.estadistica);
+    this.estadisticaService.guardarEstadistica(this.uid, this.tituloActividad, this.imagen, this.estadistica);
   }
 
 
@@ -198,6 +202,5 @@ export class SoloTextoComponent implements OnInit {
       
     return await modal.present();
   }
-
 
 }
