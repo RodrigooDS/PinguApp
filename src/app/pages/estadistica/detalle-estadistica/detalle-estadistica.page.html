@@ -128,12 +128,13 @@
                   <div *ngIf="item.contenido_actividad == 'Solo imágenes'">
                     <ion-item lines="none">
                       <ion-label>
-                        Respuesta: 
-                      </ion-label>  
+                        Pregunta: {{item.parcial.erroneas[i+1].pregunta}}
+                      </ion-label> 
                     </ion-item>
-                    <ion-item >
+                    <ion-item lines="none">
+                      <ion-label slot="start"> Respuesta: </ion-label>  
                       <ion-thumbnail slot="start">
-                        <img src={{item.parcial.erroneas[i]}}>
+                        <img src={{item.parcial.erroneas[i+1].respuesta}}>
                       </ion-thumbnail>
                     </ion-item>
                   </div>

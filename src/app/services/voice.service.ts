@@ -40,8 +40,10 @@ export class VoiceService {
         // if(this.estadoCheckBox()){
     if(plataforma[0] == 'desktop'){
       this.hablarWeb(texto);
+      this.hablarMovil(texto);
     }else{
       this.hablarMovil(texto);
+      this.hablarWeb(texto);
       // this.tts.speak(texto)
       // .then(() => console.log('Success'))
       // .catch((reason: any) => console.log(reason));

@@ -50,21 +50,14 @@
                   <ng-template #mala >
                     <ion-radio mode="md" value="op{{i}}" disabled= true></ion-radio>
                   </ng-template>
-                  <div class="ion-padding-start"  *ngFor="let imagen of imagenes">
-                    <tr>
-                      <td>
-                        <ion-thumbnail>
-                          <img  src="{{imagen[i]}}">
-                        </ion-thumbnail>
-                      </td>
-                      <td>
-                        <div class="ion-padding-start">
-                          <ion-label class="ion-padding-start ion-text-uppercase">{{respuesta}}</ion-label> 
-                        </div>
-                      </td>
-                    </tr>
-                  </div>
-              </ion-item>
+                  <ion-thumbnail>
+                    <img  src="{{imagenes[this.posicion][i]}}">
+                  </ion-thumbnail>
+                 <div>
+                  <ion-label class="ion-padding-start ion-text-uppercase ion-justify-content-start">{{respuesta}}</ion-label> 
+                 </div>
+                  
+                </ion-item>
             </ion-radio-group>
           </ion-list>
           <div class=" ion-padding-top ion-text-end">

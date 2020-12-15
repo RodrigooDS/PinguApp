@@ -7,6 +7,7 @@ import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
 import { EstadisticaService } from '../../../services/estadistica.service';
+import { TabsService } from '../../../services/tabs.service';
 
 @Component({
   selector: 'app-solo-imagenes',
@@ -51,7 +52,10 @@ export class SoloImagenesComponent implements OnInit {
     parcial: {
             parcialmente_correcto_pregunta: [],
             parcialmente_correcto_respuesta: [],
-            erroneas:[]
+            erroneas:[{
+              pregunta:[],
+              respuesta:[]
+            }]
     },
     errores: 0
   }
@@ -61,8 +65,11 @@ export class SoloImagenesComponent implements OnInit {
     private modalCtrl : ModalController,
     private auth: AuthService,
     private voice:  VoiceService,
-    private estadisticaService: EstadisticaService
-) { }
+    private estadisticaService: EstadisticaService,
+    public tabEstado: TabsService
+) { 
+  this.tabEstado.cambiarEstado(true);
+}
 
   async ngOnInit() {
     await this.obtenerUsuario();
@@ -111,7 +118,7 @@ export class SoloImagenesComponent implements OnInit {
 
     }else{
       
-      this.estadistica.parcial.erroneas.push(this.data[this.posicion].imagenes[this.opcion]);
+      this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].imagenes[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
 
@@ -136,6 +143,7 @@ export class SoloImagenesComponent implements OnInit {
     let end = window.performance.now();
     let tiempo_total = (Math.round((end-this.inicio)/1000));
     this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos";
+    console.log(this.estadistica);
     
     this.estadisticaService.guardarEstadistica(this.uid,this.tituloActividad,this.imagen,this.estadistica);
   }

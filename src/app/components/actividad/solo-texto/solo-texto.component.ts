@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
 import { EstadisticaService } from '../../../services/estadistica.service';
+import { TabsService } from '../../../services/tabs.service';
 
 @Component({
   selector: 'app-solo-texto',
@@ -60,8 +61,11 @@ export class SoloTextoComponent implements OnInit {
     private modalCtrl : ModalController,
     private auth: AuthService,
     public voice:  VoiceService,
-    private estadisticaService: EstadisticaService
-    ) {}
+    private estadisticaService: EstadisticaService,
+    public tabEstado: TabsService
+    ) {
+      this.tabEstado.cambiarEstado(true);
+    }
 
   async ngOnInit() {
 
@@ -111,7 +115,7 @@ export class SoloTextoComponent implements OnInit {
 
     }else{
       
-      this.estadistica.parcial.erroneas.push(this.data[this.posicion].respuestas[this.opcion]);
+      this.estadistica.parcial.erroneas.push(this.preguntas[this.posicion] + " - " + this.data[this.posicion].respuestas[this.opcion]);
       this.errores++;
       this.incorrectas.push(this.opcion);
 

@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
 import { EstadisticaService } from '../../../services/estadistica.service';
+import { TabsService } from '../../../services/tabs.service';
 
 @Component({
   selector: 'app-texto-imagen',
@@ -61,7 +62,11 @@ export class TextoImagenComponent implements OnInit {
     private modalCtrl : ModalController,
     private estadisticaService: EstadisticaService,
     private auth: AuthService,
-    public voice:  VoiceService,) { }
+    public voice:  VoiceService,
+    public tabEstado: TabsService) { 
+      
+      this.tabEstado.cambiarEstado(true);
+    }
 
   async ngOnInit() {
 
@@ -72,6 +77,9 @@ export class TextoImagenComponent implements OnInit {
     this.hora_inicio = this.obtenerTiempo();
     this.inicio = window.performance.now();
     console.log(this.data);
+    console.log(this.respuestas);
+    console.log("imagenes");
+    console.log(this.imagenes[0]);
 
   }
   //Se obtienen los valores de las actividades.
