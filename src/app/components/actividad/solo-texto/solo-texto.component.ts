@@ -52,7 +52,10 @@ export class SoloTextoComponent implements OnInit {
     parcial: {
             parcialmente_correcto_pregunta: [],
             parcialmente_correcto_respuesta: [],
-            erroneas:[]
+            erroneas:[{
+              pregunta:[],
+              respuesta:[]
+            }]
     },
     errores: 0
   }
@@ -115,7 +118,8 @@ export class SoloTextoComponent implements OnInit {
 
     }else{
       
-      this.estadistica.parcial.erroneas.push(this.preguntas[this.posicion] + " - " + this.data[this.posicion].respuestas[this.opcion]);
+      // this.estadistica.parcial.erroneas.push(this.preguntas[this.posicion] + " - " + this.data[this.posicion].respuestas[this.opcion]);
+      this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].respuestas[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
 
@@ -141,6 +145,7 @@ export class SoloTextoComponent implements OnInit {
     let tiempo_total = (Math.round((end-this.inicio)/1000));
     this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos";
     
+    console.log(this.estadistica)
     this.estadisticaService.guardarEstadistica(this.uid, this.tituloActividad, this.imagen, this.estadistica);
   }
 

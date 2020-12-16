@@ -49,11 +49,17 @@ export class TextoImagenComponent implements OnInit {
     buenas: {
             pregunta:[],
             respuesta: [], 
+            imagen:[]
     },
     parcial: {
             parcialmente_correcto_pregunta: [],
             parcialmente_correcto_respuesta: [],
-            erroneas:[]
+            parcialmente_correcto_imagen:[],
+            erroneas:[{
+              pregunta:[],
+              respuesta:[],
+              imagen:[]
+            }]
     },
     errores: 0
   }
@@ -108,6 +114,7 @@ export class TextoImagenComponent implements OnInit {
 
       this.estadistica.buenas.pregunta.push(this.data[this.posicion].pregunta); 
       this.estadistica.buenas.respuesta.push(this.data[this.posicion].respuestas[this.data[this.posicion].correcta]); 
+      this.estadistica.buenas.imagen.push(this.data[this.posicion].imagenes[this.data[this.posicion].correcta]); 
 
       this.posicion++;
 
@@ -115,12 +122,14 @@ export class TextoImagenComponent implements OnInit {
       
       this.estadistica.parcial.parcialmente_correcto_pregunta.push(this.data[this.posicion].pregunta);
       this.estadistica.parcial.parcialmente_correcto_respuesta.push(this.data[this.posicion].respuestas[this.data[this.posicion].correcta]);
+      this.estadistica.parcial.parcialmente_correcto_imagen.push(this.data[this.posicion].imagenes[this.data[this.posicion].correcta]);
+
       this.posicion++;
       this.incorrectas.splice(0,this.incorrectas.length);
 
     }else{
       
-      this.estadistica.parcial.erroneas.push(this.data[this.posicion].respuestas[this.opcion]);
+      this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].respuestas[this.opcion], imagen: this.data[this.posicion].imagenes[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
 
@@ -131,6 +140,7 @@ export class TextoImagenComponent implements OnInit {
       this.abrirModal();
     }
   };
+  
 
   subirEstadisticas(){
     
@@ -146,6 +156,7 @@ export class TextoImagenComponent implements OnInit {
     let tiempo_total = (Math.round((end-this.inicio)/1000));
     this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos";
     
+    console.log(this.estadistica)
     this.estadisticaService.guardarEstadistica(this.uid,this.tituloActividad,this.imagen, this.estadistica);
   }
 
