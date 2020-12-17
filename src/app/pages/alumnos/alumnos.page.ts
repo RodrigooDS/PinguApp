@@ -25,7 +25,7 @@ export class AlumnosPage implements OnInit {
   }
 
   async obtenerAlumnos() {
-    await this.auth.obtenerPrecargaUsuariosFiltrados("alumno").subscribe(resp => {this.alumnosPrecarga = resp;});
+    await this.auth.obtenerPrecargaUsuariosPorUsuario("alumno").subscribe(resp => {this.alumnosPrecarga = resp;});
   }
 
   async eliminarAlumno(item: any) {

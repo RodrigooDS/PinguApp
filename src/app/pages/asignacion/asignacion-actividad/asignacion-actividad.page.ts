@@ -29,13 +29,17 @@ export class AsignacionActividadPage implements OnInit {
     console.log(this.actividades);
   }
 
-  agregarAlumnos () {
+  agregarAlumnos (actividad: string,categoria: string, nivel: string) {
 
-    // let datos = {
-    //   actividad : actividad,
-    // }
-    // localStorage.setItem('actividad', JSON.stringify(datos));
-    this.router.navigate(['/tablinks/asignacion/asignacion-agregar-alumno']);
+    let datos = {
+      actividad : actividad,
+      categoria:  categoria,
+      nivel : nivel
+    }
+
+    localStorage.setItem('actividad', JSON.stringify(datos));
+
+    this.router.navigate(['/tablinks/asignacion/asignacion-alumnos']);
   }
 
   vistaCategoria(ev: any) {

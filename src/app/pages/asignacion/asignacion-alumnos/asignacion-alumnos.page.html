@@ -1,0 +1,66 @@
+<ion-header class="ion-no-border" mode="ios" translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-back-button defaultHref="/tablinks/asignacion/asignacion-actividad" text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="nuevoAlumno()">
+          <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Alumnos Asignados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+  
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+
+        <div class="ion-padding-start ion-padding-end">
+          <h1 class="text-title">Participantes</h1>
+          <hr style="height:2px;border-width:0;color:red;background-color:red">
+        </div>
+
+        <div *ngIf="this.alumnos.length > 0; else elseBlock">
+          <ion-list *ngFor="let alumno of this.alumnos" class="ion-padding-start ion-padding-end">
+            <ion-item-sliding>
+            <ion-item>
+              <ion-avatar slot="start">
+                <img [src]=alumno.imagen>
+              </ion-avatar>
+              <ion-label>{{alumno.nombreCompleto}}</ion-label>
+            </ion-item>
+            
+            <ion-item-options>
+              <ion-item-option color="danger" (click)="eliminarAlumno(alumno)">
+                <ion-icon slot="end" name="trash"></ion-icon>
+                Eliminar
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+          </ion-list>
+        </div>
+
+        <ng-template #elseBlock>
+          <div class="ion-text-center">
+            <img src="../../assets/image/data-not-found.svg" class="dataNotFound">
+            <h1 class="ion-text-center" style="font-size:25px;color:grey;">Upsss! No hay alumnos participantes</h1>
+          </div>
+        </ng-template >
+
+      </ion-col>
+
+      <ion-col></ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

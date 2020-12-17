@@ -16,7 +16,13 @@ const routes: Routes = [
   },
   {
     path: 'asignacion-agregar-alumno',
-    loadChildren: () => import('./asignacion-agregar-alumno/asignacion-agregar-alumno.module').then( m => m.AsignacionAgregarAlumnoPageModule)
+    loadChildren: () => import('./asignacion-agregar-alumno/asignacion-agregar-alumno.module').then( m => m.AsignacionAgregarAlumnoPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'asignacion-alumnos',
+    loadChildren: () => import('./asignacion-alumnos/asignacion-alumnos.module').then( m => m.AsignacionAlumnosPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

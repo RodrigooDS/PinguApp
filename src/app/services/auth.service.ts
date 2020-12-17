@@ -187,8 +187,12 @@ export class AuthService {
     });
   }
 
-  obtenerPrecargaUsuariosFiltrados(tipoUsuario: string) {
+  obtenerPrecargaUsuariosPorUsuario(tipoUsuario: string) {
     return this.db.collection('precargaUsuarios', ref => ref.where('tipoUsuario', '==', tipoUsuario)).valueChanges();
+  }
+
+  obtenerPrecargaUsuariosPorNivel(nivel: string) {
+    return this.db.collection('precargaUsuarios', ref => ref.where('nivel', '==', nivel)).valueChanges();
   }
 
   async obtenerPrecargaUsuariosPorRut(rut: string) {
@@ -231,7 +235,6 @@ export class AuthService {
       })
     });
     return tipoUsuario;
-    // return this.db.collection('precargaUsuarios',ref => ref.where("uid","==",uid)).valueChanges();
   }
 
   // Este metodo elimina el usuario de todas las colecciones y del auth

@@ -3,7 +3,7 @@
     <ion-buttons slot="start"> 
       <ion-back-button defaultHref="/tablinks/asignacion" text="Atrás"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-capitalize">Asignación de actividades</ion-title>
+    <ion-title class="ion-text-capitalize ion-text-wrap">Asignación de actividades</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -34,24 +34,35 @@
                   <ion-label>Nivel 3</ion-label>
                 </ion-segment-button>
             </ion-segment>
-      </div>
+        </div>
 
           <ion-list mode="ios">
 
-            <ion-item *ngFor="let actividad of this.actividades | filtroActividades:this.vistaCategorias" mode="ios" detail (click)="agregarAlumnos()">
+            <!-- <div *ngIf="this.actividades.length > 0; else elseBlock"> -->
+        
+              <ion-item *ngFor="let actividad of this.actividades | filtroActividades:this.vistaCategorias" mode="ios" detail (click)="agregarAlumnos(actividad.actividad,actividad.categoria,actividad.nivel)">
+                <ion-thumbnail slot="start" mode="ios" class="thumbnail">
+                  <img src="{{actividad.imagen}}">
+                </ion-thumbnail>
+                
+                <ion-label mode="ios" class="ion-text-wrap">
+                  <h3>{{actividad.actividad}}</h3>
+                  <p>Tipo de pregunta: {{actividad.tipoActividad}}</p>
+                  <p>Tipo de actividad: {{actividad.contenidoActividad}}</p>
+                  <p>Nivel: {{actividad.nivel}}</p>
+                </ion-label>
+                
+              </ion-item>
 
-              <ion-thumbnail slot="start" mode="ios" class="thumbnail">
-                <img src="{{actividad.imagen}}">
-              </ion-thumbnail>
+            <!-- </div> -->
 
-              <ion-label mode="ios" class="ion-text-wrap">
-                <h3>{{actividad.actividad}}</h3>
-                <p>Tipo de pregunta: {{actividad.tipoActividad}}</p>
-                <p>Tipo de actividad: {{actividad.contenidoActividad}}</p>
-                <p>Nivel: {{actividad.nivel}}</p>
-              </ion-label>
-              
-            </ion-item>
+            <!-- <ng-template #elseBlock>
+              <div class="ion-text-center">
+                <img src="../../assets/image/data-not-found.svg" class="dataNotFound">
+                <h1 class="ion-text-center" style="font-size:25px;color:grey;">Upsss! No hay actividades</h1>
+              </div>
+            </ng-template > -->
+            
           </ion-list>
         
       </ion-col>
