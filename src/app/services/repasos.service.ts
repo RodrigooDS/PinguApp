@@ -76,9 +76,17 @@ export class RepasosService {
     }
   }
 
-  obtenerRepasos() {
-    return this.db.collection('repaso').valueChanges();
+  async obtenerRepasos(categoria:string){
+    let repasos : any[] = [];
+    await this.db.collection('repaso').ref.where('categoria', '==', categoria).get()
+    .then(function (ququerySnapshotery) {
+      ququerySnapshotery.forEach(function(doc){
+        repasos.push(doc.data());
+      })
+    });
+    return repasos;
   }
+
 
   obtenerRepaso(actividad : string, categoria: string) {
     let nombreRepaso: string;
@@ -179,6 +187,10 @@ export class RepasosService {
       u8arr[n] = bstr.charCodeAt(n);
   }
   return new File([u8arr], filename, {type:mime});
+  }
+
+  obtenerCategorias() {
+    return this.db.collection('categorias').valueChanges();
   }
 
 }

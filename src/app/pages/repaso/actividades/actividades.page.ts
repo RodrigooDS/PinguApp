@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { RepasosService } from '../../../services/repasos.service';
 
 @Component({
   selector: 'app-actividades',
@@ -10,20 +11,26 @@ export class ActividadesPage implements OnInit {
 
   tituloActividad: string = '';
   tituloCategoria: string = '';
-  actividades: any[] = [];
+  repasos: any[] = [];
 
   constructor(public router: Router, 
-              private route: ActivatedRoute) {
-    this.tituloCategoria = this.route.snapshot.paramMap.get('category');
-    this.obtenerActividades();
+              private route: ActivatedRoute,
+              public RepasosService: RepasosService,) {
+    this.tituloCategoria = JSON.parse(localStorage.getItem('categoria'));
+    this.obtenerRepasos();
   }
 
   ngOnInit() {
-    this.obtenerActividades();
+    this.obtenerRepasos();
   }
 
-  obtenerActividades() {
-    
+  async obtenerRepasos() {
+    this.repasos = await this.RepasosService.obtenerRepasos(this.tituloCategoria);
+    console.log(this.repasos);
+  }
+
+  obtenerRepaso(){
+
   }
 
 }

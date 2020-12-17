@@ -1,32 +1,45 @@
-<ion-header class="ion-no-border" mode="ios">
+<ion-header class="ion-no-border" mode="ios" translucent>
   <ion-toolbar>
     <ion-buttons slot="start"> 
-      <!-- <ion-button (click)="cancelar()">Cancelar</ion-button> -->
       <ion-back-button defaultHref="/tablinks/repaso" text="Atrás"></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="ion-text-center">Repaso</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
-  <h1 class="ion-padding">Deportes - Sports</h1>
-  <div *ngFor="let actividad of actividades">
-    <ion-card>
-      <img src="{{actividad.detalle.imageUrl}}">
-      <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      </ion-card-content>
-    </ion-card>
-  </div>
-  <ion-list>
-    <ion-item lines="none" *ngFor="let actividad of actividades">
-      
-    </ion-item>
-  </ion-list>
+<ion-content fullscreen>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+
+      <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
+
+        <div class="ion-padding-start ion-padding-end">
+          <h1 style="font-weight: bold">{{this.tituloCategoria}}</h1>
+          <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+        </div>
+
+        <div>
+          <ion-card class="ion-padding-top ion-padding-bottom" mode="ios">
+            <ion-list *ngFor="let repaso of repasos">
+              <ion-item mode="ios" (click)="obtenerRepaso()" detail>
+                <ion-thumbnail slot="start" class="thumbnail">
+                  <img src="{{repaso.imagen}}"/>
+                </ion-thumbnail>
+                <div>
+                  <ion-label><b>Nivel &nbsp; {{repaso.nivel}} </b></ion-label>
+                  <ion-label>{{repaso.actividad}}</ion-label>
+                </div>
+              </ion-item>             
+            </ion-list>
+          </ion-card>
+        </div>
+      </ion-col>
+      <ion-col></ion-col>
+
+  </ion-row>
+
+</ion-grid>
 
 </ion-content>
