@@ -23,17 +23,21 @@
             </div>
           
 
-            <div *ngFor="let actividad of actividades">
-              <ion-card (click)="obtenerActividad(actividad.actividad, actividad.contenidoActividad, actividad.tipoActividad,actividad.imagen)" mode="ios" class="card-categoria">
-                <ion-card-header>
-                  <ion-card-subtitle>Dificultad {{actividad.nivel}}</ion-card-subtitle>
-                  <ion-card-title>{{actividad.actividad}}</ion-card-title>
-                </ion-card-header>
-                <div class="ion-text-center">
-                  <img src="{{actividad.imagen}}"/>
-                </div> 
-              </ion-card>
-            </div>
+            <div >
+              <ion-card class="ion-padding-top ion-padding-bottom" mode="ios">
+                <ion-list *ngFor="let actividad of actividades">
+                  <ion-item mode="ios" (click)="obtenerActividad(actividad.actividad, actividad.contenidoActividad, actividad.tipoActividad,actividad.imagen)" detail>
+                    <ion-thumbnail slot="start" class="thumbnail">
+                      <img src="{{actividad.imagen}}"/>
+                    </ion-thumbnail>
+                    <div>
+                      <ion-label><b>Nivel &nbsp; {{actividad.nivel}} </b></ion-label>
+                      <ion-label>{{actividad.actividad}}</ion-label>
+                    </div>
+                  </ion-item>             
+            </ion-list>
+          </ion-card>
+        </div>
 
           </ion-col>
 

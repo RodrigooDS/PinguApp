@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { delay, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ObtenerActivadesService } from '../../services/obtener-activades.service';
 import { ActividadesService } from '../../services/actividades.service';
-
-
+import { RepasosService } from '../../services/repasos.service';
 
 @Component({
   selector: 'app-repaso',
@@ -18,7 +15,8 @@ export class RepasoPage implements OnInit {
   vistaCategorias: string = "tarjetas";
 
   constructor(public actividadService: ActividadesService,
-              public router: Router) {
+              public router: Router,
+              public repasos: RepasosService) {
     this.obtenerCategorias();
    }
 
@@ -30,15 +28,17 @@ export class RepasoPage implements OnInit {
   }
 
   obtenerCategorias() {
-    this.actividadService.obtenerCategorias().pipe()
+    this.repasos.obtenerCategorias().pipe()
     .subscribe( resp => {
       this.categorias = resp;
     });
   }
 
   obtenerTituloCategoria(categoria) {
-    this.tipoCategoria = categoria
-    this.router.navigate(['/tablinks/repaso/actividades',{category: this.tipoCategoria}]);
+    this.tipoCategoria = categoria;
+    localStorage.setItem('categoria', JSON.stringify(this.tipoCategoria));
+    console.log(categoria);
+    this.router.navigate(['/tablinks/repaso/actividades']);
   }
 
 }
