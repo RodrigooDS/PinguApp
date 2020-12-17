@@ -35,7 +35,7 @@ export class ProfesorPage implements OnInit {
   }
 
   async obtenerProfesor() {
-    await this.authService.obtenerPrecargaUsuariosFiltrados("profesor").subscribe(resp => {this.profesorPrecarga = resp;});
+    await this.authService.obtenerPrecargaUsuariosPorUsuario("profesor").subscribe(resp => {this.profesorPrecarga = resp;});
   }
 
   async eliminarProfesor(item: any) {
