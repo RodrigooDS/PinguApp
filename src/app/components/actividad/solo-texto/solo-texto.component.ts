@@ -52,7 +52,10 @@ export class SoloTextoComponent implements OnInit {
     parcial: {
             parcialmente_correcto_pregunta: [],
             parcialmente_correcto_respuesta: [],
-            erroneas:[]
+            erroneas:[{
+              pregunta:[],
+              respuesta:[]
+            }]
     },
     errores: 0
   }
@@ -115,7 +118,8 @@ export class SoloTextoComponent implements OnInit {
 
     }else{
       
-      this.estadistica.parcial.erroneas.push(this.preguntas[this.posicion] + " - " + this.data[this.posicion].respuestas[this.opcion]);
+      // this.estadistica.parcial.erroneas.push(this.preguntas[this.posicion] + " - " + this.data[this.posicion].respuestas[this.opcion]);
+      this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].respuestas[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
 
@@ -128,6 +132,8 @@ export class SoloTextoComponent implements OnInit {
   };
 
   subirEstadisticas(){
+
+    this.estadistica.parcial.erroneas.shift();
 
     this.estadistica.contenido_actividad = this.actividadContenido;
     this.estadistica.fecha = this.obtenerFecha();

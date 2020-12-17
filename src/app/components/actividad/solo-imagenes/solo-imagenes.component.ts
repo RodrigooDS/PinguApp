@@ -124,13 +124,14 @@ export class SoloImagenesComponent implements OnInit {
 
     }
     if(this.posicion >= this.data.length){
-      
       this.subirEstadisticas();
       this.abrirModal();
     }
   };
 
   subirEstadisticas(){
+
+    this.estadistica.parcial.erroneas.shift();
     
     this.estadistica.contenido_actividad = this.actividadContenido;
     this.estadistica.fecha = this.obtenerFecha();
@@ -143,7 +144,6 @@ export class SoloImagenesComponent implements OnInit {
     let end = window.performance.now();
     let tiempo_total = (Math.round((end-this.inicio)/1000));
     this.estadistica.tiempo_total = tiempo_total.toString() + " Segundos";
-    console.log(this.estadistica);
     
     this.estadisticaService.guardarEstadistica(this.uid,this.tituloActividad,this.imagen,this.estadistica);
   }
