@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ActividadRepasoPageRoutingModule } from './actividad-repaso-routing.module';
 
 import { ActividadRepasoPage } from './actividad-repaso.page';
+import { ComponentsModule } from '../../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ActividadRepasoPageRoutingModule
+    ActividadRepasoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ActividadRepasoPage]
 })

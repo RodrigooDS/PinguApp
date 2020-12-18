@@ -23,7 +23,7 @@
         <div>
           <ion-card class="ion-padding-top ion-padding-bottom" mode="ios">
             <ion-list *ngFor="let repaso of repasos">
-              <ion-item mode="ios" (click)="obtenerRepaso()" detail>
+              <ion-item mode="ios" (click)="obtenerRepaso(repaso.actividad, repaso.categoria)" detail>
                 <ion-thumbnail slot="start" class="thumbnail">
                   <img src="{{repaso.imagen}}"/>
                 </ion-thumbnail>

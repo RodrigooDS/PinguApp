@@ -76,6 +76,20 @@ export class RepasosService {
     }
   }
 
+  async obtenerRepasoActividad(actividad:string, categoria:string){
+    let nombreRepaso: string;
+    let repaso : any[] = [];
+    nombreRepaso = actividad +" - "+ categoria;
+    await this.db.collection('repaso').doc(nombreRepaso).collection(nombreRepaso).ref.get()
+    .then(function (ququerySnapshotery) {
+      ququerySnapshotery.forEach(function(doc){
+        repaso.push(doc.data());
+      })
+    });
+    
+    return repaso;
+  }
+
   async obtenerRepasos(categoria:string){
     let repasos : any[] = [];
     await this.db.collection('repaso').ref.where('categoria', '==', categoria).get()
@@ -86,6 +100,7 @@ export class RepasosService {
     });
     return repasos;
   }
+
 
   obtenerRepaso(actividad : string, categoria: string) {
     let nombreRepaso: string;
