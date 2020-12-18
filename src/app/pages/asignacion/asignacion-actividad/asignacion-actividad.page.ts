@@ -24,9 +24,8 @@ export class AsignacionActividadPage implements OnInit {
     this.obtenerActividades();
   }
 
-  async obtenerActividades() {
-    this.actividades =  await this.actividadesService.obtenerActividades(this.tituloCategoria);
-    console.log(this.actividades);
+  obtenerActividades() {
+    this.actividadesService.obtenerActividades(this.tituloCategoria).subscribe(resp=> this.actividades = resp);
   }
 
   obtenerActividad(actividad: string, categoria:string,contenidoActividad: string, tipoPregunta: string, imagen: string, nivel:string) {

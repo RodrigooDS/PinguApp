@@ -15,6 +15,7 @@ export class ActividadesPage implements OnInit {
   tituloCategoria: string = '';
   tipoPregunta: string = '';
   actividades: any[] = [];
+  tipoUsuario: string;
 
   constructor(public router: Router,
               private actividadesService: ObtenerActivadesService,
@@ -27,13 +28,22 @@ export class ActividadesPage implements OnInit {
 
   async ngOnInit() {
     let user = await this.auth.afAuth.currentUser;
+    this.obtenerTipoUsuario(user.uid)
     let rut = await this.asignacionService.obtenerAlumnoAsignadoPorUid(user.uid)
     this.obtenerActividades(rut);
   }
 
+  async obtenerTipoUsuario(uid: any) {
+    this.tipoUsuario = await this.auth.obtenerTipoDeUsuario(uid);
+  }
+
 
   obtenerActividades(rut:string) {
-    this.asignacionService.obtenerActividadesPorRut(rut,this.tituloCategoria).subscribe(resp => this.actividades = resp);
+    if(this.tipoUsuario == "alumno"){
+      this.asignacionService.obtenerActividadesPorRut(rut,this.tituloCategoria).subscribe(resp => this.actividades = resp);
+    }else{
+      this.actividadesService.obtenerActividades(this.tituloCategoria).subscribe(resp=> this.actividades = resp);
+    }
   }
 
   obtenerActividad(actividad: string, contenidoActividad: string, tipoPregunta: string, imagen: string) {
