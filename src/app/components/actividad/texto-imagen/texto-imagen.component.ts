@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ObtenerActivadesService } from '../../../services/obtener-activades.service';
-import { map } from 'rxjs/operators';
 import { FinActividadPage } from '../../../pages/actividad/fin-actividad/fin-actividad.page';
 import { ModalController } from '@ionic/angular';
-import { AngularFirestore} from '@angular/fire/firestore';
 import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
 import { EstadisticaService } from '../../../services/estadistica.service';
 import { TabsService } from '../../../services/tabs.service';
@@ -24,6 +21,7 @@ export class TextoImagenComponent implements OnInit {
   @Input() imagen: string
 
   uid: string;
+  radioBoolean : boolean[] = [];
 
   seleccionRadioButton: boolean;
   data: any[] = [];
@@ -79,7 +77,7 @@ export class TextoImagenComponent implements OnInit {
     await this.obtenerUsuario();
     await this.obtenerDatosActividad();
     await this.obtenerRespuestas();
-
+    await this.obteneRadioBoolean();
     this.hora_inicio = this.obtenerTiempo();
     this.inicio = window.performance.now();
 
@@ -89,12 +87,18 @@ export class TextoImagenComponent implements OnInit {
     this.data = await this.obtener_actividades.obtenerActividad(this.tituloActividad,this.tituloCategoria);
   }
 
-  async obtenerRespuestas(){
+  obtenerRespuestas(){
     for(let i=0; i< this.data.length;i++){
         this.imagenes.push(this.data[i].imagenes);
         this.respuestas.push(this.data[i].respuestas);
         this.respuestasCorrecta.push(this.data[i].correcta);
         this.preguntas.push(this.data[i].pregunta);
+    }
+  }
+
+  obteneRadioBoolean () {
+    for(let i=0; i < 4;i++){
+      this.radioBoolean[i] = false;
     }
   }
 
@@ -111,7 +115,7 @@ export class TextoImagenComponent implements OnInit {
       this.estadistica.buenas.pregunta.push(this.data[this.posicion].pregunta); 
       this.estadistica.buenas.respuesta.push(this.data[this.posicion].respuestas[this.data[this.posicion].correcta]); 
       this.estadistica.buenas.imagen.push(this.data[this.posicion].imagenes[this.data[this.posicion].correcta]); 
-
+      await this.obteneRadioBoolean();
       this.posicion++;
 
     } else if(this.respuestasCorrecta[this.posicion] == this.opcion){
@@ -120,8 +124,7 @@ export class TextoImagenComponent implements OnInit {
       this.estadistica.parcial.parcialmente_correcto_respuesta.push(this.data[this.posicion].respuestas[this.data[this.posicion].correcta]);
       this.estadistica.parcial.parcialmente_correcto_imagen.push(this.data[this.posicion].imagenes[this.data[this.posicion].correcta]);
       
-
-
+      await this.obteneRadioBoolean();
       this.posicion++;
       this.incorrectas.splice(0,this.incorrectas.length);
 
@@ -130,7 +133,7 @@ export class TextoImagenComponent implements OnInit {
       this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].respuestas[this.opcion], imagen: this.data[this.posicion].imagenes[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
-
+      this.radioBoolean[this.opcion] = true;
     }
     if(this.posicion >= this.data.length){
       
@@ -163,13 +166,12 @@ export class TextoImagenComponent implements OnInit {
   obtenerFecha(){
 
     var d = new Date();
-      var dd = d.getDate();
-      var mm = d.getMonth() + 1;
-      var yy = d.getFullYear();
-   
-      var myDateString = dd + "-" + mm + "-" + yy;
-      return myDateString;
-
+    var dd = d.getDate();
+    var mm = d.getMonth() + 1;
+    var yy = d.getFullYear();
+    var myDateString = dd + "-" + mm + "-" + yy;
+    
+    return myDateString;
   }
 
 
@@ -192,16 +194,6 @@ export class TextoImagenComponent implements OnInit {
   async obtenerUsuario(){
     let user = await this.auth.afAuth.currentUser
     this.uid = user.uid
-    // this.auth.usuario.subscribe(resp => {
-    //   this.auth.obtenerUsuario2(resp.uid).pipe(
-    //     map( (resp: User) => resp)
-    //   )
-    //   .subscribe(
-    //     resp => {
-    //               this.uid = resp.uid;
-    //             }
-    //   );
-    // })
   }
 
   hablarPregunta(texto: string) { 

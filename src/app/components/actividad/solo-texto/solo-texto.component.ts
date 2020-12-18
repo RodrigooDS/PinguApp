@@ -1,11 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ObtenerActivadesService } from '../../../services/obtener-activades.service';
-import { map } from 'rxjs/operators';
 import { FinActividadPage } from '../../../pages/actividad/fin-actividad/fin-actividad.page';
 import { ModalController } from '@ionic/angular';
-
 import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
 import { EstadisticaService } from '../../../services/estadistica.service';
 import { TabsService } from '../../../services/tabs.service';
@@ -24,6 +21,7 @@ export class SoloTextoComponent implements OnInit {
   @Input() imagen: string
 
   uid: string;
+  radioBoolean : boolean[] = [];
 
   seleccionRadioButton: boolean;
   data: any[] = [];
@@ -75,10 +73,10 @@ export class SoloTextoComponent implements OnInit {
     await this.obtenerUsuario();
     await this.obtenerDatosActividad();
     await this.obtenerRespuestas();
+    await this.obteneRadioBoolean();
 
     this.hora_inicio = this.obtenerTiempo();
     this.inicio = window.performance.now();
-
   }
 
   //Se obtienen los valores de las actividades.
@@ -86,11 +84,17 @@ export class SoloTextoComponent implements OnInit {
     this.data = await this.obtener_actividades.obtenerActividad(this.tituloActividad,this.tituloCategoria);
   }
 
-  async obtenerRespuestas(){
+  obtenerRespuestas(){
     for(let i=0; i< this.data.length;i++){
         this.respuestas.push(this.data[i].respuestas);
         this.respuestasCorrecta.push(this.data[i].correcta);
         this.preguntas.push(this.data[i].pregunta);
+    }
+  }
+
+  obteneRadioBoolean () {
+    for(let i=0; i < 4;i++){
+      this.radioBoolean[i] = false;
     }
   }
 
@@ -105,8 +109,9 @@ export class SoloTextoComponent implements OnInit {
       this.incorrectas.splice(0,this.incorrectas.length);   
 
       this.estadistica.buenas.pregunta.push(this.data[this.posicion].pregunta); 
-      this.estadistica.buenas.respuesta.push(this.data[this.posicion].respuestas[this.data[this.posicion].correcta]); 
+      this.estadistica.buenas.respuesta.push(this.data[this.posicion].respuestas[this.data[this.posicion].correcta]);
 
+      await this.obteneRadioBoolean();
       this.posicion++;
 
     } else if(this.respuestasCorrecta[this.posicion] == this.opcion ){
@@ -115,6 +120,7 @@ export class SoloTextoComponent implements OnInit {
       this.estadistica.parcial.parcialmente_correcto_respuesta.push(this.data[this.posicion].respuestas[this.data[this.posicion].correcta]);
       this.posicion++;
       this.incorrectas.splice(0,this.incorrectas.length);
+      await this.obteneRadioBoolean();
 
     }else{
       
@@ -122,6 +128,7 @@ export class SoloTextoComponent implements OnInit {
       this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].respuestas[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
+      this.radioBoolean[this.opcion] = true;
 
     }
     if(this.posicion >= this.data.length){

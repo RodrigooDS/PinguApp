@@ -46,10 +46,7 @@
           <ion-list>
             <ion-radio-group >      
               <ion-item *ngFor="let respuesta of respuestas[this.posicion] ; let i =  index" (click)="obtenerRespuetaCheckBox(i)" mode="ios">
-                <ion-radio (click)="hablarRespuesta(respuesta)" slot="start" mode="md" value="op{{i}}" *ngIf = "this.incorrectas.includes(i) != true; else mala" ></ion-radio>
-                <ng-template #mala >
-                  <ion-radio mode="md" value="op{{i}}" disabled= true></ion-radio>
-                </ng-template>
+                <ion-radio slot="start" mode="md" disabled="{{this.radioBoolean[i]}}" value="op{{i}}" ></ion-radio>
                 <div>
                   <ion-label class="ion-text-wrap">{{respuesta}}</ion-label>
                 </div>
