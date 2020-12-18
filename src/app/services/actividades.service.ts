@@ -14,7 +14,7 @@ export class ActividadesService {
               public loadingCtrl: LoadingController) { }
 
   // Se crear la coleccion que contiene  las actividades
-  async crearActividad(data: Actividad) {
+  async crearActividad(data: Actividad, uid:string) {
     let nombreActividad: string;
     let fileImage: any;
     nombreActividad = data.actividad +" - "+ data.categoria;
@@ -27,6 +27,7 @@ export class ActividadesService {
         contenidoActividad: data.contenidoActividad,
         nivel: data.nivel,
         tipoActividad: data.tipoActividad,
+        uid: uid,
         imagen: ""
       })
 
@@ -52,6 +53,7 @@ export class ActividadesService {
     let imageList = [];
     nombreActividad = data.actividad +" - "+ data.categoria;
 
+    console.log(dataContent,data)
     resp = await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).add({
       actividad : data.actividad,
       categoria : data.categoria,

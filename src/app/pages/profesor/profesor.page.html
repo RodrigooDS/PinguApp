@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen = true>
   
   <ion-grid>
 
@@ -23,7 +23,7 @@
           <hr style="height:2px;border-width:0;color:red;background-color:red">
         </div>
 
-        <ion-searchbar placeholder="Alumnos" showCancelButton="focus" cancelButtonText="Cancelar" (ionChange)="onSearchChange($event)" mode="ios"></ion-searchbar>
+        <ion-searchbar placeholder="Profesores" showCancelButton="focus" cancelButtonText="Cancelar" (ionChange)="onSearchChange($event)" mode="ios"></ion-searchbar>
 
         <ion-list mode="ios" *ngFor="let profesor of this.profesorPrecarga | filtroProfesores:textoBuscar:'title'" class="ion-padding-end">
           <ion-item-sliding>

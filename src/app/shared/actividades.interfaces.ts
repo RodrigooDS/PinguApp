@@ -1,4 +1,5 @@
 export interface Actividad {
+    uid: string,
     actividad: string,
     categoria: string,
     contenidoActividad: string,

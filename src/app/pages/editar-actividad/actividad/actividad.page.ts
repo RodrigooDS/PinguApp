@@ -4,6 +4,7 @@ import { TabsService } from '../../../services/tabs.service';
 import { PhotoCameraService } from 'src/app/services/photo-camera.service';
 import { AlertController } from '@ionic/angular';
 import { ActividadesService } from '../../../services/actividades.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-actividad',
@@ -24,28 +25,32 @@ export class ActividadPage implements OnInit {
   contenidoActividad : string;
   // Contenido que devulve Firebase
   data: any[] = [];
-  
+  user: any;
+
   constructor(public router: Router, 
               private route: ActivatedRoute,
               public actividadService: ActividadesService,
               public tabEstado: TabsService,
               public photoService: PhotoCameraService,
-              public alertController: AlertController) {
+              public alertController: AlertController,
+              public auth: AuthService) {
 
-    this.imageUrl = "";
-    this.tituloActividad = "";
-    this.tipoActividad = "";
-    this.contenidoActividad = "";
-    this.nivel = "";
-    this.tabEstado.cambiarEstado(true);
+    // this.imageUrl = "";
+    // this.tituloActividad = "";
+    // this.tipoActividad = "";
+    // this.contenidoActividad = "";
+    // this.nivel = "";
+    // this.tabEstado.cambiarEstado(true);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.imageUrl = "";
     this.tituloActividad = "";
     this.tipoActividad = "";
     this.contenidoActividad = "";
     this.nivel = "";
+    this.user = (await this.auth.afAuth.currentUser).uid;
+    console.log(this.user)
     this.tabEstado.cambiarEstado(true);
     this.obtenerActividades();
   }

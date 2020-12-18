@@ -11,13 +11,17 @@ export class AlumnosPage implements OnInit {
 
   alumnosPrecarga: any;
   textoBuscar: string = '';
+  colegioData: any [] = [];
 
   constructor(public router: Router,
               public auth: AuthService) { 
-                this.obtenerAlumnos();
+                
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let user = await this.auth.afAuth.currentUser;
+    this.colegioData = await this.auth.obtenerColegio(user.uid);
+    this.obtenerAlumnos();
   }
 
   nuevoAlumno() {
@@ -25,7 +29,7 @@ export class AlumnosPage implements OnInit {
   }
 
   async obtenerAlumnos() {
-    await this.auth.obtenerPrecargaUsuariosPorUsuario("alumno").subscribe(resp => {this.alumnosPrecarga = resp;});
+    this.auth.obtenerPrecargaUsuariosPorUsuario("alumno",this.colegioData).subscribe(resp => {this.alumnosPrecarga = resp;});
   }
 
   async eliminarAlumno(item: any) {

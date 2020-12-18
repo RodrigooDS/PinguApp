@@ -10,11 +10,15 @@ import { Router } from '@angular/router';
 })
 export class AgregarProfesorPage implements OnInit {
 
+  colegioData: any [] = [];
+
   constructor(private auth: AuthService,
               private router: Router,
               public alertController: AlertController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let user = await this.auth.afAuth.currentUser;
+    this.colegioData = await this.auth.obtenerColegio(user.uid);
   }
 
   async agregarNuevoProfesor( event ){
@@ -27,7 +31,7 @@ export class AgregarProfesorPage implements OnInit {
     }else{
       this.capitalizeNombreApellido(event);
       nombreCompleto = this.nombreCompleto(event);
-      this.auth.precargar(event,nombreCompleto);
+      this.auth.precargarProfesor(event,nombreCompleto,this.colegioData);
       this.creacionCorrectaAlerta();
       this.router.navigate(['/tablinks/profesor']);
     }

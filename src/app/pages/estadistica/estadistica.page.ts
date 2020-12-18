@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EstadisticaService } from '../../services/estadistica.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-estadistica',
@@ -11,18 +12,22 @@ export class EstadisticaPage implements OnInit {
 
   alumnos: any;
   textoBuscar: string = '';
+  colegioData: any [] = [];
 
   constructor(private estadistica: EstadisticaService,
-              private router: Router) {
-                localStorage.clear();
-               }
-
-  ngOnInit() {
-    this.obtenerAlumnos();
+              private router: Router,
+              public auth: AuthService) {
+    localStorage.clear();
   }
 
-  async obtenerAlumnos() {
-    this.estadistica.obtenerPrecargaUsuariosFiltrados("alumno").subscribe(resp => {this.alumnos = resp})
+  async ngOnInit() {
+    let user = await this.auth.afAuth.currentUser;
+    this.colegioData = await this.auth.obtenerColegio(user.uid);
+    await this.obtenerAlumnos();
+  }
+
+  obtenerAlumnos() {
+    this.estadistica.obtenerPrecargaUsuariosFiltrados("alumno",this.colegioData).subscribe(resp => {this.alumnos = resp})
   }
 
   estadisticaPorActividad (uid: string) {

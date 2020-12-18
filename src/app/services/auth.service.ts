@@ -170,33 +170,83 @@ export class AuthService {
   } 
 
   // funciones para la precarga de estudiantes estos deben ir en un nuevo service
-  async precargar(event: any, _nombreCompleto: string) {
-    let resp = await this.db.collection('precargaUsuarios').doc(event.rut).set({
-      nombre: event.nombre,
-      apellidoPaterno: event.apellidoPaterno,
-      apellidoMaterno: event.apellidoMaterno,
-      rut: event.rut,
-      fechaNacimiento: event.fechaNacimiento,
-      nombreCompleto: _nombreCompleto,
-      tipoUsuario: event.tipoUsuario,
-      nivel: event.nivel,
-      imagen: "",
-      uid: ""
-    });
+  async precargarProfesor(event: any, nombreCompleto: string, colegioData: any[]) {
 
-    const imageUrl = await this.getImageFromStorage("gato.png");
-
-    const res = await this.db.collection('precargaUsuarios').doc(event.rut).update({
-      'imagen'  : imageUrl
-    });
+    try {
+      await this.db.collection('precargaUsuarios').doc(event.rut).set({
+        nombre: event.nombre,
+        apellidoPaterno: event.apellidoPaterno,
+        apellidoMaterno: event.apellidoMaterno,
+        rut: event.rut,
+        fechaNacimiento: event.fechaNacimiento,
+        nombreCompleto: nombreCompleto,
+        tipoUsuario: event.tipoUsuario,
+        idColegio: colegioData[0],
+        colegio: colegioData[1],
+        imagen: "",
+        uid: ""
+      });
+  
+      const imageUrl = await this.getImageFromStorage("gato.png");
+  
+      await this.db.collection('precargaUsuarios').doc(event.rut).update({
+        'imagen'  : imageUrl
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  obtenerPrecargaUsuariosPorUsuario(tipoUsuario: string) {
-    return this.db.collection('precargaUsuarios', ref => ref.where('tipoUsuario', '==', tipoUsuario)).valueChanges();
+  async precargarAlumno(event: any, nombreCompleto: string, colegioData: any[]) {
+
+    try {
+      await this.db.collection('precargaUsuarios').doc(event.rut).set({
+        nombre: event.nombre,
+        apellidoPaterno: event.apellidoPaterno,
+        apellidoMaterno: event.apellidoMaterno,
+        rut: event.rut,
+        fechaNacimiento: event.fechaNacimiento,
+        nombreCompleto: nombreCompleto,
+        tipoUsuario: event.tipoUsuario,
+        nivel: event.nivel,
+        idColegio: colegioData[0],
+        colegio: colegioData[1],
+        imagen: "",
+        uid: ""
+      });
+  
+      const imageUrl = await this.getImageFromStorage("gato.png");
+  
+      await this.db.collection('precargaUsuarios').doc(event.rut).update({
+        'imagen'  : imageUrl
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  obtenerPrecargaUsuariosPorUsuario(tipoUsuario: string, colegioData: any[]) {
+    return this.db.collection('precargaUsuarios', ref => ref.where('tipoUsuario', '==', tipoUsuario).where('idColegio','==',colegioData[0])).valueChanges();
   }
 
   obtenerPrecargaUsuariosPorNivel(nivel: string) {
     return this.db.collection('precargaUsuarios', ref => ref.where('nivel', '==', nivel)).valueChanges();
+  }
+
+  async obtenerColegio(uid :string) {
+
+    let id: any;
+    let colegio: any;
+
+    await this.db.collection('precargaUsuarios').ref.where("uid","==",uid).get()
+    .then(function (ququerySnapshotery) {
+      ququerySnapshotery.forEach(function(doc){
+        id = doc.data().idColegio,
+        colegio = doc.data().colegio
+      })
+    });
+
+    return [id,colegio]
   }
 
   async obtenerPrecargaUsuariosPorRut(rut: string) {
