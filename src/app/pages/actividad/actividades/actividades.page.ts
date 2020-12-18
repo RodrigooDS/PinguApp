@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ObtenerActivadesService } from '../../../services/obtener-activades.service';
+import { AuthService } from '../../../services/auth.service';
+import { AsignacionActividadesService } from '../../../services/asignacion-actividades.service';
 
 @Component({
   selector: 'app-actividades',
@@ -15,19 +17,23 @@ export class ActividadesPage implements OnInit {
   actividades: any[] = [];
 
   constructor(public router: Router,
-              private actividadesService: ObtenerActivadesService
-  ) {
-
+              private actividadesService: ObtenerActivadesService,
+              private auth: AuthService,
+              private asignacionService: AsignacionActividadesService) {
+    
     this.tituloCategoria = JSON.parse(localStorage.getItem('categoria'));
   
   }
 
-  ngOnInit() {
-    this.obtenerActividades();
+  async ngOnInit() {
+    let user = await this.auth.afAuth.currentUser;
+    let rut = await this.asignacionService.obtenerAlumnoAsignadoPorUid(user.uid)
+    this.obtenerActividades(rut);
   }
 
-  async obtenerActividades() {
-    this.actividades =  await this.actividadesService.obtenerActividades(this.tituloCategoria);
+
+  obtenerActividades(rut:string) {
+    this.asignacionService.obtenerActividadesPorRut(rut,this.tituloCategoria).subscribe(resp => this.actividades = resp);
   }
 
   obtenerActividad(actividad: string, contenidoActividad: string, tipoPregunta: string, imagen: string) {

@@ -10,11 +10,11 @@
 
         <ion-col size="12" size-lg="6" size-md="8" size-sm="10" size-xs="12">
 
-        <div class="ion-text-center">
+        <div class="ion-text-center" *ngFor="let item of this.usuario" >
           <ion-avatar class="item-avatar">
-              <img [src]="this.imageUrl" class="item-image-avatar">
+              <img [src]=item.imagen class="item-image-avatar">
           </ion-avatar>
-          <h2 class="ion-padding-top">{{this.nombre}}</h2>
+          <h2 class="ion-padding-top">{{item.nombreCompleto}}</h2>
         </div>
 
         <div class="ion-text-center">

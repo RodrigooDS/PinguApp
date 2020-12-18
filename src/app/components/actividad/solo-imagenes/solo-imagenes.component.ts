@@ -178,17 +178,19 @@ export class SoloImagenesComponent implements OnInit {
 
   }
 
-  obtenerUsuario(){
-    this.auth.usuario.subscribe(resp => {
-      this.auth.obtenerUsuario(resp.uid).pipe(
-        map( (resp: User) => resp)
-      )
-      .subscribe(
-        resp => {
-                  this.uid = resp.uid;
-                }
-      );
-    })
+  async obtenerUsuario(){
+    let user = await this.auth.afAuth.currentUser
+    this.uid = user.uid
+    // this.auth.usuario.subscribe(resp => {
+    //   this.auth.obtenerUsuario2(resp.uid).pipe(
+    //     map( (resp: User) => resp)
+    //   )
+    //   .subscribe(
+    //     resp => {
+    //               this.uid = resp.uid;
+    //             }
+    //   );
+    // })
   }
 
   hablarPregunta(texto: string) { 

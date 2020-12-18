@@ -87,11 +87,31 @@ export class RepasosService {
     return repasos;
   }
 
-
   obtenerRepaso(actividad : string, categoria: string) {
     let nombreRepaso: string;
     nombreRepaso = actividad +" - "+ categoria;
     return this.db.collection('repaso').doc(nombreRepaso).collection(nombreRepaso).valueChanges();
+  }
+
+  async obtenerExistenciaDeActividad(actividad : string, categoria: string) {
+    let nombreActividad: string;
+    let existenciaActividad : boolean;
+    nombreActividad = actividad +" - "+ categoria;
+    try {
+      var docRef = await this.db.collection('repaso').doc(nombreActividad);
+      await docRef.ref.get().then(function(doc) {
+        if (doc.exists) {
+          existenciaActividad = doc.exists;
+        } else {
+          existenciaActividad = false;
+        }
+      });
+
+      return existenciaActividad;
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async removerItem(data: any) {

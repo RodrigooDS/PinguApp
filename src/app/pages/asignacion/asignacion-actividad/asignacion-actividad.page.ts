@@ -29,12 +29,15 @@ export class AsignacionActividadPage implements OnInit {
     console.log(this.actividades);
   }
 
-  agregarAlumnos (actividad: string,categoria: string, nivel: string) {
+  obtenerActividad(actividad: string, categoria:string,contenidoActividad: string, tipoPregunta: string, imagen: string, nivel:string) {
 
     let datos = {
       actividad : actividad,
-      categoria:  categoria,
-      nivel : nivel
+      categoria: categoria,
+      interaccion: contenidoActividad,
+      tipoPregunta: tipoPregunta,
+      imagen: imagen,
+      nivel: nivel
     }
 
     localStorage.setItem('actividad', JSON.stringify(datos));

@@ -61,10 +61,10 @@ export class RepasoPage implements OnInit {
 
   async guardar() {
     let existenciaRepaso : boolean;
-    // existenciaRepaso = await this.upload.obtenerExistenciaDeRepaso(this.tituloActividad,this.tituloCategoria)
-    // if(existenciaRepaso){
-    //   this.errorCreacionAlerta();
-    // }else{
+    existenciaRepaso = await this.repasoService.obtenerExistenciaDeActividad(this.tituloActividad,this.tituloCategoria);
+    if(existenciaRepaso){
+      this.errorCreacionAlerta();
+    }else{
       var json = {categoria    : this.tituloCategoria,
                   actividad    : this.tituloActividad,
                   imagen       : this.imageURL,
@@ -72,8 +72,8 @@ export class RepasoPage implements OnInit {
                   nivel        : this.nivel
       }
       localStorage.setItem('repaso',JSON.stringify(json));
-      this.router.navigate(['/tablinks/editar-repaso/agregar-repaso']);
-      // }   
+      this.router.navigate(['/tablinks/editar-repaso/agregar-repaso'])
+    }
   }  
 
   cancelar() {
@@ -81,8 +81,8 @@ export class RepasoPage implements OnInit {
     this.router.navigate(['/tablinks/editar-repaso']);
   }
 
-  obtenerRepasos() {
-    this.repasoService.obtenerRepasos().subscribe(resp => this.repasos = resp);
+  async obtenerRepasos() {
+    this.repasos = await this.repasoService.obtenerRepasos(this.tituloCategoria);
   }
 
   editarActividad(data: any) {
