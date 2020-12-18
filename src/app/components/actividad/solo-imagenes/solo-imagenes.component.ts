@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ObtenerActivadesService } from '../../../services/obtener-activades.service';
-import { map } from 'rxjs/operators';
 import { FinActividadPage } from '../../../pages/actividad/fin-actividad/fin-actividad.page';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../shared/user.interface';
 import { VoiceService } from '../../../services/voice.service';
 import { EstadisticaService } from '../../../services/estadistica.service';
 import { TabsService } from '../../../services/tabs.service';
@@ -23,7 +21,6 @@ export class SoloImagenesComponent implements OnInit {
   @Input() imagen: string
 
   uid: string;
-  
   radioBoolean : boolean[] = [];
 
   seleccionRadioButton: boolean;
@@ -80,7 +77,6 @@ export class SoloImagenesComponent implements OnInit {
 
     this.hora_inicio = this.obtenerTiempo();
     this.inicio = window.performance.now();
-    console.log(this.tipoPregunta);
   }
 
    //Se obtienen los valores de las actividades.
@@ -98,15 +94,12 @@ export class SoloImagenesComponent implements OnInit {
 
   obteneRadioBoolean () {
     for(let i=0; i < 4;i++){
-      console.log(i);
       this.radioBoolean[i] = false;
     }
-
   }
 
   obtenerRespuetaCheckBox(i: number) {
     this.opcion = i;
-    console.log(i)
   }
 
   async enviarDatos(){
@@ -133,7 +126,6 @@ export class SoloImagenesComponent implements OnInit {
       this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].imagenes[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
-      console.log(this.opcion)
       this.radioBoolean[this.opcion] = true;
 
     }

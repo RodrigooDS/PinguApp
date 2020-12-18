@@ -47,9 +47,6 @@
             <ion-radio-group >      
               <ion-item *ngFor="let respuesta of respuestas[this.posicion] ; let i =  index" (click)="obtenerRespuetaCheckBox(i)" mode="ios">
                 <ion-radio slot="start" mode="md" disabled="{{this.radioBoolean[i]}}" value="op{{i}}" ></ion-radio>
-                <!-- <ng-template #mala >
-                  <ion-radio mode="md" value="op{{i}}" disabled= true></ion-radio>
-                </ng-template> -->
                 <div class="ion-padding-end">
                   <ion-thumbnail style="margin-top: 5%; margin-bottom: 5%;">
                     <img src="{{respuesta}}">
