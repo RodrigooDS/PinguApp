@@ -8,8 +8,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FormloginComponent } from './formlogin/formlogin.component';
 import { FormforgotpasswordComponent } from './formforgotpassword/formforgotpassword.component';
-import { CeParte1Component } from './actividad/click-escuchar/ce-parte1/ce-parte1.component';
-import { CeParte2Component } from './actividad/click-escuchar/ce-parte2/ce-parte2.component';
 import { FormRegistroAlumnoComponent } from './form-registro-alumno/form-registro-alumno.component';
 import { ContenidoSoloImagenesComponent } from './editar-actividad/contenido-solo-imagenes/contenido-solo-imagenes.component';
 import { ContenidoTextoImagenComponent } from './editar-actividad/contenido-texto-imagen/contenido-texto-imagen.component';
@@ -29,8 +27,6 @@ import { FormRegistroProfesorComponent } from './form-registro-profesor/form-reg
     FormRegistroAlumnoComponent,
     FormRegistroProfesorComponent,
     FormforgotpasswordComponent,
-    CeParte1Component,
-    CeParte2Component,
     ContenidoSoloImagenesComponent,
     ContenidoSoloTextoComponent,
     ContenidoTextoImagenComponent,
@@ -48,8 +44,6 @@ import { FormRegistroProfesorComponent } from './form-registro-profesor/form-reg
     FormRegistroAlumnoComponent,
     FormRegistroProfesorComponent,
     FormforgotpasswordComponent,
-    CeParte1Component,
-    CeParte2Component,
     ContenidoSoloImagenesComponent,
     ContenidoSoloTextoComponent,
     ContenidoTextoImagenComponent,

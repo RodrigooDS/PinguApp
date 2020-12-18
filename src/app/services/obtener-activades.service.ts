@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Actividad } from '../shared/actividades.interfaces';
 
 
 @Injectable({
@@ -13,16 +12,18 @@ export class ObtenerActivadesService {
               public storage: AngularFireStorage) { }
 
   // Permite obtener todas las actividades por categoria           
-  async obtenerActividades (categoria: string) {
-    let actividades : any[] = [];
-    await this.db.collection('actividad').ref.where('categoria', '==', categoria).get()
-    .then(function (ququerySnapshotery) {
-      ququerySnapshotery.forEach(function(doc){
-        actividades.push(doc.data());
-      })
-    });
+  obtenerActividades (categoria: string) {
     
-    return actividades;
+    return this.db.collection('actividad',ref => ref.where('categoria', '==', categoria)).valueChanges()
+    // let actividades : any[] = [];
+    // await this.db.collection('actividad').ref.where('categoria', '==', categoria).get()
+    // .then(function (ququerySnapshotery) {
+    //   ququerySnapshotery.forEach(function(doc){
+    //     actividades.push(doc.data());
+    //   })
+    // });
+    
+    // return actividades;
   }
 
   async obtenerActividad (actividad: string , categoria: string) {

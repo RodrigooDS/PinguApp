@@ -24,6 +24,7 @@ export class SoloImagenesComponent implements OnInit {
 
   uid: string;
   
+  radioBoolean : boolean[] = [];
 
   seleccionRadioButton: boolean;
   data: any[] = [];
@@ -75,6 +76,7 @@ export class SoloImagenesComponent implements OnInit {
     await this.obtenerUsuario();
     await this.obtenerDatosActividad();
     await this.obtenerRespuestas();
+    await this.obteneRadioBoolean();
 
     this.hora_inicio = this.obtenerTiempo();
     this.inicio = window.performance.now();
@@ -86,7 +88,7 @@ export class SoloImagenesComponent implements OnInit {
     this.data = await this.obtener_actividades.obtenerActividad(this.tituloActividad,this.tituloCategoria);
   }
 
-  async obtenerRespuestas(){
+  obtenerRespuestas(){
     for(let i=0; i< this.data.length;i++){
         this.respuestas.push(this.data[i].imagenes);
         this.respuestasCorrecta.push(this.data[i].correcta);
@@ -94,33 +96,45 @@ export class SoloImagenesComponent implements OnInit {
     }
   }
 
+  obteneRadioBoolean () {
+    for(let i=0; i < 4;i++){
+      console.log(i);
+      this.radioBoolean[i] = false;
+    }
+
+  }
+
   obtenerRespuetaCheckBox(i: number) {
     this.opcion = i;
+    console.log(i)
   }
 
   async enviarDatos(){
-
     if(this.respuestasCorrecta[this.posicion] == this.opcion && this.incorrectas.length == 0){
-  
+      await this.obteneRadioBoolean();
       this.incorrectas.splice(0,this.incorrectas.length);   
 
       this.estadistica.buenas.pregunta.push(this.data[this.posicion].pregunta); 
       this.estadistica.buenas.respuesta.push(this.data[this.posicion].imagenes[this.data[this.posicion].correcta]); 
 
       this.posicion++;
+    
 
     } else if(this.respuestasCorrecta[this.posicion] == this.opcion ){
-      
+      await this.obteneRadioBoolean();
       this.estadistica.parcial.parcialmente_correcto_pregunta.push(this.data[this.posicion].pregunta);
       this.estadistica.parcial.parcialmente_correcto_respuesta.push(this.data[this.posicion].imagenes[this.data[this.posicion].correcta]);
       this.posicion++;
       this.incorrectas.splice(0,this.incorrectas.length);
+      
 
     }else{
       
       this.estadistica.parcial.erroneas.push( {pregunta: this.preguntas[this.posicion], respuesta: this.data[this.posicion].imagenes[this.opcion] });
       this.errores++;
       this.incorrectas.push(this.opcion);
+      console.log(this.opcion)
+      this.radioBoolean[this.opcion] = true;
 
     }
     if(this.posicion >= this.data.length){
@@ -178,17 +192,19 @@ export class SoloImagenesComponent implements OnInit {
 
   }
 
-  obtenerUsuario(){
-    this.auth.usuario.subscribe(resp => {
-      this.auth.obtenerUsuario(resp.uid).pipe(
-        map( (resp: User) => resp)
-      )
-      .subscribe(
-        resp => {
-                  this.uid = resp.uid;
-                }
-      );
-    })
+  async obtenerUsuario(){
+    let user = await this.auth.afAuth.currentUser
+    this.uid = user.uid
+    // this.auth.usuario.subscribe(resp => {
+    //   this.auth.obtenerUsuario2(resp.uid).pipe(
+    //     map( (resp: User) => resp)
+    //   )
+    //   .subscribe(
+    //     resp => {
+    //               this.uid = resp.uid;
+    //             }
+    //   );
+    // })
   }
 
   hablarPregunta(texto: string) { 

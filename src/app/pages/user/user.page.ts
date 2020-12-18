@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { map } from 'rxjs/operators';
-import { User } from '../../shared/user.interface';
 import { Router } from '@angular/router';
 
 
@@ -13,27 +11,14 @@ import { Router } from '@angular/router';
 
 export class UserPage implements OnInit {
 
-  uid: string;
-  nombre: string;
-  imageUrl: string;
+  usuario: any[] = [];
 
   constructor(private auth: AuthService,
-              private router: Router) { 
-    this.auth.usuario.subscribe(resp => {
-      this.auth.obtenerUsuario(resp.uid).pipe(
-        map( (resp: User) => resp)
-      )
-      .subscribe(
-        resp => {
-          // this.nombre = resp.displayName,
-                this.imageUrl = resp.photoURL
-        }
-      );
-    })
-  }
+              private router: Router) {  }
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    let user = await this.auth.afAuth.currentUser
+    this.auth.obtenerUsuario(user.uid).subscribe(resp => {this.usuario = resp})
   }
 
   editarPerfil() {

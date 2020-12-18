@@ -22,20 +22,26 @@ export class EditarPerfilPage implements OnInit {
 
   constructor(public photoService: PhotoCameraService,
               private auth: AuthService) { 
-    this.auth.usuario.subscribe(resp => {
-      this.auth.obtenerUsuario(resp.uid).pipe(
-        map( (resp: User) => resp))
-        .subscribe(
-          resp => {
-                  this.uid = resp.uid,
-                  this.imageUrl = resp.photoURL
-          }
-        );
-      })
+
+    // this.auth.usuario.subscribe(resp => {
+    //   this.auth.obtenerUsuarioAntiguo(resp.uid).pipe(
+    //     map( (resp: User) => resp))
+    //     .subscribe(
+    //       resp => {
+    //               this.uid = resp.uid,
+    //               this.imageUrl = resp.photoURL
+    //       }
+    //     );
+    //   })
     }
 
-  ngOnInit() {
-  
+  async ngOnInit() {
+    let user = await this.auth.afAuth.currentUser
+    this.auth.obtenerUsuarioAntiguo(user.uid).pipe( map( (resp: User) => resp)).subscribe(resp=>
+      { 
+        this.uid = resp.uid,
+        this.imageUrl = resp.photoURL
+      });
   }
   
   async test() {

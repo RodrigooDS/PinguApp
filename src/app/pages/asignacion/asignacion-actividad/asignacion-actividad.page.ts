@@ -24,17 +24,19 @@ export class AsignacionActividadPage implements OnInit {
     this.obtenerActividades();
   }
 
-  async obtenerActividades() {
-    this.actividades =  await this.actividadesService.obtenerActividades(this.tituloCategoria);
-    console.log(this.actividades);
+  obtenerActividades() {
+    this.actividadesService.obtenerActividades(this.tituloCategoria).subscribe(resp=> this.actividades = resp);
   }
 
-  agregarAlumnos (actividad: string,categoria: string, nivel: string) {
+  obtenerActividad(actividad: string, categoria:string,contenidoActividad: string, tipoPregunta: string, imagen: string, nivel:string) {
 
     let datos = {
       actividad : actividad,
-      categoria:  categoria,
-      nivel : nivel
+      categoria: categoria,
+      interaccion: contenidoActividad,
+      tipoPregunta: tipoPregunta,
+      imagen: imagen,
+      nivel: nivel
     }
 
     localStorage.setItem('actividad', JSON.stringify(datos));

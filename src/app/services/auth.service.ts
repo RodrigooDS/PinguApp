@@ -85,8 +85,12 @@ export class AuthService {
     this.alertaCuenta(tituloMensaje,subMensaje);
   }
 
-  obtenerUsuario(uid: string){
+  obtenerUsuarioAntiguo(uid: string){
     return this.db.collection('users').doc(uid).valueChanges();
+  }
+
+  obtenerUsuario(uid: string){
+    return this.db.collection('precargaUsuarios',ref=> ref.where("uid","==",uid)).valueChanges();
   }
 
   async resetPassword(email: string): Promise<void> {

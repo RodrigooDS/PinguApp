@@ -23,17 +23,19 @@ export class MenuPage implements OnInit {
               private alertCtrl: AlertController,
               private authService: AuthService) { 
     this.componentes = this.dataService.getMenuOpts();
-    this.authService.usuario.subscribe(resp => {
-      this.authService.obtenerUsuario(resp.uid).pipe(
-        map( (resp: User) => resp)
-      )
-      .subscribe(
-        resp => {this.uid = resp.uid,this.obtenerTipoUsuario(resp.uid)}
-      )
-    })
+    // this.authService.usuario.subscribe(resp => {
+    //   this.authService.obtenerUsuario2(resp.uid).pipe(
+    //     map( (resp: User) => resp)
+    //   )
+    //   .subscribe(
+    //     resp => {this.uid = resp.uid,this.obtenerTipoUsuario(resp.uid)}
+    //   )
+    // })
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let user = await this.authService.afAuth.currentUser;
+    this.obtenerTipoUsuario(user.uid)
   }
 
   cerrarSesion() {

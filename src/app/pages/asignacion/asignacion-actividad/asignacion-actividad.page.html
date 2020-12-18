@@ -38,9 +38,8 @@
 
           <ion-list mode="ios">
 
-            <!-- <div *ngIf="this.actividades.length > 0; else elseBlock"> -->
         
-              <ion-item *ngFor="let actividad of this.actividades | filtroActividades:this.vistaCategorias" mode="ios" detail (click)="agregarAlumnos(actividad.actividad,actividad.categoria,actividad.nivel)">
+              <ion-item *ngFor="let actividad of this.actividades | filtroActividades:this.vistaCategorias" mode="ios" detail (click)="obtenerActividad(actividad.actividad, actividad.categoria, actividad.contenidoActividad, actividad.tipoActividad,actividad.imagen, actividad.nivel)">
                 <ion-thumbnail slot="start" mode="ios" class="thumbnail">
                   <img src="{{actividad.imagen}}">
                 </ion-thumbnail>
@@ -53,15 +52,6 @@
                 </ion-label>
                 
               </ion-item>
-
-            <!-- </div> -->
-
-            <!-- <ng-template #elseBlock>
-              <div class="ion-text-center">
-                <img src="../../assets/image/data-not-found.svg" class="dataNotFound">
-                <h1 class="ion-text-center" style="font-size:25px;color:grey;">Upsss! No hay actividades</h1>
-              </div>
-            </ng-template > -->
             
           </ion-list>
         
