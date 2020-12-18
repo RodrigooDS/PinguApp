@@ -37,7 +37,6 @@ export class RepasoPage implements OnInit {
   obtenerTituloCategoria(categoria) {
     this.tipoCategoria = categoria;
     localStorage.setItem('categoria', JSON.stringify(this.tipoCategoria));
-    console.log(categoria);
     this.router.navigate(['/tablinks/repaso/actividades']);
   }
 

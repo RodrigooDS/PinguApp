@@ -1,0 +1,38 @@
+
+<ion-grid>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col>
+    <div *ngIf="this.data">
+        <ion-title class="centrado"> {{actividadRepaso}} </ion-title>
+        <ion-list>  
+          <ion-item *ngFor="let item of data; let i = index ">
+            
+            <ion-card class="tarjeta centrado">
+              <ion-card-header>
+                <img class="imagen" src="{{item.imagen}}">
+              </ion-card-header>
+              <ion-card-content>
+                <div>
+                  <ion-label color="primary" class="centrado ion-text-wrap"> <h1> {{item.nombreEspanol}} </h1> </ion-label>
+                    
+                  <ion-label color="danger" class="centrado ion-text-wrap"> <h1> {{item.nombreIngles}} </h1> </ion-label>
+                  <ion-button  class="centrado" (click)="hablarPalabra(item.nombreIngles)">
+                    CLICK TO LISTEN IN ENGLISH
+                      <ion-icon  class="" name="mic-circle-outline"></ion-icon>
+                  </ion-button>  
+                </div>
+              </ion-card-content>
+           
+
+            </ion-card>
+
+          </ion-item>
+        </ion-list>
+
+    </div>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+</ion-grid>

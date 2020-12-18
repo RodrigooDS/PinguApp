@@ -15,7 +15,8 @@ export class ActividadesPage implements OnInit {
 
   constructor(public router: Router, 
               private route: ActivatedRoute,
-              public RepasosService: RepasosService,) {
+              public RepasosService: RepasosService,
+              ) {
     this.tituloCategoria = JSON.parse(localStorage.getItem('categoria'));
     this.obtenerRepasos();
   }
@@ -26,11 +27,17 @@ export class ActividadesPage implements OnInit {
 
   async obtenerRepasos() {
     this.repasos = await this.RepasosService.obtenerRepasos(this.tituloCategoria);
-    console.log(this.repasos);
   }
 
-  obtenerRepaso(){
+  obtenerRepaso(actividad: string, categoria: string){
+  
+    let datos = {
+      actividad : actividad,
+      categoria: categoria,
+    }
 
+    localStorage.setItem('repaso', JSON.stringify(datos));    
+    this.router.navigate(['/tablinks/repaso/actividad-repaso']);
   }
 
 }

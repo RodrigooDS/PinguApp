@@ -18,6 +18,7 @@ import { SoloTextoComponent } from './actividad/solo-texto/solo-texto.component'
 import { SoloImagenesComponent } from './actividad/solo-imagenes/solo-imagenes.component';
 import { TextoImagenComponent } from './actividad/texto-imagen/texto-imagen.component';
 import { FormRegistroProfesorComponent } from './form-registro-profesor/form-registro-profesor.component';
+import { RepasoComponent } from './repaso/repaso.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FormRegistroProfesorComponent } from './form-registro-profesor/form-reg
     ListaSoloTextoImagenComponent,
     SoloTextoComponent,
     SoloImagenesComponent,
-    TextoImagenComponent
+    TextoImagenComponent,
+    RepasoComponent
   ],
   exports:[
     FormregistroComponent,
@@ -52,7 +54,8 @@ import { FormRegistroProfesorComponent } from './form-registro-profesor/form-reg
     ListaSoloTextoImagenComponent,
     SoloTextoComponent,
     SoloImagenesComponent,
-    TextoImagenComponent
+    TextoImagenComponent,
+    RepasoComponent
   ],
   imports: [
     ReactiveFormsModule,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TabsService } from '../../../services/tabs.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actividad-repaso',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActividadRepasoPage implements OnInit {
 
-  constructor() { }
+  actividad : string;
+  categoria: string;
+
+  nivel: string;
+  imagen: string;
+
+  constructor(public tabEstado: TabsService,
+ public router: Router) {
+
+  var datos = JSON.parse(localStorage.getItem('repaso'));
+  this.actividad = datos.actividad;
+  this.categoria = datos.categoria;  
+}
 
   ngOnInit() {
+    
   }
 
+  cancelar() {
+    this.tabEstado.cambiarEstado(false);
+    this.router.navigate(['/tablinks/repaso'],{ replaceUrl: true });
+  }
 }
