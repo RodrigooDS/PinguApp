@@ -35,9 +35,7 @@ export class RegisterPage implements OnInit {
     try {
       const user = await this.auth.register(event.email, event.password, event);
       if (user) {
-        // const isVerified = this.auth.isEmailVerified(user);
-        // this.redirectUser(isVerified);
-        this.router.navigate(['/tablinks']);
+        this.router.navigate(['/tablinks/actividad']);
       }else{
         this.errorCreacionAlerta();
       }

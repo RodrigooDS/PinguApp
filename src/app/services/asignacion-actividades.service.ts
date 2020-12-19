@@ -103,13 +103,13 @@ export class AsignacionActividadesService {
     }
   }
 
-  obtenerRutAlumnosAsignados (data: any) {
+  obtenerRutAlumnosAsignados (data: any, colegioData: any[]) {
     let nombreActividad: string;
     nombreActividad = data.actividad +" - "+ data.categoria;
 
     let alumnos: any[] = [];
     try {
-      this.db.collection('asignacionActividad').doc(nombreActividad).collection(nombreActividad).ref.get()
+      this.db.collection('asignacionActividad').doc(nombreActividad).collection(nombreActividad).ref.where('idColegio','==',colegioData[0]).get()
       .then(function (ququerySnapshotery) {
         ququerySnapshotery.forEach(function(doc){
           alumnos.push(doc.data().rut);
@@ -140,10 +140,10 @@ export class AsignacionActividadesService {
     }
   }
 
-  async obtenerPrecargaUsuariosPorNivel(nivel: string) {
+  async obtenerPrecargaUsuariosPorNivel(nivel: string,colegioData: any[]) {
     let alumnos: any[] = [];
     try {
-      await this.db.collection('precargaUsuarios').ref.where("nivel","==",nivel).get()
+      await this.db.collection('precargaUsuarios').ref.where("nivel","==",nivel).where('idColegio','==',colegioData[0]).get()
       .then(function (ququerySnapshotery) {
         ququerySnapshotery.forEach(function(doc){
           alumnos.push(doc.data());
@@ -171,12 +171,6 @@ export class AsignacionActividadesService {
   obtenerActividadesPorRut (rut:string, categoria: string) {
     console.log(rut,categoria)
     return this.db.collection("asignacionRutPorActividad").doc(rut).collection("actividad",ref=> ref.where("categoria","==",categoria)).valueChanges();
-    // var museums = await this.db.collectionGroup('asignacionActividad').where('type', '==', 'museum');
-    // museums.get().then(function (querySnapshot) {
-    //     querySnapshot.forEach(function (doc) {
-    //         console.log(doc.id, ' => ', doc.data());
-    //     });
-    // });
   }
   
 

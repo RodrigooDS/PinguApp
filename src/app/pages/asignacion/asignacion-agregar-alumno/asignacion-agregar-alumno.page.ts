@@ -18,7 +18,7 @@ export class AsignacionAgregarAlumnoPage implements OnInit {
   rutAlumno: any[] = [];
   nombreAlumno: any[] = [];
   imagenAlumno: any[] = [];
-
+  colegioData: any [] = [];
 
   constructor(public router: Router,
               public auth: AuthService,
@@ -28,12 +28,14 @@ export class AsignacionAgregarAlumnoPage implements OnInit {
 
   async ngOnInit() {
     this.actividad = await JSON.parse(localStorage.getItem('actividad'))
+    let user = await this.auth.afAuth.currentUser;
+    this.colegioData = await this.auth.obtenerColegio(user.uid);
     await this.obtenerAlumnos();
   }
 
   async obtenerAlumnos() {
-    this.rutAlumno,this.alumnosCargados = await this.asignacionService.obtenerRutAlumnosAsignados(this.actividad);
-    this.alumnosPrecarga = await this.asignacionService.obtenerPrecargaUsuariosPorNivel(this.actividad.nivel);
+    this.rutAlumno,this.alumnosCargados = await this.asignacionService.obtenerRutAlumnosAsignados(this.actividad,this.colegioData);
+    this.alumnosPrecarga = await this.asignacionService.obtenerPrecargaUsuariosPorNivel(this.actividad.nivel,this.colegioData);
   }
 
   radioGroupChange(event, nombre: string, imagen:string) {

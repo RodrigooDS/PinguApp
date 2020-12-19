@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { map } from 'rxjs/operators';
-import { User } from '../../shared/user.interface';
 
 @Component({
   selector: 'app-profesor',
@@ -15,31 +13,27 @@ export class ProfesorPage implements OnInit {
   tipoUsuario: string;
   uid: any;
   textoBuscar: string = '';
+  colegioData: any [] = [];
 
   constructor(public router: Router,
-              public authService: AuthService) {
-    this.obtenerProfesor()
-  }
+              public auth: AuthService) { }
 
   async ngOnInit() {
-    let user = await this.authService.afAuth.currentUser
-    await this.obtenerTipoUsuario(user.uid);
+    let user = await this.auth.afAuth.currentUser;
+    this.colegioData = await this.auth.obtenerColegio(user.uid);
+    await this.obtenerProfesor()
   }
 
   nuevoProfesor() {
     this.router.navigate(['/tablinks/profesor/agregar-profesor']);
   }
 
-  async obtenerTipoUsuario(uid: any) {
-    this.tipoUsuario = await this.authService.obtenerTipoDeUsuario(uid);
-  }
-
-  async obtenerProfesor() {
-    await this.authService.obtenerPrecargaUsuariosPorUsuario("profesor").subscribe(resp => {this.profesorPrecarga = resp;});
+  obtenerProfesor() {
+    this.auth.obtenerPrecargaUsuariosPorUsuario("profesor",this.colegioData).subscribe(resp => {this.profesorPrecarga = resp;});
   }
 
   async eliminarProfesor(item: any) {
-    this.authService.eliminarTodoUsuario(item);
+    this.auth.eliminarTodoUsuario(item);
   }
 
   onSearchChange( event ) {

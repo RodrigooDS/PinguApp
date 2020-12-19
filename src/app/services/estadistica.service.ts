@@ -8,8 +8,8 @@ export class EstadisticaService {
 
   constructor(private db: AngularFirestore) { }
 
-  obtenerPrecargaUsuariosFiltrados (tipoUsuario: string) {
-    return this.db.collection('precargaUsuarios', ref => ref.where('tipoUsuario','==',tipoUsuario)).valueChanges();
+  obtenerPrecargaUsuariosFiltrados (tipoUsuario: string,colegioData: any[]) {
+    return this.db.collection('precargaUsuarios', ref => ref.where('tipoUsuario','==',tipoUsuario).where('idColegio','==',colegioData[0])).valueChanges();
   }
 
   obtenerActividades (uid: string) {
