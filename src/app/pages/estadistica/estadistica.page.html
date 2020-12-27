@@ -23,7 +23,7 @@
         <ion-searchbar placeholder="Alumnos" showCancelButton="focus" cancelButtonText="Cancelar" (ionChange)="onSearchChange($event)" mode="ios"></ion-searchbar>
 
         <ion-list mode="ios" class="ion-padding-end">
-          <ion-item *ngFor="let alumno of this.alumnos | filtro:textoBuscar:'title'"  (click)="estadisticaPorActividad(alumno.uid)" mode="ios" detail>
+          <ion-item *ngFor="let alumno of this.alumnos | filtro:textoBuscar"  (click)="estadisticaPorActividad(alumno.uid)" mode="ios" detail>
             <ion-avatar slot="start" mode="ios">
               <img [src]=alumno.imagen>
             </ion-avatar>

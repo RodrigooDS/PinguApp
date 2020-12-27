@@ -296,7 +296,6 @@ export class AuthService {
     try {
       await this.eliminarUsuario(usuario.uid);
       await this.eliminarPreCargaUsuario(usuario.rut);
-      await this.eliminarAuth(usuario.uid);
     } catch (error) {
       
     }
@@ -319,21 +318,4 @@ export class AuthService {
       
     }
   }
-
-  // Este metodo elimina del auth
-  async eliminarAuth(uid: string) {
-    try {
-    //   var admin = require('firebase');
-    //   admin.auth().deleteUser(uid)
-    //   .then(function() {
-    //     console.log("Successfully deleted user");
-    //   })
-    //   .catch(function(error) {
-    //     console.log("Error deleting user:", error);
-    //   }); 
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
 }

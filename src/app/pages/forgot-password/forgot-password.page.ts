@@ -21,7 +21,6 @@ export class ForgotPasswordPage implements OnInit {
 
   async restablecerPassword($event) {
     this.formRestablecer = $event;
-    console.log(this.formRestablecer.email)
     try {
       await this.auth.resetPassword(this.formRestablecer.email);
       this.router.navigate(['/login']);

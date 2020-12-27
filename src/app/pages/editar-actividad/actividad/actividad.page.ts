@@ -35,12 +35,6 @@ export class ActividadPage implements OnInit {
               public alertController: AlertController,
               public auth: AuthService) {
 
-    // this.imageUrl = "";
-    // this.tituloActividad = "";
-    // this.tipoActividad = "";
-    // this.contenidoActividad = "";
-    // this.nivel = "";
-    // this.tabEstado.cambiarEstado(true);
   }
 
   async ngOnInit() {
@@ -50,7 +44,6 @@ export class ActividadPage implements OnInit {
     this.contenidoActividad = "";
     this.nivel = "";
     this.user = (await this.auth.afAuth.currentUser).uid;
-    console.log(this.user)
     this.tabEstado.cambiarEstado(true);
     this.obtenerActividades();
   }

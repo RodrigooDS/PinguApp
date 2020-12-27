@@ -134,10 +134,7 @@ export class ModalAccionPage implements OnInit {
     return this.loading.present();
   }
 
-
-
   remove(item){
-    console.log(item);
     if(item.imageUrl) {
       this.storage.ref(`images/${item.id}`).delete()
     }
