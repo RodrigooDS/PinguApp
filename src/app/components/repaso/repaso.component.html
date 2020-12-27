@@ -1,23 +1,25 @@
 
-<ion-grid>
-  <ion-row>
-    <ion-col></ion-col>
-    <ion-col>
-    <div *ngIf="this.data">
-        <ion-title class="centrado"> {{actividadRepaso}} </ion-title>
-        <ion-list>  
+      <div *ngIf="this.data">
+  
+        <!-- <div class="ion-no-padding">
+          <h1 style="font-weight: bold">{{this.actividad}}</h1>
+          <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+        </div> -->
+
+        <ion-list mode="ios">  
+
           <ion-item *ngFor="let item of data; let i = index ">
             
-            <ion-card class="tarjeta centrado">
-              <ion-card-header>
+            <ion-card class="tarjeta centrado" mode="ios">
+              <!-- <ion-card-header> -->
                 <img class="imagen" src="{{item.imagen}}">
-              </ion-card-header>
+              <!-- </ion-card-header> -->
               <ion-card-content>
                 <div>
                   <ion-label color="primary" class="centrado ion-text-wrap"> <h1> {{item.nombreEspanol}} </h1> </ion-label>
                     
                   <ion-label color="danger" class="centrado ion-text-wrap"> <h1> {{item.nombreIngles}} </h1> </ion-label>
-                  <ion-button  class="centrado" (click)="hablarPalabra(item.nombreIngles)">
+                  <ion-button  class="centrado" (click)="hablarPalabra(item.nombreIngles)" mode="ios">
                     CLICK TO LISTEN IN ENGLISH
                       <ion-icon  class="" name="mic-circle-outline"></ion-icon>
                   </ion-button>  
@@ -30,9 +32,4 @@
           </ion-item>
         </ion-list>
 
-    </div>
-    </ion-col>
-    <ion-col></ion-col>
-  </ion-row>
-
-</ion-grid>
+      </div>

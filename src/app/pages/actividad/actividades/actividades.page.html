@@ -19,11 +19,11 @@
 
             <div class="ion-padding-start ion-padding-end">
               <h1 style="font-weight: bold">{{this.tituloCategoria}}</h1>
-              <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+              <hr style="height:2px;border-width:0;color:#4854e0;background-color:#4854e0">
             </div>
           
 
-            <div >
+            <div>
               <ion-card class="ion-padding-top ion-padding-bottom" mode="ios">
                 <ion-list *ngFor="let actividad of actividades">
                   <ion-item mode="ios" (click)="obtenerActividad(actividad.actividad, actividad.contenidoActividad, actividad.tipoActividad,actividad.imagen)" detail>
@@ -35,9 +35,9 @@
                       <ion-label>{{actividad.actividad}}</ion-label>
                     </div>
                   </ion-item>             
-            </ion-list>
-          </ion-card>
-        </div>
+                </ion-list>
+              </ion-card>
+            </div>
 
           </ion-col>
 
