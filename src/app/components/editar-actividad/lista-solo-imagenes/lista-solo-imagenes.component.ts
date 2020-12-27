@@ -14,7 +14,6 @@ export class ListaSoloImagenesComponent implements OnInit {
 
   constructor(public actividadService: ActividadesService) { 
     this.cargarDatosLocalStorage();
-    
   }
 
   ngOnInit() {}

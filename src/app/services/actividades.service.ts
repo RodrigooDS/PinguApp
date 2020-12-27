@@ -294,5 +294,4 @@ export class ActividadesService {
   obtenerCategorias() {
     return this.db.collection('categorias').valueChanges();
   }
-
 }

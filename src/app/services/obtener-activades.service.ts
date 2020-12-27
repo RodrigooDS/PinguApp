@@ -13,17 +13,7 @@ export class ObtenerActivadesService {
 
   // Permite obtener todas las actividades por categoria           
   obtenerActividades (categoria: string) {
-    
     return this.db.collection('actividad',ref => ref.where('categoria', '==', categoria)).valueChanges()
-    // let actividades : any[] = [];
-    // await this.db.collection('actividad').ref.where('categoria', '==', categoria).get()
-    // .then(function (ququerySnapshotery) {
-    //   ququerySnapshotery.forEach(function(doc){
-    //     actividades.push(doc.data());
-    //   })
-    // });
-    
-    // return actividades;
   }
 
   async obtenerActividad (actividad: string , categoria: string) {
@@ -38,6 +28,10 @@ export class ObtenerActivadesService {
     });
     
     return actividades;
+  }
+
+  obtenerActividadesCreadasPorProfesor(uid: string) {
+    return this.db.collection("actividad",ref=> ref.where("uid","==",uid)).valueChanges();
   }
 
 }

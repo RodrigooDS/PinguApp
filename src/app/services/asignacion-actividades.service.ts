@@ -168,10 +168,11 @@ export class AsignacionActividadesService {
     }
   }
 
-  obtenerActividadesPorRut (rut:string, categoria: string) {
-    console.log(rut,categoria)
+  obtenerActividadesPorRut (rut: string, categoria: string) {
     return this.db.collection("asignacionRutPorActividad").doc(rut).collection("actividad",ref=> ref.where("categoria","==",categoria)).valueChanges();
   }
-  
 
+  obtenerTodasLasActividadesPorRut(rut: string) {
+    return this.db.collection("asignacionRutPorActividad").doc(rut).collection("actividad").valueChanges();
+  }
 }
