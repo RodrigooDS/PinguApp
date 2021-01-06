@@ -22,9 +22,7 @@ export class AsignacionAgregarAlumnoPage implements OnInit {
 
   constructor(public router: Router,
               public auth: AuthService,
-              public asignacionService: AsignacionActividadesService) { 
-
-  }
+              public asignacionService: AsignacionActividadesService) {  }
 
   async ngOnInit() {
     this.actividad = await JSON.parse(localStorage.getItem('actividad'))
@@ -59,7 +57,7 @@ export class AsignacionAgregarAlumnoPage implements OnInit {
   validando (rut) {
     
     var a = this.rutAlumno.indexOf(rut);
-
+    
     if ( a != -1 ) {
       return true
     }else{
@@ -67,10 +65,8 @@ export class AsignacionAgregarAlumnoPage implements OnInit {
     }
   }
   
-  validandoYaIngresado (rut) {
-        
+  validandoYaIngresado (rut) { 
     var a = this.alumnosCargados.indexOf(rut);
-
     if ( a != -1 ) {
       return true
     }else{
@@ -78,7 +74,7 @@ export class AsignacionAgregarAlumnoPage implements OnInit {
     }
   }
   guardarAlumnos() {
-    this.asignacionService.agregarAlumnos(this.actividad,this.rutAlumno,this.nombreAlumno,this.imagenAlumno);
+    this.asignacionService.agregarAlumnos(this.actividad,this.rutAlumno,this.nombreAlumno,this.imagenAlumno, this.colegioData);
     this.router.navigate(['/tablinks/asignacion/asignacion-actividad']);
   }
 

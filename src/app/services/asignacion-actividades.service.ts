@@ -12,7 +12,7 @@ export class AsignacionActividadesService {
               public storage: AngularFireStorage,
               public loadingCtrl: LoadingController) { }
 
-  async crearAsignacion (data: any, rut: string[], nombre: string[], imagen: string[]) {
+  async crearAsignacion (data: any, rut: string[], nombre: string[], imagen: string[], colegioData: any) {
     let nombreActividad: string;
     nombreActividad = data.actividad +" - "+ data.categoria;
             
@@ -21,7 +21,9 @@ export class AsignacionActividadesService {
         await this.db.collection('asignacionActividad').doc(nombreActividad).collection(nombreActividad).doc(rut[i]).set({
           nombre: nombre[i],
           rut:rut[i],
-          imagen: imagen[i]
+          imagen: imagen[i],
+          idColegio: colegioData[0],
+          colegio: colegioData[1]
         });  
       }
 
@@ -30,7 +32,7 @@ export class AsignacionActividadesService {
     }       
   }
 
-  async agregarAlumnos (data: any, rut: string[], nombre: string[], imagen: string[]) {
+  async agregarAlumnos (data: any, rut: string[], nombre: string[], imagen: string[], colegioData: any) {
 
     let nombreActividad: string;
     nombreActividad = data.actividad +" - "+ data.categoria;
@@ -45,8 +47,8 @@ export class AsignacionActividadesService {
           tipoActividad: data.tipoPregunta
         });
 
-      this.crearAsignacion(data,rut,nombre,imagen);
-      this.agregarAlumnosPorRut(data,rut,nombre,imagen);
+      this.crearAsignacion(data,rut,nombre,imagen,colegioData);
+      this.agregarAlumnosPorRut(data,rut,nombre,imagen,colegioData);
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +75,7 @@ export class AsignacionActividadesService {
     }       
   }
 
-  async agregarAlumnosPorRut (data: any, rut: string[], nombre: string[], imagen: string[]) {
+  async agregarAlumnosPorRut (data: any, rut: string[], nombre: string[], imagen: string[], colegioData: any) {
 
     let nombreActividad: string;
     nombreActividad = data.actividad +" - "+ data.categoria;
@@ -82,7 +84,9 @@ export class AsignacionActividadesService {
         await this.db.collection('asignacionRutPorActividad').doc(rut[i]).set({
           nombre: nombre[i],
           rut:rut[i],
-          imagen: imagen[i]
+          imagen: imagen[i],
+          idColegio: colegioData[0],
+          colegio: colegioData[1]
         });
       }
       this.crearAsignacionActividad(data,rut);
@@ -106,7 +110,6 @@ export class AsignacionActividadesService {
   obtenerRutAlumnosAsignados (data: any, colegioData: any[]) {
     let nombreActividad: string;
     nombreActividad = data.actividad +" - "+ data.categoria;
-
     let alumnos: any[] = [];
     try {
       this.db.collection('asignacionActividad').doc(nombreActividad).collection(nombreActividad).ref.where('idColegio','==',colegioData[0]).get()
