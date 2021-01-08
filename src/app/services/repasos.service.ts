@@ -167,7 +167,6 @@ export class RepasosService {
   async eliminarImagenesSubColeccion(data : any){
     try {
       if(data){
-        console.log(data);
         for (var a = 0; a < data.length; a++){
           await this.storage.storage.refFromURL(data[a].imagen).delete();
         }

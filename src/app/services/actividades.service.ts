@@ -53,7 +53,6 @@ export class ActividadesService {
     let imageList = [];
     nombreActividad = data.actividad +" - "+ data.categoria;
 
-    console.log(dataContent,data)
     resp = await this.db.collection('actividad').doc(nombreActividad).collection(nombreActividad).add({
       actividad : data.actividad,
       categoria : data.categoria,

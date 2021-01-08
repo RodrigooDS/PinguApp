@@ -27,7 +27,7 @@
 
         <ion-searchbar placeholder="Alumnos" showCancelButton="focus" cancelButtonText="Cancelar" (ionChange)="onSearchChange($event)" mode="ios"></ion-searchbar>
         
-        <ion-list mode="ios" *ngFor="let alumno of this.alumnosPrecarga | filtro:textoBuscar:'title';let i=index" class="ion-padding-end">
+        <ion-list mode="ios" *ngFor="let alumno of this.alumnosPrecarga | filtro:textoBuscar;let i=index" class="ion-padding-end">
          
 
           <ion-item mode="ios">

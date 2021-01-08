@@ -22,7 +22,6 @@ export class DetalleEstadisticaPage implements OnInit {
 
   async obtenerEstadistica() {
     this.estadistica = await this.estadisticaService.obtenerEstadisticaPorActividad(this.actividad, this.uid);
-    console.log(this.estadistica)
   }
 
 }

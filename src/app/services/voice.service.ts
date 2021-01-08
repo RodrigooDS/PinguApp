@@ -27,28 +27,21 @@ export class VoiceService {
           'voice':'Google UK English Female',
           'splitSentences': true,
           'listeners': {
-             'onvoiceschanged': (voices) => {
-                //  console.log("Event voiceschanged", voices)
-             }
+             'onvoiceschanged': (voices) => { }
           }
     }) 
   }
 
   hablar(texto : string) {
     var plataforma = this.platform.platforms();
-    // console.log('plataforma',plataforma);
-        // if(this.estadoCheckBox()){
+
     if(plataforma[0] == 'desktop'){
       this.hablarWeb(texto);
       this.hablarMovil(texto);
     }else{
       this.hablarMovil(texto);
       this.hablarWeb(texto);
-      // this.tts.speak(texto)
-      // .then(() => console.log('Success'))
-      // .catch((reason: any) => console.log(reason));
     }
-        // }  
   }
 
   hablarWeb(texto: string){
@@ -56,12 +49,8 @@ export class VoiceService {
       text: texto,
       queue: false,
       listeners: {
-        onstart: () => {
-            // console.log("Start utterance")
-        },
-        onend: () => {
-            // console.log("End utterance")
-        }
+        onstart: () => { },
+        onend: () => { }
       }
     }).then(() => {
       return true;

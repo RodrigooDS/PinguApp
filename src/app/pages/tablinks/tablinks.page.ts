@@ -11,7 +11,7 @@ export class TablinksPage implements OnInit {
 
   public estado : boolean;
 
-  constructor(private tabStatus: TabsService) { }
+  constructor(public tabStatus: TabsService) { }
   
   ngOnInit() {
     

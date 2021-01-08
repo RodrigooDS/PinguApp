@@ -18,7 +18,7 @@ export class AsignacionAlumnosPage implements OnInit {
   }
 
   ngOnInit() {
-    this.asignacionService.obtenerAlumnosAsignados(this.actividad).subscribe(resp => {this.alumnos = resp,console.log(resp)});
+    this.asignacionService.obtenerAlumnosAsignados(this.actividad).subscribe(resp => {this.alumnos = resp});
   }
 
   nuevoAlumno() {

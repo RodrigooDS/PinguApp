@@ -20,6 +20,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {}
  
   async registro(event) {
+    
     let data : any;
     data = await this.auth.obtenerPrecargaUsuariosPorRut(event.rut);
 
@@ -40,7 +41,7 @@ export class RegisterPage implements OnInit {
         this.errorCreacionAlerta();
       }
     } catch (error) {
-      console.log('Error', error);
+      
     }
   }
 

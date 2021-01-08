@@ -17,10 +17,7 @@ export class ModalRepasoPage implements OnInit {
   constructor(private modalCtrl: ModalController, 
               private authService: AuthService) { }
 
-  ngOnInit() {
-    console.log('Categoria ',this.tipoCategoria);
-    console.log('Repaso ',this.tituloActividad);
-  }
+  ngOnInit() { }
 
   async abrirModal(){
     const modal = await this.modalCtrl.create(
@@ -33,13 +30,10 @@ export class ModalRepasoPage implements OnInit {
     await modal.present();
     
     const {data} = await modal.onDidDismiss();
-
-    console.log(data);
   }
 
   obtenerTitulo($event) {
     this.tituloActividad = $event.target.value;
-    console.log(this.tituloActividad) ;
   }
 
   salirSinGuardar(){
@@ -47,8 +41,6 @@ export class ModalRepasoPage implements OnInit {
   }
   
   guardar(){
-    console.log(this.tituloActividad) ;
-    // this.authService.crearRepaso(this.tipoCategoria,this.tituloActividad)
     this.modalCtrl.dismiss({
     });
   }

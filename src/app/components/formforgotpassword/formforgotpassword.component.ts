@@ -8,7 +8,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class FormforgotpasswordComponent implements OnInit {
 
-  
   form: FormGroup;
 
   @Output() onFormGroupChange = new EventEmitter<any>();
@@ -30,7 +29,6 @@ export class FormforgotpasswordComponent implements OnInit {
   }
 
   enviarDatos(){
-    console.log(this.form.value.email)
     this.onFormGroupChange.emit(this.form.value);
   }
 }
